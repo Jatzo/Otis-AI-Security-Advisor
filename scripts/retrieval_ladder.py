@@ -91,13 +91,20 @@ class MemoScorer:
         return [self.memo[(query, t)] for t in texts]
 
 
-def run_rung(pipeline: Pipeline, spec: Spec, items: list[ladder.Item], run: int = 1) -> dict:
-    """Ranks every dev question. Index building is timed apart from the queries."""
+def run_rung(
+    pipeline: Pipeline, spec: Spec, items: list[ladder.Item], threads: tuple[int, int], run: int = 1
+) -> dict:
+    """Ranks every dev question. Index building is timed apart from the queries. The index is
+    built offline in the real system, so it uses the build threads. Queries use the demo's 2."""
+    import torch  # noqa: PLC0415
+
+    torch.set_num_threads(threads[0])
     started = time.monotonic()
     for kind in (spec.bm25, spec.dense):
         if kind:
             pipeline.index(kind, spec.split)
     build = time.monotonic() - started
+    torch.set_num_threads(threads[1])
     rows, seconds = [], []
     for item in items:
         started = time.monotonic()
@@ -146,7 +153,8 @@ def main() -> int:
     parser.add_argument("--cache", default=str(ROOT / "data" / "embeddings"))
     parser.add_argument("--max-spend", type=float, required=True, help="dollars for R8 only")
     parser.add_argument("--runs", type=int, default=3, help="repeats of R8")
-    parser.add_argument("--threads", type=int, default=2)
+    parser.add_argument("--threads", type=int, default=2, help="for timing queries, as on the demo")
+    parser.add_argument("--build-threads", type=int, default=12, help="for building indexes")
     parser.add_argument("--skip-r8", action="store_true")
     args = parser.parse_args()
 
@@ -155,9 +163,7 @@ def main() -> int:
         ROOT / "eval" / "questions.jsonl", ROOT / "eval" / "gold.jsonl"
     )
 
-    import torch  # noqa: PLC0415
-
-    torch.set_num_threads(args.threads)
+    threads = (args.build_threads, args.threads)
     revisions = model_revisions([m[0] for m in MODELS.values()] + [RERANKER])
     embedders = {
         key: SentenceTransformerEmbedder(repo, revisions[repo]["revision"], prefix, length, side)
@@ -194,7 +200,7 @@ def main() -> int:
         "R3": Spec("R3", dense="b"),
     }
     for name in ("R0", "R1", "R2", "R3"):
-        results[name] = run_rung(pipeline, specs[name], items)
+        results[name] = run_rung(pipeline, specs[name], items, threads)
         print(name, results[name]["summary"]["all@10"], flush=True)
 
     current = "R0"
@@ -213,17 +219,17 @@ def main() -> int:
     specs["R5"] = replace(specs["R4"], name="R5", rerank=True)
     specs["R6"] = replace(specs["R5"], name="R6", soft_filter=True)
     for name in ("R4", "R5", "R6"):
-        results[name] = run_rung(pipeline, specs[name], items)
+        results[name] = run_rung(pipeline, specs[name], items, threads)
         print(name, results[name]["summary"]["all@10"], flush=True)
         consider(name)
     specs["R7"] = replace(specs[current], name="R7", split=True)
-    results["R7"] = run_rung(pipeline, specs["R7"], items)
+    results["R7"] = run_rung(pipeline, specs["R7"], items, threads)
     print("R7", results["R7"]["summary"]["all@10"], flush=True)
     consider("R7")
 
     if not args.skip_r8:
         base = replace(specs[current], name="R8", decompose=True)
-        runs = [run_rung(pipeline, base, items, run) for run in range(1, args.runs + 1)]
+        runs = [run_rung(pipeline, base, items, threads, run) for run in range(1, args.runs + 1)]
         majority = [sum(h) * 2 > len(runs) for h in zip(*(hits(r) for r in runs), strict=True)]
         results["R8"] = {**runs[0], "runs": runs, "majority_hits": majority, "cost_usd": spent[0]}
         verdict = ladder.adopt(majority, hits(results[current]))
