@@ -16,6 +16,7 @@ from cvss import CVSS3, CVSS4
 
 from advisor.ingest import raw
 from advisor.ingest.kev import CATALOGUE_ID
+from advisor.packages import PACKAGES
 
 SCHEMA = """
 CREATE TABLE records (
@@ -31,7 +32,8 @@ CREATE TABLE records (
     cvss3_score   REAL,
     cvss4_vector  TEXT,
     cvss4_score   REAL,
-    raw_sha256    TEXT NOT NULL
+    raw_sha256    TEXT NOT NULL,
+    no_v3_reason  TEXT                -- NVD rows only: why NVD's own v3 score is missing
 );
 CREATE TABLE aliases (record_id TEXT NOT NULL, alias TEXT NOT NULL);
 CREATE TABLE affected (
@@ -61,12 +63,32 @@ CREATE TABLE kev (
     ransomware    TEXT,
     catalogue     TEXT NOT NULL
 );
+-- The packages the corpus is about. OSV advisories can list other ecosystems too; counts
+-- join to this table so those are not mistaken for corpus data.
+CREATE TABLE corpus_packages (ecosystem TEXT NOT NULL, package TEXT NOT NULL,
+    PRIMARY KEY (ecosystem, package));
 CREATE INDEX aliases_by_alias ON aliases (alias);
 -- Every (record, CVE) pair: a GitHub advisory's CVE aliases, and an NVD record's own ID.
 CREATE VIEW record_cves AS
     SELECT record_id, alias AS cve_id FROM aliases WHERE alias LIKE 'CVE-%'
     UNION SELECT record_id, record_id FROM records WHERE source = 'nvd';
 CREATE INDEX affected_by_package ON affected (ecosystem, package);
+-- Affected ranges for the corpus packages only.
+CREATE VIEW corpus_affected AS
+    SELECT a.* FROM affected a JOIN corpus_packages c
+        ON c.ecosystem = a.ecosystem AND c.package = a.package;
+-- One row per (GitHub advisory, CVE) where NVD holds the CVE: the two views side by side.
+CREATE VIEW source_pairs AS
+    SELECT rc.record_id AS ghsa_id, rc.cve_id AS cve_id,
+           g.severity AS github_label,
+           g.cvss3_vector AS github_v3_vector, g.cvss3_score AS github_v3_score,
+           g.cvss4_vector AS github_v4_vector,
+           n.status AS nvd_status, n.no_v3_reason AS nvd_no_v3_reason,
+           n.cvss3_vector AS nvd_v3_vector, n.cvss3_score AS nvd_v3_score,
+           n.cvss4_vector AS nvd_v4_vector
+    FROM record_cves rc
+    JOIN records g ON g.record_id = rc.record_id AND g.source = 'ghsa'
+    JOIN records n ON n.record_id = rc.cve_id AND n.source = 'nvd';
 """
 
 ROW_COUNTS = {
@@ -84,6 +106,7 @@ def build(raw_root: Path, db_path: Path) -> dict[str, int]:
     db = sqlite3.connect(db_path)
     try:
         db.executescript(SCHEMA)
+        db.executemany("INSERT INTO corpus_packages VALUES (?,?)", PACKAGES)
         for path in raw.record_paths(raw_root / "osv"):
             load_ghsa(db, raw.read_record(path), raw.sha256_of(path))
         for path in raw.record_paths(raw_root / "nvd"):
@@ -102,7 +125,7 @@ def load_ghsa(db: sqlite3.Connection, record: dict, sha256: str) -> None:
     vectors = {s["type"]: s["score"] for s in record.get("severity", [])}
     cvss3, cvss4 = vectors.get("CVSS_V3"), vectors.get("CVSS_V4")
     db.execute(
-        "INSERT INTO records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "INSERT INTO records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (
             record["id"],
             "ghsa",
@@ -117,6 +140,7 @@ def load_ghsa(db: sqlite3.Connection, record: dict, sha256: str) -> None:
             cvss4,
             score(cvss4, CVSS4),
             sha256,
+            None,
         ),
     )
     db.executemany("INSERT INTO aliases VALUES (?,?)", [(record["id"], a) for a in aliases])
@@ -163,7 +187,7 @@ def load_nvd(db: sqlite3.Connection, record: dict, sha256: str) -> None:
         primary_vector(record, ("cvssMetricV40",)),
     )
     db.execute(
-        "INSERT INTO records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "INSERT INTO records VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         (
             record["id"],
             "nvd",
@@ -178,6 +202,7 @@ def load_nvd(db: sqlite3.Connection, record: dict, sha256: str) -> None:
             cvss4,
             score(cvss4, CVSS4),
             sha256,
+            None if cvss3 else no_v3_reason(record),
         ),
     )
     for configuration in record.get("configurations", []):
@@ -206,6 +231,22 @@ def primary_vector(record: dict, metric_keys: tuple[str, ...]) -> str | None:
             if metric.get("type") == "Primary":
                 return metric["cvssData"]["vectorString"]
     return None
+
+
+def no_v3_reason(record: dict) -> str:
+    """Why NVD has no Primary CVSS v3 score for a CVE, so "no score" is not one lump.
+
+    Old CVEs only ever got a v2 score, and since NVD slowed its analysis many carry only
+    the reporter's own score, which NVD republishes as Secondary.
+    """
+    metrics = record.get("metrics", {})
+    if any(m.get("type") == "Primary" for m in metrics.get("cvssMetricV40", [])):
+        return "only a v4 score"
+    if any(m.get("type") == "Primary" for m in metrics.get("cvssMetricV2", [])):
+        return "only a v2 score"
+    if any(key.startswith("cvssMetric") for key in metrics):
+        return "only the reporter's score (Secondary)"
+    return "no score at all"
 
 
 def load_kev(db: sqlite3.Connection, catalogue: dict) -> None:

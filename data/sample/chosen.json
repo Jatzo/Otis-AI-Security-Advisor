@@ -1,0 +1,21 @@
+{
+ "chosen_by": {
+  "a CVE NVD gave only a v2 score": "GHSA-2655-q453-22f9",
+  "a CVE NVD has rejected": "GHSA-j7hp-h8jx-5ppr",
+  "a CVE with only the reporter's score on NVD": "GHSA-24rc-8hj2-v98c",
+  "a GitHub v3.0 vector against an NVD v3.1 vector": "GHSA-462w-v97r-4m45",
+  "a Maven advisory": "GHSA-265r-pp83-gww7",
+  "a PyPI advisory": "GHSA-22hg-r758-rrw9",
+  "a Spring fix versioned with a RELEASE suffix": "GHSA-36p3-wjmg-h94x",
+  "a pair whose v3 scores differ by 2 points or more": "GHSA-34jh-p97f-mpxf",
+  "a range that ends at a last affected version": "GHSA-3chg-m5w7-qfv5",
+  "an advisory for a CVE on KEV": "GHSA-36p3-wjmg-h94x",
+  "an advisory naming no CVE": "GHSA-2g87-pp6c-29x5",
+  "an advisory naming two CVEs": "GHSA-j7hp-h8jx-5ppr",
+  "an advisory scored with CVSS v4": "GHSA-22hg-r758-rrw9",
+  "an advisory that also lists a package outside the corpus": "GHSA-29mw-wpgm-hmr9",
+  "an advisory whose CVE NVD does not hold": "GHSA-vx6w-vv9f-6gvg",
+  "an npm advisory": "GHSA-29mw-wpgm-hmr9"
+ },
+ "snapshot_id": "2d04b933ea7b"
+}

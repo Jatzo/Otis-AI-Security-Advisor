@@ -1,1 +1,4 @@
 *.sh text eol=lf
+# Hashed byte for byte in the manifest, so git must never convert their line endings.
+data/sample/** -text
+data/manifest.json -text

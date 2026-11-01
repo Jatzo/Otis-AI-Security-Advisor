@@ -89,6 +89,18 @@ def test_the_manifest_hashes_each_record_and_skips_the_fetch_log(tmp_path):
     assert source["endpoint"] == "https://example.invalid"
 
 
+def test_the_snapshot_id_follows_the_records_and_ignores_when_they_were_fetched(tmp_path):
+    raw.write_record(tmp_path / "osv", "GHSA-4444-4444-4444", ghsa("GHSA-4444-4444-4444"))
+    raw.log_fetch(tmp_path / "osv", "test source", "https://example.invalid")
+    first = raw.build_manifest(tmp_path)["snapshot_id"]
+
+    raw.log_fetch(tmp_path / "osv", "test source", "https://example.invalid")  # a later resume
+    assert raw.build_manifest(tmp_path)["snapshot_id"] == first
+
+    raw.write_record(tmp_path / "osv", "GHSA-4444-4444-4444", ghsa("GHSA-4444-4444-4444", "x"))
+    assert raw.build_manifest(tmp_path)["snapshot_id"] != first
+
+
 def test_the_same_record_always_writes_the_same_bytes(tmp_path):
     first = raw.write_record(tmp_path / "a", "CVE-2020-1001", {"b": 1, "a": [2, 3]})
     second = raw.write_record(tmp_path / "b", "CVE-2020-1001", json.loads('{"a": [2, 3], "b": 1}'))
@@ -129,3 +141,22 @@ def test_a_fetch_with_a_bad_id_changes_nothing_on_disk(tmp_path):
         osv.fetch_all(tmp_path, lambda url, body: {"vulns": [ghsa("GHSA-../../escape")]})
 
     assert [p.stem for p in raw.record_paths(tmp_path)] == ["GHSA-2222-3333-4444"]
+
+
+def test_records_and_fetch_logs_are_written_with_unix_line_endings(tmp_path):
+    # CRLF on Windows would make the same record hash differently once git normalises it.
+    path = raw.write_record(tmp_path, "CVE-2020-1001", {"a": [1, 2]})
+    raw.log_fetch(tmp_path, "test source", "https://example.invalid")
+
+    assert b"\r" not in path.read_bytes()
+    assert b"\r" not in (tmp_path / raw.FETCH_LOG).read_bytes()
+
+
+def test_every_file_ends_with_a_newline_so_the_pre_commit_fixer_changes_nothing(tmp_path):
+    # The end-of-file fixer appends one when it is missing, which would change the bytes
+    # the manifest hashed.
+    path = raw.write_record(tmp_path, "CVE-2020-1001", {"a": 1})
+    raw.log_fetch(tmp_path, "test source", "https://example.invalid")
+
+    assert path.read_bytes().endswith(b"\n")
+    assert (tmp_path / raw.FETCH_LOG).read_bytes().endswith(b"\n")
