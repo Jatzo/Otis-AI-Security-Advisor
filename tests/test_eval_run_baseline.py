@@ -299,3 +299,18 @@ def test_a_key_file_with_a_byte_order_mark_is_still_read(monkeypatch, tmp_path):
     (tmp_path / ".env").write_bytes(("\ufeffANTHROPIC_API_KEY=sk-test-456\r\n").encode())
 
     assert runner.read_key() == "sk-test-456"
+
+
+def test_provenance_records_the_commit_and_the_blob_id_of_each_hashed_file():
+    def fake_git(*args):
+        if args[1].startswith("HEAD:eval/"):
+            name = args[1].removeprefix("HEAD:eval/")
+            found = 0 if name != "gold.jsonl" else 128
+            return subprocess.CompletedProcess(args, found, stdout=f"blob-{name}")
+        return subprocess.CompletedProcess(args, 0, stdout="c0ffee")
+
+    proof = runner.provenance(fake_git)
+
+    assert proof["commit"] == "c0ffee"
+    assert proof["hashes"]["score.py"] == "blob-score.py"
+    assert "gold.jsonl" not in proof["hashes"]

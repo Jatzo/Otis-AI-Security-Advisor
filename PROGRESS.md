@@ -56,9 +56,10 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 
 ## Open
 - Joe reviews all 150 rows of `eval/review.md`; any gold fix is made in the builder and the set rebuilt.
-- Guard script, CI job, ADR 0004, then the tag on Joe's yes and the GitHub tag-protection steps.
+- Freeze guard (`scripts/check_eval_frozen.py`), its CI job, `.gitattributes` for `eval/**` and ADR 0004 are written and tested. Joe said yes to the tag on 1 November 2026 after a third read of all 150 rows (no bad rows). `eval-freeze-v1` is created locally on the commit that holds them and is not pushed. The guard job fails on GitHub until the tag is pushed, so push the tag with the branch, once Joe agrees the pace.
+- Joe applies GitHub tag protection for `eval-freeze-*` before or straight after the push.
 - Joe adds `ANTHROPIC_API_KEY` to `.env`. The baseline is priced from the dry run: about 38,500 input tokens a run, worst case $6.48 a run, so a 3-run cap of $8 is a sensible first limit. Exact input tokens come from the first real call.
 - Not yet proved against the real API: the request shape (`output_config.effort` with adaptive thinking on Sonnet 5.5) has only been run against a fake client.
 
 ## Next session
-Phase 2, checkpoint 3: guard script (`scripts/check_eval_frozen.py`), a CI job with full history and tags, `.gitattributes`, ADR 0004. Then Joe's review of `eval/review.md`, the tag on his yes, and the dev baseline.
+Phase 2, checkpoint 4: Joe's review of `eval/review.md`, then the tag on his yes and the tag-protection steps, then the dev baseline (3 runs, `--max-spend` agreed first).

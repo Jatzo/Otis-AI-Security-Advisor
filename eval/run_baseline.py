@@ -11,7 +11,6 @@ Usage:
 """
 
 import argparse
-import hashlib
 import json
 import os
 import subprocess
@@ -101,12 +100,14 @@ def frozen_problem(tag: str, run_git: Callable = git) -> str | None:
 
 
 def provenance(run_git: Callable = git) -> dict:
+    """The commit and the git blob id of each file that shaped the run. Blob ids are what the
+    freeze guard compares, and they do not depend on a machine's line endings."""
     commit = run_git("rev-parse", "HEAD").stdout.strip()
-    hashes = {
-        name: hashlib.sha256((EVAL / name).read_bytes()).hexdigest()
-        for name in HASHED
-        if (EVAL / name).exists()
-    }
+    hashes = {}
+    for name in HASHED:
+        found = run_git("rev-parse", f"HEAD:eval/{name}")
+        if found.returncode == 0:
+            hashes[name] = found.stdout.strip()
     return {"commit": commit, "hashes": hashes}
 
 

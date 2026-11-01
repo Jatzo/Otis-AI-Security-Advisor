@@ -1,4 +1,7 @@
 *.sh text eol=lf
+# The evaluation files are held to the freeze tag by git blob and recorded by blob id in every
+# result line, so their line endings must be the same on every machine.
+eval/** text eol=lf
 # Hashed byte for byte in the manifest, so git must never convert their line endings.
 data/sample/** -text
 data/manifest.json -text
