@@ -18,7 +18,7 @@
     "ids": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "GHSA and CVE IDs the answer relies on or lists."
+      "description": "The GHSA and CVE IDs that are the answer, the advisories the question asks for. IDs named only to explain go in explanation."
     },
     "value": {
       "type": ["string", "null"],

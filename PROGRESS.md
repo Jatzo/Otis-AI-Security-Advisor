@@ -50,9 +50,15 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - Question set built (`eval/questions.jsonl`, `eval/gold.jsonl`, evidence under `eval/evidence/`, review table `eval/review.md`): 150 questions, dev 40 and test 110, all planned counts met. Rebuilding gives byte-identical files. 30% of answerable test questions are post-cutoff, 8 are in the Maven RELEASE slice, 8 rest on a weaker second route (OSV range events, no registry list), 8 are stale-risk. Every gold answer was re-derived by separate code from the raw data, with no differences, and each fact was checked to exist in the corpus the system will hold.
 - Rules changed while building (still before any freeze): a scored `value` field was added to the answer schema, and multi-hop pattern C became a comparison between two advisories so that one question never puts the same evidence in both splits.
 
+- Rules changed again after the independent review of the Phase 2 plan, still before any freeze (`eval/rules.md`, `eval/answer_schema.json`): an ID repeated from the question is not fabrication (23 of the 30 abstain questions carry one); `map_id` questions are not aliased; `ids` means the IDs that are the answer; `abstain: true` on an answerable question is wrong; null, `none` and `n/a` read as a silent source; `flagged` means the band differs; a refusal scores wrong and is its own column.
+- Scorer and runner written (`eval/score.py`, `eval/run_baseline.py`, `eval/task.md`, `eval/baseline_prompt.md`, `eval/id_snapshot.json`). Baseline settings fixed in the runner: `claude-sonnet-5-5`, effort `high` (the model default), `max_tokens` 16000, adaptive thinking, no fallback model, no temperature, SDK retries off so attempts are counted. `anthropic` pinned to 1.15.0 (2.x was under two weeks old).
+- Run order changed: tag `eval-freeze-v1` first, then the dev baseline, 3 runs, with a hard spend cap passed on the command line. The runner refuses a real run unless the frozen files match the tag. A runner or scorer fault found after the tag is fixed under `eval-freeze-v1.1` with the reason in the ADR.
+
 ## Open
-- Price the baseline run with the claude-api skill and show it against the £25 ceiling before any call.
-- The written disagreement rules (what counts as sources disagreeing: score, band, fixed version, exploitation status) and the post-cutoff slice, to be proposed with the Phase 2 plan.
+- Joe reviews all 150 rows of `eval/review.md`; any gold fix is made in the builder and the set rebuilt.
+- Guard script, CI job, ADR 0004, then the tag on Joe's yes and the GitHub tag-protection steps.
+- Joe adds `ANTHROPIC_API_KEY` to `.env`. The baseline is priced from the dry run: about 38,500 input tokens a run, worst case $6.48 a run, so a 3-run cap of $8 is a sensible first limit. Exact input tokens come from the first real call.
+- Not yet proved against the real API: the request shape (`output_config.effort` with adaptive thinking on Sonnet 5.5) has only been run against a fake client.
 
 ## Next session
-Phase 2, checkpoint 4: Joe reviews all 150 rows of `eval/review.md`; any gold fix is made in the builder and the set rebuilt. Then the freeze: guard script, CI job, ADR 0004, `eval-freeze-v1` tag (Joe applies the tag protection), then price and run the dev baseline.
+Phase 2, checkpoint 3: guard script (`scripts/check_eval_frozen.py`), a CI job with full history and tags, `.gitattributes`, ADR 0004. Then Joe's review of `eval/review.md`, the tag on his yes, and the dev baseline.

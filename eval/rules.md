@@ -1,6 +1,6 @@
 # Evaluation rules
 
-Status: draft for checkpoint 1. These rules freeze with the questions and the gold (tag `eval-freeze-v1`). Nothing here is written after seeing how any retrieval system performs.
+Status: draft until the tag. These rules freeze with the questions and the gold (tag `eval-freeze-v1`). Nothing here is written after seeing how any retrieval system performs.
 
 Snapshot: `2d04b933ea7b` (data fetched 1 November 2026). Generator under test: Claude Sonnet 5.5. Its reliable knowledge cutoff and its training data cutoff are both June 2026, from Anthropic's models overview.
 
@@ -78,7 +78,7 @@ GitHub is the CNA for many of the CVEs involved, so a matching score may be a co
 - D2, fixed version (about 5). GitHub's first patched versions and NVD's `versionEndExcluding` values share no version. Only cases where every version is plain dotted-numeric and the CVE has a single release branch are used, so no in-repo comparator decides the gold. The values given are the version lists.
 - D3, one source silent (about 6). GitHub scores the CVE and the NVD record holds no CVSS v3 score of any kind (awaiting analysis, deferred, rejected, or only a v2 score). A record whose only v3 score is the reporter's own, marked Secondary, is not used, because a reader could fairly call that NVD's score. The values are the GitHub score and `none`.
 
-Where the two scores differ but stay in the same band, the sources agree under D1. The exact scores are in the gold and shown in the review table.
+Where the two scores differ but stay in the same band, the sources agree under D1, and the question is answered with `flagged` false and both scores given. The exact scores are in the gold and shown in the review table.
 
 ## 5. The answer
 
@@ -86,26 +86,50 @@ Every system returns one JSON object whose scored fields are in `answer_schema.j
 
 - `abstain`: true when the sources do not support an answer.
 - `verdict`: `yes`, `no` or null, for questions that ask whether something is true.
-- `ids`: GHSA and CVE IDs the answer relies on or lists.
+- `ids`: the GHSA and CVE IDs that are the answer, the advisories the question asks for. An ID named only to explain or to compare belongs in `explanation`, not here.
 - `value`: a single fact as plain text, for questions that ask for one: a version, a score or a severity label. Null otherwise.
 - `disagreement`: whether the sources differ, with both values as text (`github`, `nvd`), null where a source says nothing.
 - `explanation`: free text.
+
+How the scorer reads a reply:
+
+- It takes the text blocks of the reply, joined in order. It strips one surrounding Markdown code fence if there is one, and parses the first top-level JSON object. It repairs nothing else. A reply that does not parse, or does not fit the schema, is a parse failure.
+- A reply whose stop reason is `refusal` is a refusal, whatever its text. A reply cut short by the token limit is a parse failure.
 
 ## 6. Scoring
 
 All scoring is deterministic code. No model judges an answer.
 
-- IDs are normalised through an alias map built from the raw data, so a GHSA ID and its CVE ID count as the same advisory. Versions compare equal when they differ only in trailing zeros (`2.25` and `2.25.0`).
-- Each question's gold names the one field that answers it: `ids`, `verdict`, `value` or `disagreement`. That field alone decides whether the answer is correct. The other fields are read only for the fabrication rate.
-- Direct lookup and multi-hop: correct when the answering field matches the gold exactly. For an ID set, set F1 is reported next to it.
-- A `value` is compared after normalising: versions as in the line above, severity labels in lower case with `medium` read as `moderate` (GitHub's advisory database and OSV say moderate, its REST API says medium), scores to one decimal place.
+Normalising:
+
+- IDs are case-folded to their standard form (`GHSA-` with a lower-case body, `CVE-` in upper case) and de-duplicated. A GHSA ID is the advisory. A CVE ID counts as the advisory it belongs to when exactly one advisory in the corpus names it. A CVE named by more than one advisory is not an alias for any of them: it matches only a gold ID that is that same CVE. The alias map is a committed file for the snapshot (`eval/id_snapshot.json`), so a laptop and CI score the same way.
+- `map_id` questions (give the CVE for a GHSA, or the reverse) are not aliased. The answer must contain the ID of the type asked for. Repeating the ID in the question is wrong.
+- Versions compare equal when they differ only in trailing zeros (`2.25` and `2.25.0`).
+- A `value` is compared after normalising: versions as above, severity labels in lower case with `medium` read as `moderate` (GitHub's advisory database and OSV say moderate, its REST API says medium), scores to one decimal place.
+- In `disagreement.values`, a score is compared by its number alone (`8.6 (High)` reads as `8.6`), a version as a version, and null, `none`, `n/a` and the empty string all read as null.
+
+Marking:
+
+- Each question's gold names the one field that answers it: `ids`, `verdict`, `value`, `disagreement` or `abstain`. That field alone decides whether the answer is correct. The other fields are read only for the fabrication rate.
+- Direct lookup and multi-hop: correct when the answering field matches the gold exactly. For an ID set the match is exact as a set, order ignored, and set F1 is reported next to it.
 - Version-affected: correct when the verdict matches (yes or no), or when the ID set matches.
-- Should-abstain: correct when `abstain` is true. Any ID in the answer counts toward the fabrication rate whatever else it says.
-- Sources-disagree: correct only when `disagreement.flagged` matches the gold and both values match.
-- Every ID in an answer, including IDs inside `explanation`, gets one label: in the corpus; real but outside the scope (checked against GitHub's REST API, NVD and OSV, withdrawn advisories included); or nonexistent. Only nonexistent IDs count as fabrication.
-- An answer that does not parse against the schema is counted in its own column and scored as wrong.
+- Should-abstain: correct when `abstain` is true.
+- Every other question: `abstain: true` is wrong, whatever else the reply says. It also counts as over-abstention.
+- Sources-disagree: correct only when `disagreement.flagged` matches the gold and both values match. `flagged` means the sources differ: for a score, that the two scores fall in different bands (a different number in the same band is not flagged); for a fixed version, that the two share no version; for a source that is silent, true.
+- A refusal, a parse failure and an abstention are three separate columns. All three score as wrong on an answerable question. A refusal on a should-abstain question is not an abstention and scores wrong.
 - Yes/no questions are balanced, and the majority-class floor is reported.
-- Cost per query (tokens and price) and latency are recorded for every call.
+
+Fabrication:
+
+- Every ID found anywhere in a parsed reply (`ids`, `value`, `disagreement`, `explanation`) gets one label: in the corpus; real but outside the scope (checked against GitHub's REST API, NVD and OSV, withdrawn advisories included); nonexistent; or unchecked, when the lookup was not run.
+- An ID that appears in the question text is not labelled. It is counted in its own column, so repeating a made-up ID back while declining is not fabrication.
+- A reply is fabricated when it holds at least one nonexistent ID. The fabrication rate is fabricated replies over all parsed replies.
+- When any ID is unchecked, the rate is given as a range (unchecked IDs counted as real, then as nonexistent), never as one figure.
+- Only nonexistent IDs count. A real advisory outside the scope is reported as a wrong answer, not as fabrication.
+
+Recording:
+
+- Cost per query (tokens and price) and latency are recorded for every call. Each result line stores the price it was charged at, the model string the API returned, the git commit and the hashes of the files that produced it.
 
 ## 7. Slices
 
@@ -135,4 +159,6 @@ Per-type groups are small (18 to 26 in test), so:
 
 - Frozen: everything under `eval/` except `eval/results/` and `eval/errata.jsonl`. The REST records the gold used are committed under `eval/evidence/`, so the gold can be checked offline.
 - The guard compares git blobs with the `eval-freeze-v1` tag, fails if the tag is missing, and runs offline in CI.
-- A mistake found in the gold after the freeze goes into `errata.jsonl` as an appended line. Scores are reported both as frozen and with the errata applied. A frozen file is not edited.
+- A mistake found in the gold after the freeze goes into `errata.jsonl` as an appended line: `{"id": "...", "gold": {the full corrected gold object}, "reason": "..."}`. The scorer reports every score twice, as frozen and with the errata applied. A frozen file is not edited.
+- Online ID lookups made while scoring are saved to `eval/results/id_lookups.json`, never to a frozen file.
+- Every result line records the commit and file hashes that produced it. If the runner or scorer is found faulty after the tag, the fix is made under a new tag (`eval-freeze-v1.1`) with the reason written in the ADR, and the earlier tag stays.
