@@ -5,7 +5,9 @@ description = "Answers questions about real software vulnerabilities from public
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-dependencies = []
+dependencies = [
+    "cvss==3.6",
+]
 
 [dependency-groups]
 dev = [
@@ -32,4 +34,4 @@ target-version = "py312"
 select = ["E", "F", "I", "B", "UP", "S"]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]
+"tests/*" = ["S101", "S105"]  # asserts, and fake tokens that are not secrets

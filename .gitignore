@@ -18,3 +18,5 @@ data/raw/
 .coverage
 CLAUDE.md
 PLAN.md
+data/*.db
+data/*.log
