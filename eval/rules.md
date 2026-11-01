@@ -37,7 +37,7 @@ Split rules:
 - Assignment is by a seeded hash of the question's advisory group, not of the question, so no advisory or CVE appears in both dev and test. An advisory group is an advisory plus every CVE it names.
 - No advisory is the subject of more than 2 questions. KEV has only 10 advisories, so KEV questions are capped by that rule.
 - Each type uses 2 or 3 different wordings. Every question records its template id.
-- Questions are chosen by a seeded stratified sample over ecosystem and package, fixed before any system exists.
+- Questions are drawn by a seeded random sample (seed 20261101) from the facts that fit each question kind, with fixed quotas by ecosystem for version questions. The seed and the script are in the repository, and the build is repeatable byte for byte.
 
 ### 3.1 Direct lookup (30)
 
@@ -51,7 +51,9 @@ The gold needs two independent routes to agree: the GitHub REST range read with 
 
 ### 3.3 Multi-hop (25)
 
-The answer needs more than one record. Three patterns: a cross-source join (advisory to CVE to KEV to NVD score) (10); an intersection (package, version and severity together) (9); a comparison or count across packages (6). Answers are at most 10 items. In the review table every item shows its derivation and its evidence link.
+The answer needs more than one record or more than one source. Three patterns: a cross-source join, such as advisory to CVE to NVD score, or the advisories for a package whose CVE is on KEV (10); an intersection, such as the advisories for a package that affect one version and carry one severity (9); a comparison between two named advisories, such as which was published first or which has the higher GitHub score (6). Answers are at most 10 items. In the review table every item shows its derivation and its evidence link.
+
+A comparison names two advisories, so both belong to one split. A count across a whole package would put the same evidence in both splits, which the grouping rule forbids.
 
 A system that retrieves once and answers will do worse here. That is expected and is reported on its own line.
 
@@ -74,7 +76,7 @@ GitHub is the CNA for many of the CVEs involved, so a matching score may be a co
 
 - D1, severity band (about 9 disagreeing, plus the agree-controls). The CVSS v3 base scores of GitHub and NVD fall in different bands: none (0), low (0.1 to 3.9), medium (4.0 to 6.9), high (7.0 to 8.9), critical (9.0 and above). The values given are the two v3 scores as published, GitHub's from its REST record and NVD's `baseScore`, written with one decimal. A v4 score is never used here.
 - D2, fixed version (about 5). GitHub's first patched versions and NVD's `versionEndExcluding` values share no version. Only cases where every version is plain dotted-numeric and the CVE has a single release branch are used, so no in-repo comparator decides the gold. The values given are the version lists.
-- D3, one source silent (about 6). GitHub scores the CVE and NVD has no Primary v3 score (awaiting analysis, deferred, rejected, or never analysed). The values are the GitHub score and `none`.
+- D3, one source silent (about 6). GitHub scores the CVE and the NVD record holds no CVSS v3 score of any kind (awaiting analysis, deferred, rejected, or only a v2 score). A record whose only v3 score is the reporter's own, marked Secondary, is not used, because a reader could fairly call that NVD's score. The values are the GitHub score and `none`.
 
 Where the two scores differ but stay in the same band, the sources agree under D1. The exact scores are in the gold and shown in the review table.
 
@@ -85,6 +87,7 @@ Every system returns one JSON object whose scored fields are in `answer_schema.j
 - `abstain`: true when the sources do not support an answer.
 - `verdict`: `yes`, `no` or null, for questions that ask whether something is true.
 - `ids`: GHSA and CVE IDs the answer relies on or lists.
+- `value`: a single fact as plain text, for questions that ask for one: a version, a score or a severity label. Null otherwise.
 - `disagreement`: whether the sources differ, with both values as text (`github`, `nvd`), null where a source says nothing.
 - `explanation`: free text.
 
@@ -93,7 +96,9 @@ Every system returns one JSON object whose scored fields are in `answer_schema.j
 All scoring is deterministic code. No model judges an answer.
 
 - IDs are normalised through an alias map built from the raw data, so a GHSA ID and its CVE ID count as the same advisory. Versions compare equal when they differ only in trailing zeros (`2.25` and `2.25.0`).
-- Direct lookup and multi-hop: the answer is correct when its ID set (or verdict) matches the gold exactly. Set F1 is reported next to it.
+- Each question's gold names the one field that answers it: `ids`, `verdict`, `value` or `disagreement`. That field alone decides whether the answer is correct. The other fields are read only for the fabrication rate.
+- Direct lookup and multi-hop: correct when the answering field matches the gold exactly. For an ID set, set F1 is reported next to it.
+- A `value` is compared after normalising: versions as in the line above, severity labels in lower case with `medium` read as `moderate` (GitHub's advisory database and OSV say moderate, its REST API says medium), scores to one decimal place.
 - Version-affected: correct when the verdict matches (yes or no), or when the ID set matches.
 - Should-abstain: correct when `abstain` is true. Any ID in the answer counts toward the fabrication rate whatever else it says.
 - Sources-disagree: correct only when `disagreement.flagged` matches the gold and both values match.

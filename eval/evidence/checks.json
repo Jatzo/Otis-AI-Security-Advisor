@@ -1,0 +1,117 @@
+{
+ "cve:CVE-2025-80004": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-80004"
+ },
+ "cve:CVE-2025-83200": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-83200"
+ },
+ "cve:CVE-2025-83889": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-83889"
+ },
+ "cve:CVE-2025-84506": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-84506"
+ },
+ "cve:CVE-2025-87820": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-87820"
+ },
+ "cve:CVE-2025-89360": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-89360"
+ },
+ "cve:CVE-2025-94922": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-94922"
+ },
+ "cve:CVE-2025-99475": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-99475"
+ },
+ "ghsa:GHSA-58xr-4cch-g7r8": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-58xr-4cch-g7r8"
+ },
+ "ghsa:GHSA-62fr-3482-3wg2": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-62fr-3482-3wg2"
+ },
+ "ghsa:GHSA-7xfv-8h5m-m83h": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-7xfv-8h5m-m83h"
+ },
+ "ghsa:GHSA-f2xw-r56g-pjc4": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-f2xw-r56g-pjc4"
+ },
+ "ghsa:GHSA-f39c-hj55-3x4g": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-f39c-hj55-3x4g"
+ },
+ "ghsa:GHSA-hhqj-79mf-29hf": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-hhqj-79mf-29hf"
+ },
+ "ghsa:GHSA-pv2c-q4r5-8qvf": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-pv2c-q4r5-8qvf"
+ },
+ "ghsa:GHSA-qqfm-frjc-2ww3": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-qqfm-frjc-2ww3"
+ },
+ "package:aiohttp-shield": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/aiohttp-shield/json"
+ },
+ "package:django-sentinel-core": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/django-sentinel-core/json"
+ },
+ "package:flask-guardrail": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/flask-guardrail/json"
+ },
+ "package:jinja-safeview": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/jinja-safeview/json"
+ },
+ "package:pillow-secure-io": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/pillow-secure-io/json"
+ },
+ "package:pyyaml-safeload": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/pyyaml-safeload/json"
+ },
+ "package:urllib-fortress": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/urllib-fortress/json"
+ }
+}

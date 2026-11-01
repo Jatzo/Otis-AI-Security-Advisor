@@ -1,0 +1,145 @@
+{
+ "comments": 3,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/6379313?v=4",
+    "events_url": "https://api.github.com/users/sleiner/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sleiner/followers",
+    "following_url": "https://api.github.com/users/sleiner/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sleiner/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sleiner",
+    "id": 6379313,
+    "login": "sleiner",
+    "node_id": "MDQ6VXNlcjYzNzkzMTM=",
+    "organizations_url": "https://api.github.com/users/sleiner/orgs",
+    "received_events_url": "https://api.github.com/users/sleiner/received_events",
+    "repos_url": "https://api.github.com/users/sleiner/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sleiner/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sleiner/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sleiner",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/2206639?v=4",
+    "events_url": "https://api.github.com/users/sisp/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sisp/followers",
+    "following_url": "https://api.github.com/users/sisp/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sisp/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sisp",
+    "id": 2206639,
+    "login": "sisp",
+    "node_id": "MDQ6VXNlcjIyMDY2Mzk=",
+    "organizations_url": "https://api.github.com/users/sisp/orgs",
+    "received_events_url": "https://api.github.com/users/sisp/received_events",
+    "repos_url": "https://api.github.com/users/sisp/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sisp/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sisp/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sisp",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/5688939?v=4",
+    "events_url": "https://api.github.com/users/frenzymadness/events{/privacy}",
+    "followers_url": "https://api.github.com/users/frenzymadness/followers",
+    "following_url": "https://api.github.com/users/frenzymadness/following{/other_user}",
+    "gists_url": "https://api.github.com/users/frenzymadness/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/frenzymadness",
+    "id": 5688939,
+    "login": "frenzymadness",
+    "node_id": "MDQ6VXNlcjU2ODg5Mzk=",
+    "organizations_url": "https://api.github.com/users/frenzymadness/orgs",
+    "received_events_url": "https://api.github.com/users/frenzymadness/received_events",
+    "repos_url": "https://api.github.com/users/frenzymadness/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/frenzymadness/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/frenzymadness/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/frenzymadness",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2024-56201",
+ "cvss": {
+  "score": 8.8,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 8.8,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "cvss_v4": {
+   "score": 5.4,
+   "vector_string": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-150",
+   "name": "Improper Neutralization of Escape, Meta, or Control Sequences"
+  }
+ ],
+ "description": "A bug in the Jinja compiler allows an attacker that controls both the content and filename of a template to execute arbitrary Python code, regardless of if Jinja's sandbox is used.\n\nTo exploit the vulnerability, an attacker needs to control both the filename and the contents of a template. Whether that is the case depends on the type of application using Jinja. This vulnerability impacts users of applications which execute untrusted templates where the template author can also choose the template filename.",
+ "epss": {
+  "percentage": 0.00307,
+  "percentile": 0.23536
+ },
+ "ghsa_id": "GHSA-gmj6-6f8f-6699",
+ "github_reviewed_at": "2024-12-23T17:54:12Z",
+ "html_url": "https://github.com/advisories/GHSA-gmj6-6f8f-6699",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-gmj6-6f8f-6699"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2024-56201"
+  }
+ ],
+ "nvd_published_at": "2024-12-23T16:15:07Z",
+ "published_at": "2024-12-23T17:54:12Z",
+ "references": [
+  "https://github.com/pallets/jinja/security/advisories/GHSA-gmj6-6f8f-6699",
+  "https://github.com/pallets/jinja/releases/tag/3.1.5",
+  "https://nvd.nist.gov/vuln/detail/CVE-2024-56201",
+  "https://github.com/pallets/jinja/issues/1792",
+  "https://github.com/pallets/jinja/commit/767b23617628419ae3709ccfb02f9602ae9fe51f",
+  "https://github.com/advisories/GHSA-gmj6-6f8f-6699"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/pallets/jinja/security-advisories/GHSA-gmj6-6f8f-6699",
+ "severity": "medium",
+ "source_code_location": "https://github.com/pallets/jinja",
+ "summary": "Jinja has a sandbox breakout through malicious filenames",
+ "type": "reviewed",
+ "updated_at": "2025-01-08T16:06:02Z",
+ "url": "https://api.github.com/advisories/GHSA-gmj6-6f8f-6699",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "3.1.5",
+   "package": {
+    "ecosystem": "pip",
+    "name": "jinja2"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 3.0.0, <= 3.1.4"
+  }
+ ],
+ "withdrawn_at": null
+}

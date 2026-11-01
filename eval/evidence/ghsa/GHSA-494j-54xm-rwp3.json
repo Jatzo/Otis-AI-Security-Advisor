@@ -1,0 +1,148 @@
+{
+ "comments": 2,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/5957301?v=4",
+    "events_url": "https://api.github.com/users/euriconicacio/events{/privacy}",
+    "followers_url": "https://api.github.com/users/euriconicacio/followers",
+    "following_url": "https://api.github.com/users/euriconicacio/following{/other_user}",
+    "gists_url": "https://api.github.com/users/euriconicacio/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/euriconicacio",
+    "id": 5957301,
+    "login": "euriconicacio",
+    "node_id": "MDQ6VXNlcjU5NTczMDE=",
+    "organizations_url": "https://api.github.com/users/euriconicacio/orgs",
+    "received_events_url": "https://api.github.com/users/euriconicacio/received_events",
+    "repos_url": "https://api.github.com/users/euriconicacio/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/euriconicacio/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/euriconicacio/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/euriconicacio",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/2203121?v=4",
+    "events_url": "https://api.github.com/users/Dreamsorcerer/events{/privacy}",
+    "followers_url": "https://api.github.com/users/Dreamsorcerer/followers",
+    "following_url": "https://api.github.com/users/Dreamsorcerer/following{/other_user}",
+    "gists_url": "https://api.github.com/users/Dreamsorcerer/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/Dreamsorcerer",
+    "id": 2203121,
+    "login": "Dreamsorcerer",
+    "node_id": "MDQ6VXNlcjIyMDMxMjE=",
+    "organizations_url": "https://api.github.com/users/Dreamsorcerer/orgs",
+    "received_events_url": "https://api.github.com/users/Dreamsorcerer/received_events",
+    "repos_url": "https://api.github.com/users/Dreamsorcerer/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/Dreamsorcerer/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/Dreamsorcerer/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/Dreamsorcerer",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/341725538?v=4",
+    "events_url": "https://api.github.com/users/iamrobertmorrison01-stack/events{/privacy}",
+    "followers_url": "https://api.github.com/users/iamrobertmorrison01-stack/followers",
+    "following_url": "https://api.github.com/users/iamrobertmorrison01-stack/following{/other_user}",
+    "gists_url": "https://api.github.com/users/iamrobertmorrison01-stack/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/iamrobertmorrison01-stack",
+    "id": 341725538,
+    "login": "iamrobertmorrison01-stack",
+    "node_id": "U_kgDOFF5RYg",
+    "organizations_url": "https://api.github.com/users/iamrobertmorrison01-stack/orgs",
+    "received_events_url": "https://api.github.com/users/iamrobertmorrison01-stack/received_events",
+    "repos_url": "https://api.github.com/users/iamrobertmorrison01-stack/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/iamrobertmorrison01-stack/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/iamrobertmorrison01-stack/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/iamrobertmorrison01-stack",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-111063",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 6.3,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-311",
+   "name": "Missing Encryption of Sensitive Data"
+  },
+  {
+   "cwe_id": "CWE-1004",
+   "name": "Sensitive Cookie Without 'HttpOnly' Flag"
+  }
+ ],
+ "description": "### Summary\n\nThe Secure attribute was not being enforced for the shared cookie.\n\n### Impact\n\nIt may be possible to send a shared cookie marked Secure through an unencrypted request.",
+ "epss": {
+  "percentage": 0.00233,
+  "percentile": 0.14024
+ },
+ "ghsa_id": "GHSA-494j-54xm-rwp3",
+ "github_reviewed_at": "2026-10-19T17:07:47Z",
+ "html_url": "https://github.com/advisories/GHSA-494j-54xm-rwp3",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-494j-54xm-rwp3"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-111063"
+  }
+ ],
+ "nvd_published_at": "2026-10-19T17:17:03Z",
+ "published_at": "2026-10-19T17:07:47Z",
+ "references": [
+  "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-494j-54xm-rwp3",
+  "https://github.com/aio-libs/aiohttp/commit/999c356d61e966faffa97b06ab0d0455226d36c5",
+  "https://github.com/aio-libs/aiohttp/releases/tag/v3.14.4",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-111063",
+  "https://github.com/advisories/GHSA-494j-54xm-rwp3"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/aio-libs/aiohttp/security-advisories/GHSA-494j-54xm-rwp3",
+ "severity": "medium",
+ "source_code_location": "https://github.com/aio-libs/aiohttp",
+ "summary": "AIOHTTP: Secure attribute not enforced for shared cookie",
+ "type": "reviewed",
+ "updated_at": "2026-10-26T14:53:56Z",
+ "url": "https://api.github.com/advisories/GHSA-494j-54xm-rwp3",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "3.14.4",
+   "package": {
+    "ecosystem": "pip",
+    "name": "aiohttp"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "<= 3.14.3"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,74 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2016-4461",
+ "cvss": {
+  "score": 8.8,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 8.8,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  },
+  {
+   "cwe_id": "CWE-74",
+   "name": "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')"
+  }
+ ],
+ "description": "Apache Struts 2.x before 2.3.29 allows remote attackers to execute arbitrary code via a \"%{}\" sequence in a tag attribute, aka forced double OGNL evaluation.  NOTE: this vulnerability exists because of an incomplete fix for CVE-2016-0785.",
+ "epss": {
+  "percentage": 0.08085,
+  "percentile": 0.94553
+ },
+ "ghsa_id": "GHSA-864w-r5qj-h6fj",
+ "github_reviewed_at": "2025-04-23T02:23:16Z",
+ "html_url": "https://github.com/advisories/GHSA-864w-r5qj-h6fj",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-864w-r5qj-h6fj"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2016-4461"
+  }
+ ],
+ "nvd_published_at": "2017-10-16T16:29:00Z",
+ "published_at": "2022-05-14T01:05:57Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2016-4461",
+  "https://struts.apache.org/docs/s2-036.html",
+  "https://security.netapp.com/advisory/ntap-20180629-0004",
+  "https://github.com/advisories/GHSA-864w-r5qj-h6fj"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/apache/struts",
+ "summary": "Apache Struts forced double OGNL evaluation",
+ "type": "reviewed",
+ "updated_at": "2025-04-23T02:23:17Z",
+ "url": "https://api.github.com/advisories/GHSA-864w-r5qj-h6fj",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.29",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.0.0, < 2.3.29"
+  }
+ ],
+ "withdrawn_at": null
+}

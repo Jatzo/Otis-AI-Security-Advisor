@@ -4,7 +4,7 @@
   "title": "The answer every system under test returns",
   "description": "Only these fields are scored. Other fields are allowed and ignored, so later phases can add citations without changing the freeze.",
   "type": "object",
-  "required": ["abstain", "verdict", "ids", "disagreement", "explanation"],
+  "required": ["abstain", "verdict", "ids", "value", "disagreement", "explanation"],
   "properties": {
     "abstain": {
       "type": "boolean",
@@ -19,6 +19,10 @@
       "type": "array",
       "items": { "type": "string" },
       "description": "GHSA and CVE IDs the answer relies on or lists."
+    },
+    "value": {
+      "type": ["string", "null"],
+      "description": "A single fact as plain text: a version, a score or a severity label. Null otherwise."
     },
     "disagreement": {
       "type": "object",

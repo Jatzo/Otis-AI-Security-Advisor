@@ -1,0 +1,114 @@
+{
+ "comments": 1,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/17060581?v=4",
+    "events_url": "https://api.github.com/users/dmc1778/events{/privacy}",
+    "followers_url": "https://api.github.com/users/dmc1778/followers",
+    "following_url": "https://api.github.com/users/dmc1778/following{/other_user}",
+    "gists_url": "https://api.github.com/users/dmc1778/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/dmc1778",
+    "id": 17060581,
+    "login": "dmc1778",
+    "node_id": "MDQ6VXNlcjE3MDYwNTgx",
+    "organizations_url": "https://api.github.com/users/dmc1778/orgs",
+    "received_events_url": "https://api.github.com/users/dmc1778/received_events",
+    "repos_url": "https://api.github.com/users/dmc1778/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/dmc1778/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/dmc1778/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/dmc1778",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2023-33976",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-190",
+   "name": "Integer Overflow or Wraparound"
+  }
+ ],
+ "description": "### Impact\n`array_ops.upper_bound` causes a segfault when not given a rank 2 tensor.\n\n### Patches\nWe have patched the issue in GitHub commit [915884fdf5df34aaedd00fc6ace33a2cfdefa586](https://github.com/tensorflow/tensorflow/commit/915884fdf5df34aaedd00fc6ace33a2cfdefa586).\n\nThe fix will be included in TensorFlow 2.13. We will also cherrypick this commit in TensorFlow 2.12.1.\n\n\n### For more information\nPlease consult [our security guide](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md) for more information regarding the security model and how to contact us with issues and questions.\n\n\n### Attribution\nThis vulnerability has been reported by dmc1778",
+ "epss": {
+  "percentage": 0.00432,
+  "percentile": 0.3754
+ },
+ "ghsa_id": "GHSA-gjh7-xx4r-x345",
+ "github_reviewed_at": "2024-07-30T20:47:04Z",
+ "html_url": "https://github.com/advisories/GHSA-gjh7-xx4r-x345",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-gjh7-xx4r-x345"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2023-33976"
+  }
+ ],
+ "nvd_published_at": "2024-07-30T20:15:03Z",
+ "published_at": "2024-07-30T20:47:04Z",
+ "references": [
+  "https://github.com/tensorflow/tensorflow/security/advisories/GHSA-gjh7-xx4r-x345",
+  "https://github.com/tensorflow/tensorflow/commit/6fa05df43b00038b048f4f0e51ef522da6532fec",
+  "https://github.com/tensorflow/tensorflow/commit/915884fdf5df34aaedd00fc6ace33a2cfdefa586",
+  "https://nvd.nist.gov/vuln/detail/CVE-2023-33976",
+  "https://github.com/advisories/GHSA-gjh7-xx4r-x345"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/tensorflow/tensorflow/security-advisories/GHSA-gjh7-xx4r-x345",
+ "severity": "high",
+ "source_code_location": "https://github.com/tensorflow/tensorflow",
+ "summary": "TensorFlow has segfault in array_ops.upper_bound",
+ "type": "reviewed",
+ "updated_at": "2024-08-22T17:42:18Z",
+ "url": "https://api.github.com/advisories/GHSA-gjh7-xx4r-x345",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.12.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "tensorflow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.12.1"
+  },
+  {
+   "first_patched_version": "2.12.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "tensorflow-cpu"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.12.1"
+  },
+  {
+   "first_patched_version": "2.12.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "tensorflow-gpu"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.12.1"
+  }
+ ],
+ "withdrawn_at": null
+}

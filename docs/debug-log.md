@@ -54,3 +54,17 @@ Non-trivial bugs: what broke, how it was found, the fix, and the regression test
 **Regression tests.** `test_rest_ecosystem_and_package_names_are_put_in_osv_form`, `test_two_ranges_for_one_package_are_read_as_one_affected_set` and the `3.10.11rc0` case in `test_a_version_is_affected_only_inside_the_range_text`. Each fails when its fix is removed.
 
 **What is left.** 138 of 108,535 PyPI comparisons still differ: 137 are the three pre-1.0 Django versions OSV lists for some advisories and not others, and one is aiohttp `3.10.11rc0`, where GitHub's range says `<= 3.10.10` and OSV's stops below `3.10.11`. These are differences in the sources, not in the code. A version question is dropped wherever the routes disagree.
+
+## 2026-11-01: the first evaluation set had four faults a read-through missed
+
+**What broke.** The first complete set of 150 questions read well and every gold answer matched its own derivation. A second check, by separate code and against the corpus the system will hold, found four faults.
+1. GitHub's REST API calls the middle severity `medium`. The corpus (OSV) calls it `MODERATE`, for 232 of 588 advisories. Two lookups and several "which are rated medium" questions would have marked a correct, corpus-faithful answer wrong.
+2. Four of the six "one source silent" questions used a CVE whose NVD record carries a v3 score marked Secondary, the reporter's own. A reader of that record would fairly say NVD gives a score, and the gold said it gave none.
+3. Two description lookups fitted a second advisory. The Spring server-sent-events bug has a near-identical sibling from August 2026, and the Struts double-evaluation flaw has two relatives.
+4. Four list questions repeated an earlier question's exact answer set (flask 1.1.0 and flask 2.1.2 list the same advisories), and two asked the same thing about pillow in different words.
+
+**How it was found.** By deriving each answer again from the raw data without reusing the builder, and by comparing every fact the gold uses with the same fact in the OSV, NVD and KEV files. The label mismatch showed up only in that second comparison. The sibling advisories showed up by searching the whole corpus for the key terms of each description.
+
+**Fix.** Labels use the corpus word and the scorer reads `medium` as `moderate`. A silent NVD now means no v3 score of any kind. The two descriptions carry the month, the affected versions or the fixed version that only one advisory has. The builder refuses a list question whose answer set already exists.
+
+**Regression tests.** `test_severity_answers_use_the_wording_of_the_corpus`, `test_a_silent_nvd_means_no_v3_score_of_any_kind_on_its_record`, `test_no_two_list_questions_share_the_same_answer_set`, `test_a_list_question_repeating_an_earlier_answer_set_is_refused` and `test_rest_severity_medium_is_read_as_the_corpus_word_moderate`. The two description fixes rest on the hand-written paraphrases and on the review table, not on a test.

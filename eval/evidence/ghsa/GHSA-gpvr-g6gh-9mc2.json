@@ -1,0 +1,79 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2014-6393",
+ "cvss": {
+  "score": 6.1,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 6.1,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-79",
+   "name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+  }
+ ],
+ "description": "Vulnerable versions of express do not specify a charset field in the content-type header while displaying 400 level response messages. The lack of enforcing user's browser to set correct charset, could be leveraged by an attacker to perform a cross-site scripting attack, using non-standard encodings, like UTF-7.\n\n\n## Recommendation\n\nFor express 3.x, update express to version 3.11 or later.\nFor express 4.x, update express to version 4.5 or later. ",
+ "epss": {
+  "percentage": 0.01144,
+  "percentile": 0.66555
+ },
+ "ghsa_id": "GHSA-gpvr-g6gh-9mc2",
+ "github_reviewed_at": "2020-06-16T21:37:54Z",
+ "html_url": "https://github.com/advisories/GHSA-gpvr-g6gh-9mc2",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-gpvr-g6gh-9mc2"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2014-6393"
+  }
+ ],
+ "nvd_published_at": "2017-08-09T18:29:00Z",
+ "published_at": "2018-10-23T17:22:54Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2014-6393",
+  "https://github.com/advisories/GHSA-gpvr-g6gh-9mc2",
+  "https://www.npmjs.com/advisories/8",
+  "https://bugzilla.redhat.com/show_bug.cgi?id=1203190"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "",
+ "summary": "No Charset in Content-Type Header in express",
+ "type": "reviewed",
+ "updated_at": "2023-02-01T05:03:41Z",
+ "url": "https://api.github.com/advisories/GHSA-gpvr-g6gh-9mc2",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "3.11.0",
+   "package": {
+    "ecosystem": "npm",
+    "name": "express"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 3.11.0"
+  },
+  {
+   "first_patched_version": "4.5.0",
+   "package": {
+    "ecosystem": "npm",
+    "name": "express"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, < 4.5.0"
+  }
+ ],
+ "withdrawn_at": null
+}

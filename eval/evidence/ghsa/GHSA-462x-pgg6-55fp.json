@@ -1,0 +1,144 @@
+{
+ "comments": 4,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/657617?v=4",
+    "events_url": "https://api.github.com/users/DavidKorczynski/events{/privacy}",
+    "followers_url": "https://api.github.com/users/DavidKorczynski/followers",
+    "following_url": "https://api.github.com/users/DavidKorczynski/following{/other_user}",
+    "gists_url": "https://api.github.com/users/DavidKorczynski/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/DavidKorczynski",
+    "id": 657617,
+    "login": "DavidKorczynski",
+    "node_id": "MDQ6VXNlcjY1NzYxNw==",
+    "organizations_url": "https://api.github.com/users/DavidKorczynski/orgs",
+    "received_events_url": "https://api.github.com/users/DavidKorczynski/received_events",
+    "repos_url": "https://api.github.com/users/DavidKorczynski/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/DavidKorczynski/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/DavidKorczynski/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/DavidKorczynski",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/3112309?v=4",
+    "events_url": "https://api.github.com/users/radarhere/events{/privacy}",
+    "followers_url": "https://api.github.com/users/radarhere/followers",
+    "following_url": "https://api.github.com/users/radarhere/following{/other_user}",
+    "gists_url": "https://api.github.com/users/radarhere/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/radarhere",
+    "id": 3112309,
+    "login": "radarhere",
+    "node_id": "MDQ6VXNlcjMxMTIzMDk=",
+    "organizations_url": "https://api.github.com/users/radarhere/orgs",
+    "received_events_url": "https://api.github.com/users/radarhere/received_events",
+    "repos_url": "https://api.github.com/users/radarhere/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/radarhere/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/radarhere/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/radarhere",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_reviewer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/1324225?v=4",
+    "events_url": "https://api.github.com/users/hugovk/events{/privacy}",
+    "followers_url": "https://api.github.com/users/hugovk/followers",
+    "following_url": "https://api.github.com/users/hugovk/following{/other_user}",
+    "gists_url": "https://api.github.com/users/hugovk/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/hugovk",
+    "id": 1324225,
+    "login": "hugovk",
+    "node_id": "MDQ6VXNlcjEzMjQyMjU=",
+    "organizations_url": "https://api.github.com/users/hugovk/orgs",
+    "received_events_url": "https://api.github.com/users/hugovk/received_events",
+    "repos_url": "https://api.github.com/users/hugovk/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/hugovk/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/hugovk/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/hugovk",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-112395",
+ "cvss": {
+  "score": 6.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 6.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:L"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-122",
+   "name": "Heap-based Buffer Overflow"
+  }
+ ],
+ "description": "### Summary\n\nPillow's libImaging `_decodeTile` decoder, used to decode tiled TIFF images, allocates a per-tile buffer using `realloc(state->buffer, TIFFTileSize(tiff))`. After each `TIFFReadTile` it then iterates `tile_y` from 0 up to `current_tile_length` and calls the configured row unpacker (here `copy4`) with the source pointer `state->buffer + tile_y * row_byte_size`. When libtiff returns a `tile_bytes_size` smaller than the worst-case `row_byte_size * tile_length`, the inner stride-and-copy loop walks past the realloc'd region and `copy4` performs a 1024-byte `memcpy` that reads up to `(tile_length-1) * row_byte_size + row_byte_size` bytes from a buffer sized only to `tile_bytes_size`. The supplied PoC TIFF triggers a 1024-byte over-read exactly 0 bytes past a 196608-byte allocation. An attacker who can convince a Pillow-using application to decode a crafted TIFF can trigger a process crash (DoS) and may cause adjacent heap memory to be copied into the decoded pixel buffer.\n\n### Details\n\nPillow's TIFF decoder, when libtiff reports the file is tiled, takes the `_decodeTile` path. The function:\n\n1. Asks libtiff for `TIFFTileSize(tiff)` (the bytes-per-tile) and `TIFFTileRowSize(tiff)` (the bytes per row *as stored by libtiff*).\n2. Reallocates `state->buffer` to exactly `tile_bytes_size`.\n3. For each tile origin `(x, y)` and each plane, calls `TIFFReadTile` into `state->buffer`, then walks the tile row by row, calling the configured `ImagingShuffler` (here `copy4`) on each row's worth of source bytes.\n\nThe validation done before the loop is:\n\n```c\nif (tile_bytes_size > ((tile_length * state->bits / planes + 7) / 8) * tile_width) {\n    state->errcode = IMAGING_CODEC_BROKEN;\n    return -1;\n}\n```\n\nThis rejects oversized libtiff tiles, but it does **not** reject *undersized* ones \u2014 i.e. the case where libtiff returns a `tile_bytes_size` strictly **less** than `row_byte_size * tile_length`. The loop body, however, indexes into the buffer assuming the buffer is at least `row_byte_size * tile_length` bytes long.\n\n### Vulnerable Code\n\n```c\n// src/libImaging/TiffDecode.c:446-490 \u2014 _decodeTile\nnew_data = realloc(state->buffer, state->bytes);   // bytes = tile_bytes_size\nif (!new_data) { ... }\nstate->buffer = new_data;\n\nfor (y = state->yoff; y < state->ysize; y += tile_length) {\n    for (plane = 0; plane < planes; plane++) {\n        ImagingShuffler shuffler = unpackers[plane];\n        for (x = state->xoff; x < state->xsize; x += tile_width) {\n            if (TIFFReadTile(tiff, (tdata_t)state->buffer, x, y, 0, plane) == -1) { ... }\n\n            current_tile_width  = min((INT32)tile_width,  state->xsize - x);\n            current_tile_length = min((INT32)tile_length, state->ysize - y);\n            for (tile_y = 0; tile_y < current_tile_length; tile_y++) {\n                shuffler(\n                    (UINT8 *)im->image[tile_y + y] + x * im->pixelsize,\n                    state->buffer + tile_y * row_byte_size,   // <-- OOB stride\n                    current_tile_width\n                );\n            }\n        }\n    }\n}\n```\n\n```c\n// src/libImaging/Unpack.c:1288-1291 \u2014 copy4 (the crash site)\nstatic void\ncopy4(UINT8 *out, const UINT8 *in, int pixels) {\n    /* RGBA, CMYK quadruples */\n    memcpy(out, in, 4 * pixels);   // <-- ASAN-detected READ here\n}\n```\n\nThe PoC's tile metadata yields `tile_width = tile_length = 256`, `row_byte_size = 1024` (4 bytes/pixel \u00d7 256 pixels), and `tile_bytes_size = 196608` (which is 256\u00b7256\u00b73 = three-channel-byte storage). The realloc'd buffer is 196608 bytes. The unpacker iterates `tile_y` from 0 to 255 and for the highest rows the source pointer `state->buffer + tile_y * 1024` already lies at or past offset 196608 \u2014 the very last row's `memcpy(in=buffer+255\u00b71024, 1024)` reads 1024 bytes starting `260096 - 196608 = 63488` bytes past the allocation; ASAN flags the very first byte past the heap region (`READ of size 1024 at \u2026 0 bytes after 196608-byte region`).\n\nThe mismatch is real: libtiff's `TIFFTileSize` returns the *packed* per-tile storage (which depends on the file's photometric/separation layout \u2014 it can legitimately be smaller than `row_byte_size \u00d7 tile_length`), while the inner loop strides as if the buffer always equals `row_byte_size \u00d7 tile_length`.\n\n\n## Attribution\n\nThis issue was found by Anthropic from using Claude to study security of open source projects, and I am from Ada Logics helping validate the found issues and report to maintainers. The data in this report has been reviewed manually.",
+ "epss": {
+  "percentage": 0.00514,
+  "percentile": 0.43631
+ },
+ "ghsa_id": "GHSA-462x-pgg6-55fp",
+ "github_reviewed_at": "2026-10-20T20:49:26Z",
+ "html_url": "https://github.com/advisories/GHSA-462x-pgg6-55fp",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-462x-pgg6-55fp"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-112395"
+  }
+ ],
+ "nvd_published_at": "2026-10-19T21:17:07Z",
+ "published_at": "2026-10-20T20:49:26Z",
+ "references": [
+  "https://github.com/python-pillow/Pillow/security/advisories/GHSA-462x-pgg6-55fp",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-112395",
+  "https://github.com/python-pillow/Pillow/commit/76869efdbbf2ad7dccd7536520fb61b7a00ab61e",
+  "https://github.com/python-pillow/Pillow/releases/tag/13.0.0",
+  "https://github.com/advisories/GHSA-462x-pgg6-55fp"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/python-pillow/Pillow/security-advisories/GHSA-462x-pgg6-55fp",
+ "severity": "medium",
+ "source_code_location": "https://github.com/python-pillow/Pillow",
+ "summary": "Pillow tiled-TIFF decoder reads past tile buffer in copy4 (Unpack.c:1290)",
+ "type": "reviewed",
+ "updated_at": "2026-10-20T20:49:27Z",
+ "url": "https://api.github.com/advisories/GHSA-462x-pgg6-55fp",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "13.0.0",
+   "package": {
+    "ecosystem": "pip",
+    "name": "pillow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 8.2.0, < 13.0.0"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -34,6 +34,7 @@ REST_URL = "https://api.github.com/advisories"
 ECOSYSTEM_PARAMETER = {"PyPI": "pip", "npm": "npm", "Maven": "maven"}
 # GitHub's REST API names ecosystems in lower case ("pip", "maven"). The rest of this file
 # and OSV say PyPI and Maven.
+LABEL_WORDS = {"medium": "moderate"}
 REST_ECOSYSTEM = {"pip": "PyPI", "npm": "npm", "maven": "Maven"}
 # Repeated from the advisor package on purpose: importing it would end the independence.
 PACKAGES = (
@@ -105,8 +106,14 @@ def fetch_package(ecosystem: str, name: str, get: Get) -> list[dict]:
     return records
 
 
+def raw_newline() -> str:
+    """The one line ending used for every file written here."""
+    return chr(10)
+
+
 def write_json(path: Path, value: object) -> None:
     text = json.dumps(value, sort_keys=True, indent=1) + "\n"
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
@@ -189,7 +196,8 @@ def parse_advisory(record: dict) -> Advisory:
         record["updated_at"],
         record.get("withdrawn_at"),
         record.get("summary") or "",
-        record.get("severity"),
+        # GitHub's REST API says "medium"; the advisory database and OSV say "moderate".
+        LABEL_WORDS.get(record.get("severity"), record.get("severity")),
         v3["score"] if has_v3 else None,
         v3["vector_string"] if has_v3 else None,
         record.get("nvd_published_at"),
@@ -233,27 +241,78 @@ def univers_maven_compare(left: str, right: str) -> int:
     return sign(univers_maven(left), univers_maven(right))
 
 
+def order(
+    ecosystem: str,
+    left: str,
+    right: str,
+    maven_compare: Callable[[str, str], int] = univers_maven_compare,
+) -> int:
+    """Sign of left minus right under the ecosystem's own version order, using libraries that
+    are not the ones the system uses: packaging's Version, python-semver, and for Maven a
+    comparison function you pass in (univers by default, or the real Maven jar)."""
+    if ecosystem == "PyPI":
+        return sign(Version(left), Version(right))
+    if ecosystem == "npm":
+        return semver.Version.parse(left).compare(semver.Version.parse(right))
+    if ecosystem == "Maven":
+        return maven_compare(left, right)
+    raise ValueError(f"No version rules for ecosystem {ecosystem!r}")
+
+
 def affected(
     ecosystem: str,
     range_text: str,
     version: str,
     maven_compare: Callable[[str, str], int] = univers_maven_compare,
 ) -> bool:
-    """Whether the version falls inside GitHub's range text, read with libraries that are
-    not the ones the system uses: packaging's Version, python-semver, and for Maven a
-    comparison function you pass in (univers by default, or the real Maven jar)."""
-    bounds = parse_range(range_text)
-    if ecosystem == "PyPI":
-        # Plain version ordering, not packaging.specifiers: pip's rule that '< 3.10.11' must
-        # not match 3.10.11rc0 is right for installing and wrong for "was it vulnerable".
-        target = Version(version)
-        return all(holds(op, sign(target, Version(v))) for op, v in bounds)
-    if ecosystem == "npm":
-        target = semver.Version.parse(version)
-        return all(holds(op, target.compare(semver.Version.parse(v))) for op, v in bounds)
-    if ecosystem == "Maven":
-        return all(holds(op, maven_compare(version, v)) for op, v in bounds)
-    raise ValueError(f"No version rules for ecosystem {ecosystem!r}")
+    """Whether the version falls inside GitHub's range text. Plain version ordering, not
+    packaging.specifiers: pip's rule that '< 3.10.11' must not match 3.10.11rc0 is right for
+    installing and wrong for "was it vulnerable"."""
+    return all(
+        holds(op, order(ecosystem, version, bound, maven_compare))
+        for op, bound in parse_range(range_text)
+    )
+
+
+def osv_range_affected(
+    osv_record: dict,
+    ecosystem: str,
+    package: str,
+    version: str,
+    maven_compare: Callable[[str, str], int] = univers_maven_compare,
+) -> bool | None:
+    """The same question asked of OSV's own range events (introduced, fixed, last_affected):
+    a second serialisation of the advisory. None when OSV gives no range for the package."""
+    found = False
+    for entry in osv_record.get("affected", []):
+        name = canonical_package(entry["package"]["ecosystem"], entry["package"]["name"])
+        if (entry["package"]["ecosystem"], name) != (ecosystem, package):
+            continue
+        for rng in entry.get("ranges", []):
+            if rng["type"] == "GIT":
+                continue
+            found = True
+            introduced = None
+            spans: list[tuple[str | None, str | None, str | None]] = []
+            for event in rng["events"]:
+                if "introduced" in event:
+                    if introduced is not None:
+                        spans.append((introduced, None, None))
+                    introduced = event["introduced"]
+                elif "fixed" in event or "last_affected" in event:
+                    spans.append((introduced, event.get("fixed"), event.get("last_affected")))
+                    introduced = None
+            if introduced is not None:
+                spans.append((introduced, None, None))
+            for start, fixed, last in spans:
+                if start not in (None, "0") and order(ecosystem, version, start, maven_compare) < 0:
+                    continue
+                if fixed is not None and order(ecosystem, version, fixed, maven_compare) >= 0:
+                    continue
+                if last is not None and order(ecosystem, version, last, maven_compare) > 0:
+                    continue
+                return True
+    return False if found else None
 
 
 class MavenJar:

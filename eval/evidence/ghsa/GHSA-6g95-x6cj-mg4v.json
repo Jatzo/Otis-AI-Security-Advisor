@@ -1,0 +1,116 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/38575222?v=4",
+    "events_url": "https://api.github.com/users/MarkLee131/events{/privacy}",
+    "followers_url": "https://api.github.com/users/MarkLee131/followers",
+    "following_url": "https://api.github.com/users/MarkLee131/following{/other_user}",
+    "gists_url": "https://api.github.com/users/MarkLee131/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/MarkLee131",
+    "id": 38575222,
+    "login": "MarkLee131",
+    "node_id": "MDQ6VXNlcjM4NTc1MjIy",
+    "organizations_url": "https://api.github.com/users/MarkLee131/orgs",
+    "received_events_url": "https://api.github.com/users/MarkLee131/received_events",
+    "repos_url": "https://api.github.com/users/MarkLee131/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/MarkLee131/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/MarkLee131/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/MarkLee131",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2015-0222",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-770",
+   "name": "Allocation of Resources Without Limits or Throttling"
+  }
+ ],
+ "description": "ModelMultipleChoiceField in Django 1.6.x before 1.6.10 and 1.7.x before 1.7.3, when show_hidden_initial is set to True, allows remote attackers to cause a denial of service by submitting duplicate values, which triggers a large number of SQL queries.",
+ "epss": {
+  "percentage": 0.02712,
+  "percentile": 0.85524
+ },
+ "ghsa_id": "GHSA-6g95-x6cj-mg4v",
+ "github_reviewed_at": "2024-04-29T16:34:17Z",
+ "html_url": "https://github.com/advisories/GHSA-6g95-x6cj-mg4v",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-6g95-x6cj-mg4v"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2015-0222"
+  }
+ ],
+ "nvd_published_at": "2015-01-16T16:59:00Z",
+ "published_at": "2022-05-17T03:20:50Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2015-0222",
+  "http://advisories.mageia.org/MGASA-2015-0026.html",
+  "http://lists.fedoraproject.org/pipermail/package-announce/2015-January/148485.html",
+  "http://lists.fedoraproject.org/pipermail/package-announce/2015-January/148608.html",
+  "http://lists.fedoraproject.org/pipermail/package-announce/2015-January/148696.html",
+  "http://lists.opensuse.org/opensuse-updates/2015-04/msg00001.html",
+  "http://lists.opensuse.org/opensuse-updates/2015-09/msg00035.html",
+  "http://ubuntu.com/usn/usn-2469-1",
+  "http://www.mandriva.com/security/advisories?name=MDVSA-2015:109",
+  "https://web.archive.org/web/20161201073154/http://secunia.com/advisories/62285",
+  "https://web.archive.org/web/20161201073337/http://secunia.com/advisories/62309",
+  "https://www.djangoproject.com/weblog/2015/jan/13/security",
+  "https://github.com/django/django/commit/bcfb47780ce7caecb409a9e9c1c314266e41d392",
+  "https://github.com/django/django/commit/d7a06ee7e571b6dad07c0f5b519b1db02e2a476c",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2015-7.yaml",
+  "https://github.com/advisories/GHSA-6g95-x6cj-mg4v"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django database denial-of-service with ModelMultipleChoiceField",
+ "type": "reviewed",
+ "updated_at": "2024-09-18T19:57:23Z",
+ "url": "https://api.github.com/advisories/GHSA-6g95-x6cj-mg4v",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.6.10",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.6, < 1.6.10"
+  },
+  {
+   "first_patched_version": "1.7.3",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.7, < 1.7.3"
+  }
+ ],
+ "withdrawn_at": null
+}

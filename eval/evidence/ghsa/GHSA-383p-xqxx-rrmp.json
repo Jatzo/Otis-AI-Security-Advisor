@@ -1,0 +1,105 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/2086875?v=4",
+    "events_url": "https://api.github.com/users/ebickle/events{/privacy}",
+    "followers_url": "https://api.github.com/users/ebickle/followers",
+    "following_url": "https://api.github.com/users/ebickle/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ebickle/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/ebickle",
+    "id": 2086875,
+    "login": "ebickle",
+    "node_id": "MDQ6VXNlcjIwODY4NzU=",
+    "organizations_url": "https://api.github.com/users/ebickle/orgs",
+    "received_events_url": "https://api.github.com/users/ebickle/received_events",
+    "repos_url": "https://api.github.com/users/ebickle/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/ebickle/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ebickle/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/ebickle",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2016-3093",
+ "cvss": {
+  "score": 5.3,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 5.3,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  }
+ ],
+ "description": "Apache Struts 2.0.0 through 2.3.24.1 does not properly cache method references when used with OGNL before 3.0.12, which allows remote attackers to cause a denial of service (block access to a web site) via unspecified vectors.",
+ "epss": {
+  "percentage": 0.08443,
+  "percentile": 0.94755
+ },
+ "ghsa_id": "GHSA-383p-xqxx-rrmp",
+ "github_reviewed_at": "2022-07-06T19:56:14Z",
+ "html_url": "https://github.com/advisories/GHSA-383p-xqxx-rrmp",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-383p-xqxx-rrmp"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2016-3093"
+  }
+ ],
+ "nvd_published_at": "2016-06-07T18:59:00Z",
+ "published_at": "2022-05-17T03:42:18Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2016-3093",
+  "https://lists.apache.org/thread.html/940b4c3fef002461b89a050935337056d4a036a65ef68e0bbd4621ef@%3Cdev.struts.apache.org%3E",
+  "https://lists.apache.org/thread.html/940b4c3fef002461b89a050935337056d4a036a65ef68e0bbd4621ef%40%3Cdev.struts.apache.org%3E",
+  "https://struts.apache.org/docs/s2-034.html",
+  "https://github.com/advisories/GHSA-383p-xqxx-rrmp"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "",
+ "summary": "Denial of service in Apache Struts",
+ "type": "reviewed",
+ "updated_at": "2024-03-14T21:50:54Z",
+ "url": "https://api.github.com/advisories/GHSA-383p-xqxx-rrmp",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.24.3",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.0.0, <= 2.3.24.1"
+  },
+  {
+   "first_patched_version": "3.0.12",
+   "package": {
+    "ecosystem": "maven",
+    "name": "ognl:ognl"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 3.0.12"
+  }
+ ],
+ "withdrawn_at": null
+}

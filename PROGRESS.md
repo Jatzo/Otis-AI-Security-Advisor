@@ -47,9 +47,12 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - OSV lists affected versions for PyPI and Maven but not for npm, so npm version-affected gold has one independent route (the REST range read with python-semver). Those questions are flagged single-route and kept few.
 - Route agreement (REST ranges against OSV's registry lists): PyPI 108,397 agree and 138 differ, Maven 20,828 agree and none differ. Apache Maven 3.9.9's own jar (SHA-1 checked against Maven Central) confirms `5.2.20.RELEASE` equals `5.2.20`.
 
+- Question set built (`eval/questions.jsonl`, `eval/gold.jsonl`, evidence under `eval/evidence/`, review table `eval/review.md`): 150 questions, dev 40 and test 110, all planned counts met. Rebuilding gives byte-identical files. 30% of answerable test questions are post-cutoff, 8 are in the Maven RELEASE slice, 8 rest on a weaker second route (OSV range events, no registry list), 8 are stale-risk. Every gold answer was re-derived by separate code from the raw data, with no differences, and each fact was checked to exist in the corpus the system will hold.
+- Rules changed while building (still before any freeze): a scored `value` field was added to the answer schema, and multi-hop pattern C became a comparison between two advisories so that one question never puts the same evidence in both splits.
+
 ## Open
 - Price the baseline run with the claude-api skill and show it against the £25 ceiling before any call.
 - The written disagreement rules (what counts as sources disagreeing: score, band, fixed version, exploitation status) and the post-cutoff slice, to be proposed with the Phase 2 plan.
 
 ## Next session
-Phase 2, checkpoint 3: generate the 150 questions and their gold from `eval/make_gold.py` (rules in `eval/rules.md`, approved), report how many were dropped where the routes disagreed, and give Joe the 150-row review table with derivations and evidence links. The freeze, CI guard, ADR 0004 and tag follow his review, then the dev baseline.
+Phase 2, checkpoint 4: Joe reviews all 150 rows of `eval/review.md`; any gold fix is made in the builder and the set rebuilt. Then the freeze: guard script, CI job, ADR 0004, `eval-freeze-v1` tag (Joe applies the tag protection), then price and run the dev baseline.

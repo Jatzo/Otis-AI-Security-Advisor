@@ -47,16 +47,19 @@ def rest_record(ghsa_id, ecosystem="pip", name="Pillow", range_text="< 2.0", **e
     }
 
 
-def test_the_gold_script_imports_nothing_from_the_system_under_test():
-    tree = ast.parse(SCRIPT.read_text(encoding="utf-8"))
-    imported = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            imported.update(alias.name.split(".")[0] for alias in node.names)
-        elif isinstance(node, ast.ImportFrom):
-            imported.add((node.module or "").split(".")[0])
+def test_no_evaluation_script_imports_anything_from_the_system_under_test():
+    scripts = sorted(Path("eval").glob("*.py"))
+    assert len(scripts) >= 3  # make_gold, pick_descriptions, build_questions
+    for script in scripts:
+        tree = ast.parse(script.read_text(encoding="utf-8"))
+        imported = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imported.update(alias.name.split(".")[0] for alias in node.names)
+            elif isinstance(node, ast.ImportFrom):
+                imported.add((node.module or "").split(".")[0])
 
-    assert "advisor" not in imported
+        assert "advisor" not in imported, script.name
 
 
 def test_its_package_list_is_the_systems_package_list():
@@ -299,3 +302,10 @@ def test_kev_ids_are_read_from_the_raw_catalogue():
 
     assert gold.kev_cve_ids(catalogue) == {"CVE-2021-44228", "CVE-2022-22965"}
     json.dumps(sorted(gold.kev_cve_ids(catalogue)))
+
+
+def test_rest_severity_medium_is_read_as_the_corpus_word_moderate():
+    medium = gold.parse_advisory(rest_record(GHSA_A, severity="medium"))
+
+    assert medium.label == "moderate"
+    assert gold.parse_advisory(rest_record(GHSA_A, severity="high")).label == "high"

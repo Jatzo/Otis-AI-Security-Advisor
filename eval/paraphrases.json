@@ -1,0 +1,20 @@
+{
+  "about": "Advisories chosen by eval/pick_descriptions.py (seed 20261101) for description-style lookups, each with a hand-written paraphrase. A paraphrase avoids the advisory's own title words and gives enough detail to tell it from similar advisories in the same package.",
+  "entries": {
+    "GHSA-2fqr-mr3j-6wp8": "the aiohttp flaw where cookies limited to one exact host are widened to apply to its subdomains after the cookie jar has been saved to disk and loaded again",
+    "GHSA-3pq3-5fj3-cg6v": "the axios issue where requests made over HTTP/2 in Node skip the custom DNS resolver and the proxy settings that plain HTTP/1 requests honour",
+    "GHSA-4773-3jfm-qmx3": "the Spring MVC and WebFlux flaw where script-based view templates, such as JRuby or Jython, can expose files outside the folders they are meant to read from",
+    "GHSA-6hcq-hmm3-jj3c": "the March 2026 Spring MVC and WebFlux bug that can corrupt the stream of server-sent events, affecting Spring Framework up to 7.0.5 and 6.2.16",
+    "GHSA-6hg6-v5c8-fphq": "the Log4j Core problem where hostname checking on TLS connections is not applied when it is switched on through the appender's own setting instead of a system property",
+    "GHSA-7phw-cxx7-q9vq": "the 2023 Spring Framework security bypass caused by Spring Security and Spring MVC reading the double-asterisk path pattern differently",
+    "GHSA-8498-2h75-472j": "the Django denial of service from December 2024 in the function that strips HTML tags, triggered by long runs of nested incomplete character references, affecting Django 5.1 before 5.1.4",
+    "GHSA-864w-r5qj-h6fj": "the Apache Struts flaw fixed in 2.3.29 where an expression is evaluated twice when a percent-brace sequence appears in a tag attribute, left behind by an incomplete earlier fix",
+    "GHSA-8cjm-8mp7-r2xf": "the Django cache middleware flaw where Cache-Control directives written in a different letter case are not recognised, so responses that should stay private can be cached",
+    "GHSA-g6cj-pr64-35w5": "the cryptography library flaw in PKCS#7 enveloped-data decryption where error messages and timing let an attacker tell whether an RSA-wrapped key decrypted correctly",
+    "GHSA-gpvr-g6gh-9mc2": "the old Express problem where 400-level error pages did not set a character set in the content-type header, which could help a cross-site scripting attack",
+    "GHSA-gx76-c99x-2c96": "the aiohttp issue where a cookie set from a subdomain can strip the host-only restriction from an existing cookie of the parent domain",
+    "GHSA-m8m8-qj5v-23w3": "the axios Node adapter weakness where a polluted Object prototype can supply a connection function and let an attacker take over the request socket",
+    "GHSA-phj9-mv4w-65pm": "the Pillow flaw where the GD image file plugin reads the image size without running the decompression bomb check",
+    "GHSA-rfgq-q3w2-pmv2": "the Pillow bug where quantizing an image with an empty palette leaks uninitialised stack memory"
+  }
+}
