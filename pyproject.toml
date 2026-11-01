@@ -7,13 +7,16 @@ requires-python = ">=3.12"
 license = "MIT"
 dependencies = [
     "cvss==3.6",
+    "packaging==26.3",
 ]
 
 [dependency-groups]
 dev = [
+    "hypothesis==6.170.1",
     "pytest>=8",
     # Matches the pre-commit hook, so local and CI lint agree.
     "ruff==0.17.0",
+    "univers==32.0.1",
 ]
 
 [build-system]
