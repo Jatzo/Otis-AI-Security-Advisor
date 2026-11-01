@@ -43,9 +43,13 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - Gold review: Joe reads all 150 rows in a table (question, gold answer, the GitHub URL it came from) before the tag. No hand-written subset.
 - Phase 2 plan approved after review (see `eval/rules.md`): baseline run on the 40 dev questions only until Phase 5; Maven's real 3.9.9 `ComparableVersion` jar (from Maven Central, Java 17) is the outside oracle for Maven gold; tag protection steps given to Joe to apply in GitHub settings. Sonnet 5.5 reliable knowledge and training data cutoffs are both June 2026 (Anthropic models overview, read 2026-11-01), so pre-cutoff is before 2026-06-01, post-cutoff is on or after 2026-07-01, and June is a boundary month.
 
+- GitHub's REST API lists 606 advisories for the 18 packages: 588 not withdrawn, which is exactly the 588 in the corpus (no difference either way), and 18 withdrawn.
+- OSV lists affected versions for PyPI and Maven but not for npm, so npm version-affected gold has one independent route (the REST range read with python-semver). Those questions are flagged single-route and kept few.
+- Route agreement (REST ranges against OSV's registry lists): PyPI 108,397 agree and 138 differ, Maven 20,828 agree and none differ. Apache Maven 3.9.9's own jar (SHA-1 checked against Maven Central) confirms `5.2.20.RELEASE` equals `5.2.20`.
+
 ## Open
 - Price the baseline run with the claude-api skill and show it against the £25 ceiling before any call.
 - The written disagreement rules (what counts as sources disagreeing: score, band, fixed version, exploitation status) and the post-cutoff slice, to be proposed with the Phase 2 plan.
 
 ## Next session
-Phase 2: eval freeze, before any retrieval code. Propose the question mix (about 150, dev 40 and test 110) and the written disagreement rules, then write the independent gold script, which reads GitHub's REST API and not this store or `versions.py`. Joe reviews the gold before the `eval-freeze-v1` tag.
+Phase 2, checkpoint 3: generate the 150 questions and their gold from `eval/make_gold.py` (rules in `eval/rules.md`, approved), report how many were dropped where the routes disagreed, and give Joe the 150-row review table with derivations and evidence links. The freeze, CI guard, ADR 0004 and tag follow his review, then the dev baseline.

@@ -16,6 +16,7 @@ dev = [
     "pytest>=8",
     # Matches the pre-commit hook, so local and CI lint agree.
     "ruff==0.17.0",
+    "semver==3.1.0",
     "univers==32.0.1",
 ]
 

@@ -37,3 +37,20 @@ Non-trivial bugs: what broke, how it was found, the fix, and the regression test
 **Fix.** Records, fetch logs and the manifest are written with `newline="\n"`. The 1,170 existing raw files were converted, and checked to equal what the new code writes. `.gitattributes` marks `data/sample/**` and `data/manifest.json` as `-text`, so git does not convert them on any machine. A second tool then did the same thing: the pre-commit end-of-file fixer added a closing newline to every JSON file on the first commit attempt, which would have changed their hashes again. Records, logs, the manifest and the sample summary now end with a newline. The manifest, store, report and sample were rebuilt, so the snapshot name is `2d04b933ea7b`.
 
 **Regression tests.** `test_records_and_fetch_logs_are_written_with_unix_line_endings` fails against the old code on Windows. On Linux it cannot fail, so the byte-for-byte sample test is the check that runs on CI. `test_every_file_ends_with_a_newline_so_the_pre_commit_fixer_changes_nothing` fails against the code that omitted the newline.
+
+## 2026-11-01: the first cross-check of GitHub's REST API against OSV was wrong three times
+
+**What broke.** `eval/make_gold.py routes` compares the versions GitHub's REST ranges call affected with the versions OSV lists as affected, from the registries. Its first three runs gave numbers that could not be right: 1 comparison where about 200,000 were expected; then 19,916 of 51,744 Maven comparisons in disagreement; then 19 PyPI disagreements that were all release candidates or betas.
+
+**How it was found.** Each result was held up against a number already trusted. The earlier check of the system's own ranges against the same OSV lists had found next to no Maven disagreement, so 38 percent could not be real.
+
+**Causes.** Three separate faults:
+1. GitHub's REST API writes ecosystems as `pip` and `maven` and keeps package case (`Pillow`). OSV says `PyPI`, and `pillow`. Only npm matched, so one pair was compared.
+2. An advisory can give one package several ranges. Each range was compared with the whole listed set on its own, so a version inside the second range looked like a disagreement.
+3. `packaging.specifiers` follows pip's rule that `< 3.10.11` must not match `3.10.11rc0`. That is right for installing and wrong for "was this version vulnerable". The gold now uses plain version ordering.
+
+**Fix.** Names are put in OSV form where a record is read. A version is affected if any of an advisory's ranges holds. PyPI ranges are read with ordinary version comparison.
+
+**Regression tests.** `test_rest_ecosystem_and_package_names_are_put_in_osv_form`, `test_two_ranges_for_one_package_are_read_as_one_affected_set` and the `3.10.11rc0` case in `test_a_version_is_affected_only_inside_the_range_text`. Each fails when its fix is removed.
+
+**What is left.** 138 of 108,535 PyPI comparisons still differ: 137 are the three pre-1.0 Django versions OSV lists for some advisories and not others, and one is aiohttp `3.10.11rc0`, where GitHub's range says `<= 3.10.10` and OSV's stops below `3.10.11`. These are differences in the sources, not in the code. A version question is dropped wherever the routes disagree.

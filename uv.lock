@@ -128,6 +128,7 @@ dev = [
     { name = "hypothesis" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "semver" },
     { name = "univers" },
 ]
 
@@ -142,6 +143,7 @@ dev = [
     { name = "hypothesis", specifier = "==6.170.1" },
     { name = "pytest", specifier = ">=8" },
     { name = "ruff", specifier = "==0.17.0" },
+    { name = "semver", specifier = "==3.1.0" },
     { name = "univers", specifier = "==32.0.1" },
 ]
 

@@ -21,3 +21,5 @@ PLAN.md
 data/*.db
 data/*.log
 .hypothesis/
+data/tools/
+data/rest_cache/
