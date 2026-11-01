@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "otis-eval-answer-v1",
+  "title": "The answer every system under test returns",
+  "description": "Only these fields are scored. Other fields are allowed and ignored, so later phases can add citations without changing the freeze.",
+  "type": "object",
+  "required": ["abstain", "verdict", "ids", "disagreement", "explanation"],
+  "properties": {
+    "abstain": {
+      "type": "boolean",
+      "description": "True when the three sources do not support an answer to this question."
+    },
+    "verdict": {
+      "type": ["string", "null"],
+      "enum": ["yes", "no", null],
+      "description": "For questions that ask whether something is true. Null otherwise."
+    },
+    "ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "GHSA and CVE IDs the answer relies on or lists."
+    },
+    "disagreement": {
+      "type": "object",
+      "required": ["flagged", "values"],
+      "properties": {
+        "flagged": {
+          "type": "boolean",
+          "description": "True when the sources differ."
+        },
+        "values": {
+          "type": "object",
+          "required": ["github", "nvd"],
+          "properties": {
+            "github": { "type": ["string", "null"] },
+            "nvd": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "explanation": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

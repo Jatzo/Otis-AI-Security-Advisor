@@ -38,8 +38,14 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - OSV lists three pre-1.0 Django versions (0.91.0, 0.95, 0.96.0) for some advisories and not for others with the same range; the ranges are right to call them affected.
 - Fixed versions compared as text: 337 pairs agree, 35 share no version. A version-aware comparison needs NVD's version strings parsed too, and is left to the evaluation work.
 
+- Generator: Sonnet 5.5 for the no-retrieval baseline and later the full system, so the two stay comparable. Monthly ceiling for eval runs and the demo cap: £25.
+- Eval mix (150 questions): 30 direct lookup, 35 version-affected, 25 multi-hop, 30 should-abstain (15 trivial, 15 hard, reported apart), 30 sources-disagree. Every type appears in both dev (40) and test (110).
+- Gold review: Joe reads all 150 rows in a table (question, gold answer, the GitHub URL it came from) before the tag. No hand-written subset.
+- Phase 2 plan approved after review (see `eval/rules.md`): baseline run on the 40 dev questions only until Phase 5; Maven's real 3.9.9 `ComparableVersion` jar (from Maven Central, Java 17) is the outside oracle for Maven gold; tag protection steps given to Joe to apply in GitHub settings. Sonnet 5.5 reliable knowledge and training data cutoffs are both June 2026 (Anthropic models overview, read 2026-11-01), so pre-cutoff is before 2026-06-01, post-cutoff is on or after 2026-07-01, and June is a boundary month.
+
 ## Open
-- Generator model and monthly budget. Needed before the Phase 2 baseline run. Price the run first and ask.
+- Price the baseline run with the claude-api skill and show it against the £25 ceiling before any call.
+- The written disagreement rules (what counts as sources disagreeing: score, band, fixed version, exploitation status) and the post-cutoff slice, to be proposed with the Phase 2 plan.
 
 ## Next session
 Phase 2: eval freeze, before any retrieval code. Propose the question mix (about 150, dev 40 and test 110) and the written disagreement rules, then write the independent gold script, which reads GitHub's REST API and not this store or `versions.py`. Joe reviews the gold before the `eval-freeze-v1` tag.
