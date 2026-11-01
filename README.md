@@ -23,3 +23,7 @@ uv sync
 uv run pytest
 uv run ruff check .
 ```
+
+## Why the name Otis?
+
+Otis is my RAGdoll cat. It felt like the perfect name for a RAG project.
