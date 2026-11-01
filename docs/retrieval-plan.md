@@ -65,6 +65,14 @@ The soft filter reads only ID formats, the 18 package names and their short form
 - Every rung is reported, whatever its result.
 - The shipped rung also needs a p95 query latency of 3 seconds or less on 2 CPU threads, with the index built offline. If the reranker misses that, the fallback reranker is used and the change is reported.
 
+How the chain runs, written down so it cannot change after the numbers are seen:
+
+1. R0 is the starting point. R1 is compared with R0. Then the winner of R2 and R3 (by the fork rule) is compared with the best rung adopted so far.
+2. R4, R5 and R6 are each compared with the best rung adopted so far. Their definitions do not change if an earlier rung is not adopted: R4 always joins R1 with the dense winner.
+3. R7 takes the pipeline of the best rung adopted so far and splits long records. R8 does the same, after R7.
+4. R8 runs 3 times. It counts as a hit on a question if it gets all the evidence into the top 10 in at least 2 of the 3 runs. That majority is what goes into the comparison. Each run is shown.
+5. A rung that is not adopted is still reported in full.
+
 ## Guards
 
 - The ladder script drops every question that is not in the dev split before anything else, and refuses to run if the frozen files differ from the freeze tag.

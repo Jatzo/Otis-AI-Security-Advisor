@@ -8,10 +8,18 @@ license = "MIT"
 dependencies = [
     "anthropic==1.15.0",
     "cvss==3.6",
+    "numpy==2.5.4",
     "packaging==26.3",
 ]
 
 [dependency-groups]
+# The models behind dense search and reranking. Tests use a fake embedder, so CI installs the
+# default groups only (dev) and never downloads torch. Install these with `uv sync --group ml`.
+ml = [
+    "sentence-transformers==6.1.0",
+    "torch==2.14.1",
+    "transformers==5.20.1",
+]
 dev = [
     "hypothesis==6.170.1",
     "pytest>=8",
@@ -20,6 +28,15 @@ dev = [
     "semver==3.1.0",
     "univers==32.0.1",
 ]
+
+# On Linux the default torch wheel carries CUDA libraries (over 2 GB). The demo and CI have no GPU.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [build-system]
 requires = ["hatchling"]
