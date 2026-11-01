@@ -5,7 +5,7 @@ Update this at the end of every session.
 ## Phases
 Each phase stops at its "done when" and leaves a green CI run, an ADR for any real decision, and a debug-log entry for the first real bug.
 
-- [ ] 0. Repo and guard rails. Done when: CI green, and the secret scan is shown catching a planted key.
+- [x] 0. Repo and guard rails. Done 2026-11-01: CI run 41317004259 green; gitleaks 8.30.1 caught the planted token, then found no leaks in the history.
 - [ ] 1. Data: fetchers for GitHub advisories (OSV JSON), NVD API 2.0 and KEV; CPE map; PyPI, npm and Maven version comparators; snapshot manifest; committed sample. Done when: per-package and per-source counts, a sample, and real disagreement statistics.
 - [ ] 2. Eval freeze and baseline: questions, gold script, disagreement rules, `eval-freeze-v1` tag, CI guard, then the no-retrieval baseline. Done when: tag pushed, guard working, baseline table.
 - [ ] 3. Retrieval: the ablation ladder (BM25, dense, hybrid with RRF, rerank, contextual headers, metadata filter, decomposition and iterative retrieval), two embedding models. Tuned on dev only. Done when: ladder table on dev and an ADR.
@@ -31,4 +31,4 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - Generator model and monthly budget. Needed before the Phase 2 baseline run. Price the run first and ask.
 
 ## Next session
-Finish Phase 0 (needs the GitHub repo created to show CI green), then Phase 1.
+Phase 1: data. First count advisories per package from the GitHub advisory database before pulling any text, and show the counts before going further.
