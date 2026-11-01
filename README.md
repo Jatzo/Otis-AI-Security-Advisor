@@ -1,11 +1,11 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/brand/otis-mark-mono-white.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/brand/otis-icon.svg">
   <img src="docs/brand/otis-mark.svg" alt="Otis" width="48">
 </picture>
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/brand/otis-lockup-dark.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/brand/otis-banner.svg">
     <img src="docs/brand/otis-lockup.svg" alt="Otis" width="360">
   </picture>
 </p>
