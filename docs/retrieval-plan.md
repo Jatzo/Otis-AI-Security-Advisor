@@ -73,6 +73,8 @@ How the chain runs, written down so it cannot change after the numbers are seen:
 4. R8 runs 3 times. It counts as a hit on a question if it gets all the evidence into the top 10 in at least 2 of the 3 runs. That majority is what goes into the comparison. Each run is shown.
 5. A rung that is not adopted is still reported in full.
 
+Found on the first run, before any dense result existed: 3 of the 8 dev questions that should be declined do carry evidence records (the CVE exists and the field asked for, such as an EPSS score, does not). They are left out of the scoring, as this plan says, and their ids are listed in the results file. 32 questions are scored.
+
 ## Guards
 
 - The ladder script drops every question that is not in the dev split before anything else, and refuses to run if the frozen files differ from the freeze tag.

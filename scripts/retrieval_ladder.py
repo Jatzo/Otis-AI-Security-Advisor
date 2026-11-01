@@ -242,7 +242,7 @@ def main() -> int:
         "freeze_tag": "eval-freeze-v1",
         "models": revisions,
         "dev_questions_scored": len(items),
-        "dev_questions_left_out_for_no_evidence": left_out,
+        "dev_questions_left_out_because_they_should_be_declined": left_out,
         "decisions": decisions,
         "adopted": current,
         "results": results,

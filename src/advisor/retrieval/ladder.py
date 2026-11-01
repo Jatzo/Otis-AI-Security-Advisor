@@ -36,17 +36,21 @@ def read_lines(path: Path) -> list[dict]:
     return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
 
 
-def load_dev_items(questions_path: Path, gold_path: Path) -> tuple[list[Item], int]:
-    """The answerable dev questions, and how many dev questions were left out for having no
-    evidence (the ones that should be declined). Rows from any other split are dropped first."""
+def load_dev_items(questions_path: Path, gold_path: Path) -> tuple[list[Item], list[str]]:
+    """The answerable dev questions, and the ids of the dev questions left out because the right
+    answer is to decline. Some of those do have evidence records (the CVE exists, the field asked
+    for does not); they are left out all the same, as the plan says. Rows from any other split
+    are dropped first."""
     questions = [q for q in read_lines(questions_path) if q["split"] == "dev"]
     gold = {g["id"]: g for g in read_lines(gold_path)}
-    items = []
+    items, left_out = [], []
     for q in questions:
+        if q["answers_with"] == "abstain":
+            left_out.append(q["id"])
+            continue
         needed = evidence_ids(gold[q["id"]])
-        if needed:
-            items.append(Item(q["id"], q["type"], q["template"], q["question"], frozenset(needed)))
-    return items, len(questions) - len(items)
+        items.append(Item(q["id"], q["type"], q["template"], q["question"], frozenset(needed)))
+    return items, left_out
 
 
 def score_ranking(item: Item, ranked: list[str]) -> dict:

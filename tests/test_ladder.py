@@ -62,17 +62,23 @@ def write_lines(path, rows):
     path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
 
 
-def test_test_questions_are_dropped_as_the_file_is_read_and_abstain_ones_counted(tmp_path):
+def test_test_questions_are_dropped_as_the_file_is_read_and_abstain_ones_left_out(tmp_path):
     questions = [
-        {"id": "a", "split": "dev", "type": "lookup", "template": "L1", "question": "qa"},
-        {"id": "b", "split": "test", "type": "lookup", "template": "L1", "question": "qb"},
-        {"id": "c", "split": "dev", "type": "abstain", "template": "T2", "question": "qc"},
-    ]
+        {"id": "a", "split": "dev", "type": "lookup", "template": "L1", "question": "qa",
+         "answers_with": "ids"},
+        {"id": "b", "split": "test", "type": "lookup", "template": "L1", "question": "qb",
+         "answers_with": "ids"},
+        {"id": "c", "split": "dev", "type": "abstain", "template": "T2", "question": "qc",
+         "answers_with": "abstain"},
+        {"id": "d", "split": "dev", "type": "abstain", "template": "T3", "question": "qd",
+         "answers_with": "abstain"},
+    ]  # fmt: skip
     empty = {"ghsa": [], "nvd": [], "kev": []}
     gold = [
         {"id": "a", "evidence": {**empty, "ghsa": ["GHSA-2222-2222-2222"]}},
         {"id": "b", "evidence": {**empty, "ghsa": ["GHSA-3333-3333-3333"]}},
         {"id": "c", "evidence": empty},
+        {"id": "d", "evidence": {**empty, "nvd": ["CVE-2020-0001"]}},  # abstain, but has a record
     ]
     write_lines(tmp_path / "q.jsonl", questions)
     write_lines(tmp_path / "g.jsonl", gold)
@@ -80,7 +86,7 @@ def test_test_questions_are_dropped_as_the_file_is_read_and_abstain_ones_counted
     items, left_out = ladder.load_dev_items(tmp_path / "q.jsonl", tmp_path / "g.jsonl")
 
     assert [i.question_id for i in items] == ["a"]
-    assert left_out == 1  # the dev question that should be declined; the test row is not counted
+    assert left_out == ["c", "d"]  # both should be declined, whether or not they have evidence
 
 
 def test_a_ranking_is_scored_at_each_cut_off_with_set_questions_flagged_when_k_is_too_small():
