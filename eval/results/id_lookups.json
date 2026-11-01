@@ -1,0 +1,9 @@
+{
+ "GHSA-6757-jp84-gxfp": {
+  "checked": [
+   "https://api.github.com/advisories/GHSA-6757-jp84-gxfp",
+   "https://api.osv.dev/v1/vulns/GHSA-6757-jp84-gxfp"
+  ],
+  "label": "nonexistent"
+ }
+}
