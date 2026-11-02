@@ -86,7 +86,17 @@ RECORDS = [
         "HIGH",
         published="2026-09-01T00:00:00Z",
     ),  # fmt: skip
-    ghsa(C, "CVE-2022-0003", "Maven", SPRING, "ECOSYSTEM", "4.0.0", "4.0.9", "CRITICAL"),
+    ghsa(
+        C,
+        "CVE-2022-0003",
+        "Maven",
+        SPRING,
+        "ECOSYSTEM",
+        "4.0.0",
+        "4.0.9",
+        "CRITICAL",
+        vector=V3_CRITICAL,
+    ),
     ghsa(D, "CVE-2023-0004", "PyPI", "pillow", "ECOSYSTEM", "1.0", "9.0", "LOW", vector=V3_HIGH),
 ]
 NVD_RECORDS = [

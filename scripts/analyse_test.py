@@ -62,6 +62,15 @@ def code(row: dict | None) -> str:
     return row["outcome"] + ("*" if row["abstained"] else "")
 
 
+def retrieval_top10(split: str) -> dict[str, list[str]]:
+    path = RESULTS / RETRIEVAL[split]
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    rows = data["rows"] if split == "test" else data["results"]["R1"]["rows"]
+    return {r["id"]: r["top20"][:10] for r in rows}
+
+
 def retrieval_flags(split: str) -> dict[str, bool]:
     path = RESULTS / RETRIEVAL[split]
     if not path.exists():
@@ -139,6 +148,18 @@ def main() -> int:
             if line["run"] == args.run:
                 info = line["checker"]
                 route[line["id"]] = f"{info['route']}/{info['verdict']}"
+
+    # Row R and the system must have used the same top 10 for every question both cover.
+    seen = {}
+    raw_file = RESULTS / ROWS[args.split]["G_raw"].replace(".scored", "")
+    if raw_file.exists():
+        seen = {x["id"]: x["shown"] for x in read_lines(raw_file) if x["run"] == args.run}
+    top10 = retrieval_top10(args.split)
+    both = [q for q in top10 if q in seen]
+    out["retrieval_matches_system"] = {
+        "questions_compared": len(both),
+        "different": [q for q in both if top10[q] != seen[q]],
+    }
 
     names = list(tables)
     with (RESULTS / f"{args.split}-per-question.csv").open(

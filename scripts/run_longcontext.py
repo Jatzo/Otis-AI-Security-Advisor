@@ -131,6 +131,8 @@ def run_questions(
         try:
             reply, attempts, seconds = answer.ask(client, request)
         except anthropic.BadRequestError as refused:
+            if "too long" not in str(refused).lower():
+                raise  # a fault in the request is not a question the API refused for its size
             missed.append({"id": question["id"], "reason": str(refused)[:300]})
             missed_path.write_text(json.dumps(missed, indent=1) + "\n", encoding="utf-8")
             print(f"{question['id']} not asked", flush=True)
@@ -164,6 +166,9 @@ def main() -> int:
         print("The smoke run is on dev.")
         return 1
 
+    if args.split == "test" and not TOKEN_FILE.exists():
+        print(f"{TOKEN_FILE.name} is missing: run scripts/count_package_tokens.py first.")
+        return 1
     questions = package_questions(runner, args.split, args.smoke)
     raw_path, missed_path = paths(args.smoke)
     if args.split == "test":

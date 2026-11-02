@@ -171,3 +171,22 @@ def test_the_smoke_run_takes_five_small_package_dev_questions_and_the_test_run_i
     assert all(packages_named(q["question"]) for q in smoke)
     assert rows.paths(True)[0].name == "phase5-l-smoke-dev-raw.jsonl"
     assert rows.paths(False)[0].name == "test-longcontext-raw.jsonl"
+
+
+def test_a_bad_request_that_is_not_about_size_stops_the_run_instead_of_being_listed(
+    tmp_path, monkeypatch
+):
+    broken = anthropic.BadRequestError(
+        "system.1.cache_control: extra inputs are not permitted",
+        response=httpx2.Response(400, request=httpx2.Request("POST", "https://example.test")),
+        body=None,
+    )
+
+    class Broken(StubClient):
+        def create(self, **request):
+            raise broken
+
+    with pytest.raises(anthropic.BadRequestError):
+        start(tmp_path, monkeypatch, Broken(), [QUESTION])
+
+    assert not (tmp_path / "missed.json").exists()

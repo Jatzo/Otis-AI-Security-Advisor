@@ -59,3 +59,4 @@ select = ["E", "F", "I", "B", "UP", "S"]
 "tests/*" = ["S101", "S105"]  # asserts, and fake tokens that are not secrets
 "eval/*" = ["S311"]  # seeded sampling for the question set, not security
 "eval/build_questions.py" = ["E501"]  # question templates and derivations read better unbroken
+"src/advisor/structured/__init__.py" = ["E501"]  # one template per line, matched in full
