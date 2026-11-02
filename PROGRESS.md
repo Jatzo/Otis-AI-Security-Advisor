@@ -61,10 +61,14 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - Ladder result (dev, 32 questions, all-evidence@10): R0 keyword without header 7, R1 with header 24, R2 Qwen3 12, R3 bge-small 13, R4 hybrid 20, R5 reranked 24, R6 soft filter 25, R7 split 24, R8 decomposed 20 (21 by majority of 3). R1 meets all 8 lookups and all 9 version checks; it misses 5 multi-hop and 3 sources-disagree questions. R8 cost $0.10 of the $1 cap. The reranker took 11.4 s a query; R1 takes a p95 of 6 ms at 2 threads. The Qwen3 index took 105 minutes to build.
 - Not tested, and needing its own written plan before it runs: bringing a retrieved advisory's NVD record and KEV entry with it, which targets the misses.
 
+- Phase 4 plan approved by Joe on 2 November 2026 after review (`docs/generation-plan.md`, committed before any code). Built the same day: `src/advisor/generation/` (evidence format with escaping, claim reading, checker rules 1 to 8, the answer call, `addendum.md` as in the plan) and `scripts/run_generation.py` (freeze guard, `--recheck`, caps of $0.50 smoke, $6 scored, $12 Phase 4). 410 tests pass, none call the API; ruff clean; freeze check OK. Decisions on points the plan left silent are in ADR 0006.
+- Smoke run (5 dev questions, one per type, $0.22, saved in `eval/results/generation-smoke-dev-*.jsonl`): raw 4/5 correct, checked 3/5. Two answers passed, the checker refused one (lk-001: a fixed-version claim on an NVD record with no CPE row, so unverifiable; counted as harmed in the write-up), the gate refused one (ab-001, as planned) and the model abstained on mh-001 (multi-hop, retrieval-limited). No parse failure, no unreadable claim, no plumbing fault, so no amendment to the plan.
+
 ## Open
 - Save the GitHub tag-protection ruleset for `eval-freeze-*` (restrict updates and deletions), then confirm with `gh api repos/Jatzo/Otis-AI-Security-Advisor/rulesets`.
-- Phase 3 write-up, the ladder results and the script change are written but not committed, and 4 commits are waiting to push.
+- 9 commits are waiting to push (nothing pushed since Phase 2). Push only on Joe's yes, and not in a burst.
+- Phase 4 scored run (3 runs over the 40 dev questions, cap $6) waits for Joe's go. After it: `docs/generation-results.md`, then tick Phase 4.
 - The test split baseline and the test split retrieval run are not done: each needs a single run and waits for Phase 5.
 
 ## Next session
-Phase 4, generation and checker: propose the answer prompt, the evidence IDs each claim cites, the fail-closed checks and how abstention works, and ask before locking them in. Evidence comes from R1. Done when tests show a fabricated CVE removed and an out-of-scope question refused.
+Phase 4: after Joe says go, run `python -m uv run python scripts/run_generation.py --runs 3 --max-spend 6 --phase-cap 12`, score both files with `eval/score.py`, read every harmed reply by hand, then write `docs/generation-results.md` as the plan lists and tick Phase 4. The prompt, the claim kinds and the rules do not change because of the scores. A checker fault is fixed and re-run with `--recheck` at no cost; a prompt or runner fault that needs a paid rerun needs Joe's yes.
