@@ -91,34 +91,34 @@ def test_the_settings_are_the_baselines_and_the_request_differs_only_in_prompt_a
     assert answer.build_request("S", "M") == baseline.build_request("M", "S")
 
 
-def plan_block(path):
-    plan = Path(path).read_text(encoding="utf-8")
+def first_plan_block():
+    plan = Path("docs/generation-plan.md").read_text(encoding="utf-8")
+    return plan.split("The addendum, as it will be committed:")[1].split("```")[1]
+
+
+def second_plan_block():
+    plan = Path("docs/generation-plan-2.md").read_text(encoding="utf-8")
     return plan.split("The addendum as it will be committed", 1)[1].split("```")[1]
 
 
-def test_the_system_prompt_is_the_task_then_the_addendum_and_the_addendum_is_plan_twos():
+def test_the_system_prompt_is_the_task_then_the_addendum_and_the_addendum_is_the_first_plans():
     committed = Path("src/advisor/generation/addendum.md").read_text(encoding="utf-8")
 
-    assert plan_block("docs/generation-plan-2.md").strip() == committed.strip()
+    assert first_plan_block().strip() == committed.strip()
     assert answer.system_prompt().startswith(Path("eval/task.md").read_text(encoding="utf-8"))
     assert answer.system_prompt().endswith(committed)
 
 
-def test_the_addendum_is_the_first_plans_with_exactly_the_verdict_bullet_added():
-    first = Path("docs/generation-plan.md").read_text(encoding="utf-8")
-    first_block = first.split("The addendum, as it will be committed:")[1].split("```")[1]
-    committed = Path("src/advisor/generation/addendum.md").read_text(encoding="utf-8")
-    added = [
-        line for line in committed.strip().splitlines() if line not in first_block.splitlines()
-    ]
-    removed = [
-        line for line in first_block.strip().splitlines() if line not in committed.splitlines()
-    ]
+def test_plan_twos_addendum_is_kept_as_history_and_is_the_first_with_one_bullet_added():
+    """Version 2 was not adopted, so it is not the committed addendum. Its text stays in its
+    plan, and this holds it to exactly one added line after the abstain bullet."""
+    first = first_plan_block().strip().splitlines()
+    second = second_plan_block().strip().splitlines()
+    added = [line for line in second if line not in first]
 
-    assert removed == []
+    assert [line for line in first if line not in second] == []
     assert len(added) == 1 and added[0].startswith('- Set "verdict" only when')
-    after = committed.splitlines().index(added[0]) - 1
-    assert committed.splitlines()[after].startswith("- If the records do not hold")
+    assert second[second.index(added[0]) - 1].startswith("- If the records do not hold")
 
 
 def test_a_reply_is_read_the_way_the_scorer_reads_it():
