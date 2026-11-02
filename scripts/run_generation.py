@@ -1,4 +1,5 @@
-"""Runs the generation and checker on the dev questions, as fixed in docs/generation-plan.md.
+"""Runs the generation and checker on the dev questions, as fixed in docs/generation-plan.md and
+docs/generation-plan-2.md.
 
 Dev only: the questions are filtered to the dev split as they are read, and the run refuses to start
 unless everything frozen under eval/ still matches the freeze tag. The model's replies go to
@@ -6,16 +7,22 @@ eval/results/generation-dev-raw.jsonl and the same replies after the checker to
 generation-dev-checked.jsonl. Both are in the baseline's line format, so eval/score.py reads them
 unchanged. The checked file is always rebuilt from the raw one, so --recheck costs nothing.
 
+--label v2 writes generation-v2-dev-*.jsonl instead, so a run with a changed prompt never lands in
+an earlier run's files. A results file is never appended to with a different prompt, and a paid run
+refuses to start when the code or the prompt files differ from the commit.
+
 Usage:
     python scripts/run_generation.py --dry-run
     python scripts/run_generation.py --smoke --max-spend 0.5 --phase-cap 12
     python scripts/run_generation.py --runs 3 --max-spend 6 --phase-cap 12
-    python scripts/run_generation.py --recheck [--smoke]
+    python scripts/run_generation.py --label v2 --runs 3 --max-spend 5 --phase-cap 12
+    python scripts/run_generation.py --recheck [--smoke | --label v2]
 """
 
 import argparse
 import importlib.util
 import json
+import re
 import sqlite3
 import subprocess
 import sys
@@ -87,9 +94,43 @@ def dev_questions(smoke: bool) -> list[dict]:
     return list(first.values())
 
 
-def result_paths(smoke: bool) -> tuple[Path, Path]:
-    stem = "generation-smoke-dev" if smoke else "generation-dev"
+def result_paths(smoke: bool, label: str | None = None) -> tuple[Path, Path]:
+    """The raw and checked files. A label (v2) names a run made with a changed prompt, and cannot
+    be combined with the smoke run, so each file name says one thing."""
+    if label is not None and not re.fullmatch(r"[a-z0-9]+", label):
+        raise SystemExit(f"The label {label!r} must be lower-case letters and digits only.")
+    if smoke and label is not None:
+        raise SystemExit("Use --smoke or --label, not both.")
+    stem = (
+        "generation-smoke-dev"
+        if smoke
+        else f"generation-{label}-dev"
+        if label
+        else "generation-dev"
+    )
     return RESULTS / f"{stem}-raw.jsonl", RESULTS / f"{stem}-checked.jsonl"
+
+
+def dirty_problem(proof: dict) -> str | None:
+    """A paid run must be made from committed code and prompt, so the result lines name a commit
+    that really produced them."""
+    if proof["dirty"]:
+        return (
+            "The code or the prompt files differ from the commit. Commit them first, "
+            "then run again."
+        )
+    return None
+
+
+def mixed_prompt(done: list[dict], proof: dict) -> str | None:
+    """Says why a file must not be appended to: a line in it was made with another addendum or
+    task text, and a resumed run would mix two prompts in one file."""
+    if any(line.get("hashes") != proof["hashes"] for line in done):
+        return (
+            "The saved replies in this file were made with a different addendum or task text. "
+            "Use a new --label for the new prompt, so one file holds one prompt."
+        )
+    return None
 
 
 def phase_spent() -> float:
@@ -114,6 +155,9 @@ def run_questions(
     nothing and a resume spends nothing twice."""
     system = answer.system_prompt()
     done = read_lines(raw_path)
+    problem = mixed_prompt(done, proof)
+    if problem:
+        raise SystemExit(problem)
     spent = sum(x["cost_usd"] for x in done)
     overall = phase_spent()
     answered = {(x["run"], x["id"]) for x in done}
@@ -173,6 +217,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", default=str(ROOT / "data" / "advisor.db"))
     parser.add_argument("--smoke", action="store_true", help="the first dev question of each type")
+    parser.add_argument("--label", help="names the results files for a run with a changed prompt")
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--max-spend", type=float, help="dollars for this results file")
     parser.add_argument("--phase-cap", type=float, help="dollars for all of Phase 4")
@@ -183,7 +228,7 @@ def main() -> int:
     args = parser.parse_args()
 
     questions = dev_questions(args.smoke)
-    raw_path, checked_path = result_paths(args.smoke)
+    raw_path, checked_path = result_paths(args.smoke, args.label)
     db = open_store(args.db)
     units = build_units(db)
     units_by_id = {unit.unit_id: unit for unit in units}
@@ -214,12 +259,17 @@ def main() -> int:
     if not key:
         print("No ANTHROPIC_API_KEY. Add it to .env (gitignored), then run again.")
         return 1
+    proof = provenance()
+    problem = dirty_problem(proof)
+    if problem:
+        print(problem)
+        return 1
     client = anthropic.Anthropic(api_key=key, max_retries=0)
     RESULTS.mkdir(parents=True, exist_ok=True)
     print(
         run_questions(
             questions, Pipeline(units), units_by_id, raw_path, client, args.runs,
-            args.max_spend, args.phase_cap, provenance(),
+            args.max_spend, args.phase_cap, proof,
         )
     )  # fmt: skip
     counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path)

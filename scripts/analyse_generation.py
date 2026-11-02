@@ -3,6 +3,8 @@
 Reads the raw and checked result lines and their scored versions (eval/score.py --out), the
 retrieval results for R1 and the committed ID snapshot. Writes
 eval/results/generation-dev-analysis.json and prints it. Nothing here calls a model.
+With --label v2 it reads the generation-v2-dev files, writes generation-v2-dev-analysis.json and
+also compares the run with the first one.
 
 Usage (R is eval/results/generation-dev):
     python eval/score.py score --results R-raw.jsonl --split dev --out R-raw.scored.jsonl
@@ -10,8 +12,10 @@ Usage (R is eval/results/generation-dev):
     python scripts/analyse_generation.py
 """
 
+import argparse
 import importlib.util
 import json
+import re
 import statistics
 import sys
 from collections import Counter, defaultdict
@@ -52,14 +56,20 @@ def fabricated(score, ids, question: str, answer: dict, with_claims: bool) -> bo
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--label", help="read and write the files of a run with a changed prompt")
+    label = parser.parse_args().label
+    if label is not None and not re.fullmatch(r"[a-z0-9]+", label):
+        raise SystemExit(f"The label {label!r} must be lower-case letters and digits only.")
+    stem = f"generation-{label}-dev" if label else "generation-dev"
     score = load_scorer()
     questions = {
         q["id"]: q for q in read_lines(ROOT / "eval" / "questions.jsonl") if q["split"] == "dev"
     }
-    raw_lines = keyed(read_lines(RESULTS / "generation-dev-raw.jsonl"))
-    checked_lines = keyed(read_lines(RESULTS / "generation-dev-checked.jsonl"))
-    raw = keyed(read_lines(RESULTS / "generation-dev-raw.scored.jsonl"))
-    checked = keyed(read_lines(RESULTS / "generation-dev-checked.scored.jsonl"))
+    raw_lines = keyed(read_lines(RESULTS / f"{stem}-raw.jsonl"))
+    checked_lines = keyed(read_lines(RESULTS / f"{stem}-checked.jsonl"))
+    raw = keyed(read_lines(RESULTS / f"{stem}-raw.scored.jsonl"))
+    checked = keyed(read_lines(RESULTS / f"{stem}-checked.scored.jsonl"))
     retrieval = json.loads((RESULTS / "retrieval-dev.json").read_text(encoding="utf-8"))
     r1_all = {r["id"]: r["all@10"] for r in retrieval["results"]["R1"]["rows"]}
     ids = score.load_ids()
@@ -236,7 +246,47 @@ def main() -> int:
         }
         for q in questions
     }
-    path = RESULTS / "generation-dev-analysis.json"
+
+    def verdict_set(lines):
+        counts = Counter()
+        for (_, qid), line in lines.items():
+            reply, _ = read_reply(line["text"])
+            if reply and reply["verdict"] is not None:
+                counts[questions[qid]["type"]] += 1
+        return dict(counts)
+
+    out["verdict_set_by_type"] = verdict_set(raw_lines)
+    out["rule7_refusals_on_disagree"] = sum(
+        1
+        for (_, qid), line in checked_lines.items()
+        if line["checker"]["route"] == "checker"
+        and line["checker"]["rule"] == 7
+        and questions[qid]["type"] == "disagree"
+    )
+    if label:
+        first_raw = keyed(read_lines(RESULTS / "generation-dev-raw.scored.jsonl"))
+        first_checked = keyed(read_lines(RESULTS / "generation-dev-checked.scored.jsonl"))
+        first_harmed = {
+            k for k in first_raw if right(first_raw, *k) and not right(first_checked, *k)
+        }
+        out["first_run_verdict_set_by_type"] = verdict_set(
+            keyed(read_lines(RESULTS / "generation-dev-raw.jsonl"))
+        )
+        out["raw_flips_against_first"] = [
+            {
+                "run": run,
+                "id": qid,
+                "first": first_raw[(run, qid)]["outcome"],
+                "now": row["outcome"],
+            }
+            for (run, qid), row in sorted(raw.items(), key=lambda k: (k[0][1], k[0][0]))
+            if (first_raw[(run, qid)]["outcome"], first_raw[(run, qid)]["abstained"])
+            != (row["outcome"], row["abstained"])
+        ]
+        out["harmed_not_in_first"] = [
+            {"run": run, "id": qid} for run, qid in sorted(set(map(tuple, harmed)) - first_harmed)
+        ]
+    path = RESULTS / f"{stem}-analysis.json"
     path.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n", encoding="utf-8")
     print(
         json.dumps({k: v for k, v in out.items() if k != "per_question"}, indent=1, sort_keys=True)

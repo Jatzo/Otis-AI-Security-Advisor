@@ -91,14 +91,34 @@ def test_the_settings_are_the_baselines_and_the_request_differs_only_in_prompt_a
     assert answer.build_request("S", "M") == baseline.build_request("M", "S")
 
 
-def test_the_system_prompt_is_the_task_then_the_addendum_and_the_addendum_is_the_plans():
-    plan = Path("docs/generation-plan.md").read_text(encoding="utf-8")
-    block = plan.split("The addendum, as it will be committed:")[1].split("```")[1]
+def plan_block(path):
+    plan = Path(path).read_text(encoding="utf-8")
+    return plan.split("The addendum as it will be committed", 1)[1].split("```")[1]
+
+
+def test_the_system_prompt_is_the_task_then_the_addendum_and_the_addendum_is_plan_twos():
     committed = Path("src/advisor/generation/addendum.md").read_text(encoding="utf-8")
 
-    assert block.strip() == committed.strip()
+    assert plan_block("docs/generation-plan-2.md").strip() == committed.strip()
     assert answer.system_prompt().startswith(Path("eval/task.md").read_text(encoding="utf-8"))
     assert answer.system_prompt().endswith(committed)
+
+
+def test_the_addendum_is_the_first_plans_with_exactly_the_verdict_bullet_added():
+    first = Path("docs/generation-plan.md").read_text(encoding="utf-8")
+    first_block = first.split("The addendum, as it will be committed:")[1].split("```")[1]
+    committed = Path("src/advisor/generation/addendum.md").read_text(encoding="utf-8")
+    added = [
+        line for line in committed.strip().splitlines() if line not in first_block.splitlines()
+    ]
+    removed = [
+        line for line in first_block.strip().splitlines() if line not in committed.splitlines()
+    ]
+
+    assert removed == []
+    assert len(added) == 1 and added[0].startswith('- Set "verdict" only when')
+    after = committed.splitlines().index(added[0]) - 1
+    assert committed.splitlines()[after].startswith("- If the records do not hold")
 
 
 def test_a_reply_is_read_the_way_the_scorer_reads_it():
@@ -135,13 +155,16 @@ def pipeline_and_units():
     return Pipeline(units), UNITS
 
 
+PROOF = {"commit": "abc", "dirty": False, "hashes": {"addendum.md": "aa", "task.md": "bb"}}
+
+
 def start(tmp_path, monkeypatch, client, **caps):
     monkeypatch.setattr(runner, "RESULTS", tmp_path)
     pipeline, units_by_id = pipeline_and_units()
     raw = tmp_path / "generation-dev-raw.jsonl"
     settings = {"runs": 1, "max_spend": 10.0, "phase_cap": 10.0, **caps}
     message = runner.run_questions(
-        [QUESTION], pipeline, units_by_id, raw, client, proof={"commit": "abc"}, **settings
+        [QUESTION], pipeline, units_by_id, raw, client, proof=PROOF, **settings
     )
     return raw, message
 
@@ -221,3 +244,55 @@ def test_a_recheck_with_no_saved_replies_says_so_instead_of_writing_an_empty_fil
         runner.recheck([QUESTION], UNITS, FACTS, raw, checked)
 
     assert not checked.exists()
+
+
+def test_a_label_names_its_own_files_and_a_bad_label_or_a_smoke_label_is_refused():
+    assert runner.result_paths(False)[0].name == "generation-dev-raw.jsonl"
+    assert runner.result_paths(False, "v2")[0].name == "generation-v2-dev-raw.jsonl"
+    assert runner.result_paths(False, "v2")[1].name == "generation-v2-dev-checked.jsonl"
+    assert runner.result_paths(True)[0].name == "generation-smoke-dev-raw.jsonl"
+    for bad in ("V2", "v-2", "../x", ""):
+        with pytest.raises(SystemExit):
+            runner.result_paths(False, bad)
+    with pytest.raises(SystemExit):
+        runner.result_paths(True, "v2")
+
+
+def test_a_labelled_run_does_not_resume_from_the_first_runs_files_and_still_counts_its_spend(
+    tmp_path, monkeypatch
+):
+    first = StubClient(GOOD)
+    start(tmp_path, monkeypatch, first)
+    monkeypatch.setattr(runner, "RESULTS", tmp_path)
+    labelled_raw = runner.result_paths(False, "v2")[0]
+    pipeline, units_by_id = pipeline_and_units()
+    second = StubClient(GOOD)
+
+    runner.run_questions(
+        [QUESTION], pipeline, units_by_id, labelled_raw, second, 1, 10.0, 10.0, PROOF
+    )
+
+    assert len(first.requests) == 1 and len(second.requests) == 1
+    assert runner.phase_spent() > json.loads(labelled_raw.read_text("utf-8"))["cost_usd"]
+
+
+def test_a_results_file_is_never_appended_to_with_a_different_prompt(tmp_path, monkeypatch):
+    client = StubClient(GOOD)
+    raw, _ = start(tmp_path, monkeypatch, client)
+    changed = {**PROOF, "hashes": {"addendum.md": "cc", "task.md": "bb"}}
+    pipeline, units_by_id = pipeline_and_units()
+    later = StubClient(GOOD)
+
+    with pytest.raises(SystemExit):
+        runner.run_questions(
+            [QUESTION, {**QUESTION, "id": "t-2"}], pipeline, units_by_id, raw, later, 1, 10.0,
+            10.0, changed,
+        )  # fmt: skip
+
+    assert later.requests == []
+    assert runner.mixed_prompt([], changed) is None
+
+
+def test_a_paid_run_refuses_to_start_when_the_code_or_prompt_differs_from_the_commit():
+    assert runner.dirty_problem({**PROOF, "dirty": True}) is not None
+    assert runner.dirty_problem(PROOF) is None
