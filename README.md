@@ -16,6 +16,14 @@ Otis answers questions about real software vulnerabilities from public advisory 
 
 Work in progress. The data, the evaluation, the no-retrieval baseline and the retrieval ladder are done. The answer checker, the red team and the public demo are not built yet.
 
+## What Otis will look like
+
+A design mockup of the planned interface, in light and dark. The wording is sample text, and the interface itself is not built yet.
+
+<p align="center">
+  <img src="docs/brand/otis-ui-mockup.png" alt="Mockup of the Otis interface in light and dark. Each answer says what Otis found, lists the facts it confirmed against the advisories, shows the records it read, and shows a No answer card when it cannot confirm a reply." width="900">
+</p>
+
 ## Otis at a glance
 
 ```text
