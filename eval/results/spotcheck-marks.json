@@ -1,0 +1,101 @@
+{
+ "marked_by": "Claude, from the store and the question wording, not by Joe. Made before the scorer's verdicts for these 24 were looked at. The store is the system's own, so a fault in the store would not be caught.",
+ "marks": {
+  "1": {
+   "mark": "wrong",
+   "note": "Answerable: the store pairs it with GHSA-mmx7-hfxf-jppx. Declined."
+  },
+  "2": {
+   "mark": "wrong",
+   "note": "Answerable: GitHub 5.9, NVD 7.5, different bands. Declined."
+  },
+  "3": {
+   "mark": "wrong",
+   "note": "Answerable: GitHub 5.3, NVD 7.5. Declined."
+  },
+  "4": {
+   "mark": "right",
+   "note": "Only GHSA-j77q-2qqg-6989 (CVE-2017-5638) is in KEV."
+  },
+  "5": {
+   "mark": "wrong",
+   "note": "Answerable: fixed at 2.2.3 so not affected. Declined."
+  },
+  "6": {
+   "mark": "right",
+   "note": "xx9p published 2023-11-14, xcgm 2026-06-15."
+  },
+  "7": {
+   "mark": "right",
+   "note": "w7pp 6.5 against 9v9h 5.5."
+  },
+  "8": {
+   "mark": "wrong",
+   "note": "Answerable: GitHub and NVD both give 2.8.0. Declined."
+  },
+  "9": {
+   "mark": "right",
+   "note": "The store holds one advisory for flask 2.2.5, GHSA-68rp-wp8r-4726."
+  },
+  "10": {
+   "mark": "wrong",
+   "note": "Answerable: NVD gives 3.7. Declined."
+  },
+  "11": {
+   "mark": "right",
+   "note": "8.6 and 8.6, same band, not flagged."
+  },
+  "12": {
+   "mark": "wrong",
+   "note": "Answerable: GitHub 7.5, NVD holds no v3 score. Declined."
+  },
+  "13": {
+   "mark": "right",
+   "note": "The store gives GHSA-j9f9 and GHSA-pc63 for spring-webmvc 7.0.8."
+  },
+  "14": {
+   "mark": "right",
+   "note": "Range 4.3.0 to before 4.3.5 holds 4.3.4: yes."
+  },
+  "15": {
+   "mark": "right",
+   "note": "GHSA-3mcp-22mf-vrw3 is not in the store: declining is right."
+  },
+  "16": {
+   "mark": "right",
+   "note": "GHSA-3pq3-5fj3-cg6v is rated HIGH."
+  },
+  "17": {
+   "mark": "right",
+   "note": "CVE-2023-20860 is GHSA-7phw-cxx7-q9vq, the Spring ** pattern bypass. A CVE ID where the question says advisory ID: accepted by the scorer's rule."
+  },
+  "18": {
+   "mark": "wrong",
+   "note": "Answerable: six advisories for requests 0.14.0. Declined."
+  },
+  "19": {
+   "mark": "right",
+   "note": "HIGH."
+  },
+  "20": {
+   "mark": "wrong",
+   "note": "Answerable: the CVE is held and is not in KEV, so no. Declined."
+  },
+  "21": {
+   "mark": "right",
+   "note": "Fixed in 13.0.0."
+  },
+  "22": {
+   "mark": "right",
+   "note": "GHSA-f39c-hj55-3x4g is not in the store: declining is right."
+  },
+  "23": {
+   "mark": "wrong",
+   "note": "The store gives six advisories for urllib3 2.5.0. The reply lists three."
+  },
+  "24": {
+   "mark": "right",
+   "note": "GHSA-4ww2-rjh2-xpv9 is not in the store: declining is right."
+  }
+ }
+}
