@@ -1,0 +1,1122 @@
+{
+ "abstention_by_route": {
+  "checker": {
+   "replies": 12,
+   "should_abstain": 0
+  },
+  "gate": {
+   "replies": 12,
+   "should_abstain": 12
+  },
+  "model": {
+   "replies": 30,
+   "should_abstain": 12
+  }
+ },
+ "checker_refusals_by_rule": {
+  "6": 6,
+  "7": 6
+ },
+ "claims_by_kind": {
+  "affects": {
+   "passed": 71
+  },
+  "alias": {
+   "passed": 34
+  },
+  "fixed_in": {
+   "failed": 3,
+   "passed": 20,
+   "unverifiable": 3
+  },
+  "package": {
+   "passed": 77
+  },
+  "published": {
+   "passed": 6
+  },
+  "score": {
+   "passed": 24
+  },
+  "severity": {
+   "passed": 12
+  }
+ },
+ "correct_all": {
+  "checked": [
+   27,
+   29,
+   28
+  ],
+  "raw": [
+   31,
+   31,
+   31
+  ]
+ },
+ "correct_answerable": {
+  "checked": [
+   19,
+   21,
+   20
+  ],
+  "raw": [
+   23,
+   23,
+   23
+  ]
+ },
+ "correct_by_type": {
+  "abstain": {
+   "checked": [
+    8,
+    8,
+    8
+   ],
+   "questions": 8,
+   "raw": [
+    8,
+    8,
+    8
+   ]
+  },
+  "disagree": {
+   "checked": [
+    2,
+    3,
+    3
+   ],
+   "questions": 8,
+   "raw": [
+    4,
+    4,
+    4
+   ]
+  },
+  "lookup": {
+   "checked": [
+    7,
+    7,
+    7
+   ],
+   "questions": 8,
+   "raw": [
+    8,
+    8,
+    8
+   ]
+  },
+  "multihop": {
+   "checked": [
+    2,
+    2,
+    2
+   ],
+   "questions": 7,
+   "raw": [
+    2,
+    2,
+    2
+   ]
+  },
+  "version": {
+   "checked": [
+    8,
+    9,
+    8
+   ],
+   "questions": 9,
+   "raw": [
+    9,
+    9,
+    9
+   ]
+  }
+ },
+ "cost_per_query_usd": 0.0296,
+ "cost_total_usd": 3.55,
+ "fabricated_replies": {
+  "checked_with_claims": 0,
+  "raw_fields_and_explanation": 0,
+  "raw_with_claims": 0,
+  "replies": 120
+ },
+ "false_passes": {
+  "by_type": {
+   "multihop": 6
+  },
+  "claim_kinds": {
+   "run1 mh-004": [
+    "package",
+    "affects",
+    "severity",
+    "affects"
+   ],
+   "run1 mh-005": [
+    "package",
+    "affects",
+    "severity",
+    "package",
+    "affects",
+    "severity"
+   ],
+   "run2 mh-004": [
+    "package",
+    "affects",
+    "severity",
+    "affects",
+    "affects"
+   ],
+   "run2 mh-005": [
+    "package",
+    "affects",
+    "severity",
+    "package",
+    "affects",
+    "severity"
+   ],
+   "run3 mh-004": [
+    "package",
+    "affects",
+    "severity"
+   ],
+   "run3 mh-005": [
+    "package",
+    "affects",
+    "severity",
+    "package",
+    "affects",
+    "severity"
+   ]
+  },
+  "count": 6,
+  "share_of_passed_right": 0.909
+ },
+ "harmed": [
+  {
+   "id": "dg-001",
+   "reasons": [
+    "the verdict yes has no passing kev claim tied to the question"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "dg-003",
+   "reasons": [
+    "the verdict no has no passing kev claim tied to the question"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "dg-003",
+   "reasons": [
+    "the verdict no has no passing kev claim tied to the question"
+   ],
+   "rule": 7,
+   "run": 2
+  },
+  {
+   "id": "dg-003",
+   "reasons": [
+    "the verdict no has no passing kev claim tied to the question"
+   ],
+   "rule": 7,
+   "run": 3
+  },
+  {
+   "id": "lk-001",
+   "reasons": [
+    "claim 4: CVE-2026-111749 has no vulnerable CPE row to read a fix from"
+   ],
+   "rule": 6,
+   "run": 1
+  },
+  {
+   "id": "lk-001",
+   "reasons": [
+    "claim 4: CVE-2026-111749 has no vulnerable CPE row to read a fix from"
+   ],
+   "rule": 6,
+   "run": 2
+  },
+  {
+   "id": "lk-001",
+   "reasons": [
+    "claim 3: CVE-2026-111749 has no vulnerable CPE row to read a fix from"
+   ],
+   "rule": 6,
+   "run": 3
+  },
+  {
+   "id": "vr-009",
+   "reasons": [
+    "GHSA-8wx2-9q48-vm9r has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "vr-009",
+   "reasons": [
+    "GHSA-8wx2-9q48-vm9r has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 3
+  }
+ ],
+ "helped": [
+  {
+   "id": "dg-007",
+   "run": 1
+  },
+  {
+   "id": "dg-007",
+   "run": 2
+  },
+  {
+   "id": "dg-007",
+   "run": 3
+  }
+ ],
+ "ids_removed_by_repair": 0,
+ "kev_claims": {},
+ "latency_s": {
+  "median": 2.78,
+  "p95": 6.85
+ },
+ "parse_failures": 0,
+ "passed_replies": 66,
+ "per_question": {
+  "ab-001": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "gate/refused",
+    "gate/refused",
+    "gate/refused"
+   ],
+   "subtype": "fake_cve",
+   "type": "abstain"
+  },
+  "ab-002": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "gate/refused",
+    "gate/refused",
+    "gate/refused"
+   ],
+   "subtype": "fake_ghsa",
+   "type": "abstain"
+  },
+  "ab-003": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "fake_package",
+   "type": "abstain"
+  },
+  "ab-004": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "off_topic",
+   "type": "abstain"
+  },
+  "ab-005": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "gate/refused",
+    "gate/refused",
+    "gate/refused"
+   ],
+   "subtype": "out_of_scope",
+   "type": "abstain"
+  },
+  "ab-006": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "unsupported",
+   "type": "abstain"
+  },
+  "ab-007": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "unsupported",
+   "type": "abstain"
+  },
+  "ab-008": {
+   "checked": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*",
+    "c*",
+    "c*"
+   ],
+   "route": [
+    "gate/refused",
+    "gate/refused",
+    "gate/refused"
+   ],
+   "subtype": "withdrawn",
+   "type": "abstain"
+  },
+  "dg-001": {
+   "checked": [
+    "w*",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "checker/refused",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "band_agree",
+   "type": "disagree"
+  },
+  "dg-002": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "band_agree",
+   "type": "disagree"
+  },
+  "dg-003": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "checker/refused",
+    "checker/refused",
+    "checker/refused"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-004": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-005": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-006": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "fixed_agree",
+   "type": "disagree"
+  },
+  "dg-007": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "w",
+    "w",
+    "w"
+   ],
+   "route": [
+    "checker/refused",
+    "checker/refused",
+    "checker/refused"
+   ],
+   "subtype": "fixed_differ",
+   "type": "disagree"
+  },
+  "dg-008": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "one_silent",
+   "type": "disagree"
+  },
+  "lk-001": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "checker/refused",
+    "checker/refused",
+    "checker/refused"
+   ],
+   "subtype": "fixed_desc",
+   "type": "lookup"
+  },
+  "lk-002": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "fixed_id",
+   "type": "lookup"
+  },
+  "lk-003": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "fixed_id",
+   "type": "lookup"
+  },
+  "lk-004": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-005": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-006": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-007": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "map_id",
+   "type": "lookup"
+  },
+  "lk-008": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "severity_id",
+   "type": "lookup"
+  },
+  "mh-001": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "a1_nvd_score",
+   "type": "multihop"
+  },
+  "mh-002": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "a2_kev_set",
+   "type": "multihop"
+  },
+  "mh-003": {
+   "checked": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*",
+    "w*",
+    "w*"
+   ],
+   "route": [
+    "model/abstained",
+    "model/abstained",
+    "model/abstained"
+   ],
+   "subtype": "a3_kev_pick",
+   "type": "multihop"
+  },
+  "mh-004": {
+   "checked": [
+    "w",
+    "w",
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w",
+    "w",
+    "w"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-005": {
+   "checked": [
+    "w",
+    "w",
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w",
+    "w",
+    "w"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-006": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "c_published",
+   "type": "multihop"
+  },
+  "mh-007": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "c_score",
+   "type": "multihop"
+  },
+  "vr-001": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-002": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-003": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-004": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-005": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-006": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-007": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-008": {
+   "checked": [
+    "c",
+    "c",
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "answer/passed",
+    "answer/passed",
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-009": {
+   "checked": [
+    "w*",
+    "c",
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c",
+    "c",
+    "c"
+   ],
+   "route": [
+    "checker/refused",
+    "answer/passed",
+    "checker/refused"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  }
+ },
+ "polarity_unchecked_verdicts": 0,
+ "refusal_claims": {
+  "rule 6 fixed_in failed": 3,
+  "rule 6 fixed_in unverifiable": 3
+ },
+ "repaired": 0,
+ "retrieval_link": {
+  "R1 had all evidence / checked correct": 60,
+  "R1 had all evidence / checked wrong": 12,
+  "R1 missed evidence / checked wrong": 24
+ },
+ "routes": {
+  "answer/passed": 66,
+  "checker/refused": 12,
+  "gate/refused": 12,
+  "model/abstained": 30
+ },
+ "runs": [
+  1,
+  2,
+  3
+ ],
+ "stop_reasons": {
+  "end_turn": 120
+ },
+ "tokens_per_query": {
+  "input": 12880,
+  "output": 382
+ }
+}

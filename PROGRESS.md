@@ -9,7 +9,7 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - [x] 1. Data: fetchers for GitHub advisories (OSV JSON), NVD API 2.0 and KEV; PyPI, npm and Maven version comparators; snapshot manifest; committed sample. Done 2026-11-01: snapshot `2d04b933ea7b` (588 advisories, 576 NVD records, 2 CVEs NVD does not hold, KEV 2026.10.30). Counts and disagreement figures are in `docs/data-report.md`. No separate CPE map: CPE matches are stored and not used for the join (ADR 0002).
 - [x] 2. Eval freeze and baseline. Done 2026-11-01: tag `eval-freeze-v1` pushed on `abeedf8`, the freeze guard green in CI, and the dev baseline table below. GitHub tag protection for `eval-freeze-*` is still to be saved (not found by the API on 1 November).
 - [x] 3. Retrieval ladder. Done 2026-11-02: nine rungs scored on the 32 answerable dev questions against a plan fixed before any result. Keyword search with a header (R1) is adopted at 24/32 all-evidence@10. Dense search, hybrid, reranking, splitting and decomposition were not adopted. Results in `docs/retrieval-results.md`, decision in `docs/adr/0005-keyword-search-over-headed-records.md`.
-- [ ] 4. Generation and checker: schema output, fail-closed checker, abstention. Done when: tests show a fabricated CVE removed and an out-of-scope question refused.
+- [x] 4. Generation and checker: schema output, fail-closed checker, abstention. Done 2026-11-02: 56 new tests (410 in all), none call the API, and the dev run of 3 x 40 questions for $3.55. Raw 31/40 (23/32 answerable), checked 27, 29 and 28/40, against the baseline's 15/40 (7/32). Results in `docs/generation-results.md`, decision in `docs/adr/0006-the-checker-refuses-whole-replies.md`.
 - [ ] 5. Full evaluation: test split scored once, blind hand spot-check, cost and latency. Done when: report table with per-question detail.
 - [ ] 6. Red team: threat model, poisoned corpus frozen before defences, XSS and link tests, abuse controls. Done when: attack success rate table, what held and what did not.
 - [ ] 7. Demo on a Hugging Face Docker Space: answer, evidence and per-claim checker verdicts. Done when: public link with caps live.
@@ -66,9 +66,9 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 
 ## Open
 - Save the GitHub tag-protection ruleset for `eval-freeze-*` (restrict updates and deletions), then confirm with `gh api repos/Jatzo/Otis-AI-Security-Advisor/rulesets`.
-- 9 commits are waiting to push (nothing pushed since Phase 2). Push only on Joe's yes, and not in a burst.
-- Phase 4 scored run (3 runs over the 40 dev questions, cap $6) waits for Joe's go. After it: `docs/generation-results.md`, then tick Phase 4.
+- 11 commits are waiting to push (nothing pushed since Phase 2). Push only on Joe's yes, and not in a burst.
+- Rule 7 gap, found by the dev run: a `verdict` on a question with no package-version pair needs a `kev` claim, so a correct sources-disagree reply that also sets `verdict` is refused (4 of the 9 harmed rows). The plan's rules were not changed. Fixing it needs a new plan and Joe's choice (`docs/generation-results.md`).
 - The test split baseline and the test split retrieval run are not done: each needs a single run and waits for Phase 5.
 
 ## Next session
-Phase 4: after Joe says go, run `python -m uv run python scripts/run_generation.py --runs 3 --max-spend 6 --phase-cap 12`, score both files with `eval/score.py`, read every harmed reply by hand, then write `docs/generation-results.md` as the plan lists and tick Phase 4. The prompt, the claim kinds and the rules do not change because of the scores. A checker fault is fixed and re-run with `--recheck` at no cost; a prompt or runner fault that needs a paid rerun needs Joe's yes.
+Joe to decide on the rule 7 gap: leave it and report it, or write a short new plan (a rule change or an addendum change, the second needing a paid rerun). Then Phase 5, the full evaluation on the test split, scored once. The prompt, the claim kinds and the rules do not change because of the dev scores without a new written plan.
