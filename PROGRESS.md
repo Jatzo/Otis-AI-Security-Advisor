@@ -8,7 +8,7 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - [x] 0. Repo and guard rails. Done 2026-11-01: CI run 41317004259 green; gitleaks 8.30.1 caught the planted token, then found no leaks in the history.
 - [x] 1. Data: fetchers for GitHub advisories (OSV JSON), NVD API 2.0 and KEV; PyPI, npm and Maven version comparators; snapshot manifest; committed sample. Done 2026-11-01: snapshot `2d04b933ea7b` (588 advisories, 576 NVD records, 2 CVEs NVD does not hold, KEV 2026.10.30). Counts and disagreement figures are in `docs/data-report.md`. No separate CPE map: CPE matches are stored and not used for the join (ADR 0002).
 - [x] 2. Eval freeze and baseline. Done 2026-11-01: tag `eval-freeze-v1` pushed on `abeedf8`, the freeze guard green in CI, and the dev baseline table below. GitHub tag protection for `eval-freeze-*` is still to be saved (not found by the API on 1 November).
-- [ ] 3. Retrieval: the ablation ladder (BM25, dense, hybrid with RRF, rerank, contextual headers, metadata filter, decomposition and iterative retrieval), two embedding models. Tuned on dev only. Done when: ladder table on dev and an ADR. In progress: the ladder, its metrics, its adoption rule and its models are fixed in `docs/retrieval-plan.md`, committed before any retrieval code or result.
+- [x] 3. Retrieval ladder. Done 2026-11-02: nine rungs scored on the 32 answerable dev questions against a plan fixed before any result. Keyword search with a header (R1) is adopted at 24/32 all-evidence@10. Dense search, hybrid, reranking, splitting and decomposition were not adopted. Results in `docs/retrieval-results.md`, decision in `docs/adr/0005-keyword-search-over-headed-records.md`.
 - [ ] 4. Generation and checker: schema output, fail-closed checker, abstention. Done when: tests show a fabricated CVE removed and an out-of-scope question refused.
 - [ ] 5. Full evaluation: test split scored once, blind hand spot-check, cost and latency. Done when: report table with per-question detail.
 - [ ] 6. Red team: threat model, poisoned corpus frozen before defences, XSS and link tests, abuse controls. Done when: attack success rate table, what held and what did not.
@@ -58,10 +58,13 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 
 - Phase 3 plan approved by Joe on 1 November 2026 after review: the soft filter reads IDs and package names only (no version ranges, to keep ADR 0001), no KEV flag in headers, a rung is adopted only with at least 4 net questions and exact McNemar p below 0.05 on all-evidence@10, baseline rows B0 and B1, torch and the ML libraries in an optional dependency group so CI stays fast.
 
+- Ladder result (dev, 32 questions, all-evidence@10): R0 keyword without header 7, R1 with header 24, R2 Qwen3 12, R3 bge-small 13, R4 hybrid 20, R5 reranked 24, R6 soft filter 25, R7 split 24, R8 decomposed 20 (21 by majority of 3). R1 meets all 8 lookups and all 9 version checks; it misses 5 multi-hop and 3 sources-disagree questions. R8 cost $0.10 of the $1 cap. The reranker took 11.4 s a query; R1 takes a p95 of 6 ms at 2 threads. The Qwen3 index took 105 minutes to build.
+- Not tested, and needing its own written plan before it runs: bringing a retrieved advisory's NVD record and KEV entry with it, which targets the misses.
+
 ## Open
 - Save the GitHub tag-protection ruleset for `eval-freeze-*` (restrict updates and deletions), then confirm with `gh api repos/Jatzo/Otis-AI-Security-Advisor/rulesets`.
-- `eval/results/` (three baseline runs, scored file, ID lookup) is not committed yet.
-- The test split baseline is not run: it needs `--allow-test`, a single run, and waits for Phase 5.
+- Phase 3 write-up, the ladder results and the script change are written but not committed, and 4 commits are waiting to push.
+- The test split baseline and the test split retrieval run are not done: each needs a single run and waits for Phase 5.
 
 ## Next session
-Phase 3, retrieval: propose the package list, chunking, embedding models and the ablation ladder, and ask before locking them in. Tune on dev only.
+Phase 4, generation and checker: propose the answer prompt, the evidence IDs each claim cites, the fail-closed checks and how abstention works, and ask before locking them in. Evidence comes from R1. Done when tests show a fabricated CVE removed and an out-of-scope question refused.

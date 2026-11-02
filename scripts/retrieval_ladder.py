@@ -92,19 +92,19 @@ class MemoScorer:
 
 
 def run_rung(
-    pipeline: Pipeline, spec: Spec, items: list[ladder.Item], threads: tuple[int, int], run: int = 1
+    pipeline: Pipeline, spec: Spec, items: list[ladder.Item], threads: int, run: int = 1
 ) -> dict:
-    """Ranks every dev question. Index building is timed apart from the queries. The index is
-    built offline in the real system, so it uses the build threads. Queries use the demo's 2."""
+    """Ranks every dev question. Index building is timed apart from the queries. The latency
+    here is at `threads` threads; the demo's 2-thread latency is measured separately, on the
+    final choice only, because running every rung at 2 threads would take hours."""
     import torch  # noqa: PLC0415
 
-    torch.set_num_threads(threads[0])
+    torch.set_num_threads(threads)
     started = time.monotonic()
     for kind in (spec.bm25, spec.dense):
         if kind:
             pipeline.index(kind, spec.split)
     build = time.monotonic() - started
-    torch.set_num_threads(threads[1])
     rows, seconds = [], []
     for item in items:
         started = time.monotonic()
@@ -117,8 +117,36 @@ def run_rung(
         "rows": rows,
         "summary": ladder.summarise(rows),
         "build_seconds": round(build, 2),
+        "threads": threads,
         "latency_p50": round(statistics.median(seconds), 3),
         "latency_p95": round(ordered[min(len(ordered) - 1, int(0.95 * len(ordered)))], 3),
+    }
+
+
+def measure_latency(pipeline: Pipeline, spec: Spec, items: list[ladder.Item], threads: int) -> dict:
+    """Query latency of the chosen rung at the demo's thread count, with the reranker's memory
+    switched off so every query pays the full price. R8 is measured without its model call."""
+    import torch  # noqa: PLC0415
+
+    torch.set_num_threads(threads)
+    memo, pipeline.scorer = pipeline.scorer, pipeline.scorer.scorer
+    try:
+        seconds = []
+        for item in items:
+            started = time.monotonic()
+            pipeline.rank(spec, item.query)
+            seconds.append(time.monotonic() - started)
+    finally:
+        pipeline.scorer = memo
+    ordered = sorted(seconds)
+    return {
+        "spec": spec.name,
+        "threads": threads,
+        "queries": len(seconds),
+        "p50": round(statistics.median(seconds), 3),
+        "p95": round(ordered[min(len(ordered) - 1, int(0.95 * len(ordered)))], 3),
+        "max": round(ordered[-1], 3),
+        "budget_p95_seconds": 3,
     }
 
 
@@ -153,8 +181,9 @@ def main() -> int:
     parser.add_argument("--cache", default=str(ROOT / "data" / "embeddings"))
     parser.add_argument("--max-spend", type=float, required=True, help="dollars for R8 only")
     parser.add_argument("--runs", type=int, default=3, help="repeats of R8")
-    parser.add_argument("--threads", type=int, default=2, help="for timing queries, as on the demo")
-    parser.add_argument("--build-threads", type=int, default=12, help="for building indexes")
+    parser.add_argument("--threads", type=int, default=12, help="for every rung")
+    parser.add_argument("--latency-threads", type=int, default=2, help="as on the demo")
+    parser.add_argument("--latency-queries", type=int, default=10)
     parser.add_argument("--skip-r8", action="store_true")
     args = parser.parse_args()
 
@@ -163,7 +192,7 @@ def main() -> int:
         ROOT / "eval" / "questions.jsonl", ROOT / "eval" / "gold.jsonl"
     )
 
-    threads = (args.build_threads, args.threads)
+    threads = args.threads
     revisions = model_revisions([m[0] for m in MODELS.values()] + [RERANKER])
     embedders = {
         key: SentenceTransformerEmbedder(repo, revisions[repo]["revision"], prefix, length, side)
@@ -229,6 +258,7 @@ def main() -> int:
 
     if not args.skip_r8:
         base = replace(specs[current], name="R8", decompose=True)
+        specs["R8"] = base
         runs = [run_rung(pipeline, base, items, threads, run) for run in range(1, args.runs + 1)]
         majority = [sum(h) * 2 > len(runs) for h in zip(*(hits(r) for r in runs), strict=True)]
         results["R8"] = {**runs[0], "runs": runs, "majority_hits": majority, "cost_usd": spent[0]}
@@ -237,6 +267,8 @@ def main() -> int:
         if verdict["adopted"]:
             current = "R8"
 
+    final = replace(specs[current], name=current, decompose=False)
+    latency = measure_latency(pipeline, final, items[: args.latency_queries], args.latency_threads)
     commit = subprocess.run(  # noqa: S603
         ["git", "rev-parse", "HEAD"],  # noqa: S607
         cwd=ROOT, capture_output=True, text=True, check=False,
@@ -251,6 +283,7 @@ def main() -> int:
         "dev_questions_left_out_because_they_should_be_declined": left_out,
         "decisions": decisions,
         "adopted": current,
+        "latency_of_adopted": latency,
         "results": results,
     }
     (RESULTS / "retrieval-dev.json").write_text(

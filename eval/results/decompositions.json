@@ -1,0 +1,762 @@
+{
+ "1|Do GitHub and NVD agree on the first fixed version for CVE-2014-0112? Give the version each one names.": {
+  "cost_usd": 0.001006,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2014-0112 GitHub advisory first patched version",
+   "CVE-2014-0112 NVD fixed version affected versions"
+  ]
+ },
+ "1|Do GitHub and NVD put CVE-2020-10177 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-10177 GitHub advisory severity CVSS score",
+   "CVE-2020-10177 NVD CVSS base score severity"
+  ]
+ },
+ "1|Do GitHub and NVD put CVE-2021-45105 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2021-45105 GitHub advisory severity CVSS score",
+   "CVE-2021-45105 NVD CVSS base score severity"
+  ]
+ },
+ "1|Do GitHub and NVD put CVE-2024-24680 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2024-24680 GitHub advisory severity CVSS score",
+   "CVE-2024-24680 NVD CVSS base score severity"
+  ]
+ },
+ "1|Do GitHub and NVD put GHSA-hpr9-3m2g-3j9p in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001262,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-hpr9-3m2g-3j9p GitHub advisory severity CVSS score",
+   "GHSA-hpr9-3m2g-3j9p NVD CVE severity CVSS base score"
+  ]
+ },
+ "1|Do both GitHub and NVD score GHSA-7qfw-j7hp-v45g with CVSS v3? Give each score.": {
+  "cost_usd": 0.001256,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-7qfw-j7hp-v45g GitHub advisory CVSS v3 score",
+   "GHSA-7qfw-j7hp-v45g NVD CVE CVSS v3 base score"
+  ]
+ },
+ "1|Does CVE-2020-9402 affect django version 3.0.4?": {
+  "cost_usd": 0.000966,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-9402 Django affected versions",
+   "CVE-2020-9402 Django 3.0.4 fixed version patch"
+  ]
+ },
+ "1|Does GHSA-wf5p-g6vw-rhxx affect axios version 1.3.2?": {
+  "cost_usd": 0.001076,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-wf5p-g6vw-rhxx",
+   "GHSA-wf5p-g6vw-rhxx axios affected versions 1.3.2"
+  ]
+ },
+ "1|From GHSA-4wrr-9h5r-m92w, GHSA-737w-mh58-cxjp, GHSA-q2cg-xf9p-h457, GHSA-qcfc-hmrc-59x7, which are linked to a CVE that CISA lists as known exploited?": {
+  "cost_usd": 0.00157,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-4wrr-9h5r-m92w CVE",
+   "GHSA-737w-mh58-cxjp CVE",
+   "GHSA-q2cg-xf9p-h457 CVE",
+   "GHSA-qcfc-hmrc-59x7 CVE"
+  ]
+ },
+ "1|Is cryptography 48.0.0 affected by GHSA-537c-gmf6-5ccf?": {
+  "cost_usd": 0.001028,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-537c-gmf6-5ccf",
+   "GHSA-537c-gmf6-5ccf cryptography affected versions patched version"
+  ]
+ },
+ "1|Is org.springframework:spring-webmvc 4.0.1.RELEASE affected by GHSA-ff7p-jqjm-v66h?": {
+  "cost_usd": 0.001138,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-ff7p-jqjm-v66h affected versions org.springframework:spring-webmvc",
+   "GHSA-ff7p-jqjm-v66h"
+  ]
+ },
+ "1|List the security advisories that apply to minimist 1.2.3.": {
+  "cost_usd": 0.00074,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "minimist 1.2.3 security advisories vulnerabilities"
+  ]
+ },
+ "1|Of the advisories that apply to django 2.2.26, which does GitHub rate critical?": {
+  "cost_usd": 0.001108,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "django 2.2.26 critical severity vulnerabilities GitHub advisory",
+   "Django advisories affecting versions before 2.2.27 or later 2.2.x critical"
+  ]
+ },
+ "1|Of the advisories that apply to org.springframework:spring-webmvc 5.2.20.RELEASE, which does GitHub rate high?": {
+  "cost_usd": 0.001552,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.springframework:spring-webmvc 5.2.20.RELEASE vulnerabilities",
+   "org.springframework:spring-webmvc advisories affecting versions up to 5.2.20.RELEASE high severity",
+   "spring-webmvc GitHub advisory high severity 5.2.x"
+  ]
+ },
+ "1|What CVSS v3 base score do GitHub and NVD each give GHSA-cr6j-3jp9-rw65, and do they fall in the same severity band?": {
+  "cost_usd": 0.001314,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-cr6j-3jp9-rw65 GitHub advisory CVSS v3 base score severity",
+   "GHSA-cr6j-3jp9-rw65 NVD CVSS v3 base score severity"
+  ]
+ },
+ "1|What is NVD's v3 base score for the CVE that GHSA-3wq7-rqq7-wx6j covers?": {
+  "cost_usd": 0.001138,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-3wq7-rqq7-wx6j",
+   "GHSA-3wq7-rqq7-wx6j CVE ID NVD CVSS v3 base score"
+  ]
+ },
+ "1|What is the advisory ID for the Django cache middleware flaw where Cache-Control directives written in a different letter case are not recognised, so responses that should stay private can be cached?": {
+  "cost_usd": 0.00089,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "Django cache middleware Cache-Control directives case-sensitive private responses cached advisory"
+  ]
+ },
+ "1|What is the first patched version for the aiohttp issue where a cookie set from a subdomain can strip the host-only restriction from an existing cookie of the parent domain?": {
+  "cost_usd": 0.001214,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "aiohttp CookieJar cookie set from subdomain overwrites host-only cookie of parent domain",
+   "aiohttp cookie host-only flag stripped subdomain advisory patched version"
+  ]
+ },
+ "1|What is the first patched version of pillow for CVE-2026-112404?": {
+  "cost_usd": 0.000704,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2026-112404 pillow first patched version"
+  ]
+ },
+ "1|What is the first patched version of pillow for GHSA-3f63-hfp8-52jq?": {
+  "cost_usd": 0.00079,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-3f63-hfp8-52jq pillow first patched version"
+  ]
+ },
+ "1|What severity label does GitHub give GHSA-gcfj-64vw-6mp9?": {
+  "cost_usd": 0.000758,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-gcfj-64vw-6mp9 severity"
+  ]
+ },
+ "1|Which CVE ID does GHSA-jj3x-wxrx-4x23 cover?": {
+  "cost_usd": 0.00073,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-jj3x-wxrx-4x23"
+  ]
+ },
+ "1|Which advisories affect org.apache.struts:struts2-core 6.3.0.2?": {
+  "cost_usd": 0.000868,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.apache.struts:struts2-core 6.3.0.2 vulnerabilities advisories"
+  ]
+ },
+ "1|Which advisory describes the Apache Struts flaw fixed in 2.3.29 where an expression is evaluated twice when a percent-brace sequence appears in a tag attribute, left behind by an incomplete earlier fix?": {
+  "cost_usd": 0.001018,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "Apache Struts 2.3.29 double evaluation OGNL expression %{} tag attribute incomplete fix"
+  ]
+ },
+ "1|Which advisory describes the aiohttp flaw where cookies limited to one exact host are widened to apply to its subdomains after the cookie jar has been saved to disk and loaded again?": {
+  "cost_usd": 0.000938,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "aiohttp CookieJar save load host-only cookie becomes domain cookie applies to subdomains"
+  ]
+ },
+ "1|Which has the higher GitHub CVSS v3 score: GHSA-4wrr-9h5r-m92w or GHSA-86vq-8qhc-5rqw?": {
+  "cost_usd": 0.001144,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-4wrr-9h5r-m92w CVSS v3 score",
+   "GHSA-86vq-8qhc-5rqw CVSS v3 score"
+  ]
+ },
+ "1|Which known vulnerabilities, as advisory IDs, does pyyaml 3.12 have?": {
+  "cost_usd": 0.001304,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "pyyaml 3.12 vulnerabilities",
+   "PyYAML advisory affected versions before 5.4 arbitrary code execution",
+   "PyYAML GHSA advisory full_load yaml.load unsafe deserialization"
+  ]
+ },
+ "1|Which known vulnerabilities, as advisory IDs, does pyyaml 5.1 have?": {
+  "cost_usd": 0.001134,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "pyyaml 5.1 vulnerabilities",
+   "PyYAML advisory affected versions before 5.2 5.3.1 5.4 arbitrary code execution full_load"
+  ]
+ },
+ "1|Which org.springframework:spring-webmvc advisories involve a CVE that CISA lists as known exploited?": {
+  "cost_usd": 0.001382,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.springframework:spring-webmvc advisories",
+   "org.springframework:spring-webmvc CVE CISA known exploited vulnerabilities KEV",
+   "Spring Framework spring-webmvc vulnerability actively exploited CISA KEV"
+  ]
+ },
+ "1|Which version does GitHub say fixes CVE-2026-96637, which does NVD say, and do they agree?": {
+  "cost_usd": 0.00099,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2026-96637 GitHub advisory patched version",
+   "CVE-2026-96637 NVD fixed version affected versions"
+  ]
+ },
+ "1|Which was published first: GHSA-44wm-f244-xhp3 or GHSA-rwv7-3v45-hg29?": {
+  "cost_usd": 0.000984,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-44wm-f244-xhp3 published date",
+   "GHSA-rwv7-3v45-hg29 published date"
+  ]
+ },
+ "1|Would org.springframework:spring-webmvc 5.1.13.RELEASE be vulnerable to CVE-2020-5398?": {
+  "cost_usd": 0.001278,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-5398 spring-webmvc affected versions",
+   "CVE-2020-5398 Spring Framework RFD attack Content-Disposition filename fixed versions 5.1.13.RELEASE"
+  ]
+ },
+ "2|Do GitHub and NVD agree on the first fixed version for CVE-2014-0112? Give the version each one names.": {
+  "cost_usd": 0.001006,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2014-0112 GitHub advisory first patched version",
+   "CVE-2014-0112 NVD fixed version affected versions"
+  ]
+ },
+ "2|Do GitHub and NVD put CVE-2020-10177 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-10177 GitHub advisory severity CVSS score",
+   "CVE-2020-10177 NVD CVSS base score severity"
+  ]
+ },
+ "2|Do GitHub and NVD put CVE-2021-45105 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2021-45105 GitHub advisory severity CVSS score",
+   "CVE-2021-45105 NVD CVSS base score severity"
+  ]
+ },
+ "2|Do GitHub and NVD put CVE-2024-24680 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2024-24680 GitHub advisory severity CVSS score",
+   "CVE-2024-24680 NVD severity CVSS base score"
+  ]
+ },
+ "2|Do GitHub and NVD put GHSA-hpr9-3m2g-3j9p in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001222,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-hpr9-3m2g-3j9p GitHub advisory severity CVSS score",
+   "GHSA-hpr9-3m2g-3j9p NVD CVSS score severity"
+  ]
+ },
+ "2|Do both GitHub and NVD score GHSA-7qfw-j7hp-v45g with CVSS v3? Give each score.": {
+  "cost_usd": 0.001256,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-7qfw-j7hp-v45g GitHub advisory CVSS v3 score",
+   "GHSA-7qfw-j7hp-v45g NVD CVE CVSS v3 base score"
+  ]
+ },
+ "2|Does CVE-2020-9402 affect django version 3.0.4?": {
+  "cost_usd": 0.000756,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-9402 Django affected versions and fixed versions"
+  ]
+ },
+ "2|Does GHSA-wf5p-g6vw-rhxx affect axios version 1.3.2?": {
+  "cost_usd": 0.001046,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-wf5p-g6vw-rhxx",
+   "GHSA-wf5p-g6vw-rhxx axios affected versions patched version"
+  ]
+ },
+ "2|From GHSA-4wrr-9h5r-m92w, GHSA-737w-mh58-cxjp, GHSA-q2cg-xf9p-h457, GHSA-qcfc-hmrc-59x7, which are linked to a CVE that CISA lists as known exploited?": {
+  "cost_usd": 0.00157,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-4wrr-9h5r-m92w CVE",
+   "GHSA-737w-mh58-cxjp CVE",
+   "GHSA-q2cg-xf9p-h457 CVE",
+   "GHSA-qcfc-hmrc-59x7 CVE"
+  ]
+ },
+ "2|Is cryptography 48.0.0 affected by GHSA-537c-gmf6-5ccf?": {
+  "cost_usd": 0.001028,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-537c-gmf6-5ccf",
+   "GHSA-537c-gmf6-5ccf cryptography affected versions patched version"
+  ]
+ },
+ "2|Is org.springframework:spring-webmvc 4.0.1.RELEASE affected by GHSA-ff7p-jqjm-v66h?": {
+  "cost_usd": 0.001248,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-ff7p-jqjm-v66h affected versions org.springframework:spring-webmvc",
+   "GHSA-ff7p-jqjm-v66h vulnerability description and patched versions"
+  ]
+ },
+ "2|List the security advisories that apply to minimist 1.2.3.": {
+  "cost_usd": 0.00074,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "minimist 1.2.3 security advisories vulnerabilities"
+  ]
+ },
+ "2|Of the advisories that apply to django 2.2.26, which does GitHub rate critical?": {
+  "cost_usd": 0.001308,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "django 2.2.26 critical severity vulnerabilities GitHub advisory",
+   "Django advisories affecting versions before 2.2.27 critical",
+   "Django 2.2.x critical CVE fixed in 2.2.28 or later"
+  ]
+ },
+ "2|Of the advisories that apply to org.springframework:spring-webmvc 5.2.20.RELEASE, which does GitHub rate high?": {
+  "cost_usd": 0.001472,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.springframework:spring-webmvc 5.2.20.RELEASE vulnerabilities",
+   "spring-webmvc advisories affecting versions 5.2.20.RELEASE high severity",
+   "GitHub advisory org.springframework:spring-webmvc severity high"
+  ]
+ },
+ "2|What CVSS v3 base score do GitHub and NVD each give GHSA-cr6j-3jp9-rw65, and do they fall in the same severity band?": {
+  "cost_usd": 0.001574,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-cr6j-3jp9-rw65 GitHub advisory CVSS v3 base score severity",
+   "GHSA-cr6j-3jp9-rw65 NVD CVSS v3 base score severity",
+   "GHSA-cr6j-3jp9-rw65 CVE ID"
+  ]
+ },
+ "2|What is NVD's v3 base score for the CVE that GHSA-3wq7-rqq7-wx6j covers?": {
+  "cost_usd": 0.001168,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-3wq7-rqq7-wx6j",
+   "NVD CVSS v3 base score for the CVE covered by GHSA-3wq7-rqq7-wx6j"
+  ]
+ },
+ "2|What is the advisory ID for the Django cache middleware flaw where Cache-Control directives written in a different letter case are not recognised, so responses that should stay private can be cached?": {
+  "cost_usd": 0.00088,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "Django cache middleware Cache-Control directives case-sensitive private response cached advisory"
+  ]
+ },
+ "2|What is the first patched version for the aiohttp issue where a cookie set from a subdomain can strip the host-only restriction from an existing cookie of the parent domain?": {
+  "cost_usd": 0.000964,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "aiohttp cookie jar subdomain overwrites host-only cookie of parent domain vulnerability patched version"
+  ]
+ },
+ "2|What is the first patched version of pillow for CVE-2026-112404?": {
+  "cost_usd": 0.000704,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2026-112404 pillow first patched version"
+  ]
+ },
+ "2|What is the first patched version of pillow for GHSA-3f63-hfp8-52jq?": {
+  "cost_usd": 0.00079,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-3f63-hfp8-52jq pillow first patched version"
+  ]
+ },
+ "2|What severity label does GitHub give GHSA-gcfj-64vw-6mp9?": {
+  "cost_usd": 0.000758,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-gcfj-64vw-6mp9 severity"
+  ]
+ },
+ "2|Which CVE ID does GHSA-jj3x-wxrx-4x23 cover?": {
+  "cost_usd": 0.00073,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-jj3x-wxrx-4x23"
+  ]
+ },
+ "2|Which advisories affect org.apache.struts:struts2-core 6.3.0.2?": {
+  "cost_usd": 0.000868,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.apache.struts:struts2-core 6.3.0.2 vulnerabilities advisories"
+  ]
+ },
+ "2|Which advisory describes the Apache Struts flaw fixed in 2.3.29 where an expression is evaluated twice when a percent-brace sequence appears in a tag attribute, left behind by an incomplete earlier fix?": {
+  "cost_usd": 0.001078,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "Apache Struts double evaluation of OGNL expression %{} in tag attribute fixed in 2.3.29 incomplete fix"
+  ]
+ },
+ "2|Which advisory describes the aiohttp flaw where cookies limited to one exact host are widened to apply to its subdomains after the cookie jar has been saved to disk and loaded again?": {
+  "cost_usd": 0.000938,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "aiohttp CookieJar save load host-only cookie becomes domain cookie applies to subdomains"
+  ]
+ },
+ "2|Which has the higher GitHub CVSS v3 score: GHSA-4wrr-9h5r-m92w or GHSA-86vq-8qhc-5rqw?": {
+  "cost_usd": 0.001144,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-4wrr-9h5r-m92w CVSS v3 score",
+   "GHSA-86vq-8qhc-5rqw CVSS v3 score"
+  ]
+ },
+ "2|Which known vulnerabilities, as advisory IDs, does pyyaml 3.12 have?": {
+  "cost_usd": 0.001304,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "pyyaml 3.12 vulnerabilities",
+   "PyYAML advisory affected versions before 5.4 arbitrary code execution",
+   "PyYAML GHSA advisory full_load yaml.load unsafe deserialization"
+  ]
+ },
+ "2|Which known vulnerabilities, as advisory IDs, does pyyaml 5.1 have?": {
+  "cost_usd": 0.001194,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "pyyaml 5.1 vulnerabilities advisory",
+   "PyYAML affected versions before 5.2 arbitrary code execution",
+   "PyYAML 5.1 CVE GHSA"
+  ]
+ },
+ "2|Which org.springframework:spring-webmvc advisories involve a CVE that CISA lists as known exploited?": {
+  "cost_usd": 0.001072,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.springframework:spring-webmvc advisories",
+   "CISA KEV known exploited vulnerabilities Spring Framework spring-webmvc CVE"
+  ]
+ },
+ "2|Which version does GitHub say fixes CVE-2026-96637, which does NVD say, and do they agree?": {
+  "cost_usd": 0.00099,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2026-96637 GitHub advisory patched version",
+   "CVE-2026-96637 NVD fixed version affected versions"
+  ]
+ },
+ "2|Which was published first: GHSA-44wm-f244-xhp3 or GHSA-rwv7-3v45-hg29?": {
+  "cost_usd": 0.000984,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-44wm-f244-xhp3 published date",
+   "GHSA-rwv7-3v45-hg29 published date"
+  ]
+ },
+ "2|Would org.springframework:spring-webmvc 5.1.13.RELEASE be vulnerable to CVE-2020-5398?": {
+  "cost_usd": 0.001258,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-5398 Spring Framework RFD attack Content-Disposition filename affected versions",
+   "org.springframework:spring-webmvc 5.1.13.RELEASE vulnerabilities"
+  ]
+ },
+ "3|Do GitHub and NVD agree on the first fixed version for CVE-2014-0112? Give the version each one names.": {
+  "cost_usd": 0.001006,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2014-0112 GitHub advisory first patched version",
+   "CVE-2014-0112 NVD fixed version affected versions"
+  ]
+ },
+ "3|Do GitHub and NVD put CVE-2020-10177 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-10177 GitHub advisory severity CVSS score",
+   "CVE-2020-10177 NVD CVSS base score severity"
+  ]
+ },
+ "3|Do GitHub and NVD put CVE-2021-45105 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2021-45105 GitHub advisory severity CVSS score",
+   "CVE-2021-45105 NVD CVSS base score severity"
+  ]
+ },
+ "3|Do GitHub and NVD put CVE-2024-24680 in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001034,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2024-24680 GitHub advisory severity CVSS score",
+   "CVE-2024-24680 NVD CVSS base score severity"
+  ]
+ },
+ "3|Do GitHub and NVD put GHSA-hpr9-3m2g-3j9p in the same severity band? Give the score each one gives.": {
+  "cost_usd": 0.001262,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-hpr9-3m2g-3j9p GitHub advisory severity CVSS score",
+   "GHSA-hpr9-3m2g-3j9p NVD CVE severity CVSS base score"
+  ]
+ },
+ "3|Do both GitHub and NVD score GHSA-7qfw-j7hp-v45g with CVSS v3? Give each score.": {
+  "cost_usd": 0.001256,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-7qfw-j7hp-v45g GitHub advisory CVSS v3 score",
+   "GHSA-7qfw-j7hp-v45g NVD CVE CVSS v3 base score"
+  ]
+ },
+ "3|Does CVE-2020-9402 affect django version 3.0.4?": {
+  "cost_usd": 0.000966,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-9402 Django affected versions",
+   "CVE-2020-9402 Django 3.0.4 fixed version patch"
+  ]
+ },
+ "3|Does GHSA-wf5p-g6vw-rhxx affect axios version 1.3.2?": {
+  "cost_usd": 0.001196,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-wf5p-g6vw-rhxx",
+   "GHSA-wf5p-g6vw-rhxx axios affected versions",
+   "axios 1.3.2 vulnerabilities"
+  ]
+ },
+ "3|From GHSA-4wrr-9h5r-m92w, GHSA-737w-mh58-cxjp, GHSA-q2cg-xf9p-h457, GHSA-qcfc-hmrc-59x7, which are linked to a CVE that CISA lists as known exploited?": {
+  "cost_usd": 0.00157,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-4wrr-9h5r-m92w CVE",
+   "GHSA-737w-mh58-cxjp CVE",
+   "GHSA-q2cg-xf9p-h457 CVE",
+   "GHSA-qcfc-hmrc-59x7 CVE"
+  ]
+ },
+ "3|Is cryptography 48.0.0 affected by GHSA-537c-gmf6-5ccf?": {
+  "cost_usd": 0.001028,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-537c-gmf6-5ccf",
+   "GHSA-537c-gmf6-5ccf cryptography affected versions patched version"
+  ]
+ },
+ "3|Is org.springframework:spring-webmvc 4.0.1.RELEASE affected by GHSA-ff7p-jqjm-v66h?": {
+  "cost_usd": 0.001138,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-ff7p-jqjm-v66h affected versions org.springframework:spring-webmvc",
+   "GHSA-ff7p-jqjm-v66h"
+  ]
+ },
+ "3|List the security advisories that apply to minimist 1.2.3.": {
+  "cost_usd": 0.00074,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "minimist 1.2.3 security advisories vulnerabilities"
+  ]
+ },
+ "3|Of the advisories that apply to django 2.2.26, which does GitHub rate critical?": {
+  "cost_usd": 0.001198,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "django 2.2.26 critical severity GitHub advisory",
+   "Django vulnerabilities affecting versions 2.2.26 critical",
+   "Django advisory affected versions before 2.2.28 critical"
+  ]
+ },
+ "3|Of the advisories that apply to org.springframework:spring-webmvc 5.2.20.RELEASE, which does GitHub rate high?": {
+  "cost_usd": 0.001562,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.springframework:spring-webmvc 5.2.20.RELEASE vulnerabilities",
+   "spring-webmvc advisories affecting versions 5.2.20.RELEASE high severity",
+   "GitHub advisory org.springframework:spring-webmvc high severity affected versions < 5.3"
+  ]
+ },
+ "3|What CVSS v3 base score do GitHub and NVD each give GHSA-cr6j-3jp9-rw65, and do they fall in the same severity band?": {
+  "cost_usd": 0.001574,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-cr6j-3jp9-rw65 GitHub advisory CVSS v3 base score severity",
+   "GHSA-cr6j-3jp9-rw65 NVD CVSS v3 base score severity",
+   "GHSA-cr6j-3jp9-rw65 CVE ID"
+  ]
+ },
+ "3|What is NVD's v3 base score for the CVE that GHSA-3wq7-rqq7-wx6j covers?": {
+  "cost_usd": 0.001138,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-3wq7-rqq7-wx6j",
+   "GHSA-3wq7-rqq7-wx6j CVE ID NVD CVSS v3 base score"
+  ]
+ },
+ "3|What is the advisory ID for the Django cache middleware flaw where Cache-Control directives written in a different letter case are not recognised, so responses that should stay private can be cached?": {
+  "cost_usd": 0.00093,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "Django cache middleware Cache-Control directives case-insensitive not recognised private responses cached advisory"
+  ]
+ },
+ "3|What is the first patched version for the aiohttp issue where a cookie set from a subdomain can strip the host-only restriction from an existing cookie of the parent domain?": {
+  "cost_usd": 0.001234,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "aiohttp CookieJar cookie set from subdomain removes host-only restriction of parent domain cookie",
+   "aiohttp cookie host-only flag subdomain overwrite advisory patched version"
+  ]
+ },
+ "3|What is the first patched version of pillow for CVE-2026-112404?": {
+  "cost_usd": 0.000704,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2026-112404 pillow first patched version"
+  ]
+ },
+ "3|What is the first patched version of pillow for GHSA-3f63-hfp8-52jq?": {
+  "cost_usd": 0.00079,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-3f63-hfp8-52jq pillow first patched version"
+  ]
+ },
+ "3|What severity label does GitHub give GHSA-gcfj-64vw-6mp9?": {
+  "cost_usd": 0.000758,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-gcfj-64vw-6mp9 severity"
+  ]
+ },
+ "3|Which CVE ID does GHSA-jj3x-wxrx-4x23 cover?": {
+  "cost_usd": 0.00073,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-jj3x-wxrx-4x23"
+  ]
+ },
+ "3|Which advisories affect org.apache.struts:struts2-core 6.3.0.2?": {
+  "cost_usd": 0.000868,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.apache.struts:struts2-core 6.3.0.2 vulnerabilities advisories"
+  ]
+ },
+ "3|Which advisory describes the Apache Struts flaw fixed in 2.3.29 where an expression is evaluated twice when a percent-brace sequence appears in a tag attribute, left behind by an incomplete earlier fix?": {
+  "cost_usd": 0.001018,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "Apache Struts 2.3.29 double evaluation OGNL expression %{} tag attribute incomplete fix"
+  ]
+ },
+ "3|Which advisory describes the aiohttp flaw where cookies limited to one exact host are widened to apply to its subdomains after the cookie jar has been saved to disk and loaded again?": {
+  "cost_usd": 0.000918,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "aiohttp CookieJar save load host-only cookies become domain cookies applied to subdomains"
+  ]
+ },
+ "3|Which has the higher GitHub CVSS v3 score: GHSA-4wrr-9h5r-m92w or GHSA-86vq-8qhc-5rqw?": {
+  "cost_usd": 0.001144,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-4wrr-9h5r-m92w CVSS v3 score",
+   "GHSA-86vq-8qhc-5rqw CVSS v3 score"
+  ]
+ },
+ "3|Which known vulnerabilities, as advisory IDs, does pyyaml 3.12 have?": {
+  "cost_usd": 0.001304,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "pyyaml 3.12 vulnerabilities",
+   "PyYAML advisory affected versions before 5.4 arbitrary code execution",
+   "PyYAML GHSA advisory full_load yaml.load unsafe deserialization"
+  ]
+ },
+ "3|Which known vulnerabilities, as advisory IDs, does pyyaml 5.1 have?": {
+  "cost_usd": 0.001194,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "pyyaml 5.1 vulnerabilities advisory",
+   "PyYAML affected versions before 5.2 arbitrary code execution",
+   "PyYAML 5.1 CVE GHSA"
+  ]
+ },
+ "3|Which org.springframework:spring-webmvc advisories involve a CVE that CISA lists as known exploited?": {
+  "cost_usd": 0.001312,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "org.springframework:spring-webmvc advisories",
+   "CISA known exploited vulnerabilities Spring Framework spring-webmvc CVE",
+   "org.springframework:spring-webmvc CVE listed in CISA KEV"
+  ]
+ },
+ "3|Which version does GitHub say fixes CVE-2026-96637, which does NVD say, and do they agree?": {
+  "cost_usd": 0.00099,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2026-96637 GitHub advisory patched version",
+   "CVE-2026-96637 NVD fixed version affected versions"
+  ]
+ },
+ "3|Which was published first: GHSA-44wm-f244-xhp3 or GHSA-rwv7-3v45-hg29?": {
+  "cost_usd": 0.000984,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "GHSA-44wm-f244-xhp3 published date",
+   "GHSA-rwv7-3v45-hg29 published date"
+  ]
+ },
+ "3|Would org.springframework:spring-webmvc 5.1.13.RELEASE be vulnerable to CVE-2020-5398?": {
+  "cost_usd": 0.001268,
+  "model": "claude-sonnet-5-5",
+  "queries": [
+   "CVE-2020-5398 spring-webmvc affected versions",
+   "CVE-2020-5398 Spring Framework RFD attack Content-Disposition filename fixed version 5.1.13.RELEASE"
+  ]
+ }
+}

@@ -23,3 +23,4 @@ data/*.log
 .hypothesis/
 data/tools/
 data/rest_cache/
+data/embeddings/
