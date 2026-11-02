@@ -84,8 +84,9 @@ def read_lines(path: Path) -> list[dict]:
     return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
 
 
-def dev_questions(smoke: bool) -> list[dict]:
-    questions = [q for q in read_lines(EVAL / "questions.jsonl") if q["split"] == "dev"]
+def load_questions(split: str, smoke: bool = False) -> list[dict]:
+    """The questions of one split, filtered as they are read. The smoke run is dev only."""
+    questions = [q for q in read_lines(EVAL / "questions.jsonl") if q["split"] == split]
     if not smoke:
         return questions
     first: dict[str, dict] = {}
@@ -94,13 +95,21 @@ def dev_questions(smoke: bool) -> list[dict]:
     return list(first.values())
 
 
-def result_paths(smoke: bool, label: str | None = None) -> tuple[Path, Path]:
+def dev_questions(smoke: bool) -> list[dict]:
+    return load_questions("dev", smoke)
+
+
+def result_paths(smoke: bool, label: str | None = None, split: str = "dev") -> tuple[Path, Path]:
     """The raw and checked files. A label (v2) names a run made with a changed prompt, and cannot
     be combined with the smoke run, so each file name says one thing."""
     if label is not None and not re.fullmatch(r"[a-z0-9]+", label):
         raise SystemExit(f"The label {label!r} must be lower-case letters and digits only.")
     if smoke and label is not None:
         raise SystemExit("Use --smoke or --label, not both.")
+    if split == "test":
+        if smoke or label is not None:
+            raise SystemExit("The test run has no smoke run and no label: it is run once.")
+        return RESULTS / "test-generation-raw.jsonl", RESULTS / "test-generation-checked.jsonl"
     stem = (
         "generation-smoke-dev"
         if smoke
@@ -133,13 +142,48 @@ def mixed_prompt(done: list[dict], proof: dict) -> str | None:
     return None
 
 
-def phase_spent() -> float:
-    """Everything spent on generation so far, smoke run included."""
-    return sum(
-        line["cost_usd"]
-        for path in RESULTS.glob("generation-*-raw.jsonl")
-        for line in read_lines(path)
+def spend_files(split: str = "dev") -> list[Path]:
+    """The files a phase's cap counts. Phase 4 is every generation run on dev. Phase 5 is every test
+    row, the baseline's test file and the long-context smoke run, so neither blocks the other."""
+    if split == "test":
+        return [
+            *RESULTS.glob("test-*-raw.jsonl"),
+            RESULTS / "baseline-test.jsonl",
+            *RESULTS.glob("phase5-l-smoke-dev-*raw.jsonl"),
+        ]
+    return list(RESULTS.glob("generation-*-raw.jsonl"))
+
+
+def phase_spent(split: str = "dev") -> float:
+    """Everything spent in the phase so far, smoke runs included."""
+    return sum(line["cost_usd"] for path in spend_files(split) for line in read_lines(path))
+
+
+def load_preflight():
+    spec = importlib.util.spec_from_file_location(
+        "phase5_preflight", ROOT / "scripts" / "phase5_preflight.py"
     )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_problem(args, raw_path: Path, questions: list[dict], preflight_problems) -> str | None:
+    """Says why the test split must not be run, or None. Test is scored once: one run, asked for by
+    name, from the tagged system, and never a dry run, which would print a test question."""
+    if not args.allow_test:
+        return "Test is scored once per system: give --allow-test."
+    if args.runs != 1:
+        return "Test is scored once per system: a single run."
+    if args.dry_run:
+        return "A dry run on test would print a test question. Dry runs are on dev only."
+    if args.recheck:
+        return None
+    done = {line["id"] for line in read_lines(raw_path)}
+    if {q["id"] for q in questions} <= done:
+        return "Every test question already has a reply. Test is scored once."
+    found = preflight_problems()
+    return found[0] if found else None
 
 
 def open_store(path: str) -> sqlite3.Connection:
@@ -148,7 +192,7 @@ def open_store(path: str) -> sqlite3.Connection:
 
 def run_questions(
     questions: list[dict], pipeline: Pipeline, units_by_id: dict, raw_path: Path, client,
-    runs: int, max_spend: float, phase_cap: float, proof: dict,
+    runs: int, max_spend: float, phase_cap: float, proof: dict, split: str = "dev",
 ) -> str:  # fmt: skip
     """Asks every question not yet answered in each run. Stops, with the reason, before a call that
     could take either total over its cap. Each line is written as it arrives, so a crash loses
@@ -159,7 +203,7 @@ def run_questions(
     if problem:
         raise SystemExit(problem)
     spent = sum(x["cost_usd"] for x in done)
-    overall = phase_spent()
+    overall = phase_spent(split)
     answered = {(x["run"], x["id"]) for x in done}
     for run in range(1, runs + 1):
         for question in questions:
@@ -174,7 +218,7 @@ def run_questions(
             if spent + worst > max_spend or overall + worst > phase_cap:
                 return (
                     f"Stopped at run {run}, {question['id']}: ${spent:.2f} spent here, "
-                    f"${overall:.2f} in Phase 4. Caps ${max_spend:.2f} and ${phase_cap:.2f}."
+                    f"${overall:.2f} in the phase. Caps ${max_spend:.2f} and ${phase_cap:.2f}."
                 )
             reply, attempts, seconds = answer.ask(client, answer.build_request(system, message))
             line = answer.result_line(question, run, reply, attempts, seconds, shown, proof)
@@ -184,7 +228,7 @@ def run_questions(
             with raw_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(line, sort_keys=True) + "\n")
             print(f"run {run} {question['id']} {line['stop_reason']} ${spent:.2f}", flush=True)
-    return f"Done. ${spent:.2f} spent on this file, ${overall:.2f} in Phase 4."
+    return f"Done. ${spent:.2f} spent on this file, ${overall:.2f} in the phase."
 
 
 def recheck(
@@ -216,19 +260,26 @@ def recheck(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", default=str(ROOT / "data" / "advisor.db"))
+    parser.add_argument("--split", choices=["dev", "test"], default="dev")
+    parser.add_argument("--allow-test", action="store_true", help="test is scored once")
     parser.add_argument("--smoke", action="store_true", help="the first dev question of each type")
     parser.add_argument("--label", help="names the results files for a run with a changed prompt")
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--max-spend", type=float, help="dollars for this results file")
-    parser.add_argument("--phase-cap", type=float, help="dollars for all of Phase 4")
+    parser.add_argument("--phase-cap", type=float, help="dollars for the whole phase")
     parser.add_argument("--recheck", action="store_true", help="re-apply the checker; no API call")
     parser.add_argument(
         "--dry-run", action="store_true", help="print the first request; call nothing"
     )
     args = parser.parse_args()
 
-    questions = dev_questions(args.smoke)
-    raw_path, checked_path = result_paths(args.smoke, args.label)
+    questions = load_questions(args.split, args.smoke)
+    raw_path, checked_path = result_paths(args.smoke, args.label, args.split)
+    if args.split == "test":
+        problem = test_problem(args, raw_path, questions, load_preflight().problems)
+        if problem:
+            print(problem)
+            return 1
     db = open_store(args.db)
     units = build_units(db)
     units_by_id = {unit.unit_id: unit for unit in units}
@@ -247,8 +298,9 @@ def main() -> int:
     guard_freeze()
     if args.recheck:
         counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path)
-        for (route, verdict), number in sorted(counts.items()):
-            print(f"{route:<8}{verdict:<14}{number}")
+        if args.split == "dev":  # nothing about test outcomes is shown before all rows are in
+            for (route, verdict), number in sorted(counts.items()):
+                print(f"{route:<8}{verdict:<14}{number}")
         print(f"Written to {checked_path.relative_to(ROOT)}")
         return 0
 
@@ -269,12 +321,13 @@ def main() -> int:
     print(
         run_questions(
             questions, Pipeline(units), units_by_id, raw_path, client, args.runs,
-            args.max_spend, args.phase_cap, proof,
+            args.max_spend, args.phase_cap, proof, args.split,
         )
     )  # fmt: skip
     counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path)
-    for (route, verdict), number in sorted(counts.items()):
-        print(f"{route:<8}{verdict:<14}{number}")
+    if args.split == "dev":
+        for (route, verdict), number in sorted(counts.items()):
+            print(f"{route:<8}{verdict:<14}{number}")
     return 0
 
 

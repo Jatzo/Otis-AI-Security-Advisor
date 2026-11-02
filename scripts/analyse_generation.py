@@ -58,20 +58,32 @@ def fabricated(score, ids, question: str, answer: dict, with_claims: bool) -> bo
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--label", help="read and write the files of a run with a changed prompt")
-    label = parser.parse_args().label
+    parser.add_argument("--split", choices=["dev", "test"], default="dev")
+    args = parser.parse_args()
+    label, split = args.label, args.split
+    if split == "test" and label:
+        raise SystemExit("The test run has no label: it is run once.")
     if label is not None and not re.fullmatch(r"[a-z0-9]+", label):
         raise SystemExit(f"The label {label!r} must be lower-case letters and digits only.")
-    stem = f"generation-{label}-dev" if label else "generation-dev"
+    if split == "test":
+        stem = "test-generation"
+    else:
+        stem = f"generation-{label}-dev" if label else "generation-dev"
     score = load_scorer()
     questions = {
-        q["id"]: q for q in read_lines(ROOT / "eval" / "questions.jsonl") if q["split"] == "dev"
+        q["id"]: q for q in read_lines(ROOT / "eval" / "questions.jsonl") if q["split"] == split
     }
     raw_lines = keyed(read_lines(RESULTS / f"{stem}-raw.jsonl"))
     checked_lines = keyed(read_lines(RESULTS / f"{stem}-checked.jsonl"))
     raw = keyed(read_lines(RESULTS / f"{stem}-raw.scored.jsonl"))
     checked = keyed(read_lines(RESULTS / f"{stem}-checked.scored.jsonl"))
-    retrieval = json.loads((RESULTS / "retrieval-dev.json").read_text(encoding="utf-8"))
-    r1_all = {r["id"]: r["all@10"] for r in retrieval["results"]["R1"]["rows"]}
+    if split == "test":
+        retrieval = json.loads((RESULTS / "test-retrieval.json").read_text(encoding="utf-8"))
+        r1_rows = retrieval["rows"]
+    else:
+        retrieval = json.loads((RESULTS / "retrieval-dev.json").read_text(encoding="utf-8"))
+        r1_rows = retrieval["results"]["R1"]["rows"]
+    r1_all = {r["id"]: r["all@10"] for r in r1_rows}
     ids = score.load_ids()
     runs = sorted({run for run, _ in raw})
     out: dict = {"runs": runs}

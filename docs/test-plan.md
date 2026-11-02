@@ -103,13 +103,13 @@ Guards in every test runner, copied from the baseline runner: the split must be 
 |---|---|---|
 | B | $0.7 | $1 |
 | L smoke, on dev | $0.4 | $0.60 |
-| L | $2 to $4.5 | $6 |
+| L | about $5.3 (about $7.1 without caching) | $6.6 |
 | G | about $3.3 | $4.5 |
 | **Phase 5** | **about $7 to $9** | **$12.1** |
 
 The caps add up to more than the likely spend, because a cap is a ceiling, and the L cap has to cover the worst case of the largest single call (about $0.30 in and $0.16 out at full price) as well as the estimate. The estimates scale the dev runs: the baseline cost $0.0058 a query, the system $0.0296 a query, and the long-context prompts were sized from the store.
 
-Credit: $12.96 left, from Joe on 2 November 2026, after Phase 4. The caps add up to $12.1, so the margin is $0.86. If a row stops at its cap, it is reported as stopped, with how far it got.
+Credit: $12.96 left, from Joe on 2 November 2026, after Phase 4. The caps in this table add up to $12.1. Amendment 3 below moves $0.5 from the G cap to the L cap after the package sizes were measured, so the caps that stand are B $1, L smoke $0.60, L $6.6 and G $4, together $12.2, which leaves $0.76. If a row stops at its cap, it is reported as stopped, with how far it got.
 
 ## What is measured
 
@@ -174,4 +174,9 @@ While plan 2 was being reviewed, a reviewing agent ran a search over `eval/gold.
 
 ## Amendments
 
-None yet.
+All made on 2 November 2026, before any test call, and each is a number the plan said would be measured before the caps were set.
+
+1. **Context window.** The Models API reports `max_input_tokens` of 1,000,000 for `claude-sonnet-5-5`. The claim about row L that was waiting on a citation is confirmed. No change to the plan.
+2. **Package sizes.** Measured with the free token-counting call, `eval/results/phase5-package-tokens.json`: pillow 289,092 tokens, axios 190,148, django 91,065, aiohttp 36,953, struts2-core 30,995, the rest under 25,000. These are larger than the character-based estimate in the plan (pillow was put at 183,000). Every package still fits, so every package-naming question is still asked.
+3. **Row L estimate and caps.** Re-estimated from the measured sizes on the 17 dev questions that name a package, scaled to the test split: about $7.1 without caching and about $5.3 with it. The largest single call is about $0.74 at full price. The L cap is therefore raised from $6 to $6.6, and the G cap lowered from $4.5 to $4, which still covers its worst case (the dev run cost $0.0296 a query, $3.3 for 110). Caps: B $1, L smoke $0.60, L $6.6, G $4, together $12.2, which leaves $0.76 of the $12.96.
+4. **The smoke run.** The first five package-naming dev questions in file order include two about pillow, which alone would pass the $0.60 smoke cap. The smoke run takes the first five whose package prompt is at most 40,000 tokens (two about aiohttp, which also tests that caching works, then minimist, struts2-core and pyyaml).

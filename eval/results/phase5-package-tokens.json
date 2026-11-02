@@ -1,0 +1,20 @@
+{
+ "aiohttp": 36953,
+ "axios": 190148,
+ "cryptography": 21060,
+ "django": 91065,
+ "express": 4143,
+ "flask": 4719,
+ "jinja2": 7149,
+ "jsonwebtoken": 4464,
+ "lodash": 6853,
+ "minimist": 2051,
+ "org.apache.logging.log4j:log4j-core": 13448,
+ "org.apache.struts:struts2-core": 30995,
+ "org.springframework:spring-webmvc": 18986,
+ "pillow": 289092,
+ "pyyaml": 3339,
+ "requests": 6273,
+ "urllib3": 23015,
+ "ws": 7728
+}
