@@ -1,0 +1,58 @@
+{
+ "comparisons": {
+  "G against B": {
+   "exact_mcnemar_p": 0.0,
+   "only_first_right": 35,
+   "only_second_right": 4,
+   "shared_questions": 110
+  },
+  "G against L": {
+   "exact_mcnemar_p": 0.0,
+   "only_first_right": 0,
+   "only_second_right": 18,
+   "shared_questions": 43
+  },
+  "G against S": {
+   "exact_mcnemar_p": 0.0,
+   "only_first_right": 9,
+   "only_second_right": 42,
+   "shared_questions": 110
+  },
+  "G_raw against B": {
+   "exact_mcnemar_p": 0.0,
+   "only_first_right": 42,
+   "only_second_right": 2,
+   "shared_questions": 110
+  }
+ },
+ "long_context_not_asked": [],
+ "on_the_long_context_questions": {
+  "B": 8,
+  "G": 24,
+  "G_raw": 31,
+  "L": 42,
+  "S": 37,
+  "questions": 43
+ },
+ "retrieval_matches_system": {
+  "different": [],
+  "questions_compared": 88
+ },
+ "rows_not_run": [],
+ "rows_run": [
+  "B",
+  "G",
+  "G_raw",
+  "L",
+  "S"
+ ],
+ "run": 1,
+ "split": "test",
+ "summaries": {
+  "B": "== test B (110 questions)\ncorrect, all                      35/110 (32%, 95% CI 24 to 41)\ncorrect, answerable only          13/88 (15%, 95% CI 9 to 24)\n  type abstain                    22/22 (100%, 95% CI 85 to 100)\n  type disagree                   1/22 (5%, 95% CI 1 to 22)\n  type lookup                     4/22 (18%, 95% CI 7 to 39)\n  type multihop                   2/18 (11%, 95% CI 3 to 33)\n  type version                    6/26 (23%, 95% CI 11 to 42)\n  slice boundary (answerable)     0/7 (0%, 95% CI 0 to 35)\n  slice post (answerable)         0/26 (0%, 95% CI 0 to 13)\n  slice pre (answerable)          13/55 (24%, 95% CI 14 to 36)\n  ecosystem Maven (answerable)    5/23 (22%, 95% CI 10 to 42)\n  ecosystem PyPI (answerable)     6/53 (11%, 95% CI 5 to 23)\n  ecosystem npm (answerable)      2/12 (17%, 95% CI 5 to 45)\n  stale-risk (answerable)         0/6 (0%, 95% CI 0 to 39)\n  Maven RELEASE (answerable)      3/5 (60%, 95% CI 23 to 88)\nabstain, trivial                  11/11 (100%, 95% CI 74 to 100)\nabstain, hard                     11/11 (100%, 95% CI 74 to 100)\nabstention precision              22/91 (24%, 95% CI 17 to 34)\nabstention recall                 22/22 (100%, 95% CI 85 to 100)\nover-abstention                   69/88 (78%, 95% CI 69 to 86)\nfabrication rate                  0/110 (0%, 95% CI 0 to 3)\nparse failures / refusals         0 / 0\nabstentions                       91\nIDs repeated from the question    64\nyes/no majority floor             10/18\nmean set F1 (ID questions)        0.80\ncost                              $0.60 total, $0.0054 a query\nlatency                           median 2.3s, p95 9.2s",
+  "G": "== test G (110 questions)\ncorrect, all                      66/110 (60%, 95% CI 51 to 69)\ncorrect, answerable only          44/88 (50%, 95% CI 40 to 60)\n  type abstain                    22/22 (100%, 95% CI 85 to 100)\n  type disagree                   5/22 (23%, 95% CI 10 to 43)\n  type lookup                     18/22 (82%, 95% CI 61 to 93)\n  type multihop                   7/18 (39%, 95% CI 20 to 61)\n  type version                    14/26 (54%, 95% CI 35 to 71)\n  slice boundary (answerable)     3/7 (43%, 95% CI 16 to 75)\n  slice post (answerable)         15/26 (58%, 95% CI 39 to 74)\n  slice pre (answerable)          26/55 (47%, 95% CI 35 to 60)\n  ecosystem Maven (answerable)    12/23 (52%, 95% CI 33 to 71)\n  ecosystem PyPI (answerable)     26/53 (49%, 95% CI 36 to 62)\n  ecosystem npm (answerable)      6/12 (50%, 95% CI 25 to 75)\n  stale-risk (answerable)         1/6 (17%, 95% CI 3 to 56)\n  Maven RELEASE (answerable)      3/5 (60%, 95% CI 23 to 88)\nabstain, trivial                  11/11 (100%, 95% CI 74 to 100)\nabstain, hard                     11/11 (100%, 95% CI 74 to 100)\nabstention precision              22/58 (38%, 95% CI 27 to 51)\nabstention recall                 22/22 (100%, 95% CI 85 to 100)\nover-abstention                   36/88 (41%, 95% CI 31 to 51)\nfabrication rate                  0/110 (0%, 95% CI 0 to 3)\nparse failures / refusals         0 / 0\nabstentions                       58\nIDs repeated from the question    57\nyes/no majority floor             10/18\nmean set F1 (ID questions)        0.90\ncost                              $3.33 total, $0.0303 a query\nlatency                           median 3.1s, p95 6.3s",
+  "G_raw": "== test G_raw (110 questions)\ncorrect, all                      75/110 (68%, 95% CI 59 to 76)\ncorrect, answerable only          53/88 (60%, 95% CI 50 to 70)\n  type abstain                    22/22 (100%, 95% CI 85 to 100)\n  type disagree                   6/22 (27%, 95% CI 13 to 48)\n  type lookup                     20/22 (91%, 95% CI 72 to 97)\n  type multihop                   8/18 (44%, 95% CI 25 to 66)\n  type version                    19/26 (73%, 95% CI 54 to 86)\n  slice boundary (answerable)     3/7 (43%, 95% CI 16 to 75)\n  slice post (answerable)         20/26 (77%, 95% CI 58 to 89)\n  slice pre (answerable)          30/55 (55%, 95% CI 42 to 67)\n  ecosystem Maven (answerable)    14/23 (61%, 95% CI 41 to 78)\n  ecosystem PyPI (answerable)     31/53 (58%, 95% CI 45 to 71)\n  ecosystem npm (answerable)      8/12 (67%, 95% CI 39 to 86)\n  stale-risk (answerable)         1/6 (17%, 95% CI 3 to 56)\n  Maven RELEASE (answerable)      3/5 (60%, 95% CI 23 to 88)\nabstain, trivial                  11/11 (100%, 95% CI 74 to 100)\nabstain, hard                     11/11 (100%, 95% CI 74 to 100)\nabstention precision              22/49 (45%, 95% CI 32 to 59)\nabstention recall                 22/22 (100%, 95% CI 85 to 100)\nover-abstention                   27/88 (31%, 95% CI 22 to 41)\nfabrication rate                  0/110 (0%, 95% CI 0 to 3)\nparse failures / refusals         0 / 0\nabstentions                       49\nIDs repeated from the question    78\nyes/no majority floor             10/18\nmean set F1 (ID questions)        0.91\ncost                              $3.33 total, $0.0303 a query\nlatency                           median 3.1s, p95 6.3s",
+  "L": "== test L (43 questions)\ncorrect, all                      42/43 (98%, 95% CI 88 to 100)\ncorrect, answerable only          42/43 (98%, 95% CI 88 to 100)\n  type lookup                     9/9 (100%, 95% CI 70 to 100)\n  type multihop                   7/8 (88%, 95% CI 53 to 98)\n  type version                    26/26 (100%, 95% CI 87 to 100)\n  slice boundary (answerable)     4/4 (100%, 95% CI 51 to 100)\n  slice post (answerable)         13/13 (100%, 95% CI 77 to 100)\n  slice pre (answerable)          25/26 (96%, 95% CI 81 to 99)\n  ecosystem Maven (answerable)    12/12 (100%, 95% CI 76 to 100)\n  ecosystem PyPI (answerable)     23/24 (96%, 95% CI 80 to 99)\n  ecosystem npm (answerable)      7/7 (100%, 95% CI 65 to 100)\n  stale-risk (answerable)         6/6 (100%, 95% CI 61 to 100)\n  Maven RELEASE (answerable)      5/5 (100%, 95% CI 57 to 100)\nabstain, trivial                  0/0\nabstain, hard                     0/0\nabstention precision              0/0\nabstention recall                 0/0\nover-abstention                   0/43 (0%, 95% CI 0 to 8)\nfabrication rate                  0/43 (0%, 95% CI 0 to 8)\nparse failures / refusals         0 / 0\nabstentions                       0\nIDs repeated from the question    18\nyes/no majority floor             8/15\nmean set F1 (ID questions)        0.95\ncost                              $2.67 total, $0.0621 a query\nlatency                           median 4.7s, p95 9.4s",
+  "S": "== test S (110 questions)\ncorrect, all                      99/110 (90%, 95% CI 83 to 94)\ncorrect, answerable only          77/88 (88%, 95% CI 79 to 93)\n  type abstain                    22/22 (100%, 95% CI 85 to 100)\n  type disagree                   22/22 (100%, 95% CI 85 to 100)\n  type lookup                     11/22 (50%, 95% CI 31 to 69)\n  type multihop                   18/18 (100%, 95% CI 82 to 100)\n  type version                    26/26 (100%, 95% CI 87 to 100)\n  slice boundary (answerable)     7/7 (100%, 95% CI 65 to 100)\n  slice post (answerable)         21/26 (81%, 95% CI 62 to 91)\n  slice pre (answerable)          49/55 (89%, 95% CI 78 to 95)\n  ecosystem Maven (answerable)    19/23 (83%, 95% CI 63 to 93)\n  ecosystem PyPI (answerable)     49/53 (92%, 95% CI 82 to 97)\n  ecosystem npm (answerable)      9/12 (75%, 95% CI 47 to 91)\n  stale-risk (answerable)         6/6 (100%, 95% CI 61 to 100)\n  Maven RELEASE (answerable)      5/5 (100%, 95% CI 57 to 100)\nabstain, trivial                  11/11 (100%, 95% CI 74 to 100)\nabstain, hard                     11/11 (100%, 95% CI 74 to 100)\nabstention precision              22/33 (67%, 95% CI 50 to 80)\nabstention recall                 22/22 (100%, 95% CI 85 to 100)\nover-abstention                   11/88 (12%, 95% CI 7 to 21)\nfabrication rate                  0/110 (0%, 95% CI 0 to 3)\nparse failures / refusals         0 / 0\nabstentions                       33\nIDs repeated from the question    6\nyes/no majority floor             10/18\nmean set F1 (ID questions)        1.00\ncost                              $0.00 total, $0.0000 a query\nlatency                           median 0.0s, p95 0.0s"
+ }
+}

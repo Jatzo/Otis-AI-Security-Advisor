@@ -1,0 +1,1849 @@
+{
+ "abstention_by_route": {
+  "checker": {
+   "replies": 9,
+   "should_abstain": 0
+  },
+  "gate": {
+   "replies": 15,
+   "should_abstain": 15
+  },
+  "model": {
+   "replies": 34,
+   "should_abstain": 7
+  }
+ },
+ "checker_refusals_by_rule": {
+  "6": 2,
+  "7": 7
+ },
+ "claims_by_kind": {
+  "affects": {
+   "passed": 51
+  },
+  "alias": {
+   "passed": 28
+  },
+  "fixed_in": {
+   "passed": 4,
+   "unverifiable": 2
+  },
+  "kev": {
+   "passed": 2
+  },
+  "package": {
+   "passed": 63
+  },
+  "published": {
+   "passed": 7
+  },
+  "score": {
+   "passed": 16
+  },
+  "severity": {
+   "passed": 14
+  }
+ },
+ "correct_all": {
+  "checked": [
+   66
+  ],
+  "raw": [
+   75
+  ]
+ },
+ "correct_answerable": {
+  "checked": [
+   44
+  ],
+  "raw": [
+   53
+  ]
+ },
+ "correct_by_type": {
+  "abstain": {
+   "checked": [
+    22
+   ],
+   "questions": 22,
+   "raw": [
+    22
+   ]
+  },
+  "disagree": {
+   "checked": [
+    5
+   ],
+   "questions": 22,
+   "raw": [
+    6
+   ]
+  },
+  "lookup": {
+   "checked": [
+    18
+   ],
+   "questions": 22,
+   "raw": [
+    20
+   ]
+  },
+  "multihop": {
+   "checked": [
+    7
+   ],
+   "questions": 18,
+   "raw": [
+    8
+   ]
+  },
+  "version": {
+   "checked": [
+    14
+   ],
+   "questions": 26,
+   "raw": [
+    19
+   ]
+  }
+ },
+ "cost_per_query_usd": 0.0303,
+ "cost_total_usd": 3.33,
+ "fabricated_replies": {
+  "checked_with_claims": 0,
+  "raw_fields_and_explanation": 0,
+  "raw_with_claims": 0,
+  "replies": 110
+ },
+ "false_passes": {
+  "by_type": {
+   "multihop": 2,
+   "version": 6
+  },
+  "claim_kinds": {
+   "run1 mh-017": [
+    "affects",
+    "severity",
+    "affects",
+    "severity",
+    "affects",
+    "severity",
+    "affects",
+    "severity"
+   ],
+   "run1 mh-023": [
+    "published",
+    "published"
+   ],
+   "run1 vr-011": [
+    "package",
+    "affects",
+    "package",
+    "affects"
+   ],
+   "run1 vr-014": [
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects"
+   ],
+   "run1 vr-016": [
+    "package",
+    "affects"
+   ],
+   "run1 vr-017": [
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects"
+   ],
+   "run1 vr-018": [
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects",
+    "package",
+    "affects"
+   ],
+   "run1 vr-019": [
+    "package",
+    "affects",
+    "package",
+    "affects"
+   ]
+  },
+  "count": 8,
+  "share_of_passed_right": 0.846
+ },
+ "harmed": [
+  {
+   "id": "dg-026",
+   "reasons": [
+    "the verdict no has no passing kev claim tied to the question"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "lk-010",
+   "reasons": [
+    "claim 3: CVE-2026-101905 has no vulnerable CPE row to read a fix from"
+   ],
+   "rule": 6,
+   "run": 1
+  },
+  {
+   "id": "lk-015",
+   "reasons": [
+    "GHSA-8498-2h75-472j has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "mh-021",
+   "reasons": [
+    "GHSA-x84v-xcm2-53pg in ids has no passing claim"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "vr-024",
+   "reasons": [
+    "claim 1: CVE-2026-101909 has no vulnerable CPE row to read a fix from"
+   ],
+   "rule": 6,
+   "run": 1
+  },
+  {
+   "id": "vr-029",
+   "reasons": [
+    "GHSA-crhf-3pfg-w68w has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "vr-030",
+   "reasons": [
+    "GHSA-56f8-g68r-j699 has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "vr-031",
+   "reasons": [
+    "GHSA-j9f9-w8pj-32f8 has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 1
+  },
+  {
+   "id": "vr-035",
+   "reasons": [
+    "GHSA-8g5g-8vmr-9782 has no passing claim that it affects the pair"
+   ],
+   "rule": 7,
+   "run": 1
+  }
+ ],
+ "helped": [],
+ "ids_removed_by_repair": 0,
+ "kev_claims": {
+  "passed, kev unit shown True": 2
+ },
+ "latency_s": {
+  "median": 3.06,
+  "p95": 6.25
+ },
+ "parse_failures": 0,
+ "passed_replies": 52,
+ "per_question": {
+  "ab-009": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "fake_cve",
+   "type": "abstain"
+  },
+  "ab-010": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "fake_cve",
+   "type": "abstain"
+  },
+  "ab-011": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "fake_cve",
+   "type": "abstain"
+  },
+  "ab-012": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "fake_ghsa",
+   "type": "abstain"
+  },
+  "ab-013": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "fake_ghsa",
+   "type": "abstain"
+  },
+  "ab-014": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "fake_ghsa",
+   "type": "abstain"
+  },
+  "ab-015": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fake_package",
+   "type": "abstain"
+  },
+  "ab-016": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fake_package",
+   "type": "abstain"
+  },
+  "ab-017": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fake_package",
+   "type": "abstain"
+  },
+  "ab-018": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "off_topic",
+   "type": "abstain"
+  },
+  "ab-019": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "off_topic",
+   "type": "abstain"
+  },
+  "ab-020": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "out_of_scope",
+   "type": "abstain"
+  },
+  "ab-021": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "out_of_scope",
+   "type": "abstain"
+  },
+  "ab-022": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "out_of_scope",
+   "type": "abstain"
+  },
+  "ab-023": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "out_of_scope",
+   "type": "abstain"
+  },
+  "ab-024": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "unsupported",
+   "type": "abstain"
+  },
+  "ab-025": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "unsupported",
+   "type": "abstain"
+  },
+  "ab-026": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "withdrawn",
+   "type": "abstain"
+  },
+  "ab-027": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "withdrawn",
+   "type": "abstain"
+  },
+  "ab-028": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "withdrawn",
+   "type": "abstain"
+  },
+  "ab-029": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "withdrawn",
+   "type": "abstain"
+  },
+  "ab-030": {
+   "checked": [
+    "c*"
+   ],
+   "r1_all_evidence": null,
+   "raw": [
+    "c*"
+   ],
+   "route": [
+    "gate/refused"
+   ],
+   "subtype": "withdrawn",
+   "type": "abstain"
+  },
+  "dg-009": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "band_agree",
+   "type": "disagree"
+  },
+  "dg-010": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "band_agree",
+   "type": "disagree"
+  },
+  "dg-011": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "band_agree",
+   "type": "disagree"
+  },
+  "dg-012": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "band_agree",
+   "type": "disagree"
+  },
+  "dg-013": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-014": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-015": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-016": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-017": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-018": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "band_differ",
+   "type": "disagree"
+  },
+  "dg-019": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_agree",
+   "type": "disagree"
+  },
+  "dg-020": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_agree",
+   "type": "disagree"
+  },
+  "dg-021": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_agree",
+   "type": "disagree"
+  },
+  "dg-022": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_differ",
+   "type": "disagree"
+  },
+  "dg-023": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_differ",
+   "type": "disagree"
+  },
+  "dg-024": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_differ",
+   "type": "disagree"
+  },
+  "dg-025": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "fixed_differ",
+   "type": "disagree"
+  },
+  "dg-026": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "one_silent",
+   "type": "disagree"
+  },
+  "dg-027": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "one_silent",
+   "type": "disagree"
+  },
+  "dg-028": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "one_silent",
+   "type": "disagree"
+  },
+  "dg-029": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "one_silent",
+   "type": "disagree"
+  },
+  "dg-030": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "one_silent",
+   "type": "disagree"
+  },
+  "lk-009": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "fixed_desc",
+   "type": "lookup"
+  },
+  "lk-010": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "fixed_desc",
+   "type": "lookup"
+  },
+  "lk-011": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "fixed_id",
+   "type": "lookup"
+  },
+  "lk-012": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "fixed_id",
+   "type": "lookup"
+  },
+  "lk-013": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "fixed_id",
+   "type": "lookup"
+  },
+  "lk-014": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-015": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-016": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-017": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-018": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-019": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-020": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "identify_desc",
+   "type": "lookup"
+  },
+  "lk-021": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "kev_id",
+   "type": "lookup"
+  },
+  "lk-022": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "kev_id",
+   "type": "lookup"
+  },
+  "lk-023": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "kev_id",
+   "type": "lookup"
+  },
+  "lk-024": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "map_id",
+   "type": "lookup"
+  },
+  "lk-025": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "map_id",
+   "type": "lookup"
+  },
+  "lk-026": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "map_id",
+   "type": "lookup"
+  },
+  "lk-027": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "severity_desc",
+   "type": "lookup"
+  },
+  "lk-028": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "severity_desc",
+   "type": "lookup"
+  },
+  "lk-029": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "severity_id",
+   "type": "lookup"
+  },
+  "lk-030": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "severity_id",
+   "type": "lookup"
+  },
+  "mh-008": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "a1_nvd_score",
+   "type": "multihop"
+  },
+  "mh-009": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "a1_nvd_score",
+   "type": "multihop"
+  },
+  "mh-010": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "a1_nvd_score",
+   "type": "multihop"
+  },
+  "mh-011": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "a2_kev_set",
+   "type": "multihop"
+  },
+  "mh-012": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "a2_kev_set",
+   "type": "multihop"
+  },
+  "mh-013": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "a3_kev_pick",
+   "type": "multihop"
+  },
+  "mh-014": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "a3_kev_pick",
+   "type": "multihop"
+  },
+  "mh-015": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-016": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-017": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-018": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-019": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-020": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-021": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "b_intersect",
+   "type": "multihop"
+  },
+  "mh-022": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "c_published",
+   "type": "multihop"
+  },
+  "mh-023": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "c_published",
+   "type": "multihop"
+  },
+  "mh-024": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "c_score",
+   "type": "multihop"
+  },
+  "mh-025": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "c_score",
+   "type": "multihop"
+  },
+  "vr-010": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-011": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-012": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w*"
+   ],
+   "route": [
+    "model/abstained"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-013": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-014": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-015": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-016": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-017": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-018": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-019": {
+   "checked": [
+    "w"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "w"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-020": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "set",
+   "type": "version"
+  },
+  "vr-021": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-022": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-023": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-024": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": false,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-025": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-026": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-027": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-028": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-029": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-030": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-031": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-032": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-033": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-034": {
+   "checked": [
+    "c"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "answer/passed"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  },
+  "vr-035": {
+   "checked": [
+    "w*"
+   ],
+   "r1_all_evidence": true,
+   "raw": [
+    "c"
+   ],
+   "route": [
+    "checker/refused"
+   ],
+   "subtype": "verdict",
+   "type": "version"
+  }
+ },
+ "polarity_unchecked_verdicts": 0,
+ "refusal_claims": {
+  "rule 6 fixed_in unverifiable": 2
+ },
+ "repaired": 0,
+ "retrieval_link": {
+  "R1 had all evidence / checked correct": 44,
+  "R1 had all evidence / checked wrong": 9,
+  "R1 missed evidence / checked wrong": 35
+ },
+ "routes": {
+  "answer/passed": 52,
+  "checker/refused": 9,
+  "gate/refused": 15,
+  "model/abstained": 34
+ },
+ "rule7_refusals_on_disagree": 1,
+ "runs": [
+  1
+ ],
+ "stop_reasons": {
+  "end_turn": 110
+ },
+ "tokens_per_query": {
+  "input": 13327,
+  "output": 363
+ },
+ "verdict_set_by_type": {
+  "disagree": 1,
+  "lookup": 1,
+  "version": 15
+ }
+}
