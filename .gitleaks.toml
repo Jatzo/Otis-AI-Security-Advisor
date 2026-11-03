@@ -1,0 +1,11 @@
+# The secret scan reads this file when it runs from the repository root.
+[extend]
+useDefault = true
+
+# The red team's attack cases carry made-up markers (OTIS-CANARY-12, ZETA-30-MARK, fake GHSA IDs)
+# under a field called "token". The generic rule reads that as a key. Only that one rule is turned
+# off, and only for these two generated files, so every other rule still scans them.
+[[allowlists]]
+description = "Made-up markers in the red team attack cases are not secrets"
+targetRules = ["generic-api-key"]
+paths = ['''^redteam/attacks(-heldout)?\.jsonl$''']

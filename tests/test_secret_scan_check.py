@@ -1,8 +1,10 @@
 """The secret-scan self-test must pass when the scanner finds the planted key and fail when it
 does not. A stand-in `gitleaks` on PATH plays each part, so these run without the real tool."""
 
+import re
 import shutil
 import subprocess
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -54,3 +56,21 @@ def test_the_self_test_fails_when_the_scanner_crashes_instead_of_scanning(tmp_pa
     result = run_with_stand_in_scanner(tmp_path, SCANNER_THAT_CRASHES)
     assert result.returncode == 1
     assert "did not run (exit code 1)" in result.stderr
+
+
+def test_the_scan_config_keeps_the_default_rules_and_allows_one_rule_in_two_files():
+    root = Path(__file__).resolve().parent.parent
+    config = tomllib.loads((root / ".gitleaks.toml").read_text(encoding="utf-8"))
+    assert config["extend"]["useDefault"] is True
+    (allowed,) = config["allowlists"]
+    assert allowed["targetRules"] == ["generic-api-key"]
+    paths = allowed["paths"]
+    assert all(re.search(p, "redteam/attacks.jsonl") for p in paths)
+    assert all(re.search(p, "redteam/attacks-heldout.jsonl") for p in paths)
+    for other in (
+        "redteam/other.jsonl",
+        "tests/redteam/attacks.jsonl",
+        "src/attacks.jsonl",
+        ".env",
+    ):
+        assert not any(re.search(p, other) for p in paths), other

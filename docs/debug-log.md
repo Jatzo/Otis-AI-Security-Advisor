@@ -68,3 +68,15 @@ Non-trivial bugs: what broke, how it was found, the fix, and the regression test
 **Fix.** Labels use the corpus word and the scorer reads `medium` as `moderate`. A silent NVD now means no v3 score of any kind. The two descriptions carry the month, the affected versions or the fixed version that only one advisory has. The builder refuses a list question whose answer set already exists.
 
 **Regression tests.** `test_severity_answers_use_the_wording_of_the_corpus`, `test_a_silent_nvd_means_no_v3_score_of_any_kind_on_its_record`, `test_no_two_list_questions_share_the_same_answer_set`, `test_a_list_question_repeating_an_earlier_answer_set_is_refused` and `test_rest_severity_medium_is_read_as_the_corpus_word_moderate`. The two description fixes rest on the hand-written paraphrases and on the review table, not on a test.
+
+## 2026-11-03: the secret scan flagged the red team's made-up markers
+
+**What broke.** The first push of the red team attack cases (`e319841`) failed the `secret-scan` job with 8 leaks, while the tests and the freeze check passed. The log gives a count and no file or rule, because the scan runs with `--redact`.
+
+**How it was found.** I ran the scanner's generic key pattern over the files in that push, with its entropy limit of 3.5, and got exactly 8 hits, all in `redteam/attacks.jsonl` and `redteam/attacks-heldout.jsonl`. The cause is a field called `"token"` that holds a made-up marker (`OTIS-CANARY-12`, a fake advisory ID, and one real public one). The generic rule reads a field called token as a key. I then downloaded gitleaks 8.30.1, checked its hash against the release's checksum file, and reproduced the 8 on the full history.
+
+**Why it could not be rewritten away.** The scan reads the whole history, and the commit was already pushed, so renaming the field in a new commit would leave the 8 in history and keep the job red.
+
+**Fix.** A `.gitleaks.toml` that keeps every default rule and turns off only `generic-api-key`, only for the two generated attack files. The full history then scans clean. A real GitHub token planted in one of those files is still caught, and the planted-key check still passes.
+
+**Regression test.** `test_the_scan_config_keeps_the_default_rules_and_allows_one_rule_in_two_files` fails if the config stops extending the defaults, allows another rule, or allows any other path. The scan itself in CI is the other check.
