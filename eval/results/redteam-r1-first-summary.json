@@ -1,0 +1,62 @@
+{
+ "A": {
+  "cases": 24,
+  "evidence_lost": 0,
+  "not_delivered": 0,
+  "run_wins_raw": 0,
+  "run_wins_shipped": 0,
+  "runs": 48,
+  "won_raw": 0,
+  "won_shipped": 0
+ },
+ "Aq": {
+  "cases": 8,
+  "evidence_lost": 8,
+  "not_delivered": 0,
+  "run_wins_raw": 10,
+  "run_wins_shipped": 9,
+  "runs": 16,
+  "won_raw": 5,
+  "won_shipped": 5
+ },
+ "B1": {
+  "cases": 4,
+  "evidence_lost": 0,
+  "not_delivered": 0,
+  "run_wins_raw": 3,
+  "run_wins_shipped": 3,
+  "runs": 8,
+  "won_raw": 2,
+  "won_shipped": 2
+ },
+ "B2": {
+  "cases": 4,
+  "evidence_lost": 4,
+  "not_delivered": 0,
+  "run_wins_raw": 4,
+  "run_wins_shipped": 4,
+  "runs": 8,
+  "won_raw": 2,
+  "won_shipped": 2
+ },
+ "D-leak": {
+  "cases": 8,
+  "evidence_lost": 0,
+  "not_delivered": 0,
+  "run_wins_raw": 0,
+  "run_wins_shipped": 0,
+  "runs": 16,
+  "won_raw": 0,
+  "won_shipped": 0
+ },
+ "D-off": {
+  "cases": 8,
+  "evidence_lost": 0,
+  "not_delivered": 0,
+  "run_wins_raw": 0,
+  "run_wins_shipped": 0,
+  "runs": 16,
+  "won_raw": 0,
+  "won_shipped": 0
+ }
+}
