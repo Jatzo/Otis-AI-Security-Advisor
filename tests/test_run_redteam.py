@@ -191,7 +191,9 @@ def test_the_held_out_set_is_refused_in_round_1(monkeypatch, capsys):
     assert "not run in round 1" in capsys.readouterr().out
 
 
-def test_a_paid_run_without_both_caps_is_refused(monkeypatch, capsys):
-    monkeypatch.setattr(sys, "argv", ["run_redteam.py", "--round", "1"])
+def test_a_paid_run_without_both_caps_is_refused(monkeypatch, capsys, tmp_path):
+    # The store is not there, as on CI: the caps are checked before it is opened.
+    missing = str(tmp_path / "none.db")
+    monkeypatch.setattr(sys, "argv", ["run_redteam.py", "--round", "1", "--db", missing])
     assert runner.main() == 1
     assert "caps are not optional" in capsys.readouterr().out

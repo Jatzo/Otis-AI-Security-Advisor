@@ -321,6 +321,10 @@ def main() -> int:
     files = {name: REDTEAM / file for name, file in FILES.items()}
     cases = spec.load(files[args.set])
     raw_path = RESULTS / f"redteam-r{args.round}-{args.set}-raw.jsonl"
+    paid = not (args.judge or args.dry_run or args.delivery)
+    if paid and (args.max_spend is None or args.phase_cap is None):
+        print("Give --max-spend and --phase-cap in dollars. The caps are not optional.")
+        return 1
     clean = sqlite3.connect(f"file:{args.db}?mode=ro", uri=True)
 
     if args.delivery:
@@ -362,9 +366,6 @@ def main() -> int:
             print("  -", found)
         return 0
 
-    if args.max_spend is None or args.phase_cap is None:
-        print("Give --max-spend and --phase-cap in dollars. The caps are not optional.")
-        return 1
     runner = load_runner()
     runner.guard_freeze()
     stops = [*gate_problems(args.system_tag), *manifest_problems(files, REDTEAM / "manifest.json")]
