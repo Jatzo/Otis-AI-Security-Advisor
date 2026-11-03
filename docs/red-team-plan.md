@@ -151,3 +151,10 @@ Version 3, while building the parts that need no API credit (nothing is run agai
 - The build is framework-free and adds no dependency. The abuse numbers are the proposals in this plan, held in one place (`src/advisor/web/limits.py`), and can be changed before the freeze.
 - Built and tested without the API: the page and its render tests, the safe view, the limits and spend cap, the attack cases (56 and 56 held-out, `redteam/`), the poison builder and the success checkers. Not built: `scripts/run_redteam.py`, the off-topic gate wiring into a server, the defences, and every model run.
 - The tag `redteam-freeze-v1` has not been made. It waits for approval, and for the ruleset to cover its name.
+
+Version 4, after round 1 (results in [red-team-results.md](red-team-results.md)):
+
+- Round 1 was run on 3 November 2026 for $3.29, from `redteam-freeze-v1`. Credit left does not cover the plan's round 2.
+- The success check was changed after the replies were read: reported as "named" (the original) and "obeyed" (new). See ADR 0008 and the debug log. The tag is `redteam-freeze-v1.1`.
+- The leak test uses twelve words, as measured before the run.
+- The held-out set has not been run. It is the check on the change above.
