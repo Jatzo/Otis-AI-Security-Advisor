@@ -10,95 +10,225 @@
   </picture>
 </p>
 
-# Otis: AI Security Advisor
+# Otis: a retrieval-augmented advisor for software vulnerabilities, measured honestly
 
-Otis answers questions about real software vulnerabilities from public advisory data (NVD, GitHub advisories, CISA KEV). Every answer cites what it relied on, says "I don't know" when the sources do not cover the question, and shows where the sources disagree.
+[![CI](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml/badge.svg)](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml)
 
-Work in progress. The data, the evaluation, the no-retrieval baseline, the retrieval ladder, the answer checker and the one-time test run are done. The red team attacks have been run against the unchanged system and no defence has been tested yet. The public demo is not built yet.
+> **Work in progress.** The data, the evaluation, the retrieval study, the answer checker, the single test run and the first red team are done and written up. Defences against the red team findings have not been built or tested, the planned interface is a mockup, and there is no deployed demo. [Section 10](#10-plan-of-action) sets out what comes next. The accuracy numbers below are a first measurement, not a finished system.
 
-## What Otis will look like
-
-A design mockup of the planned interface, in light and dark. The wording is sample text, and the interface itself is not built yet.
+Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
 
 <p align="center">
-  <img src="docs/brand/otis-ui-mockup.png" alt="Mockup of the Otis interface in light and dark. Each answer says what Otis found, lists the facts it confirmed against the advisories, shows the records it read, and shows a No answer card when it cannot confirm a reply." width="900">
+  <img src="docs/img/otis-demo.gif" alt="A question typed into the Otis page, followed by the answer, the facts the checker confirmed and the records that were read" width="760">
 </p>
+<p align="center"><sub>A recording of a saved answer from the dev run of 2 November 2026 (question <code>vr-005</code>), shown in a mockup of the planned page. The page is not deployed. Every line in it, including the 2.8 seconds and $0.012, comes from that run.</sub></p>
 
-## Otis at a glance
+## Contents
 
-```text
-OTIS   security advisor for open-source packages
-status    in build: data, evaluation, baseline, retrieval, checker, test run and red team attacks done (no defence tested yet); demo next
-reads     GitHub advisories, NVD records, CISA KEV (snapshot 1 November 2026)
-covers    18 packages: 9 PyPI, 6 npm, 3 Maven
-answers   with the advisory and CVE IDs it relied on
-declines  when the sources do not cover the question
-flags     where GitHub and NVD disagree
-checks    every ID, package, version and score against the record it cites
-```
+1. [Abstract](#1-abstract)
+2. [Where the project stands](#2-where-the-project-stands)
+3. [Problem and scope](#3-problem-and-scope)
+4. [The system](#4-the-system)
+5. [How the evaluation was kept honest](#5-how-the-evaluation-was-kept-honest)
+6. [Results](#6-results)
+7. [Design decisions and trade-offs](#7-design-decisions-and-trade-offs)
+8. [Security evaluation](#8-security-evaluation)
+9. [Threats to validity and limitations](#9-threats-to-validity-and-limitations)
+10. [Plan of action](#10-plan-of-action)
+11. [Reproducing it](#11-reproducing-it)
+12. [Repository map and decision records](#12-repository-map-and-decision-records)
+13. [Data and licence](#13-data-and-licence)
 
-Otis answers in one pass: retrieve the records, answer, check. It does not pick its own tools or loop on its own. Iterative retrieval was measured in Phase 3 and did not beat plain keyword search, so Otis answers in one pass.
+## 1. Abstract
 
-## How an answer is made
+Otis is a single-pass pipeline: keyword search over the 1,164 GitHub and NVD records and the KEV entries that link to them, a language model that writes a structured answer with the claims it rests on, and code that checks every claim against the store and refuses the whole reply if one fails. The design is judged against four comparison rows that need no retrieval or no model: the model with no documents, structured lookups with no model, the model with a whole package in its prompt, and retrieval alone.
 
-```mermaid
-flowchart LR
-  Q[Question] --> R[Retrieve advisory records]
-  R --> A[Model answers, each claim cites a record]
-  A --> C{"Checker: does every claim match its record?"}
-  C -->|yes| OUT[Answer with citations]
-  C -->|no| D[Remove the claim, or decline]
-```
+On 110 test questions, scored once from a tagged system, the checked system answers 66 correctly (60%) against 35 (32%) for the model alone, and 44 of the 88 answerable questions (50%) against 13 (15%). It invented no advisory or CVE ID in any row. The headline is more modest than the design. Retrieval put all the needed evidence in the top 10 for only 53 of the 88 answerable questions, and the model's raw reply was right on 52 of those 53 and on 1 of the other 35. The checker refused 9 correct replies and withheld no wrong one. Two rows with no retrieval beat the system: code that reads the question's form scored 99 of 110, and the model given a whole package scored 42 of the 43 questions that name one.
 
-This is the design in [ADR 0001](docs/adr/0001-retrieval-answers-code-checks.md). Retrieval and the model answer the question. Deterministic code only checks the answer, and grades the evaluation.
+A red team of 56 attack cases and a held-out 56, run against the unchanged system, found that instructions hidden in advisory text were followed in 1 case of 48, that a poisoned record can make a question unanswerable, and that a false record with false structured fields passes the checker by design. **No defence has been tested yet.**
 
-## Where each part stands
+## 2. Where the project stands
 
-| Part | What it is | State |
+| Part | State | Where |
 |---|---|---|
-| Data | 588 GitHub advisories, 576 NVD records and the KEV catalogue for 18 packages, with version ordering for PyPI, npm and Maven | Done. [Data report](docs/data-report.md) |
-| Evaluation | 150 questions with gold answers from a separate script, frozen under the git tag `eval-freeze-v1` before any system ran | Done. [Rules](eval/rules.md), [ADR 0004](docs/adr/0004-freeze-the-evaluation-with-a-tag.md) |
-| Baseline | The model with no retrieval, run on the 40 dev questions | Done. [Results](docs/baseline-results.md) |
-| Retrieval | Nine rungs from keyword search to reranking and decomposition, tuned on dev only | Done. Keyword search over headed records won. [Results](docs/retrieval-results.md), [ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md) |
-| Checker | Refuses any reply with a claim its cited record does not support | Done. [Results](docs/generation-results.md), [ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md) |
-| Test run | Five systems scored once on the 110 test questions, from a tagged system | Done. [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
-| Red team | Advisory text treated as untrusted input, with what held and what did not | Attacks run on the unchanged system, no defence tested yet. [Report](docs/red-team-report.md), [results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
-| Demo | A public page showing the answer, the evidence and each check | Phase 7 |
+| Data: 588 GitHub advisories, 576 NVD records, the KEV catalogue, with version ordering for PyPI, npm and Maven | Done | [Data report](docs/data-report.md), [ADR 0002](docs/adr/0002-sources-and-how-they-join.md), [ADR 0003](docs/adr/0003-version-order-by-range-type.md) |
+| Evaluation: 150 questions, gold from separate code, frozen under a git tag | Done | [Rules](eval/rules.md), [ADR 0004](docs/adr/0004-freeze-the-evaluation-with-a-tag.md) |
+| Baseline: the model with no retrieval | Done | [Results](docs/baseline-results.md) |
+| Retrieval: nine rungs, one adopted | Done | [Results](docs/retrieval-results.md), [ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md) |
+| Generation and checker | Done | [Results](docs/generation-results.md), [ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md) |
+| Test run: five rows, scored once | Done | [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
+| Red team: attacks run on the unchanged system | Run and written up. No defence tested, so the phase stays open | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
+| Fixes for the checker faults and the red team findings | Planned, not started | [Plan of action](docs/roadmap.md) |
+| Public demo | Not deployed. The page and handler are tested without a server | `src/advisor/web/` |
+| Write-up for a security reader | Not written | |
 
-The phases, decisions and state of play are in [PROGRESS.md](PROGRESS.md).
+## 3. Problem and scope
 
-## What Otis is held to
+A developer asks "Does CVE-2020-9402 affect django version 3.0.4?" or "Do GitHub and NVD put CVE-2021-45105 in the same severity band? Give the score each one gives." The answers are in public records, and the records disagree with each other more often than most people expect: GitHub and NVD put a different severity band on 46 of the 275 advisory and CVE pairs that both score. An answer needs to be right, to say which records it came from, and to decline when the records say nothing.
 
-The evaluation has 150 questions: 30 direct lookups, 35 version checks, 25 that need more than one record, 30 that should be declined and 30 where GitHub and NVD may disagree. 40 are for tuning (dev) and 110 are scored once (test). Scoring is deterministic code, with no model as judge.
+The corpus is deliberately small: 18 packages (9 PyPI, 6 npm and 3 Maven, the Maven three chosen because KEV lists them), a snapshot of 1 November 2026, and a size that can be checked by hand. Expanding it is a later, separate step. The system answers one question at a time and does not choose its own tools.
 
-Two dev examples show what is asked:
+## 4. The system
 
-- "Which package does CVE-2025-99475 affect?" The CVE is invented and absent from NVD, so the right answer is to decline.
-- "Do GitHub and NVD put CVE-2021-45105 in the same severity band?" GitHub scores it 8.6 and NVD 5.9, which are different bands, so the right answer says the sources disagree and gives both scores.
+![How an answer is made: gate, retrieve, answer, check, then an answer or a refusal](docs/img/architecture.svg)
 
-GitHub and NVD give a different severity band for 46 of the 275 advisory and CVE pairs that both score.
+**Store.** A SQLite database built from the three sources. A version comparator for each ecosystem (PEP 440 for PyPI, SemVer 2.0 for npm, a port of Maven's `ComparableVersion`) is chosen by the range type each advisory declares ([ADR 0003](docs/adr/0003-version-order-by-range-type.md)).
 
-## What the baseline shows
+**Units and retrieval.** There is one retrievable unit for each GitHub advisory, each NVD record and each KEV entry whose CVE some advisory names. Each unit carries a header built only from its own record: ID, package, dates, the source's own severity or score, affected ranges and aliases, kept under 700 characters. The index is BM25 over those units in SQLite FTS5, and the top 10 go to the model. The header matters more than any other choice: it is worth 17 of the 32 dev questions over the same search without it ([ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md)).
 
-With no retrieval, the model answers 7 of the 32 answerable dev questions correctly (22%). It declines 23 of the rest, and when it does answer it is right 7 times in 9. In 120 replies it invented one advisory ID. The model knows what it does not know. Retrieval is what lets it answer. The full table is in [docs/baseline-results.md](docs/baseline-results.md).
+**Generation.** One call to `claude-sonnet-5-5`, effort high, adaptive thinking, no tools. The prompt says that text inside a record is data, and that if the records do not hold the answer the model must decline. Records reach it with `&`, `<` and `>` escaped, so a record cannot close or fake an evidence block. The reply is JSON: a verdict, the IDs that are the answer, a value, a flag for where the sources disagree, an explanation, and up to 40 claims. A claim is one of eight kinds (`package`, `alias`, `affects`, `fixed_in`, `severity`, `score`, `published`, `kev`) and cites a record that was shown.
 
-## What the retrieval ladder shows
+**The checker.** Code, not a model. It reads each claim against the store and never against the model's text or the evidence it was shown. Eight rules take it from "does the reply parse" to "does every answer field have a passing claim behind it". One claim that is wrong, or that code cannot check, refuses the whole reply, with the reasons kept beside it. The single repair is cutting out an ID that no record, alias or question ever held. One further gate runs before the model is called: a question that names a GHSA or CVE ID that no record holds is refused without a model call ([ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md)).
 
-On the 32 answerable dev questions, keyword search over records with a header puts every record a question needs into the top 10 for 24 of them (75%, 95% interval 58 to 87%). Without the header it manages 7. Two embedding models, a reranker, splitting long records and question decomposition were each tried on top, and none passed the adoption rule written down before the first run. Both embedding models scored lower than keyword search. The questions are full of exact IDs, package names and versions, which suits keyword search, though I did not test why.
+The design principle is stated once, in [ADR 0001](docs/adr/0001-retrieval-answers-code-checks.md): retrieval and the model answer, and deterministic code only checks and grades. The comparison rows exist to hold that choice to account. Structured lookups, which answer by code alone, and a whole-package prompt are both measured, because if either beat the system that is a finding to report.
 
-The remaining misses are multi-hop questions and questions where GitHub and NVD disagree, which need two or more linked records. All 8 lookups and all 9 version checks are met. These are dev numbers on a small set. The test split was scored once, in Phase 5: see [the test results](docs/test-results.md). For every rung, see [the results](docs/retrieval-results.md) for every rung.
+## 5. How the evaluation was kept honest
 
-## Development
+![The question set, the dev and test split, and the seven steps of the evaluation trail](docs/img/evaluation-trail.svg)
 
-```
+- **Written first.** The 150 questions and their gold answers were built before any system existed, from the raw data by code the system never uses, and checked against the raw files by a second script. Gold is checked, not trusted.
+- **Frozen by tag.** `eval-freeze-v1` holds the questions, gold, rules, scorer and runner. A CI job fails if any of them changes. A repository ruleset blocks moving or deleting the tags. Every result line records the commit and the git blob id of each frozen file.
+- **Dev for tuning, test once.** 40 questions were for building. 110 were scored once, from a system tagged `phase5-system-v1`. Raw outputs for all five rows were committed before anything was scored. A fault found after the tag is reported and not fixed, because fixing it would be tuning on test.
+- **Rules before results.** Each stage had a plan written and reviewed first: how many runs, what counts as adopting a rung (at least 4 more questions than the current choice and exact McNemar p below 0.05), and what each outcome would mean.
+- **Deterministic scoring.** No model judges any answer. Intervals are 95% Wilson intervals, and paired comparisons use the exact McNemar test.
+- **Every table that compares systems has a baseline row.** The expectations for the test run were written down beforehand and the results are set against them, including where they were wrong ([test results](docs/test-results.md#the-expectations-written-down-before-the-run)).
+
+## 6. Results
+
+### 6.1 The baseline
+
+With no documents, the model declines 23 of the 32 answerable dev questions and is right on 7 (22%). When it does answer it is right 7 times in 9. It invented one advisory ID in 120 replies. It knows what it does not know, and retrieval is what lets it answer ([baseline results](docs/baseline-results.md)).
+
+### 6.2 Retrieval
+
+![The nine retrieval rungs by share of dev questions whose evidence is wholly in the top 10](docs/img/retrieval-ladder.svg)
+
+Keyword search over headed records puts all the evidence for 24 of the 32 answerable dev questions in the top 10 (75%, 95% interval 58 to 87%). Two embedding models, hybrid fusion, a cross-encoder reranker, splitting long records and model-written sub-queries were each tried, and none met the adoption rule. The embedding models did worse than keyword search, and the reranker was far over a latency budget at 11.4 seconds a query, against milliseconds for keyword search. A likely reason for the embedding result is that these questions are full of exact IDs, package names and versions. I did not test why. On the test split the same retrieval found all the evidence for 53 of 88 questions (60%, interval 50 to 70%), lower than on dev, and mean recall at 10 was 0.77.
+
+### 6.3 The test split, scored once
+
+![Results of five systems on the 110 test questions, and on the 43 that name a package](docs/img/test-results.svg)
+
+| | Checked system | Raw reply | Baseline |
+|---|---|---|---|
+| Correct, 110 questions | 66 (60%, 51 to 69) | 75 (68%, 59 to 76) | 35 (32%, 24 to 41) |
+| Correct, 88 answerable | 44 (50%, 40 to 60) | 53 (60%, 50 to 70) | 13 (15%, 9 to 24) |
+| Invented IDs | 0 of 110 | 0 of 110 | 0 of 110 |
+| Should-abstain, recalled (22) | 22 | 22 | 22 |
+| Sources-disagree correct (22) | 5 | 6 | 1 |
+
+Against the baseline, the system is right and the baseline wrong on 35 questions, and the reverse on 4 (exact McNemar, p below 0.0001). Records after the model's training are the clearest effect: the baseline gets 0 of 26 answerable post-cutoff questions, and the checked system gets 15 (the raw reply 20).
+
+| By type, correct | Baseline | Structured | System, raw | System, checked |
+|---|---|---|---|---|
+| Should decline (22) | 22 | 22 | 22 | 22 |
+| Sources disagree (22) | 1 | 22 | 6 | 5 |
+| Direct lookup (22) | 4 | 11 | 20 | 18 |
+| Multi-hop (18) | 2 | 18 | 8 | 7 |
+| Version affected (26) | 6 | 26 | 19 | 14 |
+
+### 6.4 Where the accuracy was lost
+
+![The 88 answerable test questions by outcome, and the effect of retrieving or missing the evidence](docs/img/where-accuracy-was-lost.svg)
+
+Retrieval is the limit. When the top 10 held the evidence, the model's raw reply was right on 52 of 53. When it did not, it was right on 1 of 35. The model itself declined 27 answerable questions, all where retrieval had missed, and said so. The checker did not help: it refused 9 more correct replies and withheld no wrong one. Eight wrong replies passed because every fact they stated was true: six lists were short, one intersection was short, and one reply picked the wrong one of two true dates. No claim failed outright. Every refusal was a missing or uncheckable claim, never a false one. The checker's guarantee, that no invented ID, wrong version, score or label reaches the reader, held, but on this set the model invented nothing for it to catch.
+
+### 6.5 Cost and latency
+
+Measured on the test run, on this machine.
+
+| Row | Per question | Median / p95 |
+|---|---|---|
+| Baseline | $0.0054 | 2.3 s / 9.2 s |
+| System, retrieval included | $0.0303 (about 13,300 tokens in, 360 out) | 3.1 s / 6.3 s |
+| Whole package in the prompt, caching on | $0.0621 | 4.7 s / 9.4 s |
+| Structured lookups, no model | $0 | under 1 ms |
+| Retrieval alone | $0 | 2.6 ms / 4.4 ms |
+
+Without prompt caching the whole-package row would have cost about $7 for its 43 questions. The whole test phase cost $6.81.
+
+## 7. Design decisions and trade-offs
+
+| Decision | Chosen | Not chosen | What the evidence says |
+|---|---|---|---|
+| Who answers | Retrieval and the model answer, code only checks ([ADR 0001](docs/adr/0001-retrieval-answers-code-checks.md)) | Code answers and the model only phrases it | Code that reads the question's form scores 90% on this set. The cost of the chosen design is real, and it is reported in the same table |
+| Retrieval | Keyword search over headed records ([ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md)) | Dense, hybrid, reranked, split, decomposed | Keyword search won on dev, took milliseconds where the reranker took 11.4 seconds, and no other rung met the rule |
+| Unit of retrieval | One unit per source record, with a header | Fixed-size chunks | The median GitHub record is 458 characters but the 90th percentile is 6,126. Splitting long records changed no question at 10 |
+| Failed claim | Refuse the whole reply ([ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md)) | Drop the bad claim and keep the rest, or retry | Patching a fact would be code answering. A retry doubles cost and adds another chance to invent |
+| Test split | Scored once, from a tagged system ([ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md)) | Run as built, and fix faults | It keeps the number honest. It also means the faults found cannot be fixed and re-scored on the same questions |
+| One pass | Retrieve, answer, check | An agent that picks tools and loops | Model-written sub-queries did worse than plain search on dev |
+| Scoring an attack | By what the reply did ([ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md)) | By whether it names the marker | The first check counted a model rejecting a false fact as a win |
+
+## 8. Security evaluation
+
+Advisory text is public and can be written by outsiders. Otis reads it and shows text back, so it was attacked as a target and not only used as a tool.
+
+![Red team cases won by the attacker, in six classes, for the frozen and the held-out sets](docs/img/red-team.svg)
+
+- **Held.** Instructions hidden in a record's title, description or NVD text were not followed in 47 of 48 cases. A false fix version written only in prose was not obeyed in 8 of 8: the model named it in 3 cases and rejected it each time. No leak of the instructions in 24 runs. No off-topic answer in 24 runs. 30 hostile payloads put through the page in a real browser ran no script, made no element the page did not draw, and built no link that code had not made.
+- **Did not hold.** A record can take a question away: text asking the model to repeat its instructions made the API stop the reply, and a record claiming to be withdrawn made the model decline. A visitor can make Otis repeat what they type, which changes only their own reply. A new record with false structured fields got into a list answer in 3 of 4 held-out cases, which is the stated limit of the design: the checker compares claims with the record it cites, so a record that lies passes.
+- **Not tested.** Any defence, an attacker who adapts, more than one turn, and a deployed system.
+
+The full account, with how each result was judged and the faults in my own instruments, is the [red team report](docs/red-team-report.md).
+
+## 9. Threats to validity and limitations
+
+- **The questions are templated.** Structured lookups score 90% because code can read the form of the question. That shows how much of this set needs no model. It does not show the same of real questions.
+- **One run, one model, 110 questions.** Intervals are wide and the table gives them. A single reply moves a rate.
+- **The gold was reviewed by its author.** It was derived by separate code and checked against the raw files, and every row was read before the freeze, so independence is weaker than if a second person had written it. The hand spot-check was thin. The 24 marks that agreed with the scorer on all 24 were made by the system's builder from the same store, so they are weak evidence. My own blind marks cover 5 of the 24, agree on 4, and say "can't tell" on 19 ([progress notes](PROGRESS.md)).
+- **The test split is spent.** The faults found cannot be fixed and re-scored on it. Improvement needs a new question set.
+- **The checker's faults are reported, not fixed.** Two are known (a version range read as a package pair, and a rule that refuses a true verdict) and neither was changed after the tag.
+- **Retrieval coverage fell from dev to test** (75% to 60%). Dev has only 32 answerable questions, and the drop is about what a small tuning set would be expected to give.
+- **The red team is small and mine.** 56 cases a set, written once. A zero means not found, not safe. The "obeyed" check was changed after reading round 1, and the held-out set is the test of that.
+- **Snapshot, not a live feed.** The corpus is as of 1 November 2026. CVEs are revised after publication. The planned page shows the snapshot date, and the system does not yet record which snapshot an answer used.
+
+## 10. Plan of action
+
+![A four-stage plan: free work, dev only, score once, red team round two](docs/img/roadmap.svg)
+
+The plan in [docs/roadmap.md](docs/roadmap.md) starts where the evidence points. First the free work: fix the known causes of 6 of the checker's 9 wrong refusals, decide what to do about 2 more, and test on dev replies already saved. Then a new question set, written and frozen before any change, because the test split cannot be used again. Then retrieval, which is the larger lever: put each advisory's NVD record and KEV entry in front of the model, and give list questions a completeness check or a computed candidate set. For the red team: scan real records for the text that made questions unanswerable, cross-check each record's ranges against a second source, and run the frozen and held-out cases on a defended system. Each change has an adoption rule and an ADR. The estimate is about $20 at the prices measured so far.
+
+## 11. Reproducing it
+
+```bash
 uv sync
-uv run pytest
+uv run pytest                          # the test suite; none of it calls the API
 uv run ruff check .
-python scripts/check_eval_frozen.py
+python scripts/check_eval_frozen.py    # fails if anything frozen under eval/ has changed
+python scripts/make_attack_spec.py --check
+python scripts/run_redteam.py --round 1 --judge   # re-judge the saved red team replies, no API call
+python scripts/make_figures.py         # redraws the figures from the written results
+python scripts/make_demo_gif.py        # redraws the GIF from a saved answer
 ```
 
-The last command fails if anything frozen under `eval/` has changed since the tag.
+Paid runs need `ANTHROPIC_API_KEY` in a `.env` file (gitignored). The paid runners refuse to start unless the code is committed, the frozen files match their tag, and the spend caps are given. The data was fetched with the code in `src/advisor/ingest`, and a small sample is committed in `data/sample/`. The full store and raw dump are not in the repository.
 
-## Why the name Otis?
+CI runs the tests, ruff, the freeze check and a secret scan on every push. The secret scan has its own self-test, which plants a key and fails unless it is caught.
 
-Otis is my RAGdoll cat. It felt like the perfect name for a RAG project.
+## 12. Repository map and decision records
+
+| Path | What is there |
+|---|---|
+| `src/advisor/ingest/`, `store.py`, `versions.py` | Fetchers, the store, and the version comparators |
+| `src/advisor/retrieval/` | The units, the keyword index and the other rungs |
+| `src/advisor/generation/` | The prompt, the reply reader, the evidence format and the checker |
+| `src/advisor/structured/`, `longcontext/` | The two comparison rows |
+| `src/advisor/redteam/`, `redteam/` | The attack cases, the poison builder and the success checks |
+| `src/advisor/web/` | The page, the safe view and the abuse limits, tested without a server |
+| `eval/` | Questions, gold, rules, scorer, and every saved result |
+| `docs/` | Plans and results for each phase, the ADRs, the data report, the red team report |
+
+| ADR | Decision |
+|---|---|
+| [0001](docs/adr/0001-retrieval-answers-code-checks.md) | Retrieval answers; deterministic code only checks |
+| [0002](docs/adr/0002-sources-and-how-they-join.md) | The sources and how they join |
+| [0003](docs/adr/0003-version-order-by-range-type.md) | Version order is chosen by range type |
+| [0004](docs/adr/0004-freeze-the-evaluation-with-a-tag.md) | The evaluation is frozen with a tag |
+| [0005](docs/adr/0005-keyword-search-over-headed-records.md) | Keyword search over records with a header |
+| [0006](docs/adr/0006-the-checker-refuses-whole-replies.md) | The checker refuses whole replies |
+| [0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) | The test split is scored once |
+| [0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) | An attack is judged by what the reply did |
+
+## 13. Data and licence
+
+GitHub Advisory Database records are used under CC BY 4.0. NVD data is NIST's and in the public domain, and this product uses data from the NVD API but is not endorsed or certified by the NVD. The CISA KEV catalogue is CC0 1.0, and this project does not use the CISA logo or the DHS Seal. The changes made to each source are in [data/ATTRIBUTION.md](data/ATTRIBUTION.md). The code is under the [MIT licence](LICENSE).
