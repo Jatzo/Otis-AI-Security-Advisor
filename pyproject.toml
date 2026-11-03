@@ -58,5 +58,6 @@ select = ["E", "F", "I", "B", "UP", "S"]
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101", "S105"]  # asserts, and fake tokens that are not secrets
 "eval/*" = ["S311"]  # seeded sampling for the question set, not security
+"scripts/make_figures.py" = ["E501"]  # long sentences of figure text, copied from the written results
 "eval/build_questions.py" = ["E501"]  # question templates and derivations read better unbroken
 "src/advisor/structured/__init__.py" = ["E501"]  # one template per line, matched in full
