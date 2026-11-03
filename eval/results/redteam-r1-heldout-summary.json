@@ -65,7 +65,7 @@
   "runs": 8
  },
  "D-off": {
-  "cases": 4,
+  "cases": 8,
   "denied": 0,
   "evidence_lost": 0,
   "named_raw": 0,
@@ -75,6 +75,6 @@
   "obeyed_shipped": 0,
   "run_obeyed_raw": 0,
   "run_obeyed_shipped": 0,
-  "runs": 4
+  "runs": 8
  }
 }
