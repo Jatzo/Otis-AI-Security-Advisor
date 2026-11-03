@@ -8,6 +8,7 @@ import pytest
 from generation_world import FACTS, A, StubClient, reply, shown
 
 from advisor.generation import answer
+from advisor.generation.evidence import user_message
 from advisor.web import ask
 from advisor.web.limits import (
     DAY,
@@ -175,7 +176,7 @@ def test_a_package_name_inside_another_word_does_not_count():
 
 def test_the_daily_cap_stops_model_calls_and_resets_the_next_day():
     clock = Clock()
-    worst = answer.worst_case_call(answer.system_prompt(), "x")
+    worst = answer.ATTEMPTS * answer.worst_case_call(answer.system_prompt(), "x" * 40_000)
     deps, client = build(limits=Limits(daily_spend_usd=worst * 2.5, per_minute=100), clock=clock)
     codes = []
     for _ in range(4):
@@ -193,6 +194,23 @@ def test_the_daily_cap_stops_model_calls_and_resets_the_next_day():
     clock.now += DAY
     assert ask.handle(deps, "1.2.3.4", None, GOOD)[0] == 200
     assert len(client.requests) == calls + 1
+
+
+def test_a_request_reserves_every_attempt_it_may_make_before_the_model_is_called():
+    seen = []
+
+    class Peek(StubClient):
+        def create(self, **request):
+            seen.append(deps.spend.spent)  # what was held while the model was being called
+            return super().create(**request)
+
+    deps, _ = build(client=Peek(reply(explanation="Fixed.")))
+    message = user_message(
+        shown(f"ghsa:{A}"), "Which versions of django does GHSA-aaaa-aaaa-aaaa affect?"
+    )
+    one = answer.worst_case_call(answer.system_prompt(), message)
+    ask.handle(deps, "1.2.3.4", None, GOOD)
+    assert seen == [pytest.approx(answer.ATTEMPTS * one)]
 
 
 def test_a_call_reserves_its_worst_case_before_it_starts():

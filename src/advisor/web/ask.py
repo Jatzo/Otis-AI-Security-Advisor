@@ -83,7 +83,9 @@ def handle(deps: Deps, peer: str, forwarded_for: str | None, body: bytes) -> tup
         return declined(OFF_TOPIC)
     try:
         shown = deps.retrieve(text)
-        worst = answer.worst_case_call(deps.system, user_message(shown, text))
+        # answer.ask makes up to ATTEMPTS paid attempts, so a request reserves all of them.
+        prompt = user_message(shown, text)
+        worst = answer.ATTEMPTS * answer.worst_case_call(deps.system, prompt)
         if not deps.spend.reserve(worst, now):
             return message(503, DAILY_FULL)
         # A failure after this point keeps the reservation. The model may already have been paid
