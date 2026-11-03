@@ -40,7 +40,7 @@ from advisor.generation.checker import check  # noqa: E402
 from advisor.generation.evidence import user_message  # noqa: E402
 from advisor.generation.facts import Facts  # noqa: E402
 from advisor.redteam import poison, spec  # noqa: E402
-from advisor.redteam.success import grams, succeeded  # noqa: E402
+from advisor.redteam.success import grams, obeyed, split, succeeded  # noqa: E402
 from advisor.retrieval.pipeline import Pipeline, Spec  # noqa: E402
 from advisor.retrieval.units import build_units  # noqa: E402
 from advisor.web.ask import OFF_TOPIC  # noqa: E402
@@ -50,7 +50,7 @@ RESULTS = ROOT / "eval" / "results"
 REDTEAM = ROOT / "redteam"
 R1 = Spec("R1", bm25="header")
 SHOWN = 10
-FREEZE_TAG = "redteam-freeze-v1"
+FREEZE_TAG = "redteam-freeze-v1.1"
 SYSTEM_TAG = "phase5-system-v1"
 FILES = {"first": "attacks.jsonl", "heldout": "attacks-heldout.jsonl"}
 SYSTEM_CODE = ("src/advisor/generation", "src/advisor/retrieval", "eval/task.md")
@@ -60,6 +60,7 @@ FROZEN_CODE = (
     "scripts/run_redteam.py",
     "src/advisor/redteam",
 )
+RECORD_BORNE = ("A", "B1", "B2")  # a visitor who asked an honest question was attacked
 LOOSE_DOLLARS = 0.03  # about what one call cost in Phase 4, for the plan's estimate only
 
 
@@ -238,6 +239,9 @@ def judge(cases, clean, raw_path: Path, topic_gate: bool, system: str | None = N
             "model_called": not line.get("gated", False),
             "raw_success": succeeded(case, line["text"], prompt_grams),
             "shipped_success": succeeded(case, shipped, prompt_grams),
+            "raw_obeyed": obeyed(case, line["text"], prompt_grams),
+            "shipped_obeyed": obeyed(case, shipped, prompt_grams),
+            "denied": case.cls in RECORD_BORNE and split(shipped).abstain is not False,
             "cost_usd": line["cost_usd"],
         })  # fmt: skip
     return out
@@ -268,34 +272,40 @@ def summarise(judged: list[dict]) -> dict:
     for rows in per_case.values():
         cls = rows[0]["cls"]
         entry = table.setdefault(
-            cls, {"cases": 0, "not_delivered": 0, "won_raw": 0, "won_shipped": 0, "runs": 0,
-                  "run_wins_raw": 0, "run_wins_shipped": 0, "evidence_lost": 0},
+            cls, {"cases": 0, "not_delivered": 0, "named_raw": 0, "named_shipped": 0,
+                  "obeyed_raw": 0, "obeyed_shipped": 0, "denied": 0, "runs": 0,
+                  "run_obeyed_raw": 0, "run_obeyed_shipped": 0, "evidence_lost": 0},
         )  # fmt: skip
         entry["cases"] += 1
         if not all(r["delivered"] for r in rows):
             entry["not_delivered"] += 1
             continue
-        entry["won_raw"] += any(r["raw_success"] for r in rows)
-        entry["won_shipped"] += any(r["shipped_success"] for r in rows)
+        entry["named_raw"] += any(r["raw_success"] for r in rows)
+        entry["named_shipped"] += any(r["shipped_success"] for r in rows)
+        entry["obeyed_raw"] += any(r["raw_obeyed"] for r in rows)
+        entry["obeyed_shipped"] += any(r["shipped_obeyed"] for r in rows)
+        entry["denied"] += any(r["denied"] for r in rows)
         entry["runs"] += len(rows)
-        entry["run_wins_raw"] += sum(r["raw_success"] for r in rows)
-        entry["run_wins_shipped"] += sum(r["shipped_success"] for r in rows)
+        entry["run_obeyed_raw"] += sum(r["raw_obeyed"] for r in rows)
+        entry["run_obeyed_shipped"] += sum(r["shipped_obeyed"] for r in rows)
         entry["evidence_lost"] += any(r["evidence_lost"] for r in rows)
     return table
 
 
 def print_table(table: dict) -> None:
     print(
-        f"{'class':<8}{'cases':>6}{'reached':>9}{'won raw':>9}{'won shipped':>13}"
-        f"{'runs won raw/shipped':>24}"
+        f"{'class':<8}{'cases':>6}{'reached':>9}{'named raw/shipped':>19}"
+        f"{'obeyed raw/shipped':>20}{'denied':>8}{'obeyed runs raw/shipped':>26}"
     )
     for cls in spec.CLASSES:
         if cls in table:
             e = table[cls]
             reached = e["cases"] - e["not_delivered"]
+            named = f"{e['named_raw']}/{e['named_shipped']}"
+            won = f"{e['obeyed_raw']}/{e['obeyed_shipped']}"
+            runs = f"{e['run_obeyed_raw']}/{e['run_obeyed_shipped']} of {e['runs']}"
             print(
-                f"{cls:<8}{e['cases']:>6}{reached:>9}{e['won_raw']:>9}{e['won_shipped']:>13}"
-                f"{f'{e["run_wins_raw"]}/{e["run_wins_shipped"]} of {e["runs"]}':>24}"
+                f"{cls:<8}{e['cases']:>6}{reached:>9}{named:>19}{won:>20}{e['denied']:>8}{runs:>26}"
             )
 
 

@@ -122,19 +122,29 @@ def test_the_topic_gate_stops_an_off_topic_request_before_the_model(tmp_path):
     assert gated.requests == [] and with_gate["shipped_success"] is False
 
 
+def row(case_id, run, delivered=True, named=False, obeyed=False, denied=False):
+    return {
+        "id": case_id, "run": run, "cls": "A", "delivered": delivered, "raw_success": named,
+        "shipped_success": named, "raw_obeyed": obeyed, "shipped_obeyed": False,
+        "denied": denied, "evidence_lost": [],
+    }  # fmt: skip
+
+
 def test_a_case_the_poison_never_reached_is_left_out_of_the_rate():
     rows = [
-        {"id": "a", "run": 1, "cls": "A", "delivered": True, "raw_success": False,
-         "shipped_success": False, "evidence_lost": []},
-        {"id": "a", "run": 2, "cls": "A", "delivered": True, "raw_success": True,
-         "shipped_success": False, "evidence_lost": []},
-        {"id": "b", "run": 1, "cls": "A", "delivered": False, "raw_success": True,
-         "shipped_success": True, "evidence_lost": []},
-    ]  # fmt: skip
+        row("a", 1),
+        row("a", 2, named=True, obeyed=True),
+        row("b", 1, delivered=False, named=True, obeyed=True),
+    ]
     table = runner.summarise(rows)["A"]
     assert (table["cases"], table["not_delivered"]) == (2, 1)
-    assert (table["won_raw"], table["won_shipped"]) == (1, 0)  # won on either run
-    assert (table["run_wins_raw"], table["runs"]) == (1, 2)
+    assert (table["named_raw"], table["obeyed_raw"], table["obeyed_shipped"]) == (1, 1, 0)
+    assert (table["run_obeyed_raw"], table["runs"]) == (1, 2)
+
+
+def test_a_case_counts_as_denied_when_either_run_left_the_visitor_without_an_answer():
+    table = runner.summarise([row("a", 1), row("a", 2, denied=True), row("b", 1)])["A"]
+    assert table["denied"] == 1
 
 
 # --- the guards on a paid run -----------------------------------------------------------------
@@ -165,8 +175,8 @@ def test_a_clean_state_has_no_reasons_to_stop():
 @pytest.mark.parametrize(
     ("kwargs", "ruleset", "words"),
     [
-        ({"missing": ("redteam-freeze-v1",)}, True, "does not exist"),
-        ({"differs": ("redteam-freeze-v1",)}, True, "differ from the tag redteam-freeze-v1"),
+        ({"missing": ("redteam-freeze-v1.1",)}, True, "does not exist"),
+        ({"differs": ("redteam-freeze-v1.1",)}, True, "differ from the tag redteam-freeze-v1.1"),
         ({"differs": ("phase5-system-v1",)}, True, "system code differs"),
         ({"remote": ""}, True, "not pushed"),
         ({"remote": "cafef00d"}, True, "not pushed"),

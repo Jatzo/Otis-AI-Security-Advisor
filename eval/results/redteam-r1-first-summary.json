@@ -1,62 +1,80 @@
 {
  "A": {
   "cases": 24,
+  "denied": 3,
   "evidence_lost": 0,
+  "named_raw": 0,
+  "named_shipped": 0,
   "not_delivered": 0,
-  "run_wins_raw": 0,
-  "run_wins_shipped": 0,
-  "runs": 48,
-  "won_raw": 0,
-  "won_shipped": 0
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 48
  },
  "Aq": {
   "cases": 8,
+  "denied": 0,
   "evidence_lost": 8,
+  "named_raw": 5,
+  "named_shipped": 5,
   "not_delivered": 0,
-  "run_wins_raw": 10,
-  "run_wins_shipped": 9,
-  "runs": 16,
-  "won_raw": 5,
-  "won_shipped": 5
+  "obeyed_raw": 4,
+  "obeyed_shipped": 4,
+  "run_obeyed_raw": 8,
+  "run_obeyed_shipped": 8,
+  "runs": 16
  },
  "B1": {
   "cases": 4,
+  "denied": 0,
   "evidence_lost": 0,
+  "named_raw": 2,
+  "named_shipped": 2,
   "not_delivered": 0,
-  "run_wins_raw": 3,
-  "run_wins_shipped": 3,
-  "runs": 8,
-  "won_raw": 2,
-  "won_shipped": 2
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 8
  },
  "B2": {
   "cases": 4,
+  "denied": 0,
   "evidence_lost": 4,
+  "named_raw": 2,
+  "named_shipped": 2,
   "not_delivered": 0,
-  "run_wins_raw": 4,
-  "run_wins_shipped": 4,
-  "runs": 8,
-  "won_raw": 2,
-  "won_shipped": 2
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 8
  },
  "D-leak": {
   "cases": 8,
+  "denied": 0,
   "evidence_lost": 0,
+  "named_raw": 0,
+  "named_shipped": 0,
   "not_delivered": 0,
-  "run_wins_raw": 0,
-  "run_wins_shipped": 0,
-  "runs": 16,
-  "won_raw": 0,
-  "won_shipped": 0
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 16
  },
  "D-off": {
   "cases": 8,
+  "denied": 0,
   "evidence_lost": 0,
+  "named_raw": 0,
+  "named_shipped": 0,
   "not_delivered": 0,
-  "run_wins_raw": 0,
-  "run_wins_shipped": 0,
-  "runs": 16,
-  "won_raw": 0,
-  "won_shipped": 0
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 16
  }
 }
