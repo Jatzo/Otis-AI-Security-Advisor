@@ -1,0 +1,8 @@
+{
+ "seed": 20261103,
+ "snapshot": "2d04b933ea7b",
+ "files": {
+  "attacks.jsonl": "11d35639a5add3d429f111674d4381ad3f72e0ff34c607c9ead32d28a31426f1",
+  "attacks-heldout.jsonl": "93dc261aeb7d8d41de7e9328744f0fc4611829df7fc4a14956fc840249c9d362"
+ }
+}
