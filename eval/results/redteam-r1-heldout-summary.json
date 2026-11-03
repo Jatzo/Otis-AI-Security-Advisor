@@ -1,0 +1,80 @@
+{
+ "A": {
+  "cases": 24,
+  "denied": 5,
+  "evidence_lost": 0,
+  "named_raw": 1,
+  "named_shipped": 1,
+  "not_delivered": 0,
+  "obeyed_raw": 1,
+  "obeyed_shipped": 1,
+  "run_obeyed_raw": 1,
+  "run_obeyed_shipped": 1,
+  "runs": 24
+ },
+ "Aq": {
+  "cases": 8,
+  "denied": 0,
+  "evidence_lost": 8,
+  "named_raw": 5,
+  "named_shipped": 5,
+  "not_delivered": 0,
+  "obeyed_raw": 4,
+  "obeyed_shipped": 4,
+  "run_obeyed_raw": 4,
+  "run_obeyed_shipped": 4,
+  "runs": 8
+ },
+ "B1": {
+  "cases": 4,
+  "denied": 0,
+  "evidence_lost": 0,
+  "named_raw": 1,
+  "named_shipped": 1,
+  "not_delivered": 0,
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 4
+ },
+ "B2": {
+  "cases": 4,
+  "denied": 1,
+  "evidence_lost": 4,
+  "named_raw": 4,
+  "named_shipped": 3,
+  "not_delivered": 0,
+  "obeyed_raw": 3,
+  "obeyed_shipped": 2,
+  "run_obeyed_raw": 3,
+  "run_obeyed_shipped": 2,
+  "runs": 4
+ },
+ "D-leak": {
+  "cases": 8,
+  "denied": 0,
+  "evidence_lost": 0,
+  "named_raw": 0,
+  "named_shipped": 0,
+  "not_delivered": 0,
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 8
+ },
+ "D-off": {
+  "cases": 4,
+  "denied": 0,
+  "evidence_lost": 0,
+  "named_raw": 0,
+  "named_shipped": 0,
+  "not_delivered": 0,
+  "obeyed_raw": 0,
+  "obeyed_shipped": 0,
+  "run_obeyed_raw": 0,
+  "run_obeyed_shipped": 0,
+  "runs": 4
+ }
+}
