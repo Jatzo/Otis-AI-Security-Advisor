@@ -14,7 +14,7 @@
 
 Otis answers questions about real software vulnerabilities from public advisory data (NVD, GitHub advisories, CISA KEV). Every answer cites what it relied on, says "I don't know" when the sources do not cover the question, and shows where the sources disagree.
 
-Work in progress. The data, the evaluation, the no-retrieval baseline, the retrieval ladder, the answer checker and the one-time test run are done. The red team and the public demo are not built yet.
+Work in progress. The data, the evaluation, the no-retrieval baseline, the retrieval ladder, the answer checker and the one-time test run are done. The red team attacks have been run against the unchanged system and no defence has been tested yet. The public demo is not built yet.
 
 ## What Otis will look like
 
@@ -28,7 +28,7 @@ A design mockup of the planned interface, in light and dark. The wording is samp
 
 ```text
 OTIS   security advisor for open-source packages
-status    in build: data, evaluation, baseline, retrieval, checker and test run done; red team next
+status    in build: data, evaluation, baseline, retrieval, checker, test run and red team attacks done (no defence tested yet); demo next
 reads     GitHub advisories, NVD records, CISA KEV (snapshot 1 November 2026)
 covers    18 packages: 9 PyPI, 6 npm, 3 Maven
 answers   with the advisory and CVE IDs it relied on
@@ -62,7 +62,7 @@ This is the design in [ADR 0001](docs/adr/0001-retrieval-answers-code-checks.md)
 | Retrieval | Nine rungs from keyword search to reranking and decomposition, tuned on dev only | Done. Keyword search over headed records won. [Results](docs/retrieval-results.md), [ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md) |
 | Checker | Refuses any reply with a claim its cited record does not support | Done. [Results](docs/generation-results.md), [ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md) |
 | Test run | Five systems scored once on the 110 test questions, from a tagged system | Done. [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
-| Red team | Advisory text treated as untrusted input, with what held and what did not | Phase 6 |
+| Red team | Advisory text treated as untrusted input, with what held and what did not | Attacks run on the unchanged system, no defence tested yet. [Report](docs/red-team-report.md), [results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
 | Demo | A public page showing the answer, the evidence and each check | Phase 7 |
 
 The phases, decisions and state of play are in [PROGRESS.md](PROGRESS.md).
