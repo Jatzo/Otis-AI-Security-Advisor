@@ -21,7 +21,7 @@ Otis answers questions about vulnerabilities in 18 open-source packages from pub
 <p align="center">
   <img src="docs/img/otis-demo.gif" alt="A question typed into the Otis page, followed by the answer, the facts the checker confirmed and the records that were read" width="760">
 </p>
-<p align="center"><sub>A recording of a saved answer from the dev run of 2 November 2026 (question <code>vr-005</code>), shown in a mockup of the planned page. The page is not deployed. Every line in it, including the 2.8 seconds and $0.012, comes from that run.</sub></p>
+<p align="center"><sub>A recording of a saved answer from the dev run of 2 November 2026 (question <code>vr-005</code>), shown in a mockup of the planned page. The page is not deployed. The answer, the claims, the records and the 2.8 seconds and $0.012 come from that run, and the headline and the wording of the checks are drawn from its saved verdict and claims.</sub></p>
 
 ## Contents
 
@@ -60,7 +60,7 @@ A red team of 56 attack cases and a held-out 56, run against the unchanged syste
 | Red team: attacks run on the unchanged system | Run and written up. No defence tested, so the phase stays open | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
 | Fixes for the checker faults and the red team findings | Planned, not started | [Plan of action](docs/roadmap.md) |
 | Public demo | Not deployed. The page and handler are tested without a server | `src/advisor/web/` |
-| Write-up for a security reader | Not written | |
+| A second README framed for a security reader | Not written. The [red team report](docs/red-team-report.md) is its centrepiece and exists | |
 
 ## 3. Problem and scope
 
@@ -90,7 +90,7 @@ The design principle is stated once, in [ADR 0001](docs/adr/0001-retrieval-answe
 - **Frozen by tag.** `eval-freeze-v1` holds the questions, gold, rules, scorer and runner. A CI job fails if any of them changes. A repository ruleset blocks moving or deleting the tags. Every result line records the commit and the git blob id of each frozen file.
 - **Dev for tuning, test once.** 40 questions were for building. 110 were scored once, from a system tagged `phase5-system-v1`. Raw outputs for all five rows were committed before anything was scored. A fault found after the tag is reported and not fixed, because fixing it would be tuning on test.
 - **Rules before results.** Each stage had a plan written and reviewed first: how many runs, what counts as adopting a rung (at least 4 more questions than the current choice and exact McNemar p below 0.05), and what each outcome would mean.
-- **Deterministic scoring.** No model judges any answer. Intervals are 95% Wilson intervals, and paired comparisons use the exact McNemar test.
+- **Deterministic scoring.** No model judges any answer. Intervals are 95% Wilson intervals, and paired comparisons use the exact McNemar test, which looks only at the questions the two systems answered differently.
 - **Every table that compares systems has a baseline row.** The expectations for the test run were written down beforehand and the results are set against them, including where they were wrong ([test results](docs/test-results.md#the-expectations-written-down-before-the-run)).
 
 ## 6. Results
@@ -103,13 +103,13 @@ With no documents, the model declines 23 of the 32 answerable dev questions and 
 
 ![The nine retrieval rungs by share of dev questions whose evidence is wholly in the top 10](docs/img/retrieval-ladder.svg)
 
-Keyword search over headed records puts all the evidence for 24 of the 32 answerable dev questions in the top 10 (75%, 95% interval 58 to 87%). Two embedding models, hybrid fusion, a cross-encoder reranker, splitting long records and model-written sub-queries were each tried, and none met the adoption rule. The embedding models did worse than keyword search, and the reranker was far over a latency budget at 11.4 seconds a query, against milliseconds for keyword search. A likely reason for the embedding result is that these questions are full of exact IDs, package names and versions. I did not test why. On the test split the same retrieval found all the evidence for 53 of 88 questions (60%, interval 50 to 70%), lower than on dev, and mean recall at 10 was 0.77.
+The study is a ladder of nine retrieval variants, R0 to R8, each built on the one below it. The adopted one, R1, is keyword search over records with a header. It puts all the evidence for 24 of the 32 answerable dev questions in the top 10 (75%, 95% interval 58 to 87%). Two embedding models, hybrid fusion, a cross-encoder reranker, splitting long records and model-written sub-queries were each tried, and none met the adoption rule. The embedding models did worse than keyword search, and the reranker was far over a latency budget at 11.4 seconds a query, against milliseconds for keyword search. A likely reason for the embedding result is that these questions are full of exact IDs, package names and versions. I did not test why. On the test split the same retrieval found all the evidence for 53 of 88 questions (60%, interval 50 to 70%), lower than on dev, and mean recall at 10 was 0.77.
 
 ### 6.3 The test split, scored once
 
 ![Results of five systems on the 110 test questions, and on the 43 that name a package](docs/img/test-results.svg)
 
-| | Checked system | Raw reply | Baseline |
+| | System, checked | System, raw | Baseline |
 |---|---|---|---|
 | Correct, 110 questions | 66 (60%, 51 to 69) | 75 (68%, 59 to 76) | 35 (32%, 24 to 41) |
 | Correct, 88 answerable | 44 (50%, 40 to 60) | 53 (60%, 50 to 70) | 13 (15%, 9 to 24) |
@@ -175,7 +175,7 @@ The full account, with how each result was judged and the faults in my own instr
 
 - **The questions are templated.** Structured lookups score 90% because code can read the form of the question. That shows how much of this set needs no model. It does not show the same of real questions.
 - **One run, one model, 110 questions.** Intervals are wide and the table gives them. A single reply moves a rate.
-- **The gold was reviewed by its author.** It was derived by separate code and checked against the raw files, and every row was read before the freeze, so independence is weaker than if a second person had written it. The hand spot-check was thin. The 24 marks that agreed with the scorer on all 24 were made by the system's builder from the same store, so they are weak evidence. My own blind marks cover 5 of the 24, agree on 4, and say "can't tell" on 19 ([progress notes](PROGRESS.md)).
+- **I reviewed the gold and I built the system.** The gold was derived by separate code and checked against the raw files, and I read every gold row before the freeze, so independence is weaker than if a second person had written it. The hand spot-check was thin. A set of 24 marks agreed with the scorer on all 24, but they were made from the same store the checker reads and were not blind, so they are weak evidence. My own blind marks cover 5 of the 24, agree on 4, and say "can't tell" on 19 ([progress notes](PROGRESS.md)).
 - **The test split is spent.** The faults found cannot be fixed and re-scored on it. Improvement needs a new question set.
 - **The checker's faults are reported, not fixed.** Two are known (a version range read as a package pair, and a rule that refuses a true verdict) and neither was changed after the tag.
 - **Retrieval coverage fell from dev to test** (75% to 60%). Dev has only 32 answerable questions, and the drop is about what a small tuning set would be expected to give.
@@ -198,7 +198,7 @@ python scripts/check_eval_frozen.py    # fails if anything frozen under eval/ ha
 python scripts/make_attack_spec.py --check
 python scripts/run_redteam.py --round 1 --judge   # re-judge the saved red team replies, no API call
 python scripts/make_figures.py         # redraws the figures from the written results
-python scripts/make_demo_gif.py        # redraws the GIF from a saved answer
+python scripts/make_demo_gif.py        # redraws the GIF from a saved answer (needs Edge or Chrome, and ffmpeg)
 ```
 
 Paid runs need `ANTHROPIC_API_KEY` in a `.env` file (gitignored). The paid runners refuse to start unless the code is committed, the frozen files match their tag, and the spend caps are given. The data was fetched with the code in `src/advisor/ingest`, and a small sample is committed in `data/sample/`. The full store and raw dump are not in the repository.
@@ -216,6 +216,7 @@ CI runs the tests, ruff, the freeze check and a secret scan on every push. The s
 | `src/advisor/redteam/`, `redteam/` | The attack cases, the poison builder and the success checks |
 | `src/advisor/web/` | The page, the safe view and the abuse limits, tested without a server |
 | `eval/` | Questions, gold, rules, scorer, and every saved result |
+| `scripts/`, `tests/` | The runners, the freeze and spend guards, the figure and GIF scripts, and the test suite |
 | `docs/` | Plans and results for each phase, the ADRs, the data report, the red team report |
 
 | ADR | Decision |
