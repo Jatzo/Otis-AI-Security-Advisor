@@ -14,7 +14,7 @@
 
 Otis answers questions about real software vulnerabilities from public advisory data (NVD, GitHub advisories, CISA KEV). Every answer cites what it relied on, says "I don't know" when the sources do not cover the question, and shows where the sources disagree.
 
-Work in progress. The data, the evaluation, the no-retrieval baseline and the retrieval ladder are done. The answer checker, the red team and the public demo are not built yet.
+Work in progress. The data, the evaluation, the no-retrieval baseline, the retrieval ladder, the answer checker and the one-time test run are done. The red team and the public demo are not built yet.
 
 ## What Otis will look like
 
@@ -28,7 +28,7 @@ A design mockup of the planned interface, in light and dark. The wording is samp
 
 ```text
 OTIS   security advisor for open-source packages
-status    in build: data, evaluation, baseline and retrieval done; checker next
+status    in build: data, evaluation, baseline, retrieval, checker and test run done; red team next
 reads     GitHub advisories, NVD records, CISA KEV (snapshot 1 November 2026)
 covers    18 packages: 9 PyPI, 6 npm, 3 Maven
 answers   with the advisory and CVE IDs it relied on
@@ -60,7 +60,8 @@ This is the design in [ADR 0001](docs/adr/0001-retrieval-answers-code-checks.md)
 | Evaluation | 150 questions with gold answers from a separate script, frozen under the git tag `eval-freeze-v1` before any system ran | Done. [Rules](eval/rules.md), [ADR 0004](docs/adr/0004-freeze-the-evaluation-with-a-tag.md) |
 | Baseline | The model with no retrieval, run on the 40 dev questions | Done. [Results](docs/baseline-results.md) |
 | Retrieval | Nine rungs from keyword search to reranking and decomposition, tuned on dev only | Done. Keyword search over headed records won. [Results](docs/retrieval-results.md), [ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md) |
-| Checker | Removes or refuses any claim its cited record does not support | Phase 4 |
+| Checker | Refuses any reply with a claim its cited record does not support | Done. [Results](docs/generation-results.md), [ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md) |
+| Test run | Five systems scored once on the 110 test questions, from a tagged system | Done. [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
 | Red team | Advisory text treated as untrusted input, with what held and what did not | Phase 6 |
 | Demo | A public page showing the answer, the evidence and each check | Phase 7 |
 
@@ -85,7 +86,7 @@ With no retrieval, the model answers 7 of the 32 answerable dev questions correc
 
 On the 32 answerable dev questions, keyword search over records with a header puts every record a question needs into the top 10 for 24 of them (75%, 95% interval 58 to 87%). Without the header it manages 7. Two embedding models, a reranker, splitting long records and question decomposition were each tried on top, and none passed the adoption rule written down before the first run. Both embedding models scored lower than keyword search. The questions are full of exact IDs, package names and versions, which suits keyword search, though I did not test why.
 
-The remaining misses are multi-hop questions and questions where GitHub and NVD disagree, which need two or more linked records. All 8 lookups and all 9 version checks are met. These are dev numbers on a small set. The test split is scored once, in Phase 5. See [the results](docs/retrieval-results.md) for every rung.
+The remaining misses are multi-hop questions and questions where GitHub and NVD disagree, which need two or more linked records. All 8 lookups and all 9 version checks are met. These are dev numbers on a small set. The test split was scored once, in Phase 5: see [the test results](docs/test-results.md). For every rung, see [the results](docs/retrieval-results.md) for every rung.
 
 ## Development
 
