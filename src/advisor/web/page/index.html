@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Otis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Otis</h1>
+    <p class="lead">Ask about a vulnerability in 18 common packages. Otis only reports what the advisories say.</p>
+    <form id="ask-form">
+      <label for="question">Your question</label>
+      <input id="question" name="question" type="text" maxlength="500" autocomplete="off" required>
+      <button type="submit">Ask</button>
+    </form>
+    <section id="answer" aria-live="polite"></section>
+    <p class="note">Otis cannot tell whether a list is complete, so treat a list as a start. If Otis finds nothing, that is not a promise something is safe.</p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

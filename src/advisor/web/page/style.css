@@ -1,0 +1,69 @@
+:root {
+  --ink: #2a1c16;
+  --paper: #fbf8f5;
+  --blue: #8ec1ee;
+  --pink: #e89aa7;
+  --line: rgba(42, 28, 22, 0.14);
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, sans-serif;
+}
+
+main {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+form label {
+  flex-basis: 100%;
+}
+
+input {
+  flex: 1 1 14rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  font: inherit;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--blue);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+#answer {
+  margin-top: 1.5rem;
+  overflow-wrap: anywhere;
+}
+
+#answer:empty {
+  display: none;
+}
+
+.differ {
+  border-left: 0.25rem solid var(--pink);
+  padding-left: 0.75rem;
+}
+
+.note {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  opacity: 0.75;
+}

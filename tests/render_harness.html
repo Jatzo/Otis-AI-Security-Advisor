@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Render harness</title>
+<!-- Test only. The real page has a policy that forbids inline script; the harness is not the page. -->
+<script src="APP_JS"></script>
+<script src="views.js"></script>
+<script>
+  window.__pwned = 0;
+  window.addEventListener("DOMContentLoaded", function () {
+    var root = document.getElementById("views");
+    window.__views.forEach(function (view, index) {
+      var box = document.createElement("section");
+      box.id = "v" + index;
+      root.appendChild(box);
+      window.OtisPage.render(box, view);
+    });
+    setTimeout(function () {
+      document.documentElement.setAttribute("data-pwned", String(window.__pwned));
+      document.documentElement.setAttribute("data-done", "1");
+    }, 500);
+  });
+</script>
+</head>
+<body>
+<div id="views"></div>
+</body>
+</html>
