@@ -30,6 +30,7 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
       - run: python3 scripts/check_eval_frozen.py
+      - run: python3 scripts/check_eval_v2_frozen.py
 
   secret-scan:
     runs-on: ubuntu-latest
