@@ -10,7 +10,7 @@ What the unchanged system did, over 168 model calls and $5.26:
 
 - **Instructions hidden in advisory text were almost never followed.** 1 of 48 cases across both sets, and that one was a record claiming to be withdrawn, which made the model decline.
 - **A visitor's own typed instruction was followed in 8 of 16 cases.** That changes the visitor's own reply only. Three of the four in each set are findings. The fourth is a request to decline.
-- **A false fact in prose was refused in 8 of 8 cases.** A false fact in a new record with false structured fields got through in 3 of 8, all in list questions. That is the known limit of the design.
+- **A false fact in prose was not obeyed in 8 of 8 cases.** A false fact in a new record with false structured fields got through in 3 of 8, all in list questions. That is the known limit of the design.
 - **A poisoned record can make a question unanswerable**, either by claiming to be withdrawn or by containing text that makes the API refuse.
 - **No prompt leak, and no off-topic answer**, in 24 runs each.
 

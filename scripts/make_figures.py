@@ -783,6 +783,171 @@ def roadmap():
     )
 
 
+# --- Figure 8: the threat model ----------------------------------------------------------------
+
+
+def threat_model():
+    # Results are from docs/red-team-report.md, which says which controls were in the attacked system.
+    stages = [
+        (
+            32,
+            "1  Advisory text",
+            [
+                "GitHub titles and",
+                "descriptions, NVD",
+                "descriptions, and the",
+                "structured ranges and",
+                "scores in each record",
+            ],
+        ),
+        (
+            222,
+            "2  Prompt",
+            [
+                "Top 10 records, with",
+                "& < > escaped, and",
+                "'text inside a record",
+                "is data' in the prompt.",
+                "The question is added",
+                "as typed.",
+            ],
+        ),
+        (
+            412,
+            "3  Model reply",
+            ["One JSON object: the", "answer, the claims it", "rests on, and an", "explanation"],
+        ),
+        (
+            602,
+            "4  Checker",
+            [
+                "Each claim read against",
+                "the store. One failure",
+                "refuses the reply.",
+                "It does not read the",
+                "explanation for meaning.",
+            ],
+        ),
+        (
+            792,
+            "5  Page",
+            [
+                "Known fields only, as",
+                "text. Links built from",
+                "IDs. A policy that",
+                "blocks inline script.",
+            ],
+        ),
+    ]
+    body = []
+    for x, name, rows in stages:
+        body.append(rect(x, 100, 170, 134, CARD))
+        body.append(f'<rect x="{x}" y="100" width="170" height="28" rx="10" fill="{BLUE_D}"/>')
+        body.append(f'<rect x="{x}" y="114" width="170" height="14" fill="{BLUE_D}"/>')
+        body.append(text(x + 12, 119, name, 13, 700, "#FFFFFF"))
+        body.append(lines(x + 12, 150, rows, 12, 16))
+    for a in (202, 392, 582, 772):
+        body.append(arrow(a + 2, 167, a + 18, 167))
+    body.append(rect(986, 100, 150, 134, "#FFFFFF", GREY))
+    body.append(text(1061, 128, "Visitor", 13.5, 700, INK, "middle"))
+    body.append(lines(1061, 152, ["Sees one answer", "or one refusal"], 12, 16, MUTED, "middle"))
+    body.append(arrow(962, 167, 984, 167))
+    # attacker entry points: record text, the question, and hostile text on the page
+    for cx, tag in [(117, "A, B"), (287, "Aq"), (327, "D"), (877, "C")]:
+        body.append(
+            f'<circle cx="{cx}" cy="292" r="17" fill="{PINK}" stroke="{PINK_D}" stroke-width="1.4"/>'
+        )
+        body.append(text(cx, 296, tag, 11, 700, INK, "middle"))
+        body.append(line(cx, 275, cx, 236, PINK_D, 1.4, "4 3"))
+    body.append(text(32, 262, "Where an attacker gets in", 12.5, 700, PINK_D))
+    cols = [
+        (
+            32,
+            "A, B1, B2: advisory text",
+            [
+                "A record carries an instruction, or a",
+                "false fact in prose or in its structured",
+                "fields.",
+                "1 of 48 cases obeyed. A false record",
+                "in a list answer: 3 of 8.",
+            ],
+        ),
+        (
+            252,
+            "Aq: the question",
+            [
+                "The visitor's own words carry an",
+                "instruction. It is not escaped.",
+                "",
+                "8 of 16 cases obeyed. It changes only",
+                "that visitor's reply.",
+            ],
+        ),
+        (
+            472,
+            "D: abuse",
+            [
+                "Ask for the instructions, or for",
+                "something off topic.",
+                "",
+                "No leak and no off-topic answer in",
+                "24 runs each.",
+            ],
+        ),
+        (
+            692,
+            "C: markup",
+            [
+                "Hostile text in any field tries to",
+                "become script, an element or a link.",
+                "",
+                "30 payloads, 90 views, no effect.",
+                "A pass or fail test, not a rate.",
+            ],
+        ),
+    ]
+    for x, head, rows in cols:
+        body.append(rect(x, 322, 206, 134, CARD, PINK_D if x == 32 else LINE))
+        body.append(text(x + 12, 346, head, 12.5, 700, INK))
+        body.append(lines(x + 12, 368, rows, 11.5, 16, MUTED))
+    body.append(rect(914, 322, 222, 134, PINK_L, PINK_D))
+    body.append(text(926, 346, "Not tested", 12.5, 700, INK))
+    body.append(
+        lines(
+            926,
+            368,
+            [
+                "Any defence.",
+                "An attacker who adapts.",
+                "More than one turn.",
+                "A deployed system.",
+                "A flood from many addresses.",
+            ],
+            11.5,
+            16,
+            INK,
+        )
+    )
+    body.append(
+        text(
+            32,
+            484,
+            "In the attacked system: the escaping, the data line, the checker and the gate before the model. Built and tested apart from the model rounds: the page, the safe view, the rate and size limits, the spend cap and the topic gate.",
+            11.5,
+            400,
+            MUTED,
+        )
+    )
+    return frame(
+        1186,
+        508,
+        "Figure 8. The threat model",
+        "Who can write what, where it enters, and what was found at each point. Source: docs/red-team-report.md.",
+        "".join(body),
+        "Five stages from advisory text to the visitor, with the four ways an attacker enters and the result for each",
+    )
+
+
 def main() -> int:
     save("architecture.svg", architecture())
     save("evaluation-trail.svg", evaluation_trail())
@@ -791,6 +956,7 @@ def main() -> int:
     save("where-accuracy-was-lost.svg", where_answers_go())
     save("red-team.svg", red_team())
     save("roadmap.svg", roadmap())
+    save("threat-model.svg", threat_model())
     return 0
 
 
