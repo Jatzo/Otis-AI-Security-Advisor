@@ -1,0 +1,609 @@
+[
+ {
+  "comments": 2,
+  "credits": [
+   {
+    "type": "reporter",
+    "user": {
+     "avatar_url": "https://avatars.githubusercontent.com/u/71864702?v=4",
+     "events_url": "https://api.github.com/users/syncrain/events{/privacy}",
+     "followers_url": "https://api.github.com/users/syncrain/followers",
+     "following_url": "https://api.github.com/users/syncrain/following{/other_user}",
+     "gists_url": "https://api.github.com/users/syncrain/gists{/gist_id}",
+     "gravatar_id": "",
+     "html_url": "https://github.com/syncrain",
+     "id": 71864702,
+     "login": "syncrain",
+     "node_id": "MDQ6VXNlcjcxODY0NzAy",
+     "organizations_url": "https://api.github.com/users/syncrain/orgs",
+     "received_events_url": "https://api.github.com/users/syncrain/received_events",
+     "repos_url": "https://api.github.com/users/syncrain/repos",
+     "site_admin": false,
+     "starred_url": "https://api.github.com/users/syncrain/starred{/owner}{/repo}",
+     "subscriptions_url": "https://api.github.com/users/syncrain/subscriptions",
+     "type": "User",
+     "url": "https://api.github.com/users/syncrain",
+     "user_view_type": "public"
+    }
+   }
+  ],
+  "cve_id": "CVE-2026-84366",
+  "cvss": {
+   "score": 7.4,
+   "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
+  },
+  "cvss_severities": {
+   "cvss_v3": {
+    "score": 7.4,
+    "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
+   },
+   "cvss_v4": {
+    "score": 0.0,
+    "vector_string": null
+   }
+  },
+  "cwes": [
+   {
+    "cwe_id": "CWE-319",
+    "name": "Cleartext Transmission of Sensitive Information"
+   }
+  ],
+  "description": "### Problem\n\nScrapy\u2019s `S3DownloadHandler` sends signed S3 requests over plaintext HTTP by default.\n\nA normal request like `s3://bucket/key` is converted into `http://bucket.s3.amazonaws.com/key` unless `request.meta[\"is_secure\"]` is explicitly set. The generated request is then signed with configured AWS credentials, so AWS authorization material can be sent without TLS.\n\nVulnerable code in `scrapy/core/downloader/handlers/s3.py`:\n\n```python\nscheme = \"https\" if request.meta.get(\"is_secure\") else \"http\"\nurl = f\"{scheme}://{bucket}.s3.amazonaws.com{path}\"\n```\n\nThe request is then signed and dispatched:\n\n```python\nself._signer.add_auth(awsrequest)\nrequest = request.replace(url=url, headers=awsrequest.headers.items())\n```\n\n### Impact\n\nUsers making Scrapy `s3://` requests with AWS credentials are impacted.\n\nA network attacker able to observe traffic between Scrapy and S3, such as a public Wi-Fi attacker, compromised router, ISP/corporate network observer, or local network attacker using ARP spoofing, can read:\n\n```text\nbucket/key path\nAWS Authorization header\nX-Amz-Security-Token, if temporary credentials are used\nS3 object contents\nS3 response headers\n```\n\nAn active MITM attacker can also modify the plaintext S3 response body, status code, and headers before Scrapy processes it. This can cause scraped data poisoning, poisoned exports, HTTP cache poisoning when cache is enabled, and influence over later crawl targets through forged redirects or attacker-controlled links.\n\n\nSuggested classification: **CWE-319: Cleartext Transmission of Sensitive Information**.\n\n\n### PoC\n\nA minimal PoC creates an `s3://` request, enables fake AWS settings, captures the request produced by `S3DownloadHandler`, and prints the rewritten URL and auth headers.",
+  "epss": {
+   "percentage": 0.00254,
+   "percentile": 0.16865
+  },
+  "ghsa_id": "GHSA-76g3-c3x4-crvx",
+  "github_reviewed_at": "2026-09-02T22:50:44Z",
+  "html_url": "https://github.com/advisories/GHSA-76g3-c3x4-crvx",
+  "identifiers": [
+   {
+    "type": "GHSA",
+    "value": "GHSA-76g3-c3x4-crvx"
+   },
+   {
+    "type": "CVE",
+    "value": "CVE-2026-84366"
+   }
+  ],
+  "nvd_published_at": "2026-09-01T21:18:47Z",
+  "published_at": "2026-09-02T22:50:44Z",
+  "references": [
+   "https://github.com/scrapy/scrapy/security/advisories/GHSA-76g3-c3x4-crvx",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-84366",
+   "https://github.com/scrapy/scrapy/commit/9523e1ec8c41fde265a26d14563d178b6f1ad04b",
+   "https://github.com/scrapy/scrapy/releases/tag/2.17.0",
+   "https://github.com/advisories/GHSA-76g3-c3x4-crvx"
+  ],
+  "repository_advisory_url": "https://api.github.com/repos/scrapy/scrapy/security-advisories/GHSA-76g3-c3x4-crvx",
+  "severity": "high",
+  "source_code_location": "https://github.com/scrapy/scrapy",
+  "summary": "Scrapy: S3DownloadHandler sends signed S3 requests over plaintext HTTP by default",
+  "type": "reviewed",
+  "updated_at": "2026-09-02T22:50:45Z",
+  "url": "https://api.github.com/advisories/GHSA-76g3-c3x4-crvx",
+  "vulnerabilities": [
+   {
+    "first_patched_version": "2.17",
+    "package": {
+     "ecosystem": "pip",
+     "name": "scrapy"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": "< 2.17.0"
+   }
+  ],
+  "withdrawn_at": null
+ },
+ {
+  "comments": 0,
+  "credits": [],
+  "cve_id": "CVE-2026-44405",
+  "cvss": {
+   "score": 3.4,
+   "vector_string": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:C/C:N/I:L/A:N"
+  },
+  "cvss_severities": {
+   "cvss_v3": {
+    "score": 3.4,
+    "vector_string": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:C/C:N/I:L/A:N"
+   },
+   "cvss_v4": {
+    "score": 0.0,
+    "vector_string": null
+   }
+  },
+  "cwes": [
+   {
+    "cwe_id": "CWE-327",
+    "name": "Use of a Broken or Risky Cryptographic Algorithm"
+   }
+  ],
+  "description": "In Paramiko through 4.0.0 before a448945, rsakey.py allows the SHA-1 algorithm.",
+  "epss": {
+   "percentage": 0.00114,
+   "percentile": 0.01372
+  },
+  "ghsa_id": "GHSA-r374-rxx8-8654",
+  "github_reviewed_at": "2026-05-08T23:13:43Z",
+  "html_url": "https://github.com/advisories/GHSA-r374-rxx8-8654",
+  "identifiers": [
+   {
+    "type": "GHSA",
+    "value": "GHSA-r374-rxx8-8654"
+   },
+   {
+    "type": "CVE",
+    "value": "CVE-2026-44405"
+   }
+  ],
+  "nvd_published_at": "2026-05-06T00:16:04Z",
+  "published_at": "2026-05-06T00:31:33Z",
+  "references": [
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-44405",
+   "https://github.com/paramiko/paramiko/commit/a4489456b6f65281e172380cc4826cee5e851dbb",
+   "https://ostif.org/wp-content/uploads/2026/05/25-11-2415-REP_paramiko-security-audit_v1.1.pdf",
+   "https://github.com/advisories/GHSA-r374-rxx8-8654"
+  ],
+  "repository_advisory_url": null,
+  "severity": "low",
+  "source_code_location": "https://github.com/paramiko/paramiko",
+  "summary": "Paramiko rsakey.py allows the SHA-1 algorithm",
+  "type": "reviewed",
+  "updated_at": "2026-05-08T23:13:43Z",
+  "url": "https://api.github.com/advisories/GHSA-r374-rxx8-8654",
+  "vulnerabilities": [
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "pip",
+     "name": "paramiko"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": "<= 4.0.0"
+   }
+  ],
+  "withdrawn_at": null
+ },
+ {
+  "comments": 1,
+  "credits": [
+   {
+    "type": "sponsor",
+    "user": {
+     "avatar_url": "https://avatars.githubusercontent.com/u/141657?v=4",
+     "events_url": "https://api.github.com/users/katzj/events{/privacy}",
+     "followers_url": "https://api.github.com/users/katzj/followers",
+     "following_url": "https://api.github.com/users/katzj/following{/other_user}",
+     "gists_url": "https://api.github.com/users/katzj/gists{/gist_id}",
+     "gravatar_id": "",
+     "html_url": "https://github.com/katzj",
+     "id": 141657,
+     "login": "katzj",
+     "node_id": "MDQ6VXNlcjE0MTY1Nw==",
+     "organizations_url": "https://api.github.com/users/katzj/orgs",
+     "received_events_url": "https://api.github.com/users/katzj/received_events",
+     "repos_url": "https://api.github.com/users/katzj/repos",
+     "site_admin": false,
+     "starred_url": "https://api.github.com/users/katzj/starred{/owner}{/repo}",
+     "subscriptions_url": "https://api.github.com/users/katzj/subscriptions",
+     "type": "User",
+     "url": "https://api.github.com/users/katzj",
+     "user_view_type": "public"
+    }
+   }
+  ],
+  "cve_id": "CVE-2026-73562",
+  "cvss": {
+   "score": 6.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
+  },
+  "cvss_severities": {
+   "cvss_v3": {
+    "score": 6.5,
+    "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
+   },
+   "cvss_v4": {
+    "score": 0.0,
+    "vector_string": null
+   }
+  },
+  "cwes": [
+   {
+    "cwe_id": "CWE-1321",
+    "name": "Improperly Controlled Modification of Object Prototype Attributes"
+   }
+  ],
+  "description": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nPrototype pollution in update casting: passing a user-controlled update to a Mongoose update, like `MyModel.updateOne(filter, req.body)`, can cause Mongoose to set `$fullPath` and `$parentSchemaDocArray` on `Object.prototype`.\n\nExample:\n\n```javascript\nconst mongoose = require('mongoose');\nconsole.log('before:', Object.prototype.$fullPath);            // undefined\n\nconst User = mongoose.model('User', new mongoose.Schema({ name: String }));\nconst malicious = JSON.parse('{\"$set\": {\"__proto__.x\": \"anything\"}}');   // attacker-controlled update\n\nconst q = User.updateOne({}, {});\ntry { q._castUpdate(malicious); } catch (e) { /* throws AFTER the pollution side-effect */ }\n\nconsole.log('after :', Object.prototype.$fullPath);            // \"__proto__\"\nconsole.log('enumerable:', Object.prototype.propertyIsEnumerable('$fullPath'));  // true\nconsole.log('fresh {}:', ({}).$fullPath);                      // \"__proto__\"\n```\n\n### Patches\n_Has the problem been patched? What versions should users upgrade to?_\n\n9.7.2, 8.24.1. 7.8.10, 6.13.10\n\n### Workarounds\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\n\nCheck user-controlled updates for own `__proto__` properties before passing to Mongoose\n\n### References\n_Are there any links users can visit to find out more?_",
+  "epss": {
+   "percentage": 0.00503,
+   "percentile": 0.4271
+  },
+  "ghsa_id": "GHSA-664h-wqgq-64gw",
+  "github_reviewed_at": "2026-07-24T16:22:34Z",
+  "html_url": "https://github.com/advisories/GHSA-664h-wqgq-64gw",
+  "identifiers": [
+   {
+    "type": "GHSA",
+    "value": "GHSA-664h-wqgq-64gw"
+   },
+   {
+    "type": "CVE",
+    "value": "CVE-2026-73562"
+   }
+  ],
+  "nvd_published_at": null,
+  "published_at": "2026-07-24T16:22:34Z",
+  "references": [
+   "https://github.com/Automattic/mongoose/security/advisories/GHSA-664h-wqgq-64gw",
+   "https://github.com/Automattic/mongoose/pull/16230",
+   "https://github.com/Automattic/mongoose/commit/f494b8430f9097fc70446d6949c8a42a27518e0b",
+   "https://github.com/Automattic/mongoose/releases/tag/6.13.10",
+   "https://github.com/Automattic/mongoose/releases/tag/7.8.10",
+   "https://github.com/Automattic/mongoose/releases/tag/8.24.1",
+   "https://github.com/Automattic/mongoose/releases/tag/9.7.2",
+   "https://github.com/advisories/GHSA-664h-wqgq-64gw"
+  ],
+  "repository_advisory_url": "https://api.github.com/repos/Automattic/mongoose/security-advisories/GHSA-664h-wqgq-64gw",
+  "severity": "medium",
+  "source_code_location": "https://github.com/Automattic/mongoose",
+  "summary": "Mongoose: Prototype pollution in mongoose update casting via __proto__-prefixed dotted path (Schema._getSchema/path getter)",
+  "type": "reviewed",
+  "updated_at": "2026-08-13T17:27:27Z",
+  "url": "https://api.github.com/advisories/GHSA-664h-wqgq-64gw",
+  "vulnerabilities": [
+   {
+    "first_patched_version": "6.13.10",
+    "package": {
+     "ecosystem": "npm",
+     "name": "mongoose"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": "< 6.13.10"
+   },
+   {
+    "first_patched_version": "7.8.10",
+    "package": {
+     "ecosystem": "npm",
+     "name": "mongoose"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 7.0.0, < 7.8.10"
+   },
+   {
+    "first_patched_version": "8.24.1",
+    "package": {
+     "ecosystem": "npm",
+     "name": "mongoose"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 8.0.0, < 8.24.1"
+   },
+   {
+    "first_patched_version": "9.7.2",
+    "package": {
+     "ecosystem": "npm",
+     "name": "mongoose"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 9.0.0, < 9.7.2"
+   }
+  ],
+  "withdrawn_at": null
+ },
+ {
+  "comments": 0,
+  "credits": [],
+  "cve_id": "CVE-2022-42889",
+  "cvss": {
+   "score": 9.8,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "cvss_severities": {
+   "cvss_v3": {
+    "score": 9.8,
+    "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+   },
+   "cvss_v4": {
+    "score": 0.0,
+    "vector_string": null
+   }
+  },
+  "cwes": [
+   {
+    "cwe_id": "CWE-94",
+    "name": "Improper Control of Generation of Code"
+   }
+  ],
+  "description": "Apache Commons Text performs variable interpolation, allowing properties to be dynamically evaluated and expanded. The standard format for interpolation is \"${prefix:name}\", where \"prefix\" is used to locate an instance of org.apache.commons.text.lookup.StringLookup that performs the interpolation. Starting with version 1.5 and continuing through 1.9, the set of default Lookup instances included interpolators that could result in arbitrary code execution or contact with remote servers. These lookups are: - \"script\" - execute expressions using the JVM script execution engine (javax.script) - \"dns\" - resolve dns records - \"url\" - load values from urls, including from remote servers Applications using the interpolation defaults in the affected versions may be vulnerable to remote code execution or unintentional contact with remote servers if untrusted configuration values are used. Users are recommended to upgrade to Apache Commons Text 1.10.0, which disables the problematic interpolators by default.",
+  "epss": {
+   "percentage": 0.99931,
+   "percentile": 0.99967
+  },
+  "ghsa_id": "GHSA-599f-7c49-w659",
+  "github_reviewed_at": "2022-10-13T20:22:17Z",
+  "html_url": "https://github.com/advisories/GHSA-599f-7c49-w659",
+  "identifiers": [
+   {
+    "type": "GHSA",
+    "value": "GHSA-599f-7c49-w659"
+   },
+   {
+    "type": "CVE",
+    "value": "CVE-2022-42889"
+   }
+  ],
+  "nvd_published_at": "2022-10-13T13:15:00Z",
+  "published_at": "2022-10-13T19:00:17Z",
+  "references": [
+   "https://nvd.nist.gov/vuln/detail/CVE-2022-42889",
+   "https://lists.apache.org/thread/n2bd4vdsgkqh2tm14l1wyc3jyol7s1om",
+   "http://www.openwall.com/lists/oss-security/2022/10/13/4",
+   "https://securitylab.github.com/advisories/GHSL-2022-018_Apache_Commons_Text",
+   "http://www.openwall.com/lists/oss-security/2022/10/18/1",
+   "https://security.netapp.com/advisory/ntap-20221020-0004/",
+   "https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2022-0022",
+   "https://security.gentoo.org/glsa/202301-05",
+   "http://seclists.org/fulldisclosure/2023/Feb/3",
+   "http://packetstormsecurity.com/files/171003/OX-App-Suite-Cross-Site-Scripting-Server-Side-Request-Forgery.html",
+   "https://arxiv.org/pdf/2306.05534",
+   "http://packetstormsecurity.com/files/176650/Apache-Commons-Text-1.9-Remote-Code-Execution.html",
+   "https://github.com/advisories/GHSA-599f-7c49-w659"
+  ],
+  "repository_advisory_url": null,
+  "severity": "critical",
+  "source_code_location": "https://github.com/apache/commons-text",
+  "summary": "Arbitrary code execution in Apache Commons Text",
+  "type": "reviewed",
+  "updated_at": "2024-01-19T20:49:34Z",
+  "url": "https://api.github.com/advisories/GHSA-599f-7c49-w659",
+  "vulnerabilities": [
+   {
+    "first_patched_version": "1.10.0",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.commons:commons-text"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 1.5, < 1.10.0"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "com.guicedee.services:commons-text"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": "<= 1.2.2.1-jre17"
+   }
+  ],
+  "withdrawn_at": null
+ },
+ {
+  "comments": 0,
+  "credits": [
+   {
+    "type": "analyst",
+    "user": {
+     "avatar_url": "https://avatars.githubusercontent.com/u/5106647?v=4",
+     "events_url": "https://api.github.com/users/oscerd/events{/privacy}",
+     "followers_url": "https://api.github.com/users/oscerd/followers",
+     "following_url": "https://api.github.com/users/oscerd/following{/other_user}",
+     "gists_url": "https://api.github.com/users/oscerd/gists{/gist_id}",
+     "gravatar_id": "",
+     "html_url": "https://github.com/oscerd",
+     "id": 5106647,
+     "login": "oscerd",
+     "node_id": "MDQ6VXNlcjUxMDY2NDc=",
+     "organizations_url": "https://api.github.com/users/oscerd/orgs",
+     "received_events_url": "https://api.github.com/users/oscerd/received_events",
+     "repos_url": "https://api.github.com/users/oscerd/repos",
+     "site_admin": false,
+     "starred_url": "https://api.github.com/users/oscerd/starred{/owner}{/repo}",
+     "subscriptions_url": "https://api.github.com/users/oscerd/subscriptions",
+     "type": "User",
+     "url": "https://api.github.com/users/oscerd",
+     "user_view_type": "public"
+    }
+   }
+  ],
+  "cve_id": "CVE-2026-68525",
+  "cvss": {
+   "score": 9.1,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+  },
+  "cvss_severities": {
+   "cvss_v3": {
+    "score": 9.1,
+    "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
+   },
+   "cvss_v4": {
+    "score": 0.0,
+    "vector_string": null
+   }
+  },
+  "cwes": [
+   {
+    "cwe_id": "CWE-863",
+    "name": "Incorrect Authorization"
+   }
+  ],
+  "description": "Incorrect Authorization vulnerability in Apache Tomcat's FORM authentication process allows the bypassing of a security constraint that limits user has access to a resource POST but not GET.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.24, from 10.1.0-M1 through 10.1.57, from 9.0.0.M1 through 9.0.120.\n\nThe following versions were EOL at the time the CVE was created but are known to be affected: from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109. Other unsupported versions may also be affected.\n\nUsers are recommended to upgrade to version 11.0.25, 10.1.58 or 9.0.121, which fixes the issue.",
+  "epss": {
+   "percentage": 0.00643,
+   "percentile": 0.50794
+  },
+  "ghsa_id": "GHSA-h3x4-894j-xpx5",
+  "github_reviewed_at": "2026-09-02T22:39:14Z",
+  "html_url": "https://github.com/advisories/GHSA-h3x4-894j-xpx5",
+  "identifiers": [
+   {
+    "type": "GHSA",
+    "value": "GHSA-h3x4-894j-xpx5"
+   },
+   {
+    "type": "CVE",
+    "value": "CVE-2026-68525"
+   }
+  ],
+  "nvd_published_at": "2026-08-25T22:17:05Z",
+  "published_at": "2026-08-26T00:30:52Z",
+  "references": [
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-68525",
+   "https://lists.apache.org/thread/x1y2lfsgzxwzc456f8954vbvgn03zhd7",
+   "http://www.openwall.com/lists/oss-security/2026/08/26/7",
+   "https://github.com/apache/tomcat/commit/10d048e16034ddf12055e0cede0da05b15c823b8",
+   "https://github.com/apache/tomcat/commit/32f0c38526b4e655ff0c17cd97afedefc624fe43",
+   "https://github.com/apache/tomcat/commit/58123aa468a20e2a079b7e0c68a4009e2475c098",
+   "https://tomcat.apache.org/security-10.html",
+   "https://tomcat.apache.org/security-11.html",
+   "https://tomcat.apache.org/security-9.html",
+   "https://github.com/advisories/GHSA-h3x4-894j-xpx5"
+  ],
+  "repository_advisory_url": null,
+  "severity": "critical",
+  "source_code_location": "https://github.com/apache/tomcat",
+  "summary": "Apache Tomcat's FORM authentication process has an Incorrect Authorization vulnerability",
+  "type": "reviewed",
+  "updated_at": "2026-09-02T22:39:16Z",
+  "url": "https://api.github.com/advisories/GHSA-h3x4-894j-xpx5",
+  "vulnerabilities": [
+   {
+    "first_patched_version": "11.0.25",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 11.0.0-M1, < 11.0.25"
+   },
+   {
+    "first_patched_version": "10.1.58",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 10.1.0-M1, < 10.1.58"
+   },
+   {
+    "first_patched_version": "9.0.121",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 9.0.0-M1, < 9.0.121"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 8.5.0, <= 8.5.100"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 7.0.0, <= 7.0.109"
+   },
+   {
+    "first_patched_version": "11.0.25",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat-catalina"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 11.0.0-M1, < 11.0.25"
+   },
+   {
+    "first_patched_version": "10.1.58",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat-catalina"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 10.1.0-M1, < 10.1.58"
+   },
+   {
+    "first_patched_version": "9.0.121",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat-catalina"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 9.0.0-M1, < 9.0.121"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat-catalina"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 8.5.0, <= 8.5.100"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat:tomcat-catalina"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 7.0.0, <= 7.0.109"
+   },
+   {
+    "first_patched_version": "11.0.25",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 11.0.0-M1, < 11.0.25"
+   },
+   {
+    "first_patched_version": "10.1.58",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 10.1.0-M1, < 10.1.58"
+   },
+   {
+    "first_patched_version": "9.0.121",
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 9.0.0-M1, < 9.0.121"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 8.5.0, <= 8.5.100"
+   },
+   {
+    "first_patched_version": null,
+    "package": {
+     "ecosystem": "maven",
+     "name": "org.apache.tomcat.embed:tomcat-embed-core"
+    },
+    "vulnerable_functions": [],
+    "vulnerable_version_range": ">= 7.0.0, <= 7.0.109"
+   }
+  ],
+  "withdrawn_at": null
+ }
+]

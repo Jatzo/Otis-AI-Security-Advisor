@@ -1,0 +1,83 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2023-34149",
+ "cvss": {
+  "score": 6.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 6.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-770",
+   "name": "Allocation of Resources Without Limits or Throttling"
+  }
+ ],
+ "description": "Denial of service via out of memory (OOM) owing to not properly checking of list bounds. When a Multipart request has non-file normal form fields, Struts used to bring them into memory as Strings without checking their sizes. This could lead to OOM if developer has set struts.multipart.maxSize to a value equal or greater than the available memory.\n\nUpgrade to Struts 2.5.31 or 6.1.2.1 or greater.",
+ "epss": {
+  "percentage": 0.05448,
+  "percentile": 0.92506
+ },
+ "ghsa_id": "GHSA-8f6x-v685-g2xc",
+ "github_reviewed_at": "2023-06-14T20:16:47Z",
+ "html_url": "https://github.com/advisories/GHSA-8f6x-v685-g2xc",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-8f6x-v685-g2xc"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2023-34149"
+  }
+ ],
+ "nvd_published_at": "2023-06-14T08:15:09Z",
+ "published_at": "2023-06-14T09:30:42Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2023-34149",
+  "https://cwiki.apache.org/confluence/display/WW/S2-063",
+  "https://github.com/apache/struts/commit/2d6f1bc0a6f5ac575a56784ac6461816b67c4f21",
+  "https://github.com/apache/struts/releases/tag/STRUTS_2_5_31",
+  "https://github.com/apache/struts/releases/tag/STRUTS_6_1_2_1",
+  "http://www.openwall.com/lists/oss-security/2023/06/14/2",
+  "https://security.netapp.com/advisory/ntap-20230706-0005",
+  "https://github.com/advisories/GHSA-8f6x-v685-g2xc"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/apache/struts",
+ "summary": "Apache Struts vulnerable to memory exhaustion",
+ "type": "reviewed",
+ "updated_at": "2025-02-13T18:58:20Z",
+ "url": "https://api.github.com/advisories/GHSA-8f6x-v685-g2xc",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.5.31",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.5.31"
+  },
+  {
+   "first_patched_version": "6.1.2.1",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 6.0.0, < 6.1.2.1"
+  }
+ ],
+ "withdrawn_at": null
+}

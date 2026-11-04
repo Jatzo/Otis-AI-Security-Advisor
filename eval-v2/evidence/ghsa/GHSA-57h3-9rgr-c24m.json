@@ -1,0 +1,98 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2021-25289",
+ "cvss": {
+  "score": 9.8,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 9.8,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "cvss_v4": {
+   "score": 9.3,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-787",
+   "name": "Out-of-bounds Write"
+  }
+ ],
+ "description": "An issue was discovered in Pillow before 8.1.1. TiffDecode has a heap-based buffer overflow when decoding crafted YCbCr files because of certain interpretation conflicts with LibTIFF in RGBA mode. NOTE: this issue exists because of an incomplete fix for CVE-2020-35654.",
+ "epss": {
+  "percentage": 0.02345,
+  "percentile": 0.83518
+ },
+ "ghsa_id": "GHSA-57h3-9rgr-c24m",
+ "github_reviewed_at": "2021-03-22T22:07:48Z",
+ "html_url": "https://github.com/advisories/GHSA-57h3-9rgr-c24m",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-57h3-9rgr-c24m"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2021-25289"
+  }
+ ],
+ "nvd_published_at": "2021-03-19T04:15:00Z",
+ "published_at": "2021-03-29T16:35:16Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2021-25289",
+  "https://github.com/python-pillow/Pillow/commit/3fee28eb9479bf7d59e0fa08068f9cc4a6e2f04c",
+  "https://pillow.readthedocs.io/en/stable/releasenotes/8.1.1.html",
+  "https://security.gentoo.org/glsa/202107-33",
+  "https://github.com/python-pillow/Pillow/commit/cbfdde7b1f2295059a20a539ee9960f0bec7b299",
+  "https://github.com/advisories/GHSA-57h3-9rgr-c24m",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2021-35.yaml"
+ ],
+ "repository_advisory_url": null,
+ "severity": "critical",
+ "source_code_location": "https://github.com/python-pillow/Pillow/",
+ "summary": "Out of bounds write in Pillow",
+ "type": "reviewed",
+ "updated_at": "2024-10-08T13:11:34Z",
+ "url": "https://api.github.com/advisories/GHSA-57h3-9rgr-c24m",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "8.1.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "pillow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 0, < 8.1.1"
+  }
+ ],
+ "withdrawn_at": null
+}

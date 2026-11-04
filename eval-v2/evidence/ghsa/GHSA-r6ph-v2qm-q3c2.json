@@ -1,0 +1,169 @@
+{
+ "comments": 4,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/214060066?v=4",
+    "events_url": "https://api.github.com/users/XlabAITeam/events{/privacy}",
+    "followers_url": "https://api.github.com/users/XlabAITeam/followers",
+    "following_url": "https://api.github.com/users/XlabAITeam/following{/other_user}",
+    "gists_url": "https://api.github.com/users/XlabAITeam/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/XlabAITeam",
+    "id": 214060066,
+    "login": "XlabAITeam",
+    "node_id": "U_kgDODMJMIg",
+    "organizations_url": "https://api.github.com/users/XlabAITeam/orgs",
+    "received_events_url": "https://api.github.com/users/XlabAITeam/received_events",
+    "repos_url": "https://api.github.com/users/XlabAITeam/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/XlabAITeam/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/XlabAITeam/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/XlabAITeam",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/74103367?v=4",
+    "events_url": "https://api.github.com/users/tl2cents/events{/privacy}",
+    "followers_url": "https://api.github.com/users/tl2cents/followers",
+    "following_url": "https://api.github.com/users/tl2cents/following{/other_user}",
+    "gists_url": "https://api.github.com/users/tl2cents/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/tl2cents",
+    "id": 74103367,
+    "login": "tl2cents",
+    "node_id": "MDQ6VXNlcjc0MTAzMzY3",
+    "organizations_url": "https://api.github.com/users/tl2cents/orgs",
+    "received_events_url": "https://api.github.com/users/tl2cents/received_events",
+    "repos_url": "https://api.github.com/users/tl2cents/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/tl2cents/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/tl2cents/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/tl2cents",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/20946854?v=4",
+    "events_url": "https://api.github.com/users/keenanwgn/events{/privacy}",
+    "followers_url": "https://api.github.com/users/keenanwgn/followers",
+    "following_url": "https://api.github.com/users/keenanwgn/following{/other_user}",
+    "gists_url": "https://api.github.com/users/keenanwgn/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/keenanwgn",
+    "id": 20946854,
+    "login": "keenanwgn",
+    "node_id": "MDQ6VXNlcjIwOTQ2ODU0",
+    "organizations_url": "https://api.github.com/users/keenanwgn/orgs",
+    "received_events_url": "https://api.github.com/users/keenanwgn/received_events",
+    "repos_url": "https://api.github.com/users/keenanwgn/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/keenanwgn/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/keenanwgn/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/keenanwgn",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/22323912?v=4",
+    "events_url": "https://api.github.com/users/A7um/events{/privacy}",
+    "followers_url": "https://api.github.com/users/A7um/followers",
+    "following_url": "https://api.github.com/users/A7um/following{/other_user}",
+    "gists_url": "https://api.github.com/users/A7um/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/A7um",
+    "id": 22323912,
+    "login": "A7um",
+    "node_id": "MDQ6VXNlcjIyMzIzOTEy",
+    "organizations_url": "https://api.github.com/users/A7um/orgs",
+    "received_events_url": "https://api.github.com/users/A7um/received_events",
+    "repos_url": "https://api.github.com/users/A7um/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/A7um/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/A7um/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/A7um",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-26007",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 8.2,
+   "vector_string": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-345",
+   "name": "Insufficient Verification of Data Authenticity"
+  }
+ ],
+ "description": "## Vulnerability Summary\n\nThe `public_key_from_numbers` (or `EllipticCurvePublicNumbers.public_key()`), `EllipticCurvePublicNumbers.public_key()`, `load_der_public_key()` and `load_pem_public_key()` functions do not verify that the point belongs to the expected prime-order subgroup of the curve.\n\nThis missing validation allows an attacker to provide a public key point `P` from a small-order subgroup.  This can lead to security issues in various situations, such as the most commonly used signature verification (ECDSA) and shared key negotiation (ECDH). When the victim computes the shared secret as `S = [victim_private_key]P` via ECDH,  this leaks information about `victim_private_key mod (small_subgroup_order)`. For curves with cofactor > 1, this reveals the least significant bits of the private key.  When these weak public keys are used in ECDSA , it's easy to forge signatures on the small subgroup.\n\nOnly SECT curves are impacted by this.\n\n## Credit\n\nThis vulnerability was discovered by:\n- XlabAI Team of Tencent Xuanwu Lab\n- Atuin Automated Vulnerability Discovery Engine",
+ "epss": {
+  "percentage": 0.0039,
+  "percentile": 0.32796
+ },
+ "ghsa_id": "GHSA-r6ph-v2qm-q3c2",
+ "github_reviewed_at": "2026-02-10T21:27:06Z",
+ "html_url": "https://github.com/advisories/GHSA-r6ph-v2qm-q3c2",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-r6ph-v2qm-q3c2"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-26007"
+  }
+ ],
+ "nvd_published_at": "2026-02-10T22:17:00Z",
+ "published_at": "2026-02-10T21:27:06Z",
+ "references": [
+  "https://github.com/pyca/cryptography/security/advisories/GHSA-r6ph-v2qm-q3c2",
+  "https://github.com/pyca/cryptography/commit/0eebb9dbb6343d9bc1d91e5a2482ed4e054a6d8c",
+  "https://github.com/pyca/cryptography/releases/tag/46.0.5",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-26007",
+  "http://www.openwall.com/lists/oss-security/2026/02/10/4",
+  "https://github.com/advisories/GHSA-r6ph-v2qm-q3c2"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/pyca/cryptography/security-advisories/GHSA-r6ph-v2qm-q3c2",
+ "severity": "high",
+ "source_code_location": "https://github.com/pyca/cryptography",
+ "summary": "cryptography Vulnerable to a Subgroup Attack Due to Missing Subgroup Validation for SECT Curves",
+ "type": "reviewed",
+ "updated_at": "2026-02-13T08:47:30Z",
+ "url": "https://api.github.com/advisories/GHSA-r6ph-v2qm-q3c2",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "46.0.5",
+   "package": {
+    "ecosystem": "pip",
+    "name": "cryptography"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "<= 46.0.4"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,100 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/16122665?v=4",
+    "events_url": "https://api.github.com/users/tdunlap607/events{/privacy}",
+    "followers_url": "https://api.github.com/users/tdunlap607/followers",
+    "following_url": "https://api.github.com/users/tdunlap607/following{/other_user}",
+    "gists_url": "https://api.github.com/users/tdunlap607/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/tdunlap607",
+    "id": 16122665,
+    "login": "tdunlap607",
+    "node_id": "MDQ6VXNlcjE2MTIyNjY1",
+    "organizations_url": "https://api.github.com/users/tdunlap607/orgs",
+    "received_events_url": "https://api.github.com/users/tdunlap607/received_events",
+    "repos_url": "https://api.github.com/users/tdunlap607/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/tdunlap607/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/tdunlap607/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/tdunlap607",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2018-1000656",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  }
+ ],
+ "description": "The Pallets Project flask version Before 0.12.3 contains a CWE-20: Improper Input Validation vulnerability in flask that can result in Large amount of memory usage possibly leading to denial of service. This attack appear to be exploitable via Attacker provides JSON data in incorrect encoding. This vulnerability appears to have been fixed in 0.12.3.",
+ "epss": {
+  "percentage": 0.03855,
+  "percentile": 0.89697
+ },
+ "ghsa_id": "GHSA-562c-5r94-xh97",
+ "github_reviewed_at": "2020-06-16T21:00:05Z",
+ "html_url": "https://github.com/advisories/GHSA-562c-5r94-xh97",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-562c-5r94-xh97"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2018-1000656"
+  }
+ ],
+ "nvd_published_at": null,
+ "published_at": "2018-08-23T19:10:40Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2018-1000656",
+  "https://github.com/pallets/flask/pull/2691",
+  "https://github.com/advisories/GHSA-562c-5r94-xh97",
+  "https://github.com/pallets/flask/releases/tag/0.12.3",
+  "https://lists.debian.org/debian-lts-announce/2019/08/msg00025.html",
+  "https://github.com/pallets/flask/commit/b178e89e4456e777b1a7ac6d7199052d0dfdbbbe",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/flask/PYSEC-2018-66.yaml",
+  "https://security.netapp.com/advisory/ntap-20190221-0001",
+  "https://usn.ubuntu.com/4378-1"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/pallets/flask",
+ "summary": "Flask is vulnerable to Denial of Service via incorrect encoding of JSON data",
+ "type": "reviewed",
+ "updated_at": "2024-09-20T20:16:30Z",
+ "url": "https://api.github.com/advisories/GHSA-562c-5r94-xh97",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "0.12.3",
+   "package": {
+    "ecosystem": "pip",
+    "name": "flask"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 0.12.3"
+  }
+ ],
+ "withdrawn_at": null
+}

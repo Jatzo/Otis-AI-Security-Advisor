@@ -1,0 +1,74 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2013-6348",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-79",
+   "name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+  }
+ ],
+ "description": "Multiple cross-site scripting (XSS) vulnerabilities in Apache Struts 2.3.15.3 allow remote attackers to inject arbitrary web script or HTML via the namespace parameter to (1) actionNames.action and (2) showConfig.action in `config-browser/`.",
+ "epss": {
+  "percentage": 0.06125,
+  "percentile": 0.92524
+ },
+ "ghsa_id": "GHSA-3g8j-jj54-3vjg",
+ "github_reviewed_at": "2022-11-03T20:32:19Z",
+ "html_url": "https://github.com/advisories/GHSA-3g8j-jj54-3vjg",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-3g8j-jj54-3vjg"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2013-6348"
+  }
+ ],
+ "nvd_published_at": "2013-11-02T21:55:00Z",
+ "published_at": "2022-05-17T04:57:18Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2013-6348",
+  "http://packetstormsecurity.com/files/123805/Struts-2.3.15.3-Cross-Site-Scripting.html",
+  "http://seclists.org/fulldisclosure/2013/Oct/244",
+  "https://issues.apache.org/jira/browse/WW-4213",
+  "https://security-tracker.debian.org/tracker/CVE-2013-6348",
+  "https://svn.apache.org/viewvc?view=revision&revision=1533354",
+  "https://ubuntu.com/security/CVE-2013-6348",
+  "https://github.com/advisories/GHSA-3g8j-jj54-3vjg"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/apache/struts",
+ "summary": "Apache Struts is vulnerable to Cross-site Scripting",
+ "type": "reviewed",
+ "updated_at": "2023-08-15T19:01:32Z",
+ "url": "https://api.github.com/advisories/GHSA-3g8j-jj54-3vjg",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.16",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.3.16"
+  }
+ ],
+ "withdrawn_at": null
+}

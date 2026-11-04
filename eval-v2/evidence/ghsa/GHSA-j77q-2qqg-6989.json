@@ -1,0 +1,149 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2017-5638",
+ "cvss": {
+  "score": 10.0,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 10.0,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  },
+  {
+   "cwe_id": "CWE-755",
+   "name": "Improper Handling of Exceptional Conditions"
+  }
+ ],
+ "description": "Apache Struts versions prior to 2.3.32 and 2.5.10.1 contain incorrect exception handling and error-message generation during file-upload attempts using the Jakarta Multipart parser, which allows remote attackers to execute arbitrary commands via a crafted Content-Type, Content-Disposition, or Content-Length HTTP header, as exploited in the wild in March 2017 with a Content-Type header containing a #cmd= string.",
+ "epss": {
+  "percentage": 0.99999,
+  "percentile": 0.99993
+ },
+ "ghsa_id": "GHSA-j77q-2qqg-6989",
+ "github_reviewed_at": "2020-06-16T21:42:23Z",
+ "html_url": "https://github.com/advisories/GHSA-j77q-2qqg-6989",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-j77q-2qqg-6989"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2017-5638"
+  }
+ ],
+ "nvd_published_at": "2017-03-11T02:59:00Z",
+ "published_at": "2018-10-18T19:24:26Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2017-5638",
+  "https://github.com/rapid7/metasploit-framework/issues/8064",
+  "https://cwiki.apache.org/confluence/display/WW/S2-045",
+  "https://cwiki.apache.org/confluence/display/WW/S2-046",
+  "https://exploit-db.com/exploits/41570",
+  "https://git1-us-west.apache.org/repos/asf?p=struts.git;a=commit;h=352306493971e7d5a756d61780d57a76eb1f519a",
+  "https://git1-us-west.apache.org/repos/asf?p=struts.git;a=commit;h=6b8272ce47160036ed120a48345d9aa884477228",
+  "https://github.com/advisories/GHSA-j77q-2qqg-6989",
+  "https://github.com/mazen160/struts-pwn",
+  "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbgn03733en_us",
+  "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbgn03749en_us",
+  "https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03723en_us",
+  "https://isc.sans.edu/diary/22169",
+  "https://lists.apache.org/thread.html/r1125f3044a0946d1e7e6f125a6170b58d413ebd4a95157e4608041c7@%3Cannounce.apache.org%3E",
+  "https://lists.apache.org/thread.html/r6d03e45b81eab03580cf7f8bb51cb3e9a1b10a2cc0c6a2d3cc92ed0c@%3Cannounce.apache.org%3E",
+  "https://lists.apache.org/thread.html/r90890afea72a9571d666820b2fe5942a0a5f86be406fa31da3dd0922@%3Cannounce.apache.org%3E",
+  "https://nmap.org/nsedoc/scripts/http-vuln-cve2017-5638.html",
+  "https://packetstormsecurity.com/files/141494/S2-45-poc.py.txt",
+  "https://struts.apache.org/docs/s2-045.html",
+  "https://struts.apache.org/docs/s2-046.html",
+  "https://support.lenovo.com/us/en/product_security/len-14200",
+  "https://twitter.com/theog150/status/841146956135124993",
+  "https://www.kb.cert.org/vuls/id/834067",
+  "https://www.symantec.com/security-center/network-protection-security-advisories/SA145",
+  "http://blog.talosintelligence.com/2017/03/apache-0-day-exploited.html",
+  "http://www.arubanetworks.com/assets/alert/ARUBA-PSA-2017-002.txt",
+  "http://www.eweek.com/security/apache-struts-vulnerability-under-attack.html",
+  "http://www.oracle.com/technetwork/security-advisory/cpujul2017-3236622.html",
+  "https://github.com/apache/struts/commit/352306493971e7d5a756d61780d57a76eb1f519a",
+  "https://github.com/apache/struts/commit/b06dd50af2a3319dd896bf5c2f4972d2b772cf2b",
+  "https://web.archive.org/web/20170311203630/http://www.securityfocus.com/bid/96729",
+  "https://web.archive.org/web/20170921030226/http://www.securitytracker.com/id/1037973",
+  "https://lists.apache.org/thread.html/r90890afea72a9571d666820b2fe5942a0a5f86be406fa31da3dd0922%40%3Cannounce.apache.org%3E",
+  "https://security.netapp.com/advisory/ntap-20170310-0001",
+  "https://www.exploit-db.com/exploits/41614",
+  "https://www.imperva.com/blog/2017/03/cve-2017-5638-new-remote-code-execution-rce-vulnerability-in-apache-struts-2",
+  "https://arstechnica.com/security/2017/03/critical-vulnerability-under-massive-attack-imperils-high-impact-sites",
+  "https://git1-us-west.apache.org/repos/asf?p=struts.git%3Ba=commit%3Bh=352306493971e7d5a756d61780d57a76eb1f519a",
+  "https://git1-us-west.apache.org/repos/asf?p=struts.git%3Ba=commit%3Bh=6b8272ce47160036ed120a48345d9aa884477228",
+  "https://lists.apache.org/thread.html/r1125f3044a0946d1e7e6f125a6170b58d413ebd4a95157e4608041c7%40%3Cannounce.apache.org%3E",
+  "https://lists.apache.org/thread.html/r6d03e45b81eab03580cf7f8bb51cb3e9a1b10a2cc0c6a2d3cc92ed0c%40%3Cannounce.apache.org%3E",
+  "http://blog.trendmicro.com/trendlabs-security-intelligence/cve-2017-5638-apache-struts-vulnerability-remote-code-execution",
+  "http://www.securityfocus.com/bid/96729",
+  "http://www.securitytracker.com/id/1037973",
+  "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2017-5638"
+ ],
+ "repository_advisory_url": null,
+ "severity": "critical",
+ "source_code_location": "https://github.com/apache/struts",
+ "summary": "Apache Struts vulnerable to remote arbitrary command execution due to improper input validation",
+ "type": "reviewed",
+ "updated_at": "2025-10-22T17:33:27Z",
+ "url": "https://api.github.com/advisories/GHSA-j77q-2qqg-6989",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.32",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.3.0, <= 2.3.31"
+  },
+  {
+   "first_patched_version": "2.5.10.1",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.5.0, <= 2.5.10"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,106 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/3151613?v=4",
+    "events_url": "https://api.github.com/users/G-Rath/events{/privacy}",
+    "followers_url": "https://api.github.com/users/G-Rath/followers",
+    "following_url": "https://api.github.com/users/G-Rath/following{/other_user}",
+    "gists_url": "https://api.github.com/users/G-Rath/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/G-Rath",
+    "id": 3151613,
+    "login": "G-Rath",
+    "node_id": "MDQ6VXNlcjMxNTE2MTM=",
+    "organizations_url": "https://api.github.com/users/G-Rath/orgs",
+    "received_events_url": "https://api.github.com/users/G-Rath/received_events",
+    "repos_url": "https://api.github.com/users/G-Rath/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/G-Rath/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/G-Rath/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/G-Rath",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2018-16487",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-400",
+   "name": "Uncontrolled Resource Consumption"
+  }
+ ],
+ "description": "Versions of `lodash` before 4.17.11 are vulnerable to prototype pollution. \n\nThe vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}` causing the addition or modification of an existing property that will exist on all objects.\n\n\n\n\n## Recommendation\n\nUpdate to version 4.17.11 or later.",
+ "epss": {
+  "percentage": 0.01491,
+  "percentile": 0.73697
+ },
+ "ghsa_id": "GHSA-4xc9-xhrj-v574",
+ "github_reviewed_at": "2020-06-16T20:59:41Z",
+ "html_url": "https://github.com/advisories/GHSA-4xc9-xhrj-v574",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-4xc9-xhrj-v574"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2018-16487"
+  }
+ ],
+ "nvd_published_at": null,
+ "published_at": "2019-02-07T18:16:48Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2018-16487",
+  "https://hackerone.com/reports/380873",
+  "https://github.com/lodash/lodash/commit/90e6199a161b6445b01454517b40ef65ebecd2ad",
+  "https://security.netapp.com/advisory/ntap-20190919-0004",
+  "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2018-16487.yml",
+  "https://github.com/advisories/GHSA-4xc9-xhrj-v574"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "",
+ "summary": "Prototype Pollution in lodash",
+ "type": "reviewed",
+ "updated_at": "2025-08-12T21:36:50Z",
+ "url": "https://api.github.com/advisories/GHSA-4xc9-xhrj-v574",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "4.17.11",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 4.17.11"
+  },
+  {
+   "first_patched_version": "4.17.11",
+   "package": {
+    "ecosystem": "rubygems",
+    "name": "lodash-rails"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 4.17.11"
+  }
+ ],
+ "withdrawn_at": null
+}

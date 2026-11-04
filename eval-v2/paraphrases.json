@@ -1,0 +1,23 @@
+{
+ "about": "Advisories chosen by eval-v2/pick_descriptions.py (seed 20261102), none of them the subject of a v1 question. Sixteen were picked; three were dropped by hand before any system ran because other advisories for the same package (several pillow decompression-bomb font advisories, two axios proxy-credential redirect advisories) could not be told apart in one sentence. A paraphrase avoids the advisory's own title words and gives enough detail to tell it from similar advisories in the same package.",
+ "dropped_by_hand": [
+  "GHSA-5x94-69rx-g8h2",
+  "GHSA-8v84-f9pq-wr9x",
+  "GHSA-p92q-9vqr-4j8v"
+ ],
+ "entries": {
+  "GHSA-2j39-qcjm-428w": "the Struts 2 flaw where manipulated parameters on a file upload can place a file outside the intended folder, which under some circumstances ends in remote code execution",
+  "GHSA-2vrm-gr82-f7m5": "the aiohttp flaw where an attacker-controlled value for the content type of a multipart part can smuggle extra header lines into the message that is built",
+  "GHSA-445c-vh5m-36rj": "the Log4j Core flaw where the RFC 5424 layout is open to injected line breaks, because security-related settings were silently renamed and the old names stopped working",
+  "GHSA-5m98-qgg9-wh84": "the aiohttp flaw where a malformed form-data POST sends the server into an endless loop, so it stops answering any other request",
+  "GHSA-h383-gmxw-35v2": "the flaw in the layer that lets Log4j 1 code run on Log4j 2, where its XML layout does not escape characters that XML 1.0 forbids, so a strict parser rejects the output and events are lost",
+  "GHSA-h95j-h2rv-qrg4": "the very old Django flaw where the cross-site request forgery protection mishandles servers that accept any Host header value, in the 1.2 series and the early 1.3 releases",
+  "GHSA-jqh4-m9w3-8hp9": "the axios issue where an upload sent from a live stream body through the fetch adapter is not held to the configured maximum body length",
+  "GHSA-m2h6-j472-rp4c": "the python cryptography flaw where certificate verification accepts a wildcard DNS name in a leaf certificate and so steps outside the names an intermediate CA is constrained to",
+  "GHSA-r5fr-rjxr-66jc": "the lodash flaw where the template function does not validate the key names in its imports option, so an attacker can inject code, a gap left after an earlier fix covered only another option",
+  "GHSA-r7w6-p47g-vj53": "the old Django flaw where the admin lets an authenticated administrator without the right permission read the change history of objects",
+  "GHSA-v94h-hvhg-mf9h": "the Spring Framework flaw where crafted HTTP requests cause a denial of service in Spring MVC or WebFlux applications that have Micrometer on the classpath and an observation registry configured",
+  "GHSA-w3c8-7r8f-9jp8": "the Spring MVC flaw where controller methods that take the request body as a raw byte array can be used for a denial of service",
+  "GHSA-wv7g-xhvw-8hcp": "the old Struts 2 flaw where a double-encoded dot-dot-slash in a request URI under the static content path lets remote attackers read arbitrary files"
+ }
+}

@@ -1,0 +1,114 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2012-3444",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-119",
+   "name": "Improper Restriction of Operations within the Bounds of a Memory Buffer"
+  }
+ ],
+ "description": "The `get_image_dimensions` function in the image-handling functionality in Django before 1.3.2 and 1.4.x before 1.4.1 uses a constant chunk size in all attempts to determine dimensions, which allows remote attackers to cause a denial of service (process or thread consumption) via a large TIFF image.",
+ "epss": {
+  "percentage": 0.01788,
+  "percentile": 0.77511
+ },
+ "ghsa_id": "GHSA-5h2q-4hrp-v9rr",
+ "github_reviewed_at": "2023-04-21T20:17:54Z",
+ "html_url": "https://github.com/advisories/GHSA-5h2q-4hrp-v9rr",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-5h2q-4hrp-v9rr"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2012-3444"
+  }
+ ],
+ "nvd_published_at": "2012-07-31T17:55:00Z",
+ "published_at": "2022-05-17T05:12:01Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2012-3444",
+  "http://www.debian.org/security/2012/dsa-2529",
+  "http://www.mandriva.com/security/advisories?name=MDVSA-2012:143",
+  "http://www.openwall.com/lists/oss-security/2012/07/31/1",
+  "http://www.openwall.com/lists/oss-security/2012/07/31/2",
+  "http://www.ubuntu.com/usn/USN-1560-1",
+  "https://github.com/django/django/commit/9ca0ff6268eeff92d0d0ac2c315d4b6a8e229155",
+  "https://github.com/django/django/commit/da33d67181b53fe6cc737ac1220153814a1509f6",
+  "https://github.com/django/django/commit/dd16b17099b7d86f27773df048c5014cf439b282",
+  "https://github.com/django/django/commit/b2eb4787a0fff9c9993b78be5c698e85108f3446",
+  "https://github.com/django/django/commit/c14f325c4eef628bc7bfd8873c3a72aeb0219141",
+  "https://www.djangoproject.com/weblog/2012/jul/30/security-releases-issued",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2012-4.yaml",
+  "https://github.com/advisories/GHSA-5h2q-4hrp-v9rr"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django vulnerable to Improper Restriction of Operations within the Bounds of a Memory Buffer",
+ "type": "reviewed",
+ "updated_at": "2024-09-16T21:41:20Z",
+ "url": "https://api.github.com/advisories/GHSA-5h2q-4hrp-v9rr",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.3.2",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 1.3.2"
+  },
+  {
+   "first_patched_version": "1.4.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.4, < 1.4.1"
+  }
+ ],
+ "withdrawn_at": null
+}

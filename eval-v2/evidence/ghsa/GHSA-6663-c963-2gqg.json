@@ -1,0 +1,70 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2016-10542",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-400",
+   "name": "Uncontrolled Resource Consumption"
+  }
+ ],
+ "description": "Affected versions of `ws` do not appropriately limit the size of incoming websocket payloads, which may result in a denial of service condition when the node process crashes after receiving a large payload.\n\n\n\n## Recommendation\n\nUpdate to version 1.1.1 or later. \nAlternatively, set the `maxpayload` option for the `ws` server to a value smaller than 256MB.",
+ "epss": {
+  "percentage": 0.07424,
+  "percentile": 0.94293
+ },
+ "ghsa_id": "GHSA-6663-c963-2gqg",
+ "github_reviewed_at": "2020-06-16T21:18:11Z",
+ "html_url": "https://github.com/advisories/GHSA-6663-c963-2gqg",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-6663-c963-2gqg"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2016-10542"
+  }
+ ],
+ "nvd_published_at": null,
+ "published_at": "2019-02-18T23:58:35Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2016-10542",
+  "https://github.com/nodejs/node/issues/7388",
+  "https://github.com/advisories/GHSA-6663-c963-2gqg",
+  "https://www.npmjs.com/advisories/120"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "",
+ "summary": "DoS due to excessively large websocket message in ws",
+ "type": "reviewed",
+ "updated_at": "2023-01-09T05:02:43Z",
+ "url": "https://api.github.com/advisories/GHSA-6663-c963-2gqg",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.1.1",
+   "package": {
+    "ecosystem": "npm",
+    "name": "ws"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 1.1.1"
+  }
+ ],
+ "withdrawn_at": null
+}

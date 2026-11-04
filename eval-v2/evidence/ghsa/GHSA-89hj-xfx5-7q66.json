@@ -1,0 +1,121 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/38575222?v=4",
+    "events_url": "https://api.github.com/users/MarkLee131/events{/privacy}",
+    "followers_url": "https://api.github.com/users/MarkLee131/followers",
+    "following_url": "https://api.github.com/users/MarkLee131/following{/other_user}",
+    "gists_url": "https://api.github.com/users/MarkLee131/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/MarkLee131",
+    "id": 38575222,
+    "login": "MarkLee131",
+    "node_id": "MDQ6VXNlcjM4NTc1MjIy",
+    "organizations_url": "https://api.github.com/users/MarkLee131/orgs",
+    "received_events_url": "https://api.github.com/users/MarkLee131/received_events",
+    "repos_url": "https://api.github.com/users/MarkLee131/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/MarkLee131/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/MarkLee131/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/MarkLee131",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2014-0473",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-200",
+   "name": "Exposure of Sensitive Information to an Unauthorized Actor"
+  }
+ ],
+ "description": "The caching framework in Django before 1.4.11, 1.5.x before 1.5.6, 1.6.x before 1.6.3, and 1.7.x before 1.7 beta 2 reuses a cached CSRF token for all anonymous users, which allows remote attackers to bypass CSRF protections by reading the CSRF cookie for anonymous users.",
+ "epss": {
+  "percentage": 0.0199,
+  "percentile": 0.80503
+ },
+ "ghsa_id": "GHSA-89hj-xfx5-7q66",
+ "github_reviewed_at": "2023-08-16T22:56:38Z",
+ "html_url": "https://github.com/advisories/GHSA-89hj-xfx5-7q66",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-89hj-xfx5-7q66"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2014-0473"
+  }
+ ],
+ "nvd_published_at": "2014-04-23T15:55:00Z",
+ "published_at": "2022-05-17T03:07:04Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2014-0473",
+  "http://lists.opensuse.org/opensuse-updates/2014-09/msg00023.html",
+  "http://rhn.redhat.com/errata/RHSA-2014-0456.html",
+  "http://rhn.redhat.com/errata/RHSA-2014-0457.html",
+  "http://www.debian.org/security/2014/dsa-2934",
+  "http://www.ubuntu.com/usn/USN-2169-1",
+  "https://github.com/django/django/commit/1170f285ddd6a94a65f911a27788ba49ca08c0b0",
+  "https://github.com/django/django/commit/6872f42757d7ef6a97e0b6ec5db4d2615d8a2bd8",
+  "https://github.com/django/django/commit/d63e20942f3024f24cb8cd85a49461ba8a9b6736",
+  "https://www.djangoproject.com/weblog/2014/apr/21/security",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2014-2.yaml",
+  "https://github.com/advisories/GHSA-89hj-xfx5-7q66"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django Reuses Cached CSRF Token",
+ "type": "reviewed",
+ "updated_at": "2024-09-18T20:01:46Z",
+ "url": "https://api.github.com/advisories/GHSA-89hj-xfx5-7q66",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.4.11",
+   "package": {
+    "ecosystem": "pip",
+    "name": "django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 1.4.11"
+  },
+  {
+   "first_patched_version": "1.5.6",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.5, < 1.5.6"
+  },
+  {
+   "first_patched_version": "1.6.3",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.6, < 1.6.3"
+  }
+ ],
+ "withdrawn_at": null
+}

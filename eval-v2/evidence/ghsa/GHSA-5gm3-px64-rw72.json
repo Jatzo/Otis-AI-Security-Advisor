@@ -1,0 +1,75 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2019-19911",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-190",
+   "name": "Integer Overflow or Wraparound"
+  }
+ ],
+ "description": "There is a DoS vulnerability in Pillow before 6.2.2 caused by FpxImagePlugin.py calling the range function on an unvalidated 32-bit integer if the number of bands is large. On Windows running 32-bit Python, this results in an OverflowError or MemoryError due to the 2 GB limit. However, on Linux running 64-bit Python this results in the process being terminated by the OOM killer.",
+ "epss": {
+  "percentage": 0.02236,
+  "percentile": 0.8268
+ },
+ "ghsa_id": "GHSA-5gm3-px64-rw72",
+ "github_reviewed_at": "2020-04-01T16:30:58Z",
+ "html_url": "https://github.com/advisories/GHSA-5gm3-px64-rw72",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-5gm3-px64-rw72"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2019-19911"
+  }
+ ],
+ "nvd_published_at": "2020-01-05T22:15:00Z",
+ "published_at": "2020-04-01T16:36:44Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2019-19911",
+  "https://github.com/python-pillow/Pillow/commit/774e53bb132461d8d5ebefec1162e29ec0ebc63d",
+  "https://github.com/python-pillow/Pillow/blob/master/CHANGES.rst#622-2020-01-02",
+  "https://pillow.readthedocs.io/en/stable/releasenotes/6.2.2.html",
+  "https://www.debian.org/security/2020/dsa-4631",
+  "https://github.com/advisories/GHSA-5gm3-px64-rw72",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2020-172.yaml",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3DUMIBUYGJRAVJCTFUWBRLVQKOUTVX5P",
+  "https://usn.ubuntu.com/4272-1"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "",
+ "summary": "Uncontrolled Resource Consumption in Pillow",
+ "type": "reviewed",
+ "updated_at": "2024-10-08T13:04:35Z",
+ "url": "https://api.github.com/advisories/GHSA-5gm3-px64-rw72",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "6.2.2",
+   "package": {
+    "ecosystem": "pip",
+    "name": "pillow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 0, < 6.2.2"
+  }
+ ],
+ "withdrawn_at": null
+}

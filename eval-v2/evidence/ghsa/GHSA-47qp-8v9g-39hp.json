@@ -1,0 +1,112 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2013-2251",
+ "cvss": {
+  "score": 9.8,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 9.8,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/E:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  },
+  {
+   "cwe_id": "CWE-74",
+   "name": "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')"
+  }
+ ],
+ "description": "The Struts 2 DefaultActionMapper supports a method for short-circuit navigation state changes by prefixing parameters with \"action:\" or \"redirect:\", followed by a desired navigational target expression. This mechanism was intended to help with attaching navigational information to buttons within forms.\n\nIn Struts 2 before 2.3.15.1 the information following \"action:\", \"redirect:\" or \"redirectAction:\" is not properly sanitized. Since said information will be evaluated as OGNL expression against the value stack, this introduces the possibility to inject server side code.",
+ "epss": {
+  "percentage": 0.99998,
+  "percentile": 0.9999
+ },
+ "ghsa_id": "GHSA-47qp-8v9g-39hp",
+ "github_reviewed_at": "2022-11-03T19:11:13Z",
+ "html_url": "https://github.com/advisories/GHSA-47qp-8v9g-39hp",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-47qp-8v9g-39hp"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2013-2251"
+  }
+ ],
+ "nvd_published_at": "2013-07-20T03:37:00Z",
+ "published_at": "2022-05-13T01:14:26Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2013-2251",
+  "https://exchange.xforce.ibmcloud.com/vulnerabilities/90392",
+  "http://archiva.apache.org/security.html",
+  "http://cxsecurity.com/issue/WLB-2014010087",
+  "http://packetstormsecurity.com/files/159629/Apache-Struts-2-Remote-Code-Execution.html",
+  "http://seclists.org/fulldisclosure/2013/Oct/96",
+  "http://seclists.org/oss-sec/2014/q1/89",
+  "http://struts.apache.org/release/2.3.x/docs/s2-016.html",
+  "http://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-20131023-struts2",
+  "http://www.fujitsu.com/global/support/software/security/products-f/interstage-bpm-analytics-201301e.html",
+  "https://github.com/apache/struts/commit/3cfe34fefedcf0fdcfcb061c0aea34a715b7de6",
+  "https://github.com/apache/struts/commit/630e1ba065a8215c4e9ac03bfb09be9d655c2b6e",
+  "https://issues.apache.org/jira/browse/WW-4140",
+  "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2013-2251",
+  "http://www.oracle.com/technetwork/topics/security/cpujan2014-1972949.html",
+  "http://www.oracle.com/technetwork/topics/security/cpujul2015-2367936.html",
+  "https://github.com/advisories/GHSA-47qp-8v9g-39hp"
+ ],
+ "repository_advisory_url": null,
+ "severity": "critical",
+ "source_code_location": "https://github.com/apache/struts",
+ "summary": "Code injection in Apache Struts",
+ "type": "reviewed",
+ "updated_at": "2025-10-22T19:33:22Z",
+ "url": "https://api.github.com/advisories/GHSA-47qp-8v9g-39hp",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.15.1",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.3.15.1"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,12 @@
+{
+ "cves": [
+  "CVE-2012-0391",
+  "CVE-2013-2251",
+  "CVE-2016-3081",
+  "CVE-2017-5638",
+  "CVE-2018-11776",
+  "CVE-2020-17530",
+  "CVE-2021-45046"
+ ],
+ "note": "CVEs from the raw KEV catalogue (2026.10.30) that the gold relies on."
+}

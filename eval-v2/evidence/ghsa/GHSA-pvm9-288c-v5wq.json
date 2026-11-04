@@ -1,0 +1,87 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2016-3082",
+ "cvss": {
+  "score": 9.8,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 9.8,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  }
+ ],
+ "description": "XSLTResult allows for the location of a stylesheet being passed as a request parameter. In some circumstances this can be used to inject remotely executable code.",
+ "epss": {
+  "percentage": 0.1917,
+  "percentile": 0.97202
+ },
+ "ghsa_id": "GHSA-pvm9-288c-v5wq",
+ "github_reviewed_at": "2022-11-03T23:37:06Z",
+ "html_url": "https://github.com/advisories/GHSA-pvm9-288c-v5wq",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-pvm9-288c-v5wq"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2016-3082"
+  }
+ ],
+ "nvd_published_at": "2016-04-26T14:59:00Z",
+ "published_at": "2022-05-17T03:42:18Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2016-3082",
+  "http://struts.apache.org/docs/s2-031.html",
+  "https://github.com/advisories/GHSA-pvm9-288c-v5wq"
+ ],
+ "repository_advisory_url": null,
+ "severity": "critical",
+ "source_code_location": "https://github.com/apache/struts",
+ "summary": "Remote Code Execution in Apache Struts",
+ "type": "reviewed",
+ "updated_at": "2023-12-28T21:28:13Z",
+ "url": "https://api.github.com/advisories/GHSA-pvm9-288c-v5wq",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.20.3",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.3.20.3"
+  },
+  {
+   "first_patched_version": "2.3.24.3",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.3.24, < 2.3.24.3"
+  },
+  {
+   "first_patched_version": "2.3.28.1",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.apache.struts:struts2-core"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.3.28, < 2.3.28.1"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,292 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/145009741?v=4",
+    "events_url": "https://api.github.com/users/dolevmiz1/events{/privacy}",
+    "followers_url": "https://api.github.com/users/dolevmiz1/followers",
+    "following_url": "https://api.github.com/users/dolevmiz1/following{/other_user}",
+    "gists_url": "https://api.github.com/users/dolevmiz1/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/dolevmiz1",
+    "id": 145009741,
+    "login": "dolevmiz1",
+    "node_id": "U_kgDOCKSsTQ",
+    "organizations_url": "https://api.github.com/users/dolevmiz1/orgs",
+    "received_events_url": "https://api.github.com/users/dolevmiz1/received_events",
+    "repos_url": "https://api.github.com/users/dolevmiz1/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/dolevmiz1/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/dolevmiz1/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/dolevmiz1",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/262839898?v=4",
+    "events_url": "https://api.github.com/users/bugbunny-research/events{/privacy}",
+    "followers_url": "https://api.github.com/users/bugbunny-research/followers",
+    "following_url": "https://api.github.com/users/bugbunny-research/following{/other_user}",
+    "gists_url": "https://api.github.com/users/bugbunny-research/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/bugbunny-research",
+    "id": 262839898,
+    "login": "bugbunny-research",
+    "node_id": "U_kgDOD6qeWg",
+    "organizations_url": "https://api.github.com/users/bugbunny-research/orgs",
+    "received_events_url": "https://api.github.com/users/bugbunny-research/received_events",
+    "repos_url": "https://api.github.com/users/bugbunny-research/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/bugbunny-research/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/bugbunny-research/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/bugbunny-research",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/150439604?v=4",
+    "events_url": "https://api.github.com/users/M0nd0R/events{/privacy}",
+    "followers_url": "https://api.github.com/users/M0nd0R/followers",
+    "following_url": "https://api.github.com/users/M0nd0R/following{/other_user}",
+    "gists_url": "https://api.github.com/users/M0nd0R/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/M0nd0R",
+    "id": 150439604,
+    "login": "M0nd0R",
+    "node_id": "U_kgDOCPeGtA",
+    "organizations_url": "https://api.github.com/users/M0nd0R/orgs",
+    "received_events_url": "https://api.github.com/users/M0nd0R/received_events",
+    "repos_url": "https://api.github.com/users/M0nd0R/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/M0nd0R/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/M0nd0R/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/M0nd0R",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/5110813?v=4",
+    "events_url": "https://api.github.com/users/UlisesGascon/events{/privacy}",
+    "followers_url": "https://api.github.com/users/UlisesGascon/followers",
+    "following_url": "https://api.github.com/users/UlisesGascon/following{/other_user}",
+    "gists_url": "https://api.github.com/users/UlisesGascon/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/UlisesGascon",
+    "id": 5110813,
+    "login": "UlisesGascon",
+    "node_id": "MDQ6VXNlcjUxMTA4MTM=",
+    "organizations_url": "https://api.github.com/users/UlisesGascon/orgs",
+    "received_events_url": "https://api.github.com/users/UlisesGascon/received_events",
+    "repos_url": "https://api.github.com/users/UlisesGascon/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/UlisesGascon/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/UlisesGascon/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/UlisesGascon",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_reviewer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/1199350?v=4",
+    "events_url": "https://api.github.com/users/falsyvalues/events{/privacy}",
+    "followers_url": "https://api.github.com/users/falsyvalues/followers",
+    "following_url": "https://api.github.com/users/falsyvalues/following{/other_user}",
+    "gists_url": "https://api.github.com/users/falsyvalues/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/falsyvalues",
+    "id": 1199350,
+    "login": "falsyvalues",
+    "node_id": "MDQ6VXNlcjExOTkzNTA=",
+    "organizations_url": "https://api.github.com/users/falsyvalues/orgs",
+    "received_events_url": "https://api.github.com/users/falsyvalues/received_events",
+    "repos_url": "https://api.github.com/users/falsyvalues/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/falsyvalues/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/falsyvalues/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/falsyvalues",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_reviewer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/12915163?v=4",
+    "events_url": "https://api.github.com/users/jonchurch/events{/privacy}",
+    "followers_url": "https://api.github.com/users/jonchurch/followers",
+    "following_url": "https://api.github.com/users/jonchurch/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jonchurch/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/jonchurch",
+    "id": 12915163,
+    "login": "jonchurch",
+    "node_id": "MDQ6VXNlcjEyOTE1MTYz",
+    "organizations_url": "https://api.github.com/users/jonchurch/orgs",
+    "received_events_url": "https://api.github.com/users/jonchurch/received_events",
+    "repos_url": "https://api.github.com/users/jonchurch/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/jonchurch/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jonchurch/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/jonchurch",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/105662081?v=4",
+    "events_url": "https://api.github.com/users/threalwinky/events{/privacy}",
+    "followers_url": "https://api.github.com/users/threalwinky/followers",
+    "following_url": "https://api.github.com/users/threalwinky/following{/other_user}",
+    "gists_url": "https://api.github.com/users/threalwinky/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/threalwinky",
+    "id": 105662081,
+    "login": "threalwinky",
+    "node_id": "U_kgDOBkxGgQ",
+    "organizations_url": "https://api.github.com/users/threalwinky/orgs",
+    "received_events_url": "https://api.github.com/users/threalwinky/received_events",
+    "repos_url": "https://api.github.com/users/threalwinky/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/threalwinky/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/threalwinky/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/threalwinky",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_reviewer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/4303?v=4",
+    "events_url": "https://api.github.com/users/jdalton/events{/privacy}",
+    "followers_url": "https://api.github.com/users/jdalton/followers",
+    "following_url": "https://api.github.com/users/jdalton/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jdalton/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/jdalton",
+    "id": 4303,
+    "login": "jdalton",
+    "node_id": "MDQ6VXNlcjQzMDM=",
+    "organizations_url": "https://api.github.com/users/jdalton/orgs",
+    "received_events_url": "https://api.github.com/users/jdalton/received_events",
+    "repos_url": "https://api.github.com/users/jdalton/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/jdalton/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jdalton/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/jdalton",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-4800",
+ "cvss": {
+  "score": 8.1,
+  "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 8.1,
+   "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-94",
+   "name": "Improper Control of Generation of Code ('Code Injection')"
+  }
+ ],
+ "description": "### Impact\n\nThe fix for [CVE-2021-23337](https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the `variable` option in `_.template` but did not apply the same validation to `options.imports` key names. Both paths flow into the same `Function()` constructor sink.\n\nWhen an application passes untrusted input as `options.imports` key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.\n\nAdditionally, `_.template` uses `assignInWith` to merge imports, which enumerates inherited properties via `for..in`. If `Object.prototype` has been polluted by any other vector, the polluted keys are copied into the imports object and passed to `Function()`.\n\n### Patches\n\nUsers should upgrade to version 4.18.0.\n\nThe fix applies two changes:\n1. Validate `importsKeys` against the existing `reForbiddenIdentifierChars` regex (same check already used for the `variable` option)\n2. Replace `assignInWith` with `assignWith` when merging imports, so only own properties are enumerated\n\n### Workarounds\n\nDo not pass untrusted input as key names in `options.imports`. Only use developer-controlled, static key names.",
+ "epss": {
+  "percentage": 0.02808,
+  "percentile": 0.86506
+ },
+ "ghsa_id": "GHSA-r5fr-rjxr-66jc",
+ "github_reviewed_at": "2026-04-01T23:51:12Z",
+ "html_url": "https://github.com/advisories/GHSA-r5fr-rjxr-66jc",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-r5fr-rjxr-66jc"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-4800"
+  }
+ ],
+ "nvd_published_at": "2026-03-31T20:16:29Z",
+ "published_at": "2026-04-01T23:51:12Z",
+ "references": [
+  "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-4800",
+  "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c",
+  "https://cna.openjsf.org/security-advisories.html",
+  "https://github.com/advisories/GHSA-35jh-r3h4-6jhm",
+  "https://github.com/advisories/GHSA-r5fr-rjxr-66jc"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/lodash/lodash/security-advisories/GHSA-r5fr-rjxr-66jc",
+ "severity": "high",
+ "source_code_location": "https://github.com/lodash/lodash",
+ "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+ "type": "reviewed",
+ "updated_at": "2026-04-01T23:51:13Z",
+ "url": "https://api.github.com/advisories/GHSA-r5fr-rjxr-66jc",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "4.18.0",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, <= 4.17.23"
+  },
+  {
+   "first_patched_version": "4.18.0",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash-es"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, <= 4.17.23"
+  },
+  {
+   "first_patched_version": "4.18.0",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash-amd"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, <= 4.17.23"
+  },
+  {
+   "first_patched_version": "4.18.0",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash.template"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, < 4.18.0"
+  }
+ ],
+ "withdrawn_at": null
+}

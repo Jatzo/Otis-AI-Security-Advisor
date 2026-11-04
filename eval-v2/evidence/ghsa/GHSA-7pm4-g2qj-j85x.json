@@ -1,0 +1,111 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2020-5397",
+ "cvss": {
+  "score": 5.3,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 5.3,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-352",
+   "name": "Cross-Site Request Forgery (CSRF)"
+  }
+ ],
+ "description": "Spring Framework, versions 5.2.x prior to 5.2.3 are vulnerable to CSRF attacks through CORS preflight requests that target Spring MVC (spring-webmvc module) or Spring WebFlux (spring-webflux module) endpoints. Only non-authenticated endpoints are vulnerable because preflight requests should not include credentials and therefore requests should fail authentication. However a notable exception to this are Chrome based browsers when using client certificates for authentication since Chrome sends TLS client certificates in CORS preflight requests in violation of spec requirements. No HTTP body can be sent or received as a result of this attack.",
+ "epss": {
+  "percentage": 0.02551,
+  "percentile": 0.84761
+ },
+ "ghsa_id": "GHSA-7pm4-g2qj-j85x",
+ "github_reviewed_at": "2020-01-21T20:51:37Z",
+ "html_url": "https://github.com/advisories/GHSA-7pm4-g2qj-j85x",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-7pm4-g2qj-j85x"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2020-5397"
+  }
+ ],
+ "nvd_published_at": "2020-01-17T19:15:00Z",
+ "published_at": "2020-01-21T20:59:33Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2020-5397",
+  "https://pivotal.io/security/cve-2020-5397",
+  "https://www.oracle.com/security-alerts/cpuapr2020.html",
+  "https://www.oracle.com/security-alerts/cpujul2020.html",
+  "https://www.oracle.com/security-alerts/cpuoct2020.html",
+  "https://www.oracle.com//security-alerts/cpujul2021.html",
+  "https://www.oracle.com/security-alerts/cpuoct2021.html",
+  "https://github.com/spring-projects/spring-framework",
+  "https://www.oracle.com/security-alerts/cpujul2022.html",
+  "https://github.com/spring-projects/spring-framework/commit/bc7d01048579430b4b2df668178809b63d3f1929",
+  "https://github.com/advisories/GHSA-7pm4-g2qj-j85x"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/spring-projects/spring-framework",
+ "summary": "CSRF attack via CORS preflight requests with Spring MVC or Spring WebFlux",
+ "type": "reviewed",
+ "updated_at": "2024-03-25T05:00:55Z",
+ "url": "https://api.github.com/advisories/GHSA-7pm4-g2qj-j85x",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "5.2.3",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webmvc"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.2.0, < 5.2.3"
+  },
+  {
+   "first_patched_version": "5.2.3",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webflux"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.2.0, < 5.2.3"
+  }
+ ],
+ "withdrawn_at": null
+}

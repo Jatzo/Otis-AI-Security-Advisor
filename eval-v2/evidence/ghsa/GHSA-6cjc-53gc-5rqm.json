@@ -1,0 +1,120 @@
+{
+ "comments": 2,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/258815254?v=4",
+    "events_url": "https://api.github.com/users/denyspakizh-tob/events{/privacy}",
+    "followers_url": "https://api.github.com/users/denyspakizh-tob/followers",
+    "following_url": "https://api.github.com/users/denyspakizh-tob/following{/other_user}",
+    "gists_url": "https://api.github.com/users/denyspakizh-tob/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/denyspakizh-tob",
+    "id": 258815254,
+    "login": "denyspakizh-tob",
+    "node_id": "U_kgDOD201Fg",
+    "organizations_url": "https://api.github.com/users/denyspakizh-tob/orgs",
+    "received_events_url": "https://api.github.com/users/denyspakizh-tob/received_events",
+    "repos_url": "https://api.github.com/users/denyspakizh-tob/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/denyspakizh-tob/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/denyspakizh-tob/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/denyspakizh-tob",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/2203121?v=4",
+    "events_url": "https://api.github.com/users/Dreamsorcerer/events{/privacy}",
+    "followers_url": "https://api.github.com/users/Dreamsorcerer/followers",
+    "following_url": "https://api.github.com/users/Dreamsorcerer/following{/other_user}",
+    "gists_url": "https://api.github.com/users/Dreamsorcerer/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/Dreamsorcerer",
+    "id": 2203121,
+    "login": "Dreamsorcerer",
+    "node_id": "MDQ6VXNlcjIyMDMxMjE=",
+    "organizations_url": "https://api.github.com/users/Dreamsorcerer/orgs",
+    "received_events_url": "https://api.github.com/users/Dreamsorcerer/received_events",
+    "repos_url": "https://api.github.com/users/Dreamsorcerer/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/Dreamsorcerer/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/Dreamsorcerer/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/Dreamsorcerer",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-111065",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 6.9,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-770",
+   "name": "Allocation of Resources Without Limits or Throttling"
+  }
+ ],
+ "description": "### Summary\n\nAn overflow in Max-Age processing can skip closing a connection.\n\n### Impact\n\nAn attacker may be able to exhaust the connection pool temporarily, until garbage collection resolves the connections.",
+ "epss": {
+  "percentage": 0.00395,
+  "percentile": 0.3351
+ },
+ "ghsa_id": "GHSA-6cjc-53gc-5rqm",
+ "github_reviewed_at": "2026-10-20T19:57:24Z",
+ "html_url": "https://github.com/advisories/GHSA-6cjc-53gc-5rqm",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-6cjc-53gc-5rqm"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-111065"
+  }
+ ],
+ "nvd_published_at": "2026-10-19T17:17:03Z",
+ "published_at": "2026-10-20T19:57:24Z",
+ "references": [
+  "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-6cjc-53gc-5rqm",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-111065",
+  "https://github.com/aio-libs/aiohttp/commit/9dd8eaf4e31f1237ef2c1574a8c82a739fca5805",
+  "https://github.com/aio-libs/aiohttp/releases/tag/v3.14.4",
+  "https://github.com/advisories/GHSA-6cjc-53gc-5rqm"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/aio-libs/aiohttp/security-advisories/GHSA-6cjc-53gc-5rqm",
+ "severity": "medium",
+ "source_code_location": "https://github.com/aio-libs/aiohttp",
+ "summary": "AIOHTTP: Connector pool exhaustion via Max-Age overflow",
+ "type": "reviewed",
+ "updated_at": "2026-10-20T19:57:25Z",
+ "url": "https://api.github.com/advisories/GHSA-6cjc-53gc-5rqm",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "3.14.4",
+   "package": {
+    "ecosystem": "pip",
+    "name": "aiohttp"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "<= 3.14.3"
+  }
+ ],
+ "withdrawn_at": null
+}

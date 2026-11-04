@@ -1,0 +1,77 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2020-28168",
+ "cvss": {
+  "score": 5.9,
+  "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 5.9,
+   "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-918",
+   "name": "Server-Side Request Forgery (SSRF)"
+  }
+ ],
+ "description": "Axios NPM package 0.21.0 contains a Server-Side Request Forgery (SSRF) vulnerability where an attacker is able to bypass a proxy by providing a URL that responds with a redirect to a restricted host or IP address.",
+ "epss": {
+  "percentage": 0.02359,
+  "percentile": 0.83512
+ },
+ "ghsa_id": "GHSA-4w2v-q235-vp99",
+ "github_reviewed_at": "2021-01-04T20:57:20Z",
+ "html_url": "https://github.com/advisories/GHSA-4w2v-q235-vp99",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-4w2v-q235-vp99"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2020-28168"
+  }
+ ],
+ "nvd_published_at": "2020-11-06T20:15:00Z",
+ "published_at": "2021-01-04T20:59:40Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2020-28168",
+  "https://github.com/axios/axios/issues/3369",
+  "https://github.com/axios/axios/commit/c7329fefc890050edd51e40e469a154d0117fc55",
+  "https://snyk.io/vuln/SNYK-JS-AXIOS-1038255",
+  "https://www.npmjs.com/package/axios",
+  "https://www.npmjs.com/advisories/1594",
+  "https://lists.apache.org/thread.html/r954d80fd18e9dafef6e813963eb7e08c228151c2b6268ecd63b35d1f@%3Ccommits.druid.apache.org%3E",
+  "https://lists.apache.org/thread.html/r25d53acd06f29244b8a103781b0339c5e7efee9099a4d52f0c230e4a@%3Ccommits.druid.apache.org%3E",
+  "https://lists.apache.org/thread.html/rdfd2901b8b697a3f6e2c9c6ecc688fd90d7f881937affb5144d61d6e@%3Ccommits.druid.apache.org%3E",
+  "https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf",
+  "https://github.com/advisories/GHSA-4w2v-q235-vp99"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "",
+ "summary": "Axios vulnerable to Server-Side Request Forgery",
+ "type": "reviewed",
+ "updated_at": "2023-02-01T05:05:04Z",
+ "url": "https://api.github.com/advisories/GHSA-4w2v-q235-vp99",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "0.21.1",
+   "package": {
+    "ecosystem": "npm",
+    "name": "axios"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 0.21.1"
+  }
+ ],
+ "withdrawn_at": null
+}
