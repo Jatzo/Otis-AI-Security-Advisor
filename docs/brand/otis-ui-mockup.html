@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en-GB">
+<meta charset="utf-8">
+<title>Otis UI mockup</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 28px; background: #D9D2CB; font: 15px/1.6 system-ui, "Segoe UI", sans-serif; }
+  .row { display: flex; gap: 28px; align-items: stretch; }
+  .panel { width: 680px; border-radius: 16px; padding: 22px; border-bottom: 3px solid #8EC1EE; }
+  .light { --bg: #FBF8F5; --card: #FFFFFF; --text: #2A1C16; --text2: #6B5B52; --muted: #94867D; --line: rgba(42,28,22,.14); --field: #FFFFFF; }
+  .dark { --bg: #0F0F10; --card: #19191B; --text: #F2F2F3; --text2: #B4B4B8; --muted: #7C7C82; --line: rgba(255,255,255,.12); --field: #19191B; }
+  .panel { background: var(--bg); color: var(--text); }
+  .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .head .left { display: flex; align-items: center; gap: 14px; }
+  .tag { font-size: 13px; color: var(--text2); }
+  .date { font-size: 12px; color: var(--muted); }
+  .ask { display: flex; gap: 8px; margin-bottom: 16px; }
+  .field { flex: 1; height: 38px; border-radius: 8px; border: 1px solid var(--line); background: var(--field); color: var(--text); padding: 0 12px; display: flex; align-items: center; font-size: 14px; }
+  .btn { height: 38px; padding: 0 18px; border-radius: 8px; background: #8EC1EE; color: #2A1C16; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin-bottom: 14px; }
+  .status { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .badge { background: #8EC1EE; color: #2A1C16; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 8px; white-space: nowrap; }
+  .badge.pink { background: #E89AA7; }
+  .status span.s { font-size: 13px; color: var(--text2); }
+  .answer { font-size: 19px; font-weight: 600; line-height: 1.4; margin: 0 0 6px; }
+  .body { font-size: 15px; color: var(--text2); line-height: 1.6; margin: 0 0 14px; }
+  .rule { border-top: 1px solid var(--line); padding-top: 12px; }
+  h4 { font-size: 13px; font-weight: 600; margin: 0 0 8px; }
+  .chk { display: grid; gap: 7px; font-size: 13px; }
+  .chk div { display: flex; gap: 10px; align-items: flex-start; }
+  .tick { background: #8EC1EE; color: #2A1C16; width: 18px; height: 18px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: 1px; }
+  .rec { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; }
+  .rec .id { font-weight: 600; white-space: nowrap; }
+  .rec .t { color: var(--text2); flex: 1; }
+  .rec a { font-size: 12px; color: #6FA8D8; text-decoration: none; }
+  .src { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; color: #2A1C16; background: #8EC1EE; }
+  .src.nvd { background: #E89AA7; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 14px; }
+  .two div { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .two small { display: block; font-size: 12px; color: var(--muted); }
+  .two b { font-size: 22px; font-weight: 600; }
+  .two em { font-style: normal; font-size: 13px; color: var(--text2); margin-left: 6px; }
+  .small { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; }
+  .q { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+  .why { display: flex; gap: 10px; align-items: flex-start; }
+  .why p { font-size: 14px; color: var(--text2); line-height: 1.6; margin: 0; }
+  svg.i { width: 13px; height: 13px; }
+</style>
+
+<div class="row">
+
+<div class="panel light">
+  <div class="head">
+    <div class="left">
+      <svg viewBox="0 0 172 64" width="108" height="40" role="img" aria-label="Otis"><path fill="#FFFFFF" d="M32 17 L35.5 30 L43 42 L48 50 L47.5 55.5 L32 61 L16.5 55.5 L16 50 L21 42 L28.5 30 Z"/><path fill="#2A1C16" d="M6 8 L9 6 L25 16 L32 14.5 L39 16 L55 6 L58 8 L58 27 L63 38 L59 41 L62 46 L52 52 L47.5 55.5 L48 50 L43 42 L35.5 30 L32 17 L28.5 30 L21 42 L16 50 L16.5 55.5 L12 52 L2 46 L5 41 L1 38 L6 27 Z"/><path fill="#8EC1EE" d="M12 28.5 L18.5 25.5 L25.5 30.5 L18 33.5 Z M52 28.5 L45.5 25.5 L38.5 30.5 L46 33.5 Z"/><path fill="#E89AA7" d="M29 39.5 L35 39.5 L32 43.5 Z"/><g transform="translate(76 22) scale(1.05)"><path fill="#2A1C16" fill-rule="evenodd" d="M8 0 L18 0 L26 8 L26 24 L18 32 L8 32 L0 24 L0 8 Z M10.5 7 L15.5 7 L19 10.5 L19 21.5 L15.5 25 L10.5 25 L7 21.5 L7 10.5 Z"/><path fill="#2A1C16" transform="translate(31 0)" d="M0 0 L4 0 L4 -8 L11 -10 L11 0 L18 0 L18 7 L11 7 L11 23.5 L13.5 25 L18 25 L18 32 L11 32 L4 27 L4 7 L0 7 Z"/><path fill="#2A1C16" transform="translate(55.5 0)" d="M0 0 L7 0 L7 32 L0 32 Z"/><path fill="#8EC1EE" transform="translate(55.5 0)" d="M3.5 -11 L8 -7.5 L3.5 -4 L-1 -7.5 Z"/><path fill="#2A1C16" transform="translate(68 0)" d="M20 0 L6 0 L0 6 L0 14 L4.5 18.5 L13 18.5 L13 25 L0 25 L0 32 L14 32 L20 26 L20 17.5 L15.5 12.5 L7 12.5 L7 7 L20 7 Z"/></g></svg>
+      <span class="tag">Ask Otis about a vulnerability in 18 common packages</span>
+    </div>
+    <span class="date">Sources as of 1 November 2026</span>
+  </div>
+
+  <div class="ask">
+    <div class="field">Does CVE-2020-9402 affect Django 3.0.4?</div>
+    <div class="btn"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="2.4" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l5 5"/></svg>Ask</div>
+  </div>
+
+  <div class="card">
+    <div class="status"><span class="badge">Checked</span><span class="s">Otis checked 3 facts against the advisories</span></div>
+    <p class="answer">Otis found that Django 3.0.4 is not affected by CVE-2020-9402.</p>
+    <p class="body">It looked up GHSA-3gh2-xw74-jmcw, the GitHub advisory for this CVE. Its affected ranges stop before 3.0.4, so that release has the fix. The flaw is an SQL injection, rated high by GitHub. If you run an earlier 3.0.x, upgrade to 3.0.4 or later.</p>
+    <div class="rule">
+      <h4>What Otis confirmed</h4>
+      <div class="chk">
+        <div><span class="tick"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span>GHSA-3gh2-xw74-jmcw lists Django as an affected package</span></div>
+        <div><span class="tick"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span>GHSA-3gh2-xw74-jmcw is the advisory for CVE-2020-9402</span></div>
+        <div><span class="tick"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span>3.0.4 is outside every affected range: 1.11 up to 1.11.29, 2.2 up to 2.2.11, 3.0 up to 3.0.4</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h4 style="margin:0">Where Otis looked</h4><span class="date">Read 3 of the 10 records it found</span></div>
+    <div class="rec"><span class="src">GitHub</span><span class="id">GHSA-3gh2-xw74-jmcw</span><span class="t">SQL injection in Django. High, CVSS 8.8.</span><a>Open</a></div>
+    <div class="rec"><span class="src nvd">NVD</span><span class="id">CVE-2020-9402</span><span class="t">Django 1.11 before 1.11.29, 2.2 before 2.2.11, 3.0 before 3.0.4.</span><a>Open</a></div>
+    <div class="rec"><span class="src">GitHub</span><span class="id">GHSA-7h4p-27mh-hmrw</span><span class="t">Django denial of service in uri_to_iri. Found, not used.</span><a>Open</a></div>
+  </div>
+
+  <div class="card">
+    <p class="date" style="margin:0 0 8px">When Otis can't confirm an answer</p>
+    <p class="q">Which package does CVE-2025-99475 affect?</p>
+    <div class="why"><span class="badge pink">No answer</span><p>Otis found no advisory with the ID you gave, so it can't answer. Check the ID and ask again.</p></div>
+  </div>
+
+  <p class="small">Otis only reports what the advisories say. It can't tell whether a list is complete, so treat a list as a start. If Otis finds nothing, that isn't a promise something is safe.</p>
+</div>
+
+<div class="panel dark">
+  <div class="head">
+    <div class="left">
+      <svg viewBox="0 0 172 64" width="108" height="40" role="img" aria-label="Otis"><path fill="#FFFFFF" fill-rule="evenodd" d="M6 8 L9 6 L25 16 L32 14.5 L39 16 L55 6 L58 8 L58 27 L63 38 L59 41 L62 46 L52 52 L47.5 55.5 L48 50 L43 42 L35.5 30 L32 17 L28.5 30 L21 42 L16 50 L16.5 55.5 L12 52 L2 46 L5 41 L1 38 L6 27 Z M12 28.5 L18.5 25.5 L25.5 30.5 L18 33.5 Z M52 28.5 L45.5 25.5 L38.5 30.5 L46 33.5 Z"/><g transform="translate(76 22) scale(1.05)"><path fill="#FFFFFF" fill-rule="evenodd" d="M8 0 L18 0 L26 8 L26 24 L18 32 L8 32 L0 24 L0 8 Z M10.5 7 L15.5 7 L19 10.5 L19 21.5 L15.5 25 L10.5 25 L7 21.5 L7 10.5 Z"/><path fill="#FFFFFF" transform="translate(31 0)" d="M0 0 L4 0 L4 -8 L11 -10 L11 0 L18 0 L18 7 L11 7 L11 23.5 L13.5 25 L18 25 L18 32 L11 32 L4 27 L4 7 L0 7 Z"/><path fill="#FFFFFF" transform="translate(55.5 0)" d="M0 0 L7 0 L7 32 L0 32 Z"/><path fill="#8EC1EE" transform="translate(55.5 0)" d="M3.5 -11 L8 -7.5 L3.5 -4 L-1 -7.5 Z"/><path fill="#FFFFFF" transform="translate(68 0)" d="M20 0 L6 0 L0 6 L0 14 L4.5 18.5 L13 18.5 L13 25 L0 25 L0 32 L14 32 L20 26 L20 17.5 L15.5 12.5 L7 12.5 L7 7 L20 7 Z"/></g></svg>
+      <span class="tag">Ask Otis about a vulnerability in 18 common packages</span>
+    </div>
+    <span class="date">Sources as of 1 November 2026</span>
+  </div>
+
+  <div class="ask">
+    <div class="field">Do GitHub and NVD agree on the score for CVE-2021-45105?</div>
+    <div class="btn"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="2.4" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l5 5"/></svg>Ask</div>
+  </div>
+
+  <div class="card">
+    <div class="status"><span class="badge">Checked</span><span class="badge pink">Sources differ</span><span class="s">Otis checked 3 facts against the advisories</span></div>
+    <p class="answer">Otis found that GitHub and NVD score CVE-2021-45105 in different bands.</p>
+    <div class="two">
+      <div><small>GitHub, CVSS v3</small><b>8.6</b><em>high</em></div>
+      <div><small>NVD, CVSS v3</small><b>5.9</b><em>medium</em></div>
+    </div>
+    <p class="body">Both sources describe the same Log4j flaw. Only the score differs, so plan around the higher one. Otis found fixes in log4j-core 2.3.1, 2.12.3 and 2.17.0, depending on your branch.</p>
+    <div class="rule">
+      <h4>What Otis confirmed</h4>
+      <div class="chk">
+        <div><span class="tick"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span>GHSA-p6xc-xr62-6r2g is the advisory for CVE-2021-45105</span></div>
+        <div><span class="tick"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span>GitHub's record gives it a CVSS v3 score of 8.6</span></div>
+        <div><span class="tick"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg></span><span>NVD's record gives it a CVSS v3 score of 5.9</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h4 style="margin:0">Where Otis looked</h4><span class="date">Read 2 of the 10 records it found</span></div>
+    <div class="rec"><span class="src">GitHub</span><span class="id">GHSA-p6xc-xr62-6r2g</span><span class="t">Apache Log4j2 improper input validation and uncontrolled recursion. High, 8.6.</span><a>Open</a></div>
+    <div class="rec"><span class="src nvd">NVD</span><span class="id">CVE-2021-45105</span><span class="t">NVD's own record for the same CVE. CVSS v3 5.9.</span><a>Open</a></div>
+  </div>
+
+  <div class="card">
+    <p class="date" style="margin:0 0 8px">When Otis can't confirm an answer</p>
+    <p class="q">Which advisories affect pillow 10.0.0?</p>
+    <div class="why"><span class="badge pink">No answer</span><p>Otis found records but couldn't confirm an answer against them, so it's not giving one. Name the advisory ID, or the package and version, and ask again.</p></div>
+  </div>
+
+  <p class="small">Otis only reports what the advisories say. It can't tell whether a list is complete, so treat a list as a start. If Otis finds nothing, that isn't a promise something is safe.</p>
+</div>
+
+</div>

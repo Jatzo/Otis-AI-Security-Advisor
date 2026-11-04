@@ -24,3 +24,4 @@ data/*.log
 data/tools/
 data/rest_cache/
 data/embeddings/
+eval/results/spotcheck-sheet-*.html
