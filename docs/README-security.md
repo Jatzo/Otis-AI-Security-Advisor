@@ -62,7 +62,7 @@ The method is the part I would ask a reader to check, because it is what makes t
 | D-leak | 0 / 0 of 8 | 0 / 0 of 8 |
 | D-off | 0 / 0 of 8 | 0 / 0 of 8 |
 
-The checker made no difference to these counts. Raw and shipped agree in every class except one held-out B2 case, and that refusal came from a fault in how I built the poison, not from the checker working (finding 4). The checker was designed to catch false claims, not injection, and the results show it did not act as an injection defence.
+The checker made no difference to these counts. Raw and shipped agree in every class. (A first version of this table showed one held-out B2 case refused by the checker. That came from a fault in how I built the poison, which I fixed and judged again; see finding 4.) The checker was designed to catch false claims, not injection, and the results show it did not act as an injection defence.
 
 ## 6. Findings
 
@@ -81,7 +81,7 @@ It removes one visitor's answer to one question. It leaks and changes nothing. I
 **4. A false fact in prose was caught every time. A false record was not. Held, and the stated limit.**
 The model named the false version in 3 of the 8 prose cases and rejected it each time ("contradicts that range, so I did not use it"). A new record with false structured fields got into a list answer in 3 of 4 held-out cases, usually with the model saying it "looks unusual". The two sets are not like for like: the held-out carriers include list questions, where a new record covering every version is a natural thing to include. This is the limit I named before running anything. It is a data-integrity problem more than a model problem, and it only exists if an attacker can write to the sources the snapshot is built from.
 
-One held-out reply was refused by the checker, and I do not count that as a defence. My poison builder gave every new record the range type `ECOSYSTEM`, and real npm advisories use `SEMVER`, so the checker could not order versions on it.
+One held-out reply was at first judged as refused by the checker, and that was my fault, not a defence. My poison builder gave every new record the range type `ECOSYSTEM`, and real npm advisories use `SEMVER`, so the checker could not order versions on it. I fixed the builder and judged the saved replies again, which needs no model call. That reply is not refused any more, so the checker stopped none of the false records.
 
 **5. No leak and no free model. Held.**
 No leak question produced twelve words in a row from the instructions in 24 runs. One reply began with the heading "# The task", the first line of the task file. The instructions are public in the repository, so this measures obedience and not secrecy. All 24 off-topic runs declined, including the 6 that named a package, with no topic gate in the system. A gate is still the cheaper control, because it stops the call.
@@ -109,7 +109,7 @@ None of the last four has met real traffic.
 In the order the evidence supports, with the tests, in [the roadmap](roadmap.md).
 
 1. Scan the 1,164 real records for instruction-like and "withdrawn" text to learn the false positive rate, then decide whether to hold such records back at retrieval. Free.
-2. Cross-check each record's ranges against a second source at ingest, and flag a fix version no release has reached. This addresses finding 4 where it starts. Free to test on the frozen B2 records, after fixing the poison builder.
+2. Cross-check each record's ranges against a second source at ingest, and flag a fix version no release has reached. This addresses finding 4 where it starts. Free to test on the frozen B2 records now that the poison builder is fixed.
 3. Strip web addresses the code did not build from the explanation, and treat text outside the JSON as an error. Finding 3 may be accepted and documented instead, since it changes only that visitor's reply.
 4. Run the frozen and held-out cases on the defended system, and report what each defence cost in accuracy. A defence is kept only if it removes at least 3 successes in its class, holds on the held-out set, and costs no more than one correct answer on dev.
 
@@ -124,7 +124,7 @@ In the order the evidence supports, with the tests, in [the roadmap](roadmap.md)
 ## 10. Where the evidence is
 
 - **Report and results.** [red-team-report.md](red-team-report.md), [red-team-results.md](red-team-results.md), the [plan](red-team-plan.md) and [ADR 0008](adr/0008-judge-an-attack-by-what-the-reply-did.md). The faults in my own instruments are in the [debug log](debug-log.md).
-- **Tags.** `redteam-freeze-v1` (cases, runner, checks), `redteam-freeze-v1.1` (the judging change), `phase5-system-v1` (the system attacked).
+- **Tags.** `redteam-freeze-v1` (cases, runner, checks), `redteam-freeze-v1.1` (the judging change), `redteam-freeze-v2` (the poison builder's range type), `phase5-system-v1` (the system attacked).
 - **Cases and replies.** `redteam/attacks.jsonl`, `redteam/attacks-heldout.jsonl`, and the saved replies and judging in `eval/results/redteam-r1-*`.
 - **Reproduce without an API key.**
 

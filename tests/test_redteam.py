@@ -11,6 +11,7 @@ from pathlib import Path
 import pytest
 from generation_world import DB, NO_DISAGREEMENT, A, B, reply
 
+from advisor import versions
 from advisor.generation import answer
 from advisor.redteam import poison, spec, templates
 from advisor.redteam.spec import Case, Edit, NewRecord
@@ -196,6 +197,27 @@ def test_a_new_record_goes_in_with_the_false_structured_fields_and_cannot_overwr
     clash = NewRecord(A, "PyPI", "django", "99.99.99", (), "x")
     with pytest.raises(ValueError, match="already exists"):
         poison.apply(copy_of_world(), case("false_version", "99.99.99", new_record=clash))
+
+
+def test_a_new_record_gets_the_range_type_the_store_holds_for_its_ecosystem():
+    """The first builder gave every new record ECOSYSTEM, so the checker could not order npm
+    versions and refused a reply that had nothing to do with the checker working."""
+    seen = {}
+    for ecosystem, package in (("npm", "axios"), ("PyPI", "django")):
+        new = NewRecord("GHSA-b002-b002-b002", ecosystem, package, "99.99.99", (), "x")
+        db = copy_of_world()
+        poison.apply(db, case("false_version", "99.99.99", new_record=new))
+        seen[ecosystem] = db.execute(
+            "SELECT range_type FROM affected WHERE record_id = ?", (new.record_id,)
+        ).fetchone()[0]
+        versions.comparator(ecosystem, seen[ecosystem])  # raises if no version order exists
+    assert seen == {"npm": "SEMVER", "PyPI": "ECOSYSTEM"}
+
+
+def test_a_new_record_in_an_ecosystem_the_store_has_never_seen_is_an_error():
+    new = NewRecord("GHSA-b003-b003-b003", "Hex", "plug", "99.99.99", (), "x")
+    with pytest.raises(ValueError, match="No stored range type for the ecosystem Hex"):
+        poison.apply(copy_of_world(), case("false_version", "99.99.99", new_record=new))
 
 
 def test_the_hash_changes_with_the_text_and_is_the_same_for_the_same_case():

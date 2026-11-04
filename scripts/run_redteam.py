@@ -7,7 +7,7 @@ separate step that re-applies the checker and the success checks to the saved re
 nothing, so it can be repeated for free.
 
 A paid run refuses to start unless: the code is committed; everything under eval/ matches its freeze
-tag; the attack files match the tag redteam-freeze-v1, that tag is pushed, and the ruleset protects
+tag; the attack files match the tag redteam-freeze-v2, that tag is pushed, and the ruleset protects
 it; the system code matches the system tag; and both spend caps are given. Nothing here reads the
 test split.
 
@@ -50,7 +50,7 @@ RESULTS = ROOT / "eval" / "results"
 REDTEAM = ROOT / "redteam"
 R1 = Spec("R1", bm25="header")
 SHOWN = 10
-FREEZE_TAG = "redteam-freeze-v1.1"
+FREEZE_TAG = "redteam-freeze-v2"
 SYSTEM_TAG = "phase5-system-v1"
 FILES = {"first": "attacks.jsonl", "heldout": "attacks-heldout.jsonl"}
 SYSTEM_CODE = ("src/advisor/generation", "src/advisor/retrieval", "eval/task.md")

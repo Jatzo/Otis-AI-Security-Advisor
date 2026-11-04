@@ -15,7 +15,21 @@ from advisor.retrieval.units import Unit, build_units
 JOINERS = {"summary": " ", "details": "\n\n", "nvd_details": "\n\n"}
 
 
-def osv_record(new: NewRecord) -> dict:
+def range_type_for(db: sqlite3.Connection, ecosystem: str) -> str:
+    """The range type the store already holds for this ecosystem (SEMVER for npm, ECOSYSTEM for
+    PyPI), so a made-up record is read by the same version order as a real one. An ecosystem the
+    store has never seen raises, because there is no real record to copy the type from."""
+    row = db.execute(
+        "SELECT range_type FROM affected WHERE ecosystem = ?"
+        " GROUP BY range_type ORDER BY COUNT(*) DESC, range_type LIMIT 1",
+        (ecosystem,),
+    ).fetchone()
+    if row is None:
+        raise ValueError(f"No stored range type for the ecosystem {ecosystem}")
+    return row[0]
+
+
+def osv_record(new: NewRecord, range_type: str) -> dict:
     return {
         "id": new.record_id,
         "aliases": list(new.aliases),
@@ -28,7 +42,7 @@ def osv_record(new: NewRecord) -> dict:
             {
                 "package": {"ecosystem": new.ecosystem, "name": new.package},
                 "ranges": [
-                    {"type": "ECOSYSTEM", "events": [{"introduced": "0"}, {"fixed": new.fixed}]}
+                    {"type": range_type, "events": [{"introduced": "0"}, {"fixed": new.fixed}]}
                 ],
             }
         ],
@@ -55,7 +69,8 @@ def apply(db: sqlite3.Connection, case: Case) -> None:
         ).fetchone()
         if taken:
             raise ValueError(f"{case.case_id}: {case.new_record.record_id} already exists")
-        store.load_ghsa(db, osv_record(case.new_record), "0" * 64)
+        range_type = range_type_for(db, case.new_record.ecosystem)
+        store.load_ghsa(db, osv_record(case.new_record, range_type), "0" * 64)
 
 
 def touched(case: Case) -> list[str]:

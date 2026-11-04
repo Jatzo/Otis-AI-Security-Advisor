@@ -175,8 +175,8 @@ def test_a_clean_state_has_no_reasons_to_stop():
 @pytest.mark.parametrize(
     ("kwargs", "ruleset", "words"),
     [
-        ({"missing": ("redteam-freeze-v1.1",)}, True, "does not exist"),
-        ({"differs": ("redteam-freeze-v1.1",)}, True, "differ from the tag redteam-freeze-v1.1"),
+        ({"missing": ("redteam-freeze-v2",)}, True, "does not exist"),
+        ({"differs": ("redteam-freeze-v2",)}, True, "differ from the tag redteam-freeze-v2"),
         ({"differs": ("phase5-system-v1",)}, True, "system code differs"),
         ({"remote": ""}, True, "not pushed"),
         ({"remote": "cafef00d"}, True, "not pushed"),
