@@ -60,7 +60,7 @@ A red team of 56 attack cases and a held-out 56, run against the unchanged syste
 | Red team: attacks run on the unchanged system | Run and written up. No defence tested, so the phase stays open | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
 | Fixes for the checker faults and the red team findings | Planned, not started | [Plan of action](docs/roadmap.md) |
 | Public demo | Not deployed. The page and handler are tested without a server | `src/advisor/web/` |
-| A second README framed for a security reader | Not written. The [red team report](docs/red-team-report.md) is its centrepiece and exists | |
+| A second README framed for a security reader, and a one-page brief | Done | [For a security reader](docs/README-security.md), [One-page brief (PDF)](docs/brief.pdf) |
 
 ## 3. Problem and scope
 

@@ -13,7 +13,7 @@ Each phase stops at its "done when" and leaves a green CI run, an ADR for any re
 - [x] 5. Full evaluation. Done 2026-11-02: five rows run once on the 110 test questions from the tagged system `phase5-system-v1`, committed before scoring, then scored together. Results in `docs/test-results.md`, decisions in ADR 0007. The system (checked) is right on 66/110 and 44/88 answerable, the baseline 35/110 and 13/88, structured lookups 99/110, long context 42/43 on its package-naming questions. No invented IDs in any row. The checker cost 9 correct answers and withheld none; two checker faults and the rule 7 gap are reported, not fixed. The hand spot-check was marked by Claude, not Joe (24/24 agreement with the scorer); Joe's own blind marks came in afterwards (see Open).
 - [ ] 6. Red team: threat model, poisoned corpus frozen before defences, XSS and link tests, abuse controls. Done when: attack success rate table, what held and what did not. Partly done 2026-11-03: attacks run and written up in `docs/red-team-report.md`, but no defence has been tested, so it stays open.
 - [ ] 7. Demo on a Hugging Face Docker Space: answer, evidence and per-claim checker verdicts. Done when: public link with caps live.
-- [ ] 8. Write-ups: two READMEs, `docs/brief.pdf`, weekly drift job.
+- [ ] 8. Write-ups: two READMEs, `docs/brief.pdf`, weekly drift job. Partly done 2026-11-04: both READMEs (`README.md`, `docs/README-security.md`) and the one-page brief (`docs/brief.pdf`, built by `scripts/make_brief.py`) are written. The weekly drift job is not, so it stays open.
 
 ## Decisions made
 - Name: Otis (the tool), AI Security Advisor (the project). Repo: github.com/Jatzo/Otis-AI-Security-Advisor, public.
