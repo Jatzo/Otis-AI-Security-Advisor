@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Otis: one-page brief</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { width: 210mm; height: 297mm; padding: 11mm 15mm 9mm; background: #FBF8F5; color: #2A1C16; font: 9.2pt/1.38 "Segoe UI", system-ui, sans-serif; overflow: hidden; }
+  .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3mm; }
+  .top img { height: 10mm; }
+  .wip { font-size: 8.4pt; font-weight: 600; background: #F7DDE1; color: #2A1C16; border: 0.3mm solid #E89AA7; padding: 1mm 3mm; border-radius: 2mm; }
+  h1 { font-size: 15pt; line-height: 1.2; margin: 0 0 1.4mm; }
+  .lead { font-size: 9.6pt; color: #6B5B52; margin: 0 0 3mm; }
+  h2 { font-size: 9.2pt; text-transform: uppercase; letter-spacing: .06em; color: #4F93C9; margin: 0 0 1.4mm; }
+  p { margin: 0 0 2mm; }
+  ul { margin: 0; padding-left: 4.2mm; }
+  li { margin: 0 0 1mm; }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 0 0 3.2mm; }
+  .card { background: #fff; border: 0.3mm solid #DDD5CD; border-radius: 2.4mm; padding: 3mm 3.2mm; }
+  .card b { display: block; font-size: 17pt; line-height: 1.1; color: #2A1C16; }
+  .card span { display: block; font-size: 8.2pt; color: #6B5B52; margin-top: 1mm; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5mm; margin-bottom: 3.2mm; }
+  .box { background: #fff; border: 0.3mm solid #DDD5CD; border-radius: 2.4mm; padding: 3.2mm 3.6mm; }
+  .box.pink { background: #F7DDE1; border-color: #E89AA7; }
+  .bar { display: grid; grid-template-columns: 34mm 1fr 14mm; align-items: center; gap: 2mm; margin: 0 0 1.6mm; font-size: 8.6pt; }
+  .bar i { display: block; height: 3.6mm; border-radius: 1mm; background: #B9AFA7; }
+  .bar.sys i { background: #8EC1EE; }
+  .bar.alt i { background: #C5DFF3; }
+  .bar b { text-align: right; }
+  .note { font-size: 8.2pt; color: #6B5B52; margin: 2mm 0 0; }
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+  .skills .box { padding: 2.6mm 3mm; }
+  .skills li { font-size: 8.4pt; margin: 0 0 0.6mm; }
+  .foot { position: absolute; left: 15mm; right: 15mm; bottom: 7mm; display: flex; justify-content: space-between; font-size: 7.6pt; color: #6B5B52; border-top: 0.3mm solid #DDD5CD; padding-top: 2mm; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <img src="../brand/otis-lockup.svg" alt="Otis">
+    <span class="wip">Work in progress. No defence tested yet. No live demo.</span>
+  </div>
+
+  <h1>A retrieval-augmented advisor for software vulnerabilities, measured honestly</h1>
+  <p class="lead">Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data, cites the records it used, declines when they say nothing, and has code check every claim. The project is as much about how to find out whether that works as about the system.</p>
+
+  <div class="cards">
+    <div class="card"><b>60%</b><span>of 110 test questions right, against 32% for the model alone (66 and 35 questions)</span></div>
+    <div class="card"><b>50%</b><span>of the 88 answerable questions, against 15% with no retrieval</span></div>
+    <div class="card"><b>0</b><span>invented advisory or CVE IDs, in every system tested</span></div>
+    <div class="card"><b>$0.030</b><span>and a median 3.1 seconds a question, retrieval included</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h2>The problem</h2>
+      <p>Developers need quick, correct answers about the packages they run. The public records disagree: GitHub and NVD put a different severity band on 46 of the 275 advisory and CVE pairs that both score.</p>
+      <h2>The approach</h2>
+      <ul>
+        <li>Keyword search over 1,164 GitHub and NVD records and linked KEV entries, each with a header, top 10 to the model.</li>
+        <li>One model call that writes the answer and the claims it rests on.</li>
+        <li>A checker in plain code that refuses the whole reply if any claim is wrong or cannot be checked.</li>
+        <li>An evaluation fixed before the system existed, and a test split scored once from a tagged system.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>Test split, 110 questions, correct</h2>
+      <div class="bar"><span>Model, no documents</span><i style="width:32%"></i><b>32%</b></div>
+      <div class="bar sys"><span>Otis, checked</span><i style="width:60%"></i><b>60%</b></div>
+      <div class="bar sys"><span>Otis, raw reply</span><i style="width:68%"></i><b>68%</b></div>
+      <div class="bar alt"><span>Code reads the question</span><i style="width:90%"></i><b>90%</b></div>
+      <p class="note">The last row uses no model and scores high because the question set is templated. Retrieval put all the evidence in the top 10 for 53 of 88 answerable questions. The model was right on 52 of those and on 1 of the other 35.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="box">
+      <h2>What the measurement found</h2>
+      <ul>
+        <li>Retrieval is the limit, not the model.</li>
+        <li>The checker refused 9 right replies and withheld no wrong one. Its guarantee held, but there was nothing for it to catch.</li>
+        <li>A whole package in the prompt got 42 of 43 questions that name one, at twice the cost.</li>
+        <li>Nine retrieval variants were tried. Plain keyword search won, and embeddings did worse.</li>
+      </ul>
+    </div>
+    <div class="box pink">
+      <h2>What the red team found</h2>
+      <ul>
+        <li>56 attack cases and a held-out 56, on the unchanged system.</li>
+        <li>Instructions hidden in advisory text were followed in 1 case of 48.</li>
+        <li>A poisoned record can make a question unanswerable, and a false record with false ranges passes the checker by design.</li>
+        <li><b>No defence has been tested.</b> The plan is written.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:0">Skills it shows</h2>
+  <div class="skills">
+    <div class="box"><b>AI engineering</b><ul>
+      <li>Retrieval study with an adoption rule set first</li>
+      <li>Fail-closed checking of model output</li>
+      <li>Baselines, cost and latency on every table</li></ul></div>
+    <div class="box"><b>Evaluation design</b><ul>
+      <li>Gold from separate code, frozen under a git tag</li>
+      <li>Deterministic scoring, paired tests, wide intervals reported</li>
+      <li>A test split used once, and what that costs</li></ul></div>
+    <div class="box"><b>Security and practice</b><ul>
+      <li>Threat model, prompt injection and poisoning red team</li>
+      <li>Safe rendering and abuse limits, tested</li>
+      <li>CI with a freeze guard and a secret scan, eight ADRs</li></ul></div>
+  </div>
+
+  <div class="foot">
+    <span>github.com/Jatzo/Otis-AI-Security-Advisor</span>
+    <span>Snapshot of 1 November 2026. Numbers: docs/test-results.md and docs/red-team-report.md.</span>
+  </div>
+</body>
+</html>
