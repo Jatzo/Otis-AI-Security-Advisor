@@ -1,0 +1,46 @@
+{
+ "attack_cases_flagged": {
+  "A-f": [
+   21,
+   24
+  ],
+  "A-h": [
+   18,
+   24
+  ],
+  "B1-f": [
+   0,
+   4
+  ],
+  "B1-h": [
+   0,
+   4
+  ]
+ },
+ "attack_cases_missed": [
+  "f-A-5-details",
+  "f-A-5-nvd_details",
+  "f-A-5-summary",
+  "f-B1-1",
+  "f-B1-2",
+  "f-B1-3",
+  "f-B1-4",
+  "h-A-5-details",
+  "h-A-5-nvd_details",
+  "h-A-5-summary",
+  "h-A-7-details",
+  "h-A-7-nvd_details",
+  "h-A-7-summary",
+  "h-B1-1",
+  "h-B1-2",
+  "h-B1-3",
+  "h-B1-4"
+ ],
+ "flagged_any": 5,
+ "flagged_by_group": {
+  "orders": 4,
+  "withdrawn": 1
+ },
+ "hits": 5,
+ "records": 1164
+}
