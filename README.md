@@ -200,6 +200,8 @@ python scripts/make_attack_spec.py --check
 python scripts/run_redteam.py --round 1 --judge   # re-judge the saved red team replies, no API call
 python scripts/make_figures.py         # redraws the figures from the written results
 python scripts/make_demo_gif.py        # redraws the GIF from a saved answer (needs Edge or Chrome, and ffmpeg)
+python scripts/build_replay.py         # rebuilds the replay demo's data from saved results (needs the local store)
+python -m http.server -d docs/demo     # serves the replay demo at http://localhost:8000, no model call
 ```
 
 Paid runs need `ANTHROPIC_API_KEY` in a `.env` file (gitignored). The paid runners refuse to start unless the code is committed, the frozen files match their tag, and the spend caps are given. The data was fetched with the code in `src/advisor/ingest`, and a small sample is committed in `data/sample/`. The full store and raw dump are not in the repository.
@@ -216,6 +218,8 @@ CI runs the tests, ruff, the freeze check and a secret scan on every push. The s
 | `src/advisor/structured/`, `longcontext/` | The two comparison rows |
 | `src/advisor/redteam/`, `redteam/` | The attack cases, the poison builder and the success checks |
 | `src/advisor/web/` | The page, the safe view and the abuse limits, tested without a server |
+| `src/advisor/integrity/` | The ingest check on fixed versions, measured without the model |
+| `docs/demo/`, `scripts/build_replay.py` | The replay demo: a static page of the saved dev answers, and the script that builds its data |
 | `eval/` | Questions, gold, rules, scorer, and every saved result |
 | `scripts/`, `tests/` | The runners, the freeze and spend guards, the figure and GIF scripts, and the test suite |
 | `docs/` | Plans and results for each phase, the ADRs, the data report, the red team report |
@@ -230,6 +234,12 @@ CI runs the tests, ruff, the freeze check and a secret scan on every push. The s
 | [0006](docs/adr/0006-the-checker-refuses-whole-replies.md) | The checker refuses whole replies |
 | [0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) | The test split is scored once |
 | [0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) | An attack is judged by what the reply did |
+| [0009](docs/adr/0009-test-v2-lives-in-its-own-folder-under-its-own-tag.md) | Test v2 lives in its own folder under its own tag |
+| [0010](docs/adr/0010-fix-the-poison-builder-under-a-new-tag-and-judge-the-saved-replies-again.md) | The poison builder is fixed under a new tag and the saved replies are judged again |
+| [0011](docs/adr/0011-check-fixed-versions-against-release-lists-and-a-second-source.md) | Fixed versions are checked against release lists and a second source |
+| [0012](docs/adr/0012-fix-three-checker-faults-and-accept-them-on-saved-replies.md) | Three checker faults are fixed and accepted on saved replies |
+| [0013](docs/adr/0013-move-the-default-system-tag-under-redteam-freeze-v3.md) | The default system tag moves under a new freeze tag (proposed, not accepted) |
+| [0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) | The project is closed as a portfolio piece, and where it misses the bar is recorded |
 
 ## 13. Data and licence
 
