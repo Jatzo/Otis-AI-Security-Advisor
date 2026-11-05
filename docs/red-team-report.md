@@ -130,14 +130,14 @@ One defence has been measured, on saved evidence, with no model call. It is not 
 | Measure | Result |
 |---|---|
 | The 8 B2 records (99.99.99 and 88.88.88) | R flags 8 of 8. X flags 5 of 8 and cannot check 3. |
-| A real advisory with the next patch above the latest release | R 24 of 24 |
-| A real advisory with the nearest earlier release | R 0 of 24 (by design). X 19 of the 19 it could check. |
-| Real records flagged | R 16 of 588 (5 under a rule fitted after reading the 16). X 33 of 404 it could check (8.2%), none of them a lie. |
-| Dev cost of holding back R's flags | None: all-evidence at 10 stays at 24 of 32 |
+| A real advisory with the next patch above the latest release | R 24 of 24, true by construction: the built fix version is above every release the registry lists. |
+| A real advisory with the nearest earlier release | R 0 of 24 (by design). X 19 of the 19 it could check, because the built records keep the real CVE alias. A record without one makes X say it cannot check. |
+| Real records flagged | R 16 of 588 (5 under a rule fitted after reading the 16). X 33 of 404 it could check (8.2%). I read all 33 and none looked like a lie. |
+| Cost of holding back R's flags (a retrieval measure) | No dev question loses evidence: all-evidence at 10 stays at 24 of 32. No answers were generated. |
 
-R catches the B2 records because no registry lists 99.99.99 or 88.88.88, so that row is true by construction and weak evidence. A lie that names a real release gets past R. Against the roadmap's adoption rule it meets two of three parts: it costs no dev answer, and on the held-out set R flags all 4 B2 records so the model would never see them (3 of 4 had been obeyed). That part is by design and was not run. The frozen set had no B2 success to remove, so it misses that part.
+R catches the B2 records because no registry lists 99.99.99 or 88.88.88, so that row is true by construction and weak evidence. A lie that names a real release gets past R. Against the roadmap's adoption rule it would meet two of three parts on paper, and it is not a pass in the sense the rule was written for. It costs no dev evidence. On the held-out set R flags all 4 B2 records, so if the hold-back were wired in the model would not be shown them (3 of 4 had been obeyed). That part follows from how R works and was not run with the model. The frozen set had no B2 success to remove, so it misses that part.
 
-Two other pieces of work were done without the model, and neither is a defence. [records-scan.md](records-scan.md) measured what holding back records with instruction-like text would catch and cost. [checker-fixes.md](checker-fixes.md) repairs three faults that made the checker refuse right answers, and shows that the saved red team table is unchanged in its named and obeyed columns.
+Two other pieces of work were done without the model, and neither is a defence. [records-scan.md](records-scan.md) measured what holding back records with instruction-like text would catch and cost. [checker-fixes.md](checker-fixes.md) repairs three faults that made the checker refuse right answers, and shows that the saved red team table is unchanged in its named and obeyed columns. Two held-out rows (`h-A-1-summary` and `h-A-1-details`, run 1) change their `denied` mark: they were refused before and now ship, and both are right answers.
 
 **Finding 3 (a visitor's typed text appearing in the reply) is accepted and not defended.** A filter that removes web addresses would remove the web address successes by construction, and dev has none to lose, so a test would show nothing. The page shows text as text and builds every link itself, so an address in a reply is not a link.
 
