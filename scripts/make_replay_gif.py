@@ -25,14 +25,14 @@ DEMO = ROOT / "docs" / "demo"
 OUT = ROOT / "docs" / "img" / "replay-demo.gif"
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 WIDTH, VIEW, TALL = 1400, 800, 2900  # the window width, the part of the page shown, the shot height
-FPS, OUT_WIDTH, COLOURS = 5, 760, 64
+FPS, OUT_WIDTH, COLOURS = 5, 760, 48
 CARDS, RECORDS = 330, 1000  # how far down the three result cards and the list of records start
 # A question the Phase 6 checker lets through, one it still refuses, and one the model declined.
 # Each scene is (question, waypoints), and a waypoint is (seconds, how far down the page).
 SCENES = (
     ("dg-003", ((0, 0), (1.6, 0), (2.6, CARDS), (5.2, CARDS), (6.4, RECORDS), (7.4, RECORDS))),
-    ("lk-001", ((0, CARDS), (3.6, CARDS))),
-    ("ab-001", ((0, CARDS), (3.6, CARDS))),
+    ("lk-001", ((0, CARDS), (3.2, CARDS))),
+    ("ab-001", ((0, CARDS), (3.2, CARDS))),
 )
 
 

@@ -30,7 +30,7 @@ body {
 }
 
 .banner p { max-width: 82rem; margin: 0.25rem auto; }
-.banner a { color: var(--blue); }
+.banner a, .banner strong { color: var(--blue); }
 
 main { max-width: 82rem; margin: 0 auto; padding: 1.5rem 1rem 1rem; }
 h1 { margin: 0 0 0.25rem; }
@@ -40,6 +40,7 @@ h1 { margin: 0 0 0.25rem; }
 .stat {
   flex: 1 1 11rem;
   border: 1px solid var(--line);
+  border-top: 0.25rem solid var(--blue);
   border-radius: 0.5rem;
   padding: 0.6rem 0.9rem;
   background: #fff;
@@ -49,7 +50,7 @@ h1 { margin: 0 0 0.25rem; }
 
 .layout { display: grid; grid-template-columns: minmax(14rem, 20rem) 1fr; gap: 1.5rem; align-items: start; }
 
-.questions { list-style: none; margin: 0; padding: 0; max-height: 75vh; overflow-y: auto; border: 1px solid var(--line); border-radius: 0.5rem; background: #fff; }
+.questions { position: relative; list-style: none; margin: 0; padding: 0; max-height: 75vh; overflow-y: auto; border: 1px solid var(--line); border-radius: 0.5rem; background: #fff; }
 .questions li + li { border-top: 1px solid var(--line); }
 .pick {
   display: grid;
@@ -66,6 +67,7 @@ h1 { margin: 0 0 0.25rem; }
   cursor: pointer;
 }
 .pick:hover, .pick:focus-visible { background: var(--paper); outline: 2px solid var(--blue); outline-offset: -2px; }
+.pick.selected { background: rgba(142, 193, 238, 0.28); box-shadow: inset 0.25rem 0 0 var(--blue); }
 .pick-id { font-variant-numeric: tabular-nums; opacity: 0.7; }
 .pick-text { display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .pick-marks { display: flex; gap: 0.2rem; align-items: center; }

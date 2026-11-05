@@ -196,6 +196,7 @@
 
   function renderList(container, data, onPick) {
     container.replaceChildren();
+    var buttons = {};
     data.questions.forEach(function (question) {
       var item = element("li");
       var button = element("button", null, "pick");
@@ -210,9 +211,25 @@
       });
       button.appendChild(marks);
       button.addEventListener("click", function () { onPick(question); });
+      buttons[question.id] = button;
       item.appendChild(button);
       container.appendChild(item);
     });
+    return buttons;
+  }
+
+  // Marks the chosen question in the list, in light blue, and tells a screen reader which it is.
+  function markSelected(buttons, id, bringIntoView) {
+    Object.keys(buttons).forEach(function (key) {
+      var chosen = key === id;
+      buttons[key].classList.toggle("selected", chosen);
+      buttons[key].ariaCurrent = chosen ? "true" : "false";
+    });
+    var list = buttons[id] && buttons[id].closest("ul");
+    if (!bringIntoView || !list) return;
+    var top = buttons[id].offsetTop;
+    var hidden = top < list.scrollTop || top + buttons[id].offsetHeight > list.scrollTop + list.clientHeight;
+    if (hidden) list.scrollTop = Math.max(0, top - list.clientHeight / 3);
   }
 
   window.OtisReplay = {
@@ -227,18 +244,20 @@
     .then(function (data) {
       renderSummary(document.getElementById("summary"), data.meta);
       renderSystems(document.getElementById("systems"), data.meta);
-      function show(question) {
+      var buttons;
+      function show(question, bringIntoView) {
         renderQuestion(detail, data, question);
+        markSelected(buttons, question.id, bringIntoView);
         if (QUESTION_ID.test(question.id)) window.location.hash = question.id;
       }
-      renderList(document.getElementById("list"), data, function (question) {
+      buttons = renderList(document.getElementById("list"), data, function (question) {
         show(question);
         // On a phone the answer sits below the list, so bring it into view.
         if (window.matchMedia("(max-width: 44rem)").matches) detail.scrollIntoView({ block: "start" });
       });
       var wanted = window.location.hash.slice(1);
       var start = QUESTION_ID.test(wanted) ? data.questions.filter(function (q) { return q.id === wanted; })[0] : null;
-      show(start || data.questions[0]);
+      show(start || data.questions[0], true);
     })
     .catch(function () {
       detail.replaceChildren(element("p", "The saved answers could not be loaded. Serve this folder with " +
