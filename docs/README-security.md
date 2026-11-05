@@ -1,6 +1,6 @@
 # Otis for a security reader: what was attacked, what held, and what did not
 
-> **Work in progress.** The attacks have been run and written up. **No defence has been built or tested.** Every result here is against the system as it was tagged, with only the controls it already had. There is no deployed demo, so nothing here was tested against a live service. The engineering framing of the same project is in the [main README](../README.md).
+> **Work in progress.** The attacks have been run and written up. **No defence has been tested with the model.** One, a check on fixed versions at ingest, was measured on saved evidence ([ingest check](ingest-check.md)) and is not in the system. Every result here is against the system as it was tagged, with only the controls it already had. There is no deployed demo, so nothing here was tested against a live service. The engineering framing of the same project is in the [main README](../README.md).
 
 Otis answers questions about vulnerabilities in 18 open-source packages by retrieving advisory text and asking a language model to answer from it, with code checking every claim the model makes. That makes it a security problem in its own right. Advisory text is public and can be written by people outside the project, Otis reads it as input, and it shows text back to a visitor. So I attacked it as a target and not only used it as a tool, and I wrote down what I tried, what held, what did not, and how far to trust the result.
 
@@ -11,7 +11,7 @@ Otis answers questions about vulnerabilities in 18 open-source packages by retri
 - **A visitor can make Otis repeat what they type**, in 8 of 16 cases. It changes only that visitor's own reply.
 - **A false record with false structured fields passes the checker by design** and got into a list answer in 3 of 8 cases. The checker compares each claim with the record it cites, so a record that lies passes.
 - **No leak of the instructions and no off-topic answer** in 24 runs each. 30 hostile payloads put through the page in a real browser had no effect.
-- **No defence has been tested.** The plan for them is in [the roadmap](roadmap.md).
+- **No defence has been tested with the model.** The ingest check was measured on saved evidence, and the rest are unfunded ([report](red-team-report.md#defences-tested-without-the-model)). The plan is in [the roadmap](roadmap.md).
 
 Confidence is low to moderate: 56 cases in each of two sets, one model, attacks I wrote myself, no adaptive attacker. A zero means not found, not safe.
 

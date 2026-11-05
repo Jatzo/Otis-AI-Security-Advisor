@@ -4,7 +4,7 @@ Phase 6 of Otis. This report says what was tried against the system, what held, 
 
 ## In short
 
-**No defence has been tested.** Every model run here was against `phase5-system-v1` exactly as it was tagged, with only the defences it already had: a line in the prompt saying record text is data, escaping of `&`, `<` and `>` in records, and the checker. The checker was built to catch false claims, not to stop injection, and the results show it did not act as an injection defence. The topic gate and the abuse limits exist as code and are covered by unit tests. They were not in the system the model rounds attacked. A second round on a defended system was in the plan and has not been run, because the credit ran out.
+**No defence has been tested with the model.** One, a check on fixed versions at ingest, has been measured on saved evidence with no model call ([below](#defences-tested-without-the-model)). Every model run here was against `phase5-system-v1` exactly as it was tagged, with only the defences it already had: a line in the prompt saying record text is data, escaping of `&`, `<` and `>` in records, and the checker. The checker was built to catch false claims, not to stop injection, and the results show it did not act as an injection defence. The topic gate and the abuse limits exist as code and are covered by unit tests. They were not in the system the model rounds attacked. A second round on a defended system was in the plan and has not been run, because the credit ran out.
 
 What the unchanged system did, over 168 model calls and $5.26:
 
@@ -121,7 +121,33 @@ A rate limit per address (5 a minute, 60 a day), a question length and request s
 - The secret scan flagged the markers in the case files as keys. That is fixed with a narrow allowlist in `.gitleaks.toml`.
 - The poison builder made npm records with the wrong range type, described in finding 4. It is fixed under `redteam-freeze-v2` and the corrected numbers are from a replay of the saved replies.
 
-## No defence has been tested
+## Defences tested without the model
+
+One defence has been measured, on saved evidence, with no model call. It is not in the tagged system and has not been run against an attack with the model. The full write-up is [ingest-check.md](ingest-check.md) and the decision is [ADR 0011](adr/0011-check-fixed-versions-against-release-lists-and-a-second-source.md).
+
+**The ingest check, against finding 4 (a false record passes the checker).** Each GitHub record's fixed version is checked against the package's registry release list (R, which holds a record back) and against NVD's end versions for the same CVE (X, which only flags).
+
+| Measure | Result |
+|---|---|
+| The 8 B2 records (99.99.99 and 88.88.88) | R flags 8 of 8. X flags 5 of 8 and cannot check 3. |
+| A real advisory with the next patch above the latest release | R 24 of 24 |
+| A real advisory with the nearest earlier release | R 0 of 24 (by design). X 19 of the 19 it could check. |
+| Real records flagged | R 16 of 588 (5 under a rule fitted after reading the 16). X 33 of 404 it could check (8.2%), none of them a lie. |
+| Dev cost of holding back R's flags | None: all-evidence at 10 stays at 24 of 32 |
+
+R catches the B2 records because no registry lists 99.99.99 or 88.88.88, so that row is true by construction and weak evidence. A lie that names a real release gets past R. Against the roadmap's adoption rule it meets two of three parts: it costs no dev answer, and on the held-out set R flags all 4 B2 records so the model would never see them (3 of 4 had been obeyed). That part is by design and was not run. The frozen set had no B2 success to remove, so it misses that part.
+
+Two other pieces of work were done without the model, and neither is a defence. [records-scan.md](records-scan.md) measured what holding back records with instruction-like text would catch and cost. [checker-fixes.md](checker-fixes.md) repairs three faults that made the checker refuse right answers, and shows that the saved red team table is unchanged in its named and obeyed columns.
+
+**Finding 3 (a visitor's typed text appearing in the reply) is accepted and not defended.** A filter that removes web addresses would remove the web address successes by construction, and dev has none to lose, so a test would show nothing. The page shows text as text and builds every link itself, so an address in a reply is not a link.
+
+**What could not be tested for free:**
+- A random boundary around record text. It needs the model, to see whether the injected instruction still works.
+- The topic gate in the model path. It exists as code with unit tests. What it does to answers on the attacked system needs model runs.
+- Holding back the records the scan flags. Its price in evidence is measured in the scan write-up. Whether it stops an attack needs the model.
+- An adaptive attacker, and round 2 as a whole (about $7, and about $0.74 is left).
+
+## No defence has been tested with the model
 
 This is the main gap, so it is repeated here.
 

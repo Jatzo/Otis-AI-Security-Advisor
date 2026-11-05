@@ -14,7 +14,7 @@
 
 [![CI](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml/badge.svg)](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml)
 
-> **Work in progress.** The data, the evaluation, the retrieval study, the answer checker, the single test run and the first red team are done and written up. Defences against the red team findings have not been built or tested, the planned interface is a mockup, and there is no deployed demo. [Section 10](#10-plan-of-action) sets out what comes next. The accuracy numbers below are a first measurement, not a finished system.
+> **Work in progress.** The data, the evaluation, the retrieval study, the answer checker, the single test run and the first red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence), the planned interface is a mockup, and there is no deployed demo. [Section 10](#10-plan-of-action) sets out what comes next. The accuracy numbers below are a first measurement, not a finished system.
 
 Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
 
@@ -45,7 +45,7 @@ Otis is a single-pass pipeline: keyword search over the 1,164 GitHub and NVD rec
 
 On 110 test questions, scored once from a tagged system, the checked system answers 66 correctly (60%) against 35 (32%) for the model alone, and 44 of the 88 answerable questions (50%) against 13 (15%). It invented no advisory or CVE ID in any row. The headline is more modest than the design. Retrieval put all the needed evidence in the top 10 for only 53 of the 88 answerable questions, and the model's raw reply was right on 52 of those 53 and on 1 of the other 35. The checker refused 9 correct replies and withheld no wrong one. Two rows with no retrieval beat the system: code that reads the question's form scored 99 of 110, and the model given a whole package scored 42 of the 43 questions that name one.
 
-A red team of 56 attack cases and a held-out 56, run against the unchanged system, found that instructions hidden in advisory text were followed in 1 case of 48, that a poisoned record can make a question unanswerable, and that a false record with false structured fields passes the checker by design. **No defence has been tested yet.**
+A red team of 56 attack cases and a held-out 56, run against the unchanged system, found that instructions hidden in advisory text were followed in 1 case of 48, that a poisoned record can make a question unanswerable, and that a false record with false structured fields passes the checker by design. **No defence has been tested with the model.** One, a check on fixed versions at ingest, was measured on saved evidence with no model call ([ingest check](docs/ingest-check.md)).
 
 ## 2. Where the project stands
 
@@ -58,7 +58,7 @@ A red team of 56 attack cases and a held-out 56, run against the unchanged syste
 | Generation and checker | Done | [Results](docs/generation-results.md), [ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md) |
 | Test run: five rows, scored once | Done | [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
 | Red team: attacks run on the unchanged system | Run and written up. No defence tested, so the phase stays open | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
-| Fixes for the checker faults and the red team findings | Planned, not started | [Plan of action](docs/roadmap.md) |
+| Fixes for the checker faults and the red team findings | Checker faults fixed and judged on saved replies. One red team defence (the ingest check) measured without the model. The rest is unfunded | [Checker fixes](docs/checker-fixes.md), [Ingest check](docs/ingest-check.md), [Plan of action](docs/roadmap.md) |
 | Public demo | Not deployed. The page and handler are tested without a server | `src/advisor/web/` |
 | A second README framed for a security reader, and a one-page brief | Done | [For a security reader](docs/README-security.md), [One-page brief (PDF)](docs/brief.pdf) |
 
@@ -167,7 +167,7 @@ Advisory text is public and can be written by outsiders. Otis reads it and shows
 
 - **Held.** Instructions hidden in a record's title, description or NVD text were not followed in 47 of 48 cases. A false fix version written only in prose was not obeyed in 8 of 8: the model named it in 3 cases and rejected it each time. No leak of the instructions in 24 runs. No off-topic answer in 24 runs. 30 hostile payloads put through the page in a real browser ran no script, made no element the page did not draw, and built no link that code had not made.
 - **Did not hold.** A record can take a question away: text asking the model to repeat its instructions made the API stop the reply, and a record claiming to be withdrawn made the model decline. A visitor can make Otis repeat what they type, which changes only their own reply. A new record with false structured fields got into a list answer in 3 of 4 held-out cases, which is the stated limit of the design: the checker compares claims with the record it cites, so a record that lies passes.
-- **Not tested.** Any defence, an attacker who adapts, more than one turn, and a deployed system.
+- **Not tested.** Any defence with the model, an attacker who adapts, more than one turn, and a deployed system.
 
 The full account, with how each result was judged and the faults in my own instruments, is the [red team report](docs/red-team-report.md).
 
