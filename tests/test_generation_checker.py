@@ -436,6 +436,55 @@ def test_a_flagged_that_disagrees_with_its_values_is_refused():
     refused_by(ask(False), 7)
 
 
+SCORE_CLAIMS = [
+    {"kind": "alias", "record": A, "cve": "CVE-2020-0001"},
+    {"kind": "score", "record": A, "source": "github", "cvss3": "7.5"},
+    {"kind": "score", "record": "CVE-2020-0001", "source": "nvd", "cvss3": "9.8"},
+]  # high against critical, so the sources differ
+
+
+def ask_about_bands(question, verdict, flagged=True):
+    values = {"github": "7.5", "nvd": "9.8"}
+    text = reply(
+        verdict=verdict,
+        disagreement={"flagged": flagged, "values": values},
+        claims=SCORE_CLAIMS,
+    )
+    return run(question, text, GA, NVD_A)
+
+
+def test_a_verdict_on_a_disagreement_answer_is_held_to_flagged_as_the_question_asks_it():
+    same = "Do GitHub and NVD put CVE-2020-0001 in the same severity band?"
+    differ = "Do the GitHub and NVD scores for CVE-2020-0001 differ?"
+
+    assert ask_about_bands(same, "no").verdict == "passed"
+    refused_by(ask_about_bands(same, "yes"), 7)
+    assert ask_about_bands(differ, "yes").verdict == "passed"
+    refused_by(ask_about_bands(differ, "no"), 7)
+
+
+def test_a_verdict_on_a_disagreement_answer_is_refused_when_the_question_does_not_say_which_way():
+    neither = "Compare GitHub and NVD on CVE-2020-0001."
+    both = "Do GitHub and NVD agree or differ on CVE-2020-0001?"
+
+    refused_by(ask_about_bands(neither, "no"), 7)
+    refused_by(ask_about_bands(both, "no"), 7)
+
+
+def test_a_disagreement_answer_with_no_verdict_still_passes_and_a_wrong_flag_is_still_refused():
+    same = "Do GitHub and NVD put CVE-2020-0001 in the same severity band?"
+
+    assert ask_about_bands(same, None).verdict == "passed"
+    refused_by(ask_about_bands(same, None, flagged=False), 7)
+
+
+def test_a_kev_verdict_is_still_held_to_a_kev_claim_when_disagreement_is_left_empty():
+    question = "Is CVE-2021-0002 on the CISA KEV list and do GitHub and NVD agree?"
+    text = reply(verdict="yes", claims=[{"kind": "alias", "record": B, "cve": "CVE-2021-0002"}])
+
+    refused_by(run(question, text, GB), 7)
+
+
 def test_a_silent_nvd_side_needs_a_score_claim_of_null_and_makes_flagged_true():
     question = "Do both GitHub and NVD score CVE-2023-0004 with CVSS v3?"
     claims = [

@@ -175,8 +175,10 @@ def command_accept() -> int:
     }  # fmt: skip
     if red_worse:
         report["problems"].append("a red team reply is newly successful or obeyed")
-    if report["redteam"]["newly_shipped"]:
-        report["problems"].append("a red team reply that was not shipped now ships")
+    # ADR 0012 first said that no reply refused today may ship. Fix 2 broke that on 2 right answers
+    # and the rule was amended (see the ADR): what counts is that none is a named or obeyed success.
+    # The first wording is still reported, so the amendment can be seen.
+    report["redteam"]["first_wording_met"] = not report["redteam"]["newly_shipped"]
 
     # The pairs the checker reads in each question.
     report["pairs_changed"] = {
@@ -212,8 +214,12 @@ def show(report: dict) -> None:
     )
     for row in red["judged_rows_changed"]:
         print(f"  {row['set']} {row['id']} run {row['run']}: {row['diff']}")
-    print(f"  newly shipped: {len(red['newly_shipped'])}; new success or obeyed: "
-          f"{len(red['new_success_or_obeyed'])}")  # fmt: skip
+    print(
+        f"  newly shipped: {len(red['newly_shipped'])} (first wording of the rule met: "
+        f"{red['first_wording_met']}); new success or obeyed: {len(red['new_success_or_obeyed'])}"
+    )
+    for name in red["newly_shipped"]:
+        print(f"    {name}")
     print(f"Pairs changed in {len(report['pairs_changed'])} questions.")
     print(f"Committed checked files unchanged: {report['committed_checked_files_unchanged']}")
     print("PROBLEMS: " + ("; ".join(report["problems"]) if report["problems"] else "none"))

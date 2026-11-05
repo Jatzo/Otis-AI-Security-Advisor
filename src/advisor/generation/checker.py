@@ -54,6 +54,8 @@ PAIRS = {
 }
 ASKS_AFFECTED = re.compile(r"\b(?:affect(?:s|ed|ing)?|vulnerable)\b", re.IGNORECASE)
 NEGATED = re.compile(r"\b(?:not|unaffected|safe|immune)\b", re.IGNORECASE)
+ASKS_SAME = re.compile(r"\b(?:same|agree|agrees)\b", re.IGNORECASE)
+ASKS_DIFFER = re.compile(r"\b(?:differ|differs|different|disagree|disagrees)\b", re.IGNORECASE)
 SENTENCE_BREAK = re.compile(r"(?<=[.!?])\s+")
 NO_DISAGREEMENT = {"flagged": False, "values": {"github": None, "nvd": None}}
 
@@ -284,7 +286,7 @@ class Case:
         claims = [j.claim for j in passing]
         problems += self.support_ids(answer["ids"], claims, answer["verdict"])
         if answer["verdict"] is not None:
-            polarity, more = self.support_verdict(answer["verdict"], claims)
+            polarity, more = self.support_verdict(answer["verdict"], claims, answer["disagreement"])
             problems += more
         value = side_text(answer["value"])
         if value is not None:
@@ -317,7 +319,11 @@ class Case:
                 problems.append(f"{found[0]} in ids has no passing claim")
         return problems
 
-    def support_verdict(self, verdict: str, claims: list[Claim]) -> tuple[bool | None, list[str]]:
+    def support_verdict(
+        self, verdict: str, claims: list[Claim], disagreement: dict
+    ) -> tuple[bool | None, list[str]]:
+        if not self.pairs and is_filled(disagreement):
+            return self.verdict_against_disagreement(verdict, disagreement)
         kind = "affects" if self.pairs else "kev"
         field_name = "affected" if kind == "affects" else "listed"
         tied = [
@@ -330,6 +336,24 @@ class Case:
         if polarity and any(c.get(field_name) != (verdict == "yes") for c in tied):
             return polarity, [f"the verdict {verdict} disagrees with a passing {kind} claim"]
         return polarity, []
+
+    def verdict_against_disagreement(
+        self, verdict: str, disagreement: dict
+    ) -> tuple[bool | None, list[str]]:
+        """A verdict on a sources-disagree answer is held to `flagged`, read the way the question
+        asks it: "the same" or "agree" is yes when the sources do not differ, "differ" or
+        "disagree" is yes when they do. A question that asks neither way, or both, ties nothing."""
+        same, differ = (
+            bool(ASKS_SAME.search(self.question)),
+            bool(ASKS_DIFFER.search(self.question)),
+        )
+        if same == differ:
+            return None, [f"the verdict {verdict} cannot be tied to the disagreement"]
+        if (verdict == "yes") != (
+            disagreement["flagged"] if differ else not disagreement["flagged"]
+        ):
+            return True, [f"the verdict {verdict} disagrees with flagged {disagreement['flagged']}"]
+        return True, []
 
     def support_disagreement(self, disagreement: dict, claims: list[Claim]) -> list[str]:
         sides = {name: side_text(disagreement["values"].get(name)) for name in ("github", "nvd")}
@@ -370,6 +394,12 @@ class Case:
         if disagreement["flagged"] != expected:
             return [f"flagged is {disagreement['flagged']} where the values give {expected}"]
         return []
+
+
+def is_filled(disagreement: dict) -> bool:
+    """Whether the reply says anything in `disagreement`, as against leaving it at its default."""
+    sides = (side_text(disagreement["values"].get(name)) for name in ("github", "nvd"))
+    return disagreement["flagged"] or any(side is not None for side in sides)
 
 
 def side_text(value: str | None) -> str | None:
