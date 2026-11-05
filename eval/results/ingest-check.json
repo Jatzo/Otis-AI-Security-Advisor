@@ -1,0 +1,285 @@
+{
+ "as_first_written": {
+  "b2_records": [
+   {
+    "case": "f-B2-1",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "cannot_check"
+   },
+   {
+    "case": "f-B2-2",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "f-B2-3",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "cannot_check"
+   },
+   {
+    "case": "f-B2-4",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "cannot_check"
+   },
+   {
+    "case": "h-B2-1",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "h-B2-2",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "h-B2-3",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "h-B2-4",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   }
+  ],
+  "flagged_by_release_list": [
+   "GHSA-54qj-48vx-cr9f",
+   "GHSA-625g-gx8c-xcmg",
+   "GHSA-8fx9-5hx8-crhm",
+   "GHSA-9v8h-57gv-qch6",
+   "GHSA-9xg7-gg9m-rmq9",
+   "GHSA-jgcr-9c2q-rvp8",
+   "GHSA-mwv2-398h-v489",
+   "GHSA-p6m5-h7pp-v2x5",
+   "GHSA-q7q2-qf2q-rw3w",
+   "GHSA-qc99-g3wm-hgxr",
+   "GHSA-r5cj-wv24-92p5",
+   "GHSA-rw75-m7gp-92m3",
+   "GHSA-vq3h-3q7v-9prw",
+   "GHSA-w3c8-7r8f-9jp8",
+   "GHSA-wh4h-v3f2-r2pp",
+   "GHSA-wv7g-xhvw-8hcp"
+  ],
+  "flagged_by_second_source": [
+   "GHSA-2ppp-xj34-vvf7",
+   "GHSA-3c5c-xrq4-qhr8",
+   "GHSA-3chg-m5w7-qfv5",
+   "GHSA-3w6x-2g7m-8v23",
+   "GHSA-3wvg-mj6g-m9cv",
+   "GHSA-47qp-8v9g-39hp",
+   "GHSA-4w2v-q235-vp99",
+   "GHSA-6c3j-c64m-qhgq",
+   "GHSA-72pg-x5f8-j25j",
+   "GHSA-737w-mh58-cxjp",
+   "GHSA-7xr5-9hcq-chf9",
+   "GHSA-957g-f97v-vppc",
+   "GHSA-95q3-8gr9-gm8w",
+   "GHSA-9v9h-cgj8-h64p",
+   "GHSA-cjpg-rgq5-fr37",
+   "GHSA-cm5g-3pgc-8rg4",
+   "GHSA-cph5-m8f7-6c5x",
+   "GHSA-f23m-r3pf-42rh",
+   "GHSA-f4w8-cv6p-x6r5",
+   "GHSA-h3qp-gqrc-q736",
+   "GHSA-j7hp-h8jx-5ppr",
+   "GHSA-j9f9-w8pj-32f8",
+   "GHSA-jc35-q369-45pv",
+   "GHSA-mq64-j8f9-9gcj",
+   "GHSA-mvg9-xffr-p774",
+   "GHSA-p6mc-m468-83gw",
+   "GHSA-pc63-qcmh-9cmg",
+   "GHSA-prjv-jj26-wf8h",
+   "GHSA-vh95-rmgr-6w4m",
+   "GHSA-vrwc-qjmw-5rjm",
+   "GHSA-whmq-v94q-34p9",
+   "GHSA-x23c-287f-qqv5",
+   "GHSA-x4qr-2fvf-3mr5"
+  ],
+  "hold_back_cost": {
+   "all_at_10_clean": 24,
+   "all_at_10_held_back": 24,
+   "changed": [],
+   "dev_questions": 32,
+   "records_held_back": 16
+  },
+  "plausible": {
+   "advisories": 24,
+   "not_yet_released": {
+    "release": {
+     "not_listed": 24
+    },
+    "second_source": {
+     "cannot_check": 5,
+     "disagrees": 19
+    }
+   },
+   "released_but_wrong": {
+    "release": {
+     "listed": 24
+    },
+    "second_source": {
+     "cannot_check": 5,
+     "disagrees": 19
+    }
+   }
+  },
+  "real_records": {
+   "records": 588,
+   "release": {
+    "cannot_check": 1,
+    "listed": 571,
+    "not_listed": 16
+   },
+   "second_source": {
+    "agrees": 371,
+    "cannot_check": 184,
+    "disagrees": 33
+   }
+  }
+ },
+ "refined": {
+  "b2_records": [
+   {
+    "case": "f-B2-1",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "cannot_check"
+   },
+   {
+    "case": "f-B2-2",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "f-B2-3",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "cannot_check"
+   },
+   {
+    "case": "f-B2-4",
+    "fixed": "99.99.99",
+    "release": "not_listed",
+    "second_source": "cannot_check"
+   },
+   {
+    "case": "h-B2-1",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "h-B2-2",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "h-B2-3",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   },
+   {
+    "case": "h-B2-4",
+    "fixed": "88.88.88",
+    "release": "not_listed",
+    "second_source": "disagrees"
+   }
+  ],
+  "flagged_by_release_list": [
+   "GHSA-8fx9-5hx8-crhm",
+   "GHSA-jgcr-9c2q-rvp8",
+   "GHSA-w3c8-7r8f-9jp8",
+   "GHSA-wh4h-v3f2-r2pp",
+   "GHSA-wv7g-xhvw-8hcp"
+  ],
+  "flagged_by_second_source": [
+   "GHSA-2ppp-xj34-vvf7",
+   "GHSA-3c5c-xrq4-qhr8",
+   "GHSA-3chg-m5w7-qfv5",
+   "GHSA-3w6x-2g7m-8v23",
+   "GHSA-3wvg-mj6g-m9cv",
+   "GHSA-47qp-8v9g-39hp",
+   "GHSA-4w2v-q235-vp99",
+   "GHSA-6c3j-c64m-qhgq",
+   "GHSA-72pg-x5f8-j25j",
+   "GHSA-737w-mh58-cxjp",
+   "GHSA-7xr5-9hcq-chf9",
+   "GHSA-957g-f97v-vppc",
+   "GHSA-95q3-8gr9-gm8w",
+   "GHSA-9v9h-cgj8-h64p",
+   "GHSA-cjpg-rgq5-fr37",
+   "GHSA-cm5g-3pgc-8rg4",
+   "GHSA-cph5-m8f7-6c5x",
+   "GHSA-f23m-r3pf-42rh",
+   "GHSA-f4w8-cv6p-x6r5",
+   "GHSA-h3qp-gqrc-q736",
+   "GHSA-j7hp-h8jx-5ppr",
+   "GHSA-j9f9-w8pj-32f8",
+   "GHSA-jc35-q369-45pv",
+   "GHSA-mq64-j8f9-9gcj",
+   "GHSA-mvg9-xffr-p774",
+   "GHSA-p6mc-m468-83gw",
+   "GHSA-pc63-qcmh-9cmg",
+   "GHSA-prjv-jj26-wf8h",
+   "GHSA-vh95-rmgr-6w4m",
+   "GHSA-vrwc-qjmw-5rjm",
+   "GHSA-whmq-v94q-34p9",
+   "GHSA-x23c-287f-qqv5",
+   "GHSA-x4qr-2fvf-3mr5"
+  ],
+  "hold_back_cost": {
+   "all_at_10_clean": 24,
+   "all_at_10_held_back": 24,
+   "changed": [],
+   "dev_questions": 32,
+   "records_held_back": 5
+  },
+  "plausible": {
+   "advisories": 24,
+   "not_yet_released": {
+    "release": {
+     "not_listed": 24
+    },
+    "second_source": {
+     "cannot_check": 5,
+     "disagrees": 19
+    }
+   },
+   "released_but_wrong": {
+    "release": {
+     "listed": 24
+    },
+    "second_source": {
+     "cannot_check": 5,
+     "disagrees": 19
+    }
+   }
+  },
+  "real_records": {
+   "records": 588,
+   "release": {
+    "cannot_check": 12,
+    "listed": 571,
+    "not_listed": 5
+   },
+   "second_source": {
+    "agrees": 371,
+    "cannot_check": 184,
+    "disagrees": 33
+   }
+  }
+ },
+ "release_lists_fetched": "2026-11-05",
+ "seed": 20261104
+}

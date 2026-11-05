@@ -1,0 +1,77 @@
+{
+ "fetched": "2026-11-05",
+ "files": {
+  "Maven/org.apache.logging.log4j__log4j-core.json": {
+   "sha256": "775554af9280382f4f11e2ca90221576a7d0317fdcfa028373229ccd8c03e006",
+   "versions": 78
+  },
+  "Maven/org.apache.struts__struts2-core.json": {
+   "sha256": "84d1d2e1ca192b28278dbb911c5e8c08ad35a94ec6ddaec03348e2fbfddd007c",
+   "versions": 112
+  },
+  "Maven/org.springframework__spring-webmvc.json": {
+   "sha256": "6ac09969304ab359feb9ae5416ac66cf6de6d8381180c050615e681aa2188474",
+   "versions": 337
+  },
+  "PyPI/aiohttp.json": {
+   "sha256": "720095d121fa2857f7a02e661c6cde698491ce069879588932f7e84b16240b8e",
+   "versions": 314
+  },
+  "PyPI/cryptography.json": {
+   "sha256": "e14d0e7cac7dc810a3d0cbdc410e0e5ef982ad2a67169731f979bb1ff79b0e74",
+   "versions": 160
+  },
+  "PyPI/django.json": {
+   "sha256": "5de76914df1231ad9e0376469259e477d268f2570cecd98c292b099c343ed2ce",
+   "versions": 441
+  },
+  "PyPI/flask.json": {
+   "sha256": "974e050b2415f2bd14c4f13cc275eb22e342c36b45b1ac7c725436a177ce1dfd",
+   "versions": 64
+  },
+  "PyPI/jinja2.json": {
+   "sha256": "9d554e84cc0ba99b9a8f453a420bc5bf80ad241d0f2aed65b58fe8c6cedb77c8",
+   "versions": 52
+  },
+  "PyPI/pillow.json": {
+   "sha256": "340a247cc9a2934161a8ea01f85a40424b4b83a27f0271d68fb563098765680c",
+   "versions": 108
+  },
+  "PyPI/pyyaml.json": {
+   "sha256": "7a97cdb3e380c0a10200de9c97b1d70df7ec1276012fb3f8170483997fda588d",
+   "versions": 31
+  },
+  "PyPI/requests.json": {
+   "sha256": "9718dbfa7b7f8ae21c074a4e6615c2ce211302f875f26736369c718e4699519b",
+   "versions": 160
+  },
+  "PyPI/urllib3.json": {
+   "sha256": "fd92251232889fbb42890c89fa8c6a98945ae163ed49cb66f127ad1ca424ff3c",
+   "versions": 105
+  },
+  "npm/axios.json": {
+   "sha256": "70cab0b02c44a2d4c20f4f26d159bdd35b4b5b5562f44c24334aa9494b18472e",
+   "versions": 147
+  },
+  "npm/express.json": {
+   "sha256": "4a4f901494883c514760b108159760b8962efbb3d20c622d7521fd7442a815ea",
+   "versions": 290
+  },
+  "npm/jsonwebtoken.json": {
+   "sha256": "38f044c65036a455243f2cfb9b1d38f547a54725f08a19b9808ca3ce7bd176bb",
+   "versions": 82
+  },
+  "npm/lodash.json": {
+   "sha256": "eab4cae78f0be42113bd470614d4b4ed894fbe37dc3a8a16d8e1c6973e3e6578",
+   "versions": 117
+  },
+  "npm/minimist.json": {
+   "sha256": "f2cf933d4edf4fe4abad959ba323e00430ef73b6fb6b0fb2e344ea9461afc6ee",
+   "versions": 31
+  },
+  "npm/ws.json": {
+   "sha256": "40b927ff57a4c1c02ef2188a6402a1cf836b47a6a1e501973a23dbf4be2258c8",
+   "versions": 190
+  }
+ }
+}

@@ -22,10 +22,12 @@ def get_json(
     attempts: int = 5,
     timeout: float = 60,
     sleep: Callable[[float], None] = time.sleep,
+    parse: Callable[[Any], Any] = json.load,
 ) -> Any:
     """GET, or POST when a body is given, and return the decoded JSON.
 
-    Retries with a growing wait on rate limits and server errors, then raises.
+    Retries with a growing wait on rate limits and server errors, then raises. A different
+    `parse` reads the response another way, for a source that answers with XML.
     """
     data = json.dumps(body).encode() if body is not None else None
     request_headers = {"User-Agent": USER_AGENT, "Accept": "application/json", **(headers or {})}
@@ -35,7 +37,7 @@ def get_json(
         request = urllib.request.Request(url, data=data, headers=request_headers)  # noqa: S310
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:  # noqa: S310
-                return json.load(response)
+                return parse(response)
         except urllib.error.HTTPError as error:
             if error.code not in RETRY_STATUSES or attempt == attempts:
                 raise

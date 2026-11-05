@@ -109,7 +109,7 @@ None of the last four has met real traffic.
 In the order the evidence supports, with the tests, in [the roadmap](roadmap.md).
 
 1. Scan the 1,164 real records for instruction-like and "withdrawn" text to learn the false positive rate, then decide whether to hold such records back at retrieval. The scan is done ([records-scan.md](records-scan.md)): none of the real records gives orders to an assistant, and the plain-word patterns flagged 4 by mistake (0 after one fix) and 1 real rejected CVE. Holding records back is not built or tested.
-2. Cross-check each record's ranges against a second source at ingest, and flag a fix version no release has reached. This addresses finding 4 where it starts. Free to test on the frozen B2 records now that the poison builder is fixed.
+2. Cross-check each record's ranges against a second source at ingest, and flag a fix version no release has reached. This addresses finding 4 where it starts. The check is built and measured without the model ([ingest-check.md](ingest-check.md)): a release list catches all 8 B2 records and any fix version no registry lists, but misses a lie that names a real release, which only the weaker cross-source flag can see, and it flags 5 to 16 of 588 real records. It is not wired into retrieval and has not been run with the model.
 3. Strip web addresses the code did not build from the explanation, and treat text outside the JSON as an error. Finding 3 may be accepted and documented instead, since it changes only that visitor's reply.
 4. Run the frozen and held-out cases on the defended system, and report what each defence cost in accuracy. A defence is kept only if it removes at least 3 successes in its class, holds on the held-out set, and costs no more than one correct answer on dev.
 

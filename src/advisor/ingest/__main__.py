@@ -1,6 +1,8 @@
 """Command line for the snapshot: python -m advisor.ingest <step>.
 
 Steps run in this order: osv, kev, nvd (slow, resumable), manifest, build, report, sample.
+The step `releases` is separate: it fetches each registry's release list into data/releases/,
+for the ingest check, and is not part of the snapshot.
 """
 
 import argparse
@@ -10,7 +12,7 @@ from contextlib import closing
 from pathlib import Path
 
 from advisor import report, store
-from advisor.ingest import kev, nvd, osv, raw, sample
+from advisor.ingest import kev, nvd, osv, raw, releases, sample
 
 DATA = Path("data")
 RAW = DATA / "raw"
@@ -25,11 +27,13 @@ def snapshot_id() -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(prog="python -m advisor.ingest")
     parser.add_argument(
-        "step", choices=["osv", "kev", "nvd", "manifest", "build", "report", "sample"]
+        "step", choices=["osv", "kev", "nvd", "manifest", "build", "report", "sample", "releases"]
     )
     step = parser.parse_args().step
-    if step == "osv":
-        result: object = osv.fetch_all(RAW / "osv")
+    if step == "releases":
+        result: object = releases.fetch_all(DATA / "releases")
+    elif step == "osv":
+        result = osv.fetch_all(RAW / "osv")
     elif step == "kev":
         result = kev.fetch(RAW / "kev")
     elif step == "nvd":

@@ -60,5 +60,6 @@ select = ["E", "F", "I", "B", "UP", "S"]
 "eval/*" = ["S311"]  # seeded sampling for the question set, not security
 "eval-v2/*" = ["S311", "S101", "E501"]  # same as eval/build_questions.py: seeded sampling, long wordings
 "scripts/make_figures.py" = ["E501"]  # long sentences of figure text, copied from the written results
+"scripts/measure_ingest_check.py" = ["S311"]  # a seeded sample, not a secret
 "eval/build_questions.py" = ["E501"]  # question templates and derivations read better unbroken
 "src/advisor/structured/__init__.py" = ["E501"]  # one template per line, matched in full

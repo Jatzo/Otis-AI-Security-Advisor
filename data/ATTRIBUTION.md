@@ -28,3 +28,7 @@ Changes made: in the sample, the catalogue is cut down to the entries for the sa
 ## Why these advisories are in the sample
 
 `chosen.json` lists the rule that picked each advisory. Each rule names a case the system has to handle.
+
+## Release lists (`releases/`)
+
+Fetched on 5 November 2026 from the PyPI JSON API, the npm registry and Maven Central's `maven-metadata.xml`, for the 18 corpus packages. Only the version numbers are kept, with the source address and the fetch date. They are used by the ingest check ([docs/ingest-check.md](../docs/ingest-check.md)) and are not part of the snapshot.
