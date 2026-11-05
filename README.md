@@ -23,6 +23,11 @@ Otis answers questions about vulnerabilities in 18 open-source packages from pub
 </p>
 <p align="center"><sub>A recording of a saved answer from the dev run of 2 November 2026 (question <code>vr-005</code>), shown in a mockup of the planned page. The page is not deployed. The answer, the claims, the records and the 2.8 seconds and $0.012 come from that run, and the headline and the wording of the checks are drawn from its saved verdict and claims.</sub></p>
 
+<p align="center">
+  <img src="docs/img/replay-demo.gif" alt="The replay page scrolling through three saved questions: the banner, the three result cards for one question, the records the model was shown, then two more questions" width="760">
+</p>
+<p align="center"><sub>A recording of the replay demo in <code>docs/demo</code>, which is the real page and not a mockup. It shows three saved dev questions. <code>dg-003</code>: the Phase 5 checker refused a right answer and the Phase 6 checker lets it through. <code>lk-001</code>: both checkers still refuse. <code>ab-001</code>: the model rightly declines. No model is called. Run it with <code>python -m http.server -d docs/demo</code>, and see <a href="docs/replay-demo.md">the replay demo write-up</a>.</sub></p>
+
 ## Contents
 
 1. [Abstract](#1-abstract)
@@ -202,6 +207,7 @@ python scripts/make_figures.py         # redraws the figures from the written re
 python scripts/make_demo_gif.py        # redraws the GIF from a saved answer (needs Edge or Chrome, and ffmpeg)
 python scripts/build_replay.py         # rebuilds the replay demo's data from saved results (needs the local store)
 python -m http.server -d docs/demo     # serves the replay demo at http://localhost:8000, no model call
+python scripts/make_replay_gif.py      # redraws the replay GIF from the real page (needs Edge or Chrome, and ffmpeg)
 ```
 
 Paid runs need `ANTHROPIC_API_KEY` in a `.env` file (gitignored). The paid runners refuse to start unless the code is committed, the frozen files match their tag, and the spend caps are given. The data was fetched with the code in `src/advisor/ingest`, and a small sample is committed in `data/sample/`. The full store and raw dump are not in the repository.
