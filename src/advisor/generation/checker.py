@@ -282,7 +282,7 @@ class Case:
         problems: list[str] = []
         polarity = None
         claims = [j.claim for j in passing]
-        problems += self.support_ids(answer["ids"], claims)
+        problems += self.support_ids(answer["ids"], claims, answer["verdict"])
         if answer["verdict"] is not None:
             polarity, more = self.support_verdict(answer["verdict"], claims)
             problems += more
@@ -293,15 +293,19 @@ class Case:
         problems += self.support_disagreement(answer["disagreement"], claims)
         return problems, polarity
 
-    def support_ids(self, ids: list[str], claims: list[Claim]) -> list[str]:
+    def support_ids(self, ids: list[str], claims: list[Claim], verdict: str | None) -> list[str]:
         problems = []
         for item in ids:
             found = ids_in(item)
             if len(found) != 1 or normal_id(item) != found[0]:
                 problems.append(f"{item!r} in ids is not a single ID")
             elif self.pairs:
+                # With no verdict, ids is the answer and must hold advisories that apply. Under a
+                # "no", an advisory named to say it does not apply is backed by that claim.
                 if not any(
-                    c.kind == "affects" and c.get("affected") and c.get("record") == found[0]
+                    c.kind == "affects"
+                    and c.get("record") == found[0]
+                    and (c.get("affected") or verdict == "no")
                     for c in claims
                 ):
                     problems.append(f"{found[0]} has no passing claim that it affects the pair")

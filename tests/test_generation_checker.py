@@ -373,6 +373,37 @@ def test_an_id_with_no_claim_is_refused():
     refused_by(run("Which advisory covers pillow?", text, GA, GD), 7)
 
 
+def test_a_no_may_list_the_advisory_it_says_does_not_apply_if_a_true_claim_backs_that():
+    question = f"Would django 3.0.5 be vulnerable to {A}?"
+    claims = [affects(A, "django", "3.0.5", False)]
+
+    listed = run(question, reply(verdict="no", ids=[A], claims=claims), GA)
+    unlisted = run(question, reply(verdict="no", claims=claims), GA)
+
+    assert listed.verdict == "passed" and unlisted.verdict == "passed"
+
+
+def test_an_id_listed_under_a_no_still_needs_a_claim_about_that_advisory():
+    question = f"Would django 3.0.5 be vulnerable to {A}?"
+    claims = [affects(A, "django", "3.0.5", False)]
+
+    refused_by(run(question, reply(verdict="no", ids=[D], claims=claims), GA, GD), 7)
+
+
+def test_with_no_verdict_an_advisory_that_does_not_apply_cannot_be_listed():
+    question = "Which advisories affect django 3.0.5?"
+    claims = [affects(A, "django", "3.0.5", False)]
+
+    refused_by(run(question, reply(ids=[A], claims=claims), GA), 7)
+
+
+def test_a_yes_cannot_list_an_advisory_backed_only_by_a_claim_that_it_does_not_apply():
+    question = f"Would django 3.0.5 be vulnerable to {A}?"
+    claims = [affects(A, "django", "3.0.5", False)]
+
+    refused_by(run(question, reply(verdict="yes", ids=[A], claims=claims), GA), 7)
+
+
 def test_a_verdict_with_no_matching_claim_is_refused_and_so_is_one_that_contradicts_its_claim():
     question = f"Is {A} affected in django 3.0.4?"
     unbacked = reply(verdict="yes", claims=[{"kind": "package", "record": A, "package": "django"}])
