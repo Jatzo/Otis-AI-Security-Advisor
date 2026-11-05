@@ -14,7 +14,7 @@
 
 [![CI](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml/badge.svg)](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml)
 
-> **Work in progress.** The data, the evaluation, the retrieval study, the answer checker, the single test run and the first red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence), the planned interface is a mockup, and there is no deployed demo. [Section 10](#10-plan-of-action) sets out what comes next. The accuracy numbers below are a first measurement, not a finished system.
+> **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no deployed demo: a replay of the saved dev answers runs locally, and the planned interface is a mockup. [Section 10](#10-plan-of-action) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
 
 Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
 
@@ -57,10 +57,11 @@ A red team of 56 attack cases and a held-out 56, run against the unchanged syste
 | Retrieval: nine rungs, one adopted | Done | [Results](docs/retrieval-results.md), [ADR 0005](docs/adr/0005-keyword-search-over-headed-records.md) |
 | Generation and checker | Done | [Results](docs/generation-results.md), [ADR 0006](docs/adr/0006-the-checker-refuses-whole-replies.md) |
 | Test run: five rows, scored once | Done | [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
-| Red team: attacks run on the unchanged system | Run and written up. No defence tested with the model, so the phase stays open | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
+| Red team: attacks run on the unchanged system | Run and written up. Closed with a limit: no defence tested with the model | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
 | Fixes for the checker faults and the red team findings | Checker faults fixed and judged on saved replies. One red team defence (the ingest check) measured without the model. The rest is unfunded | [Checker fixes](docs/checker-fixes.md), [Ingest check](docs/ingest-check.md), [Plan of action](docs/roadmap.md) |
-| Public demo | Not deployed. A replay of the saved dev answers runs locally on a static page, with no model call. The live page and handler are tested without a server | [Replay demo](docs/replay-demo.md), `docs/demo/`, `src/advisor/web/` |
+| Public demo | Not deployed, and closed that way under ADR 0014. A replay of the saved dev answers runs locally on a static page, with no model call. The live page and handler are tested without a server | [Replay demo](docs/replay-demo.md), `docs/demo/`, `src/advisor/web/` |
 | A second README framed for a security reader, and a one-page brief | Done | [For a security reader](docs/README-security.md), [One-page brief (PDF)](docs/brief.pdf) |
+| The project as a whole | Closed as a portfolio piece on 5 November 2026. What is not done is listed in section 10 and the ADR | [ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) |
 
 ## 3. Problem and scope
 
@@ -186,7 +187,7 @@ The full account, with how each result was judged and the faults in my own instr
 
 ![A four-stage plan: free work, dev only, score once, red team round two](docs/img/roadmap.svg)
 
-The plan in [docs/roadmap.md](docs/roadmap.md) starts where the evidence points. First the free work: fix the known causes of 6 of the checker's 9 wrong refusals, decide what to do about 2 more, and test on dev replies already saved. Then a new question set, written and frozen before any change, because the test split cannot be used again. Then retrieval, which is the larger lever: put each advisory's NVD record and KEV entry in front of the model, and give list questions a completeness check or a computed candidate set. For the red team: scan real records for the text that made questions unanswerable, cross-check each record's ranges against a second source, and run the frozen and held-out cases on a defended system. Each change has an adoption rule and an ADR. The estimate is about $20 at the prices measured so far.
+The plan in [docs/roadmap.md](docs/roadmap.md) was followed as far as work that needs no model call goes, and it stops where the credit does. Done: Test v2 (109 questions, frozen and unscored), the checker fixes judged on saved replies, the records scan, the ingest check and a replay demo. Not done: retrieval changes measured on dev (about $3.55), the clean run on Test v2 from the tag `phase6-system-v1` (about $7), and red team round 2 on a defended system with an adaptive pass (about $9.5). About $0.74 of credit is left, Otis is a portfolio piece and not a product, and the project is closed here with each limit named in [ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md). If credit arrives, the clean run on Test v2 is the first step, because it gives the only fresh accuracy number. Each stage keeps its adoption rule and its ADR.
 
 ## 11. Reproducing it
 

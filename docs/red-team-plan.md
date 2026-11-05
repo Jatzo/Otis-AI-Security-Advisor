@@ -129,7 +129,7 @@ Phase 4 cost $3.55 for 120 calls, so about $0.03 a call. Round 1 is about $3.50,
 2. **A yes to building the smallest page here**, not in Phase 7. Without it the render tests have nothing to test.
 3. **Browser.** Built without Playwright. The render tests use the Edge or Chrome already installed, skip on a developer machine without one and fail on CI without one.
 4. **The abuse numbers above**, or your changes to them.
-5. **Extend the tag ruleset** to cover `redteam-freeze-*` and `phase6-*`. It covers only `eval-freeze-*` and `phase5-*` now, and I cannot save it.
+5. **Extend the tag ruleset** to cover `redteam-freeze-*` and `phase6-*`. It covered only `eval-freeze-*` and `phase5-*` when this was written. It was extended, and the API showed it active with all four patterns and no bypass on 4 and 5 November 2026.
 
 ## Amendments
 
@@ -150,7 +150,7 @@ Version 3, while building the parts that need no API credit (nothing is run agai
 - The checker reads one JSON object and ignores any text before or after it, and still ships that text. The page therefore shows only the known fields, re-serialised (`src/advisor/web/view.py`). Success checkers also read the text outside the object and any extra field.
 - The build is framework-free and adds no dependency. The abuse numbers are the proposals in this plan, held in one place (`src/advisor/web/limits.py`), and can be changed before the freeze.
 - Built and tested without the API: the page and its render tests, the safe view, the limits and spend cap, the attack cases (56 and 56 held-out, `redteam/`), the poison builder and the success checkers. Not built: `scripts/run_redteam.py`, the off-topic gate wiring into a server, the defences, and every model run.
-- The tag `redteam-freeze-v1` has not been made. It waits for approval, and for the ruleset to cover its name.
+- The tag `redteam-freeze-v1` had not been made when this version was written. It was made later, and so were `redteam-freeze-v1.1` and `redteam-freeze-v2`, as the later versions and ADRs 0008 and 0010 record.
 
 Version 4, after round 1 (results in [red-team-results.md](red-team-results.md)):
 

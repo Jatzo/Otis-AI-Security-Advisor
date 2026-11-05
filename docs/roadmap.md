@@ -71,6 +71,8 @@ A defence is kept only if it removes at least 3 successes in its class on the fr
 | 2 | Tag the system as v2. Five rows on Test v2, once. Raw output committed before scoring | The five rows | about $7 (v1 cost $6.81) |
 | 3 | Red team round 2: the frozen set and the held-out set on the defended system, a dev check for what it costs in accuracy, the adaptive pass. The held-out set on the unchanged system is already run | About 200 calls, and a 3-run dev check | about $9.5 |
 
+**Status on 5 November 2026.** Stage 0 is done and written up. Stages 1 to 3 are unfunded, with about $0.74 of credit left, and [ADR 0014](adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) closes the project here. If credit arrives, Stage 2 comes first, from the tag `phase6-system-v1`.
+
 About $20 in all at the prices measured so far, and none of it is needed to write the project up. Each stage has a spend cap before it starts. Nothing moves to the next stage until the previous one is written up, including what did not work.
 
 ## What this plan will not do
