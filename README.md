@@ -30,7 +30,7 @@ Otis answers questions about vulnerabilities in 18 open-source packages from pub
 
 ## Contents
 
-1. [Abstract](#1-abstract)
+1. [In short](#1-in-short)
 2. [Where the project stands](#2-where-the-project-stands)
 3. [Problem and scope](#3-problem-and-scope)
 4. [The system](#4-the-system)
@@ -44,13 +44,13 @@ Otis answers questions about vulnerabilities in 18 open-source packages from pub
 12. [Repository map and decision records](#12-repository-map-and-decision-records)
 13. [Data and licence](#13-data-and-licence)
 
-## 1. Abstract
+## 1. In short
 
-Otis is a single-pass pipeline: keyword search over the 1,164 GitHub and NVD records and the KEV entries that link to them, a language model that writes a structured answer with the claims it rests on, and code that checks every claim against the store and refuses the whole reply if one fails. The design is judged against four comparison rows that need no retrieval or no model: the model with no documents, structured lookups with no model, the model with a whole package in its prompt, and retrieval alone.
+Otis answers questions about vulnerabilities in 18 open-source packages, and I built it to find out how far that kind of answer can be trusted. The pipeline is deliberately simple. Keyword search runs over the 1,164 GitHub and NVD records and the KEV entries that link to them. A model writes a structured answer along with the claims it rests on. Code then checks every claim against the store and refuses the whole reply if one fails. I measured it against four rows that skip either retrieval or the model: the model with no documents, structured lookups with no model, the model with a whole package in its prompt, and retrieval alone.
 
-On 110 test questions, scored once from a tagged system, the checked system answers 66 correctly (60%) against 35 (32%) for the model alone, and 44 of the 88 answerable questions (50%) against 13 (15%). It invented no advisory or CVE ID in any row. The headline is more modest than the design. Retrieval put all the needed evidence in the top 10 for only 53 of the 88 answerable questions, and the model's raw reply was right on 52 of those 53 and on 1 of the other 35. The checker refused 9 correct replies and withheld no wrong one. Two rows with no retrieval beat the system: code that reads the question's form scored 99 of 110, and the model given a whole package scored 42 of the 43 questions that name one.
+On the 110 test questions, scored once from a tagged system, the checked system got 66 right (60%) against 35 (32%) for the model alone. On the 88 answerable questions it got 44 (50%) against 13 (15%). It invented no advisory or CVE ID in any row. That is weaker than the design suggested, and retrieval is the cause: the needed evidence reached the model's top 10 for only 53 of the 88 answerable questions. When it did, the raw reply was right on 52 of 53. When it did not, on 1 of 35. The checker refused 9 correct replies and no wrong ones. Two rows with no retrieval beat the system: code that reads the form of the question scored 99 of 110, and the model given a whole package scored 42 of the 43 questions that name one.
 
-A red team of 56 attack cases and a held-out 56, run against the unchanged system, found that instructions hidden in advisory text were followed in 1 case of 48, that a poisoned record can make a question unanswerable, and that a false record with false structured fields passes the checker by design. **No defence has been tested with the model.** One, a check on fixed versions at ingest, was measured on saved evidence with no model call ([ingest check](docs/ingest-check.md)).
+I red-teamed it with 56 attack cases and a held-out 56, against the unchanged system. Instructions hidden in advisory text were followed in 1 case of 48. A poisoned record can make a question unanswerable. A false record with false structured fields gets past the checker, which is by design: the checker compares each claim with the record it cites, so a record that lies passes. **No defence has been tested with the model.** I measured one, a check on fixed versions at ingest, on saved evidence with no model call ([ingest check](docs/ingest-check.md)).
 
 ## 2. Where the project stands
 
