@@ -39,7 +39,9 @@ The v1 test split is spent. Nothing here is scored on it again, and no v1 test n
 ## Consequences
 - Whatever the acceptance run shows is the result, including a failure of the rule. A fix that fails it is not kept.
 - The roadmap's upper bound ("at most 9 more on the v1 set") is not a forecast and is not scored.
+- A "no" that lists an advisory also passes on a list question, because the checker does not read the question's type. No saved reply does this, and it is not tested.
 - No defence has been tested with the model. This changes how the checker reads a reply, and nothing in it has been run against the model.
+- The result is in [checker-fixes.md](../checker-fixes.md).
 
 ## Amendment: red team clause, after the first run of fix 2
 Written on 2026-11-05, after seeing a result the rule did not allow for. Weigh it as a change made with the number in view.

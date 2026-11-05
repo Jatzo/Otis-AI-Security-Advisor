@@ -23,8 +23,8 @@ Two levers, in order of how much evidence points at them.
 
 ### A1. Fix the checker faults (free)
 - **What.** Three known causes account for 6 of the 9 refusals: a version range inside a description read as a package and version pair (`lk-015`), a verdict set on a sources-disagree answer that then needs a KEV claim (rule 7), and an advisory the model lists in `ids` while saying it does not apply (4 of the 9). Two more are a `fixed_in` claim on an NVD record that has no version rows, which code cannot check, and that needs a decision. The ninth is an answer that came with no claim, where the refusal is the checker doing its job.
-- **How it is tested.** On the saved dev replies, with `--recheck`, which calls no model. Each fix must keep every dev reply that was correctly refused refused.
-- **What it can give.** At most the 9 questions on the v1 set (66 up to 75 of 110, the raw count), and only if it lets no wrong reply through. That is an upper bound, not a forecast. It is checked on Test v2.
+- **How it is tested.** On the saved dev and red team replies, which calls no model, under the rule in [ADR 0012](adr/0012-fix-three-checker-faults-and-accept-them-on-saved-replies.md): no wrong reply gets out, no red team reply becomes a named or obeyed success, no right reply is lost, and the gain is reported. This replaces line 11's rule for this item, because a bug fix on a handful of refused rows cannot show 4 more questions at p below 0.05.
+- **What it can give.** At most the 9 questions on the v1 set (66 up to 75 of 110, the raw count), and only if it lets no wrong reply through. That is an upper bound, not a forecast. Done on 5 November 2026 on the saved dev replies: 6 rows recovered, 30 of 40 in each run against 27, 29 and 28 ([results](checker-fixes.md)). It is not checked on Test v2, which stays unscored.
 - **Cost.** Nothing in model calls.
 
 ### A2. Put the linked records in front of the model (dev, then v2)

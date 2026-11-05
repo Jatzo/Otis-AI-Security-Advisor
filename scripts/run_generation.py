@@ -123,15 +123,16 @@ def result_paths(smoke: bool, label: str | None = None, split: str = "dev") -> t
 
 def recheck_target(recheck_to: str | None, default: Path) -> Path:
     """Where a recheck writes. By default it is the checked file next to the raw one. A path given
-    with --recheck-to must not end in -checked.jsonl, the name every committed checked file has, so
-    a recheck with a changed checker can never land over the file of an earlier system."""
+    with --recheck-to must not end in -checked.jsonl or -raw.jsonl, the names every committed
+    results file has, so a recheck with a changed checker can never land over the file of an earlier
+    system or over the paid replies."""
     if recheck_to is None:
         return default
-    path = Path(recheck_to)
-    if path.name.endswith("-checked.jsonl"):
+    path = Path(recheck_to).resolve()
+    if path.name.endswith(("-checked.jsonl", "-raw.jsonl")):
         raise SystemExit(
-            f"{path.name} would take the name of a checked file. Give --recheck-to a name that "
-            "does not end in -checked.jsonl, such as generation-dev-checked-phase6.jsonl."
+            f"{path.name} would take the name of a results file. Give --recheck-to a name that "
+            "does not end in -checked.jsonl or -raw.jsonl, such as NAME-checked-phase6.jsonl."
         )
     return path
 

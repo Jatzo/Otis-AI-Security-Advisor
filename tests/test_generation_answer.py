@@ -246,20 +246,25 @@ def test_a_recheck_with_no_saved_replies_says_so_instead_of_writing_an_empty_fil
     assert not checked.exists()
 
 
-def test_a_recheck_can_write_elsewhere_but_never_under_the_name_of_a_checked_file(tmp_path):
+def test_a_recheck_can_write_elsewhere_but_never_under_the_name_of_a_checked_file(
+    tmp_path, monkeypatch
+):
+    monkeypatch.chdir(tmp_path)
     default = tmp_path / "generation-dev-checked.jsonl"
     default.write_text("committed\n", encoding="utf-8")
     elsewhere = tmp_path / "generation-dev-checked-phase6.jsonl"
 
     assert runner.recheck_target(None, default) == default
-    assert runner.recheck_target(str(elsewhere), default) == elsewhere
+    assert runner.recheck_target(str(elsewhere), default) == elsewhere.resolve()
     for taken in (
         default,
         tmp_path / "test-generation-checked.jsonl",
         tmp_path / "x-checked.jsonl",
+        tmp_path / "generation-dev-raw.jsonl",
     ):
         with pytest.raises(SystemExit):
             runner.recheck_target(str(taken), default)
+    assert runner.recheck_target("here-phase6.jsonl", default) == tmp_path / "here-phase6.jsonl"
     assert default.read_text(encoding="utf-8") == "committed\n"
 
 

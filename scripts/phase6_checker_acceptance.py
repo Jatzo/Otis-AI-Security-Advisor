@@ -67,7 +67,7 @@ def key(*parts) -> str:
 
 
 def dev_replies() -> tuple[list[dict], dict, dict]:
-    questions = {q["id"]: q for q in read_lines(runner.ROOT / "eval" / "questions.jsonl")
+    questions = {q["id"]: q for q in read_lines(ROOT / "eval" / "questions.jsonl")
                  if q["split"] == "dev"}  # fmt: skip
     lines = [x for x in read_lines(RESULTS / "generation-dev-raw.jsonl") if x["id"] in questions]
     return lines, questions, {g["id"]: g for g in read_lines(ROOT / "eval" / "gold.jsonl")}
