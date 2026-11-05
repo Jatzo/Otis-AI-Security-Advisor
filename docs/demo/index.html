@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Otis replay</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="banner">
+    <p><strong>This is a replay.</strong> Every answer here was saved from a run on 2 November 2026 on the 40 dev questions. No model is called and nothing you do on this page is sent anywhere. Wrong answers and refused answers are shown as they happened.</p>
+    <p id="systems"></p>
+  </header>
+  <main>
+    <h1>Otis, replayed</h1>
+    <p class="lead">Otis answers questions about vulnerabilities in 18 open-source packages from public advisories. Pick a question to see what the model said, what the checker did with it, the records it was shown, and the gold answer the question is scored against.</p>
+    <div id="summary" class="summary"></div>
+    <div class="layout">
+      <nav aria-label="Dev questions">
+        <ul id="list" class="questions"></ul>
+      </nav>
+      <section id="detail" class="detail" aria-live="polite"></section>
+    </div>
+    <p class="note">These are dev questions, the set the system was tuned on, so the figures are not a test result. The test results are in the write-up. Otis cannot tell whether a list is complete, and an answer that passes the checker can still be wrong. If Otis finds nothing, that is not a promise something is safe.</p>
+  </main>
+  <footer>
+    <p>Advisory text is from the <a href="https://github.com/github/advisory-database">GitHub Advisory Database</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, with changes: records are cut to a short excerpt. This product uses data from the NVD API but is not endorsed or certified by the NVD. Known-exploited data is from <a href="https://www.cisa.gov/known-exploited-vulnerabilities-catalog">CISA</a>.</p>
+    <p>The project is <a href="https://github.com/Jatzo/Otis-AI-Security-Advisor">on GitHub</a>. The red team report says what was attacked and what held.</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

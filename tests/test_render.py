@@ -89,7 +89,13 @@ def dump(page: Path, fragment: str, profile: Path) -> str:
         f"--user-data-dir={profile}", "--virtual-time-budget=4000", "--dump-dom", url,
     ]  # fmt: skip
     done = subprocess.run(  # noqa: S603 - a fixed browser path and a file URL we built
-        command, capture_output=True, text=True, timeout=90, check=False
+        command,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=90,
+        check=False,
     )
     return done.stdout
 

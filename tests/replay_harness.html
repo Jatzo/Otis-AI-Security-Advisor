@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Replay render harness</title>
+<!-- Test only. The real page has a policy that forbids inline script; the harness is not the page. -->
+<script src="APP_JS"></script>
+<script src="cases.js"></script>
+<script>
+  window.__pwned = 0;
+  window.addEventListener("DOMContentLoaded", function () {
+    var root = document.getElementById("views");
+    window.__cases.forEach(function (spec, index) {
+      var box = document.createElement("section");
+      box.id = "v" + index;
+      root.appendChild(box);
+      var data = spec.real ? window.__real : spec.data;
+      var question = spec.real ? window.__real.questions[spec.index] : spec.question;
+      if (spec.what === "list") window.OtisReplay.renderList(box, data, function () {});
+      else if (spec.what === "summary") window.OtisReplay.renderSummary(box, data.meta);
+      else if (spec.what === "systems") window.OtisReplay.renderSystems(box, data.meta);
+      else window.OtisReplay.renderQuestion(box, data, question);
+    });
+    setTimeout(function () {
+      document.documentElement.setAttribute("data-pwned", String(window.__pwned));
+      document.documentElement.setAttribute("data-done", "1");
+    }, 500);
+  });
+</script>
+</head>
+<body>
+<div id="views"></div>
+</body>
+</html>

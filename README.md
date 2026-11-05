@@ -59,7 +59,7 @@ A red team of 56 attack cases and a held-out 56, run against the unchanged syste
 | Test run: five rows, scored once | Done | [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
 | Red team: attacks run on the unchanged system | Run and written up. No defence tested with the model, so the phase stays open | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
 | Fixes for the checker faults and the red team findings | Checker faults fixed and judged on saved replies. One red team defence (the ingest check) measured without the model. The rest is unfunded | [Checker fixes](docs/checker-fixes.md), [Ingest check](docs/ingest-check.md), [Plan of action](docs/roadmap.md) |
-| Public demo | Not deployed. The page and handler are tested without a server | `src/advisor/web/` |
+| Public demo | Not deployed. A replay of the saved dev answers runs locally on a static page, with no model call. The live page and handler are tested without a server | [Replay demo](docs/replay-demo.md), `docs/demo/`, `src/advisor/web/` |
 | A second README framed for a security reader, and a one-page brief | Done | [For a security reader](docs/README-security.md), [One-page brief (PDF)](docs/brief.pdf) |
 
 ## 3. Problem and scope
