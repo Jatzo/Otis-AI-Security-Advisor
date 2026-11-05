@@ -52,6 +52,11 @@ PAIRS = {
     )
     for name, pattern in PATTERNS.items()
 }
+RANGE_AFTER = re.compile(
+    r"\s*(?:(?:before|prior to|up to|until|through|to|(?:and|or) (?:earlier|later|above|below))\b"
+    r"|[<>]=?|[\u2264\u2265])",
+    re.IGNORECASE,
+)
 ASKS_AFFECTED = re.compile(r"\b(?:affect(?:s|ed|ing)?|vulnerable)\b", re.IGNORECASE)
 NEGATED = re.compile(r"\b(?:not|unaffected|safe|immune)\b", re.IGNORECASE)
 ASKS_SAME = re.compile(r"\b(?:same|agree|agrees)\b", re.IGNORECASE)
@@ -62,11 +67,13 @@ NO_DISAGREEMENT = {"flagged": False, "values": {"github": None, "nvd": None}}
 
 def question_pairs(question: str) -> list[tuple[str, str]]:
     """Package-version pairs in the question: a package name, an optional "version", then a version
-    token. A bare version ("fixed in 2.3.29") is not a pair."""
+    token. A bare version ("fixed in 2.3.29") is not a pair, and neither is the start of a range
+    ("Django 5.1 before 5.1.4"), which describes an advisory and does not ask about one version."""
     found = []
     for name, pattern in PAIRS.items():
         for match in pattern.finditer(question):
-            found.append((name, match.group("version").removeprefix("v")))
+            if not RANGE_AFTER.match(question, match.end()):
+                found.append((name, match.group("version").removeprefix("v")))
     return found
 
 

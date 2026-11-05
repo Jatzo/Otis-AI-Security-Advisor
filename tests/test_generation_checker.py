@@ -251,6 +251,33 @@ def test_a_pair_is_a_package_then_an_optional_version_word_then_a_version():
     assert question_pairs("How many requests per second?") == []
 
 
+@pytest.mark.parametrize(
+    "described",
+    [
+        "Which advisory affects Django 3.0 before 3.0.5?",
+        "Which advisory affects Django 3.0 prior to 3.0.5?",
+        "Which advisory affects Django 3.0 up to 3.0.4?",
+        "Which advisory affects Django 3.0 through 3.0.4?",
+        "Which advisory affects Django 3.0 and earlier?",
+        "Which advisory affects Django 3.0 or later?",
+        "Which advisory affects Django 3.0 < 3.0.5?",
+    ],
+)
+def test_the_start_of_a_version_range_is_not_a_pair(described):
+    assert question_pairs(described) == []
+
+
+def test_a_question_that_describes_a_range_needs_no_affects_claim_but_a_pair_still_does():
+    claims = [{"kind": "package", "record": A, "package": "django"}]
+    described = run(
+        "Which advisory affects Django 3.0 before 3.0.5?", reply(ids=[A], claims=claims), GA
+    )
+    asked = run("Which advisory affects Django 3.0.4?", reply(ids=[A], claims=claims), GA)
+
+    assert described.verdict == "passed"
+    refused_by(asked, 7)
+
+
 def test_only_wording_that_asks_whether_something_is_affected_has_its_polarity_held():
     assert asks_if_affected("Would spring-webmvc 5.1.13 be vulnerable to CVE-2020-5398?")
     assert not asks_if_affected("Is django 3.0.4 safe from GHSA-aaaa-aaaa-aaaa?")
