@@ -246,6 +246,41 @@ def test_a_recheck_with_no_saved_replies_says_so_instead_of_writing_an_empty_fil
     assert not checked.exists()
 
 
+def test_a_recheck_can_write_elsewhere_but_never_under_the_name_of_a_checked_file(tmp_path):
+    default = tmp_path / "generation-dev-checked.jsonl"
+    default.write_text("committed\n", encoding="utf-8")
+    elsewhere = tmp_path / "generation-dev-checked-phase6.jsonl"
+
+    assert runner.recheck_target(None, default) == default
+    assert runner.recheck_target(str(elsewhere), default) == elsewhere
+    for taken in (
+        default,
+        tmp_path / "test-generation-checked.jsonl",
+        tmp_path / "x-checked.jsonl",
+    ):
+        with pytest.raises(SystemExit):
+            runner.recheck_target(str(taken), default)
+    assert default.read_text(encoding="utf-8") == "committed\n"
+
+
+def test_a_recheck_written_elsewhere_leaves_the_checked_file_byte_for_byte_alone(
+    tmp_path, monkeypatch
+):
+    raw, _ = start(tmp_path, monkeypatch, StubClient(GOOD))
+    lines = [json.loads(x) for x in raw.read_text(encoding="utf-8").splitlines()]
+    lines[0]["shown"] = [f"ghsa:{A}"]
+    raw.write_text(json.dumps(lines[0]) + "\n", encoding="utf-8")
+    checked = tmp_path / "generation-dev-checked.jsonl"
+    checked.write_bytes(b"an earlier system's file\r\n")
+    question = {**QUESTION, "question": f"Severity of {A}?"}
+
+    target = runner.recheck_target(str(tmp_path / "phase6.jsonl"), checked)
+    runner.recheck([question], UNITS, FACTS, raw, target)
+
+    assert checked.read_bytes() == b"an earlier system's file\r\n"
+    assert target.exists()
+
+
 def test_a_label_names_its_own_files_and_a_bad_label_or_a_smoke_label_is_refused():
     assert runner.result_paths(False)[0].name == "generation-dev-raw.jsonl"
     assert runner.result_paths(False, "v2")[0].name == "generation-v2-dev-raw.jsonl"

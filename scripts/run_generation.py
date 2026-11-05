@@ -17,6 +17,7 @@ Usage:
     python scripts/run_generation.py --runs 3 --max-spend 6 --phase-cap 12
     python scripts/run_generation.py --label v2 --runs 3 --max-spend 5 --phase-cap 12
     python scripts/run_generation.py --recheck [--smoke | --label v2]
+    python scripts/run_generation.py --recheck --recheck-to eval/results/NAME-phase6.jsonl
 """
 
 import argparse
@@ -118,6 +119,21 @@ def result_paths(smoke: bool, label: str | None = None, split: str = "dev") -> t
         else "generation-dev"
     )
     return RESULTS / f"{stem}-raw.jsonl", RESULTS / f"{stem}-checked.jsonl"
+
+
+def recheck_target(recheck_to: str | None, default: Path) -> Path:
+    """Where a recheck writes. By default it is the checked file next to the raw one. A path given
+    with --recheck-to must not end in -checked.jsonl, the name every committed checked file has, so
+    a recheck with a changed checker can never land over the file of an earlier system."""
+    if recheck_to is None:
+        return default
+    path = Path(recheck_to)
+    if path.name.endswith("-checked.jsonl"):
+        raise SystemExit(
+            f"{path.name} would take the name of a checked file. Give --recheck-to a name that "
+            "does not end in -checked.jsonl, such as generation-dev-checked-phase6.jsonl."
+        )
+    return path
 
 
 def dirty_problem(proof: dict) -> str | None:
@@ -269,10 +285,16 @@ def main() -> int:
     parser.add_argument("--phase-cap", type=float, help="dollars for the whole phase")
     parser.add_argument("--recheck", action="store_true", help="re-apply the checker; no API call")
     parser.add_argument(
+        "--recheck-to", help="with --recheck, write here and leave the checked file as it is"
+    )
+    parser.add_argument(
         "--dry-run", action="store_true", help="print the first request; call nothing"
     )
     args = parser.parse_args()
 
+    if args.recheck_to and not args.recheck:
+        print("--recheck-to only goes with --recheck.")
+        return 1
     questions = load_questions(args.split, args.smoke)
     raw_path, checked_path = result_paths(args.smoke, args.label, args.split)
     if args.split == "test":
@@ -297,6 +319,7 @@ def main() -> int:
 
     guard_freeze()
     if args.recheck:
+        checked_path = recheck_target(args.recheck_to, checked_path)
         counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path)
         if args.split == "dev":  # nothing about test outcomes is shown before all rows are in
             for (route, verdict), number in sorted(counts.items()):
