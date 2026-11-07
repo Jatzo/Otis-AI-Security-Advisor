@@ -16,6 +16,15 @@
 
 **[Open the replay demo](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/)**: the 40 saved dev answers, with what each checker did to them. It is a replay and calls no model.
 
+## At a glance
+
+- **What it is.** Otis answers questions about vulnerabilities in 18 open-source packages, from 1,164 GitHub and NVD records and the KEV entries that link to them. Keyword search finds the records, a model writes the answer, and code checks every claim against the store.
+- **What I found.** On the 110 test questions, scored once, the checked system was right on 66 (60%) and the model alone on 35 (32%). On the test run it invented no advisory or CVE ID in any row.
+- **Why it is not higher.** Retrieval is the limit. The right records reached the model for 53 of the 88 answerable questions, and the reply was right on 52 of those 53.
+- **What beat it.** Code that reads the form of the question got 99 of 110, and the model given a whole package got 42 of the 43 package questions. The questions are templated, so that says little about real ones.
+- **What I would not trust.** The checker refused 9 right answers, and a record that lies still passes it. No defence against my red team findings was tested with the model, and Test v2 is written and not scored.
+- **Try it.** [The replay](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) shows 40 saved dev answers. It is not a live demo.
+
 > **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no live demo. A replay of the saved dev answers is [published on GitHub Pages](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) and calls no model, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
 
 Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
