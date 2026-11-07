@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
   <title>Otis replay</title>
+  <link rel="icon" href="otis-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,7 +14,10 @@
     <p id="systems"></p>
   </header>
   <main>
-    <h1>Otis, replayed</h1>
+    <div class="brand">
+      <img src="otis-mark.svg" alt="" width="52" height="52">
+      <h1>Otis, replayed</h1>
+    </div>
     <p class="lead">Otis answers questions about vulnerabilities in 18 open-source packages from public advisories. Pick a question to see what the model said, what the checker did with it, the records it was shown, and the gold answer the question is scored against.</p>
     <div id="summary" class="summary"></div>
     <div class="layout">

@@ -14,19 +14,21 @@
 
 [![CI](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml/badge.svg)](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml)
 
-> **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no deployed demo: a replay of the saved dev answers runs locally, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
+**[Open the replay demo](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/)**: the 40 saved dev answers, with what each checker did to them. It is a replay and calls no model.
+
+> **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no live demo. A replay of the saved dev answers is [published on GitHub Pages](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) and calls no model, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
 
 Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
 
 <p align="center">
   <img src="docs/img/otis-demo.gif" alt="A question typed into the Otis page, followed by the answer, the facts the checker confirmed and the records that were read" width="760">
 </p>
-<p align="center"><sub>A recording of a saved answer from the dev run of 2 November 2026 (question <code>vr-005</code>), shown in a mockup of the planned page. The page is not deployed. The answer, the claims, the records and the 2.8 seconds and $0.012 come from that run, and the headline and the wording of the checks are drawn from its saved verdict and claims.</sub></p>
+<p align="center"><sub>A recording of a saved answer from the dev run of 2 November 2026 (question <code>vr-005</code>), shown in a mockup of the planned page. This mockup page is not deployed, and the replay below is the page that is. The answer, the claims, the records and the 2.8 seconds and $0.012 come from that run, and the headline and the wording of the checks are drawn from its saved verdict and claims.</sub></p>
 
 <p align="center">
   <img src="docs/img/replay-demo.gif" alt="The replay page scrolling through three saved questions: the banner, the three result cards for one question, the records the model was shown, then two more questions" width="760">
 </p>
-<p align="center"><sub>A recording of the replay demo in <code>docs/demo</code>, which is the real page and not a mockup. It shows three saved dev questions. <code>dg-003</code>: the Phase 5 checker refused a right answer and the Phase 6 checker lets it through. <code>lk-001</code>: both checkers still refuse. <code>ab-001</code>: the model rightly declines. No model is called. Run it with <code>python -m http.server -d docs/demo</code>, and see <a href="docs/replay-demo.md">the replay demo write-up</a>.</sub></p>
+<p align="center"><sub>A recording of the replay demo in <code>docs/demo</code>, which is the real page and not a mockup. It shows three saved dev questions. <code>dg-003</code>: the Phase 5 checker refused a right answer and the Phase 6 checker lets it through. <code>lk-001</code>: both checkers still refuse. <code>ab-001</code>: the model rightly declines. No model is called. It is <a href="https://jatzo.github.io/Otis-AI-Security-Advisor/demo/">published here</a>, or run it with <code>python -m http.server -d docs/demo</code>. See <a href="docs/replay-demo.md">the replay demo write-up</a>.</sub></p>
 
 ## Contents
 
@@ -64,7 +66,7 @@ I red-teamed it with 56 attack cases and a held-out 56, against the unchanged sy
 | Test run: five rows, scored once | Done | [Results](docs/test-results.md), [ADR 0007](docs/adr/0007-score-the-test-split-once-from-a-tagged-system.md) |
 | Red team: attacks run on the unchanged system | Run and written up. Closed with a limit: no defence tested with the model | [Report](docs/red-team-report.md), [Results](docs/red-team-results.md), [ADR 0008](docs/adr/0008-judge-an-attack-by-what-the-reply-did.md) |
 | Fixes for the checker faults and the red team findings | Checker faults fixed and judged on saved replies. One red team defence (the ingest check) measured without the model. The rest is unfunded | [Checker fixes](docs/checker-fixes.md), [Ingest check](docs/ingest-check.md), [Plan of action](docs/roadmap.md) |
-| Public demo | Not deployed, and closed that way under ADR 0014. A replay of the saved dev answers runs locally on a static page, with no model call. The live page and handler are tested without a server | [Replay demo](docs/replay-demo.md), `docs/demo/`, `src/advisor/web/` |
+| Public demo | No live demo, and closed that way under ADR 0014. A replay of the saved dev answers is published on GitHub Pages as a static page, with no model call ([ADR 0015](docs/adr/0015-publish-the-replay-demo-on-github-pages.md)). The live page and handler are tested without a server | [Replay](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/), [Replay demo write-up](docs/replay-demo.md), `docs/demo/`, `src/advisor/web/` |
 | A second README framed for a security reader, and a one-page brief | Done | [For a security reader](docs/README-security.md), [One-page brief (PDF)](docs/brief.pdf) |
 | The project as a whole | Closed as a portfolio piece on 5 November 2026. What is not done is listed in section 10 and the ADR | [ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) |
 
@@ -246,6 +248,7 @@ CI runs the tests, ruff, the freeze check and a secret scan on every push. The s
 | [0012](docs/adr/0012-fix-three-checker-faults-and-accept-them-on-saved-replies.md) | Three checker faults are fixed and accepted on saved replies |
 | [0013](docs/adr/0013-move-the-default-system-tag-under-redteam-freeze-v3.md) | The default system tag was to move under a new freeze tag (rejected: the flag stays) |
 | [0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) | The project is closed as a portfolio piece, and where it misses the bar is recorded |
+| [0015](docs/adr/0015-publish-the-replay-demo-on-github-pages.md) | The replay demo is published on GitHub Pages, with no live model |
 
 ## 13. Data and licence
 

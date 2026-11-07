@@ -1,6 +1,6 @@
 # Replay demo: saved answers on a static page
 
-This is a replay. No model is called, nothing is fetched and nothing you do on the page is sent anywhere. It replaces the live demo that [demo-plan.md](demo-plan.md) described, which needs money for the model and a server, and Otis is a portfolio project and not a product.
+This is a replay, published at https://jatzo.github.io/Otis-AI-Security-Advisor/demo/. No model is called, nothing is fetched and nothing you do on the page is sent anywhere. It replaces the live demo that [demo-plan.md](demo-plan.md) described, which needs money for the model and a server, and Otis is a portfolio project and not a product.
 
 ## Run it
 
@@ -34,7 +34,7 @@ Run 1 scores 31 of 40 for the model alone, 27 for the Phase 5 checker and 30 for
 - **Dev questions only.** These are the dev questions, the set the system was tuned on. The test results are in [test-results.md](test-results.md). The Phase 6 figure comes from fixing faults seen on dev and test rows, so it is a repair figure ([checker-fixes.md](checker-fixes.md)).
 - **Saved answers only.** A question you type is not answered. The page holds the 40 saved questions, and one run of the three.
 - **Cut records.** Each is cut to a header and a short excerpt, with a link to the source. The advisory text is CC BY 4.0 from the GitHub Advisory Database, with that change, and NVD and CISA data carry the notices the page footer gives.
-- **Local only.** It is not deployed. Publishing it, for example on GitHub Pages, is a repository setting and a public page, and has not been done.
+- **A replay, not a live service.** It is published on GitHub Pages from the `docs` folder of `main` ([ADR 0015](adr/0015-publish-the-replay-demo-on-github-pages.md)), and no model sits behind it. Nothing you type is answered.
 
 ## How it was kept safe
 
