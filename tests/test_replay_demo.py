@@ -132,6 +132,20 @@ def test_the_demo_shows_the_dev_split_only(data):
     assert tokens <= dev, sorted(tokens - dev)
 
 
+def test_the_data_file_holds_no_email_address():
+    text = DATA.read_text(encoding="utf-8")
+    assert build_replay.EMAIL.findall(text) == []
+
+
+def test_cut_removes_an_email_address_and_leaves_a_package_pin_alone():
+    cut = build_replay.cut
+    assert cut("Credits: Researcher: A. Person (a.person@example.com) found it", 200) == (
+        "Credits: Researcher: A. Person ([email removed]) found it"
+    )
+    pins = "Upgrade to lodash@4.17.21, @types/node@20.1.0 or spring-webmvc@5.2.20.RELEASE"
+    assert cut(pins, 200) == pins
+
+
 def test_the_data_file_and_the_page_together_stay_under_two_megabytes():
     assert DATA.stat().st_size < MAX_BYTES
     assert sum(p.stat().st_size for p in DEMO.rglob("*") if p.is_file()) < MAX_BYTES

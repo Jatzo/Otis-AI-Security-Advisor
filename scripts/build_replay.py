@@ -14,6 +14,7 @@ Usage:
 
 import argparse
 import json
+import re
 import sqlite3
 import subprocess
 import sys
@@ -33,6 +34,9 @@ RUN_DATE = "2 November 2026"
 SYSTEMS = ("phase5-system-v1", "phase6-system-v1")
 EXCERPT = 240
 HEADER = 320
+# The domain must start with a letter and end in letters, so a package pin such as lodash@4.17.21
+# or spring-webmvc@5.2.20.RELEASE is left alone.
+EMAIL = re.compile(r"[\w.+-]+@[A-Za-z][\w-]*(?:\.[\w-]+)*\.[A-Za-z]{2,}")
 CLAIM_FIELDS = ("record", "source", "package", "version", "affected", "cve", "listed", "label",
                 "cvss3", "date")  # fmt: skip
 
@@ -53,7 +57,9 @@ def git(*args: str) -> str:
 
 
 def cut(text: str, limit: int) -> str:
-    text = " ".join(text.split())
+    """Text on one line, shortened to `limit`. An email address in a record, such as a credited
+    researcher's, is replaced first: the page is public and adds nothing by repeating it."""
+    text = " ".join(EMAIL.sub("[email removed]", text).split())
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
 
 
