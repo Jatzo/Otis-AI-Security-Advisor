@@ -14,7 +14,7 @@
 
 [![CI](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml/badge.svg)](https://github.com/Jatzo/Otis-AI-Security-Advisor/actions/workflows/ci.yml)
 
-> **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no deployed demo: a replay of the saved dev answers runs locally, and the planned interface is a mockup. [Section 10](#10-plan-of-action) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
+> **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no deployed demo: a replay of the saved dev answers runs locally, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
 
 Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
 
@@ -34,12 +34,12 @@ Otis answers questions about vulnerabilities in 18 open-source packages from pub
 2. [Where the project stands](#2-where-the-project-stands)
 3. [Problem and scope](#3-problem-and-scope)
 4. [The system](#4-the-system)
-5. [How the evaluation was kept honest](#5-how-the-evaluation-was-kept-honest)
+5. [How I kept the evaluation honest](#5-how-i-kept-the-evaluation-honest)
 6. [Results](#6-results)
 7. [Design decisions and trade-offs](#7-design-decisions-and-trade-offs)
 8. [Security evaluation](#8-security-evaluation)
-9. [Threats to validity and limitations](#9-threats-to-validity-and-limitations)
-10. [Plan of action](#10-plan-of-action)
+9. [What I would not trust](#9-what-i-would-not-trust)
+10. [What is not done](#10-what-is-not-done)
 11. [Reproducing it](#11-reproducing-it)
 12. [Repository map and decision records](#12-repository-map-and-decision-records)
 13. [Data and licence](#13-data-and-licence)
@@ -88,7 +88,7 @@ The corpus is deliberately small: 18 packages (9 PyPI, 6 npm and 3 Maven, the Ma
 
 The design principle is stated once, in [ADR 0001](docs/adr/0001-retrieval-answers-code-checks.md): retrieval and the model answer, and deterministic code only checks and grades. The comparison rows exist to hold that choice to account. Structured lookups, which answer by code alone, and a whole-package prompt are both measured, because if either beat the system that is a finding to report.
 
-## 5. How the evaluation was kept honest
+## 5. How I kept the evaluation honest
 
 ![The question set, the dev and test split, and the seven steps of the evaluation trail](docs/img/evaluation-trail.svg)
 
@@ -177,7 +177,7 @@ Advisory text is public and can be written by outsiders. Otis reads it and shows
 
 The full account, with how each result was judged and the faults in my own instruments, is the [red team report](docs/red-team-report.md).
 
-## 9. Threats to validity and limitations
+## 9. What I would not trust
 
 - **The questions are templated.** Structured lookups score 90% because code can read the form of the question. That shows how much of this set needs no model. It does not show the same of real questions.
 - **One run, one model, 110 questions.** Intervals are wide and the table gives them. A single reply moves a rate.
@@ -188,7 +188,7 @@ The full account, with how each result was judged and the faults in my own instr
 - **The red team is small and mine.** 56 cases a set, written once. A zero means not found, not safe. The "obeyed" check was changed after reading round 1, and the held-out set is the test of that.
 - **Snapshot, not a live feed.** The corpus is as of 1 November 2026. CVEs are revised after publication. The planned page shows the snapshot date, and the system does not yet record which snapshot an answer used.
 
-## 10. Plan of action
+## 10. What is not done
 
 ![A four-stage plan: free work, dev only, score once, red team round two](docs/img/roadmap.svg)
 
@@ -244,7 +244,7 @@ CI runs the tests, ruff, the freeze check and a secret scan on every push. The s
 | [0010](docs/adr/0010-fix-the-poison-builder-under-a-new-tag-and-judge-the-saved-replies-again.md) | The poison builder is fixed under a new tag and the saved replies are judged again |
 | [0011](docs/adr/0011-check-fixed-versions-against-release-lists-and-a-second-source.md) | Fixed versions are checked against release lists and a second source |
 | [0012](docs/adr/0012-fix-three-checker-faults-and-accept-them-on-saved-replies.md) | Three checker faults are fixed and accepted on saved replies |
-| [0013](docs/adr/0013-move-the-default-system-tag-under-redteam-freeze-v3.md) | The default system tag moves under a new freeze tag (proposed, not accepted) |
+| [0013](docs/adr/0013-move-the-default-system-tag-under-redteam-freeze-v3.md) | The default system tag was to move under a new freeze tag (rejected: the flag stays) |
 | [0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) | The project is closed as a portfolio piece, and where it misses the bar is recorded |
 
 ## 13. Data and licence

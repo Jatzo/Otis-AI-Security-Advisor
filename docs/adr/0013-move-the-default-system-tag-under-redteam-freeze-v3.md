@@ -1,7 +1,16 @@
 # 0013: Move the default system tag to phase6-system-v1 under redteam-freeze-v3
 
-- Status: proposed (a draft: the change, the tag and the push have not been made)
+- Status: rejected on 7 November 2026 (see Outcome: the Decision section below is the option I did not take)
 - Date: 2026-11-05
+
+## Outcome (7 November 2026)
+I rejected this ADR. [ADR 0014](0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) left the question open on 5 November. I am taking the first alternative below: keep passing `--system-tag phase6-system-v1`. The Decision section is the option I did not take, and I have left it as written so the record shows what I weighed.
+
+- The project is closed and no paid run is funded, with about $0.74 of credit left. Nothing will start from the documented command soon.
+- A pushed `redteam-freeze-v3` could never be moved or deleted. It would be the fourth red team freeze tag in three days, for one default that a flag already covers.
+- The gate already fails safe. If the flag is forgotten it refuses, so the failure is loud and not a wrong run.
+- I will revisit this only if the system changes again.
+- Nothing was changed, tagged or pushed for this ADR. "Rejected" is not in the [template](0000-template.md) list of statuses. I used it on purpose, because "superseded" would be untrue, and I did not edit the template.
 
 ## Context
 The red team runner checks before any paid run that the system code matches a named system tag ([run_redteam.py](../../scripts/run_redteam.py), `gate_problems`). Its default is `SYSTEM_TAG = "phase5-system-v1"`. [ADR 0012](0012-fix-three-checker-faults-and-accept-them-on-saved-replies.md) changed `checker.py`, which is system code, and the system tag `phase6-system-v1` was made on `8560454` and pushed. Since then the default fails: the gate says the system code differs from `phase5-system-v1`.
