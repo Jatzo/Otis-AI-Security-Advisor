@@ -29,7 +29,10 @@ DEMO = ROOT / "docs" / "demo"
 DATA = DEMO / "data.json"
 HARNESS = Path(__file__).parent / "replay_harness.html"
 RESULTS = ROOT / "eval" / "results"
-MAX_BYTES = 2 * 1024 * 1024
+DATA_MAX_BYTES = 2 * 1024 * 1024
+# The live search ships the corpus text (about 1.8 MB), so the whole page may be larger than the
+# data file. docs/live-search-plan.md sets the cap at 5 MB.
+PAGE_MAX_BYTES = 5 * 1024 * 1024
 
 _loaded = importlib.util.spec_from_file_location(
     "build_replay", ROOT / "scripts" / "build_replay.py"
@@ -146,9 +149,9 @@ def test_cut_removes_an_email_address_and_leaves_a_package_pin_alone():
     assert cut(pins, 200) == pins
 
 
-def test_the_data_file_and_the_page_together_stay_under_two_megabytes():
-    assert DATA.stat().st_size < MAX_BYTES
-    assert sum(p.stat().st_size for p in DEMO.rglob("*") if p.is_file()) < MAX_BYTES
+def test_the_data_file_and_the_page_stay_under_their_size_caps():
+    assert DATA.stat().st_size < DATA_MAX_BYTES
+    assert sum(p.stat().st_size for p in DEMO.rglob("*") if p.is_file()) < PAGE_MAX_BYTES
 
 
 def test_the_totals_and_the_checked_replies_match_the_saved_results(data):

@@ -12,5 +12,8 @@ repos:
       - id: detect-private-key
       - id: check-added-large-files
         args: ["--maxkb=1024"]
+        # The live search ships the corpus text (about 1.8 MB), built by
+        # scripts/build_search_index.py. The cap stays at 1 MB for every other file.
+        exclude: ^docs/demo/corpus\.json$
       - id: end-of-file-fixer
       - id: trailing-whitespace
