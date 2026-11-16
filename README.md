@@ -25,7 +25,9 @@
 - **What I would not trust.** The checker refused 9 right answers, and a record that lies still passes it. No defence against my red team findings was tested with the model, and Test v2 is written and not scored.
 - **Try it.** [The replay](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) shows 40 saved dev answers. It is not a live demo.
 
-> **Closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no live demo. A replay of the saved dev answers is [published on GitHub Pages](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) and calls no model, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
+> **Reopened until 30 November 2026 for a bounded evidence round ([ADR 0016](docs/adr/0016-reopen-for-a-bounded-evidence-round.md), [the plan](docs/evidence-round-plan.md), [the ledger of looks at dev data](docs/ledger.md)).** The sections below describe the project as it stood when it was closed.
+>
+> **It was closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no live demo. A replay of the saved dev answers is [published on GitHub Pages](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) and calls no model, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
 
 Otis answers questions about vulnerabilities in 18 open-source packages from public advisory data (GitHub advisories, the National Vulnerability Database and CISA's Known Exploited Vulnerabilities list). Every answer cites the records it relied on. It says "I don't know" when the sources do not cover the question, and it shows where the sources disagree. The question the project asks is how far retrieval, a language model and a deterministic checker can be trusted for that job, and how to find out without fooling yourself.
 
@@ -77,7 +79,7 @@ I red-teamed it with 56 attack cases and a held-out 56, against the unchanged sy
 | Fixes for the checker faults and the red team findings | Checker faults fixed and judged on saved replies. One red team defence (the ingest check) measured without the model. The rest is unfunded | [Checker fixes](docs/checker-fixes.md), [Ingest check](docs/ingest-check.md), [Plan of action](docs/roadmap.md) |
 | Public demo | No live demo, and closed that way under ADR 0014. A replay of the saved dev answers is published on GitHub Pages as a static page, with no model call ([ADR 0015](docs/adr/0015-publish-the-replay-demo-on-github-pages.md)). The live page and handler are tested without a server | [Replay](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/), [Replay demo write-up](docs/replay-demo.md), `docs/demo/`, `src/advisor/web/` |
 | A second README framed for a security reader, and a one-page brief | Done | [For a security reader](docs/README-security.md), [One-page brief (PDF)](docs/brief.pdf) |
-| The project as a whole | Closed as a portfolio piece on 5 November 2026. What is not done is listed in section 10 and the ADR | [ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) |
+| The project as a whole | Closed as a portfolio piece on 5 November 2026, and reopened until 30 November 2026 for a bounded evidence round ([ADR 0016](docs/adr/0016-reopen-for-a-bounded-evidence-round.md)). What is not done is listed in section 10 and the ADR | [ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) |
 
 ## 3. Problem and scope
 
@@ -258,6 +260,7 @@ CI runs the tests, ruff, the freeze check and a secret scan on every push. The s
 | [0013](docs/adr/0013-move-the-default-system-tag-under-redteam-freeze-v3.md) | The default system tag was to move under a new freeze tag (rejected: the flag stays) |
 | [0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md) | The project is closed as a portfolio piece, and where it misses the bar is recorded |
 | [0015](docs/adr/0015-publish-the-replay-demo-on-github-pages.md) | The replay demo is published on GitHub Pages, with no live model |
+| [0016](docs/adr/0016-reopen-for-a-bounded-evidence-round.md) | The project is reopened until 30 November 2026 for a bounded evidence round |
 
 ## 13. Data and licence
 

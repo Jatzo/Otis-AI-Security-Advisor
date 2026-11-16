@@ -61,13 +61,13 @@ If 1 or 2 fails and I cannot fix it, I do not ship a search that claims to be th
 - It does not make Otis more accurate. It shows how the existing retrieval behaves.
 
 ## Files
-New: `scripts/build_search_index.py`, `docs/demo/search-core.js`, `docs/demo/corpus.json`, `tests/test_search_parity.py`, `tests/fixtures/search-golden.json`, a token fixture, a small Node test file, `docs/adr/0016-search-the-corpus-in-the-browser.md`. Changed: `docs/demo/index.html`, `app.js`, `style.css`, `data.json`, `tests/test_replay_demo.py`, `data/ATTRIBUTION.md`, `.github/workflows/ci.yml`, `docs/replay-demo.md`, `README.md`, `PROGRESS.md`, and `scripts/make_replay_gif.py`.
+New: `scripts/build_search_index.py`, `docs/demo/search-core.js`, `docs/demo/corpus.json`, `tests/test_search_parity.py`, `tests/fixtures/search-golden.json`, a token fixture, a small Node test file, `docs/adr/0017-search-the-corpus-in-the-browser.md`. Changed: `docs/demo/index.html`, `app.js`, `style.css`, `data.json`, `tests/test_replay_demo.py`, `data/ATTRIBUTION.md`, `.github/workflows/ci.yml`, `docs/replay-demo.md`, `README.md`, `PROGRESS.md`, and `scripts/make_replay_gif.py`.
 
 ## Steps, each ending at a gate
 1. Index builder, `corpus.json`, the token fixture and the tokeniser parity test. Gate: rule 1.
 2. The search port, the golden file and the ranking parity test. Gate: rules 2 and 3.
 3. The page, the hash link and the hostile-text tests, with the existing tests updated. Gate: rules 4 to 6.
-4. The Node step in CI, ADR 0016, the footer and attribution, the docs and the README line. Gate: rules 7 and 8.
+4. The Node step in CI, ADR 0017, the footer and attribution, the docs and the README line. Gate: rules 7 and 8.
 5. The GIF script gets a search scene. Its fixed pixel offsets (`CARDS`, `RECORDS`) are measured again, because a search box moves the layout.
 
 One commit per step, each with its tests. Pushes are spaced out, and I push each one on my own word.
