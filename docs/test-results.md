@@ -146,7 +146,7 @@ No claim failed outright. Every wrong reply the checker passed or refused was a 
 | Row | Spend | Per query | Median / p95 |
 |---|---|---|---|
 | Baseline | $0.60 | $0.0054 | 2.3 s / 9.2 s |
-| Structured | $0 | $0 | under 1 ms |
+| Structured | $0 | $0 | 0.2 ms / 3 ms |
 | Long context (43 questions) | $2.67 | $0.0621 | 4.7 s / 9.4 s |
 | System (retrieval included) | $3.33 | $0.0303 | 3.1 s / 6.3 s (about 13,300 tokens in, 360 out) |
 | Retrieval alone | $0 | | 2.6 ms / 4.4 ms |

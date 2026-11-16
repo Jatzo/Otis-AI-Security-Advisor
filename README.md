@@ -25,7 +25,7 @@
 - **What I would not trust.** The checker refused 9 right answers, and a record that lies still passes it. No defence against my red team findings was tested with the model, and Test v2 is written and not scored.
 - **Try it.** [The replay](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) shows 40 saved dev answers. It is not a live demo.
 
-> **Reopened until 30 November 2026 for a bounded evidence round ([ADR 0016](docs/adr/0016-reopen-for-a-bounded-evidence-round.md), [the plan](docs/evidence-round-plan.md), [the ledger of looks at dev data](docs/ledger.md)).** The sections below describe the project as it stood when it was closed.
+> **Reopened until 30 November 2026 for a bounded evidence round ([ADR 0016](docs/adr/0016-reopen-for-a-bounded-evidence-round.md), [the plan](docs/evidence-round-plan.md), [the ledger of looks at dev data](docs/ledger.md)). The plan has one post hoc amendment: a deeper keyword search was added as a candidate after I saw it do well on the already spent test split, so it is judged on a new dev set and not on that result.** The sections below describe the project as it stood when it was closed.
 >
 > **It was closed as a portfolio piece, with the limits named ([ADR 0014](docs/adr/0014-close-the-project-as-a-portfolio-piece-and-record-where-it-misses-the-bar.md)).** The data, the evaluation, the retrieval study, the answer checker, the single test run and the red team are done and written up. No defence against the red team findings has been tested with the model (one, an ingest check, was measured on saved evidence). Test v2 is written and frozen and has not been scored. There is no live demo. A replay of the saved dev answers is [published on GitHub Pages](https://jatzo.github.io/Otis-AI-Security-Advisor/demo/) and calls no model, and the planned interface is a mockup. [Section 10](#10-what-is-not-done) says what is left and what it would cost. The accuracy numbers below are a first measurement, not a finished system.
 
@@ -161,7 +161,7 @@ Measured on the test run, on this machine.
 | Baseline | $0.0054 | 2.3 s / 9.2 s |
 | System, retrieval included | $0.0303 (about 13,300 tokens in, 360 out) | 3.1 s / 6.3 s |
 | Whole package in the prompt, caching on | $0.0621 | 4.7 s / 9.4 s |
-| Structured lookups, no model | $0 | under 1 ms |
+| Structured lookups, no model | $0 | 0.2 ms / 3 ms |
 | Retrieval alone | $0 | 2.6 ms / 4.4 ms |
 
 Without prompt caching the whole-package row would have cost about $7 for its 43 questions. The whole test phase cost $6.81.
@@ -194,7 +194,7 @@ The full account, with how each result was judged and the faults in my own instr
 
 - **The questions are templated.** Structured lookups score 90% because code can read the form of the question. That shows how much of this set needs no model. It does not show the same of real questions.
 - **One run, one model, 110 questions.** Intervals are wide and the table gives them. A single reply moves a rate.
-- **I reviewed the gold and I built the system.** The gold was derived by separate code and checked against the raw files, and I read every gold row before the freeze, so independence is weaker than if a second person had written it. The hand spot-check was thin. A set of 24 marks agreed with the scorer on all 24, but they were made from the same store the checker reads and were not blind, so they are weak evidence. My own blind marks cover 5 of the 24, agree on 4, and say "can't tell" on 19 ([progress notes](PROGRESS.md)).
+- **I reviewed the gold and I built the system.** The gold was derived by separate code and checked against the raw files, and I read every gold row before the freeze, so independence is weaker than if a second person had written it. The hand spot-check was thin. A set of 24 marks agreed with the scorer on all 24, but they were made from the same store the checker reads and were not blind, so they are weak evidence. My own blind marks cover 4 of the 24, agree on 3, and say "can't tell" on 20 ([progress notes](PROGRESS.md)).
 - **The test split is spent.** The faults found cannot be fixed and re-scored on it. Improvement needs a new question set.
 - **The checker's faults are reported, not fixed.** Two are known (a version range read as a package pair, and a rule that refuses a true verdict) and neither was changed after the tag.
 - **Retrieval coverage fell from dev to test** (75% to 60%). Dev has only 32 answerable questions, and the drop is about what a small tuning set would be expected to give.
