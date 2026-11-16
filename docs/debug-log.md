@@ -110,3 +110,27 @@ Non-trivial bugs: what broke, how it was found, the fix, and the regression test
 **Fix.** Three small changes in `checker.py`, one commit each (ADR 0012). They were judged on the saved replies with no model call, against a baseline of what the Phase 5 checker did with every one, taken before the change. Six dev rows now ship, none that the scorer marks wrong, and no red team reply became a named or obeyed success. Two held-out red team replies that were refused now ship, and the acceptance rule was amended in the open for them.
 
 **Regression tests.** `test_a_no_may_list_the_advisory_it_says_does_not_apply_if_a_true_claim_backs_that` and its three neighbours, `test_a_verdict_on_a_disagreement_answer_is_held_to_flagged_as_the_question_asks_it` and its neighbours, `test_the_start_of_a_version_range_is_not_a_pair` and `test_a_question_that_describes_a_range_needs_no_affects_claim_but_a_pair_still_does`. Each neighbour is there to show the old strictness stays where it should. A `recheck_target` fault of my own (a relative path crashed after writing) was found when the fixes were first run, and `test_a_recheck_can_write_elsewhere_but_never_under_the_name_of_a_checked_file` covers it.
+
+## 2026-11-16: the Maven transitivity test failed, and Maven itself fails it
+
+**What broke.** `test_maven_order_is_transitive` failed on `'0'`, `'b'` and `'0b0'`: `compare_maven` said `0 < b` and `b < 0b0`, but `0 > 0b0`. It failed every time on my machine because Hypothesis replays a saved example, and it would have failed now and then in CI, because the test draws random versions. Nothing under `src/` had changed.
+
+**How it was found.** While committing an unrelated change. I ran the test alone and got the same counterexample. The question was whether my port was wrong or the test was asking for too much.
+
+**Investigation.** I ran Apache Maven 3.9.9's own `ComparableVersion` from the jar in `data/tools/` (SHA-1 `a130ec43...`, the one the question builder uses) on the three strings. It prints:
+
+```
+0 < b
+b < 0b0
+0 > 0b0
+```
+
+So real Maven has the same cycle, and the port is faithful. The cause is in Maven. Beside a sub-list, a word always sorts lower. Against the end of a version, a word such as `b` (an unknown word, like `sp`) sorts higher, and `0b0`, which parses to `[[beta]]`, sorts lower. Those two rules together give `0 < b < 0b0 < 0`. A second cycle of the same kind is `1-0`, `1-abc-b`, `1.0-0-snapshot` (the jar prints `<`, `<`, `>`). The leading word in `b` is not a real version, but the second cycle starts with a number, so the shape is not only an odd start.
+
+I then compared the port with the jar on 4,651,088 pairs. One side was every version-like string in the saved results, questions and gold files, the Maven release lists for the three packages, every NVD CPE version string and every Maven boundary in the OSV ranges (6,064 strings). The other side was the 767 distinct Maven boundaries and NVD version strings. They agreed on every pair, with no difference. `is_affected` and the integrity checks only ever compare a version with a boundary, so they cannot give a different answer from Maven's own on anything I have saved. No file under `eval/` or `eval-v2/` was touched, and both freeze guards pass.
+
+**Fix.** There is nothing to fix in `src/advisor/versions.py`. The test's property was too strong. It now runs on versions of the shape the corpus has: one to three dotted numbers, then up to two parts, each a word or a number from 1 up, joined by a hyphen or set against the last part (`1.0-rc-2`, `6.1.0rc3`). It leaves out three shapes, because Maven is not transitive on them: a version that starts with a word, a word after a dot (`1.1.b-rc`), and a 0 in the tail (`0b0`, `1-0`). The test also uses `derandomize=True` with 500 examples, so it gives the same answer on every machine. I checked the narrowed shape three ways: 300,000 random triples on the port, no violation; 320 versions from the same generator, every triple on the jar, no violation; and the port and the jar agreed on every pair of those 320. I did not prove the shape is closed under every spelling. A version outside it can still be non-transitive.
+
+**Regression test.** `test_maven_order_is_not_transitive_and_the_port_matches_maven_on_that` pins both cycles with the order the jar printed, so removing the cycle from the port, which would make it differ from Maven, fails a test. `test_maven_order_is_transitive_on_the_shapes_where_maven_is` is the narrowed property.
+
+**What I would not trust.** The agreement with the jar covers the strings I could collect, not every string a model might write. The port is a port of the same algorithm, so I expect it to match on any input, but I have only shown it on those pairs. And Maven's order is still not a clean total order outside the shape the test uses.

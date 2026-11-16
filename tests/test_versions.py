@@ -4,7 +4,7 @@ ComparableVersionTest, the SemVer ones from the semver.org precedence examples."
 import itertools
 
 import pytest
-from hypothesis import given
+from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from advisor import versions
@@ -209,8 +209,46 @@ def test_maven_comparison_reads_the_same_both_ways_round(a, b):
     assert compare_maven(a, b) == -compare_maven(b, a)
 
 
-@given(a=maven_versions, b=maven_versions, c=maven_versions)
-def test_maven_order_is_transitive(a, b, c):
+@pytest.mark.parametrize(
+    ("a", "b", "c"),
+    [
+        ("0", "b", "0b0"),
+        ("1-0", "1-abc-b", "1.0-0-snapshot"),
+    ],
+)
+def test_maven_order_is_not_transitive_and_the_port_matches_maven_on_that(a, b, c):
+    # Apache Maven 3.9.9's own ComparableVersion, run on these strings, prints a < b, b < c
+    # and a > c (see docs/debug-log.md). The cause is in Maven: a word beside a sub-list is
+    # always the lower of the two, but a word that sorts after a release (b, abc) is above
+    # the end of a version, and a sub-list holding a pre-release (0b0 is [[beta]]) is below it.
+    # The port must keep the cycle, because removing it would make it differ from Maven.
+    assert compare_maven(a, b) < 0
+    assert compare_maven(b, c) < 0
+    assert compare_maven(a, c) > 0
+
+
+MAVEN_WORDS = ["alpha", "beta", "rc", "snapshot", "sp", "abc", "b", "m"]
+# Versions of the shape the corpus has: one to three dotted numbers, then up to two parts,
+# each a word or a number from 1 up, joined by a hyphen or set straight against the last part
+# (1.0-rc-2, 6.1.0rc3). Left out, because Maven's order is not transitive on them: a version
+# that starts with a word, a word after a dot (1.1.b-rc), and a 0 in the tail (0b0, 1-0).
+maven_ordered_versions = st.builds(
+    lambda head, tail: ".".join(map(str, head)) + "".join(tail),
+    st.lists(st.integers(0, 12), min_size=1, max_size=3),
+    st.lists(
+        st.builds(
+            lambda glue, part: f"{glue}{part}",
+            st.sampled_from(["-", ""]),
+            st.one_of(st.integers(1, 12), st.sampled_from(MAVEN_WORDS)),
+        ),
+        max_size=2,
+    ),
+)
+
+
+@settings(derandomize=True, max_examples=500)
+@given(a=maven_ordered_versions, b=maven_ordered_versions, c=maven_ordered_versions)
+def test_maven_order_is_transitive_on_the_shapes_where_maven_is(a, b, c):
     if compare_maven(a, b) <= 0 and compare_maven(b, c) <= 0:
         assert compare_maven(a, c) <= 0
 
