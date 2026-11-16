@@ -199,7 +199,7 @@ The full account, with how each result was judged and the faults in my own instr
 - **The checker's faults are reported, not fixed.** Two are known (a version range read as a package pair, and a rule that refuses a true verdict) and neither was changed after the tag.
 - **Retrieval coverage fell from dev to test** (75% to 60%). Dev has only 32 answerable questions, and the drop is about what a small tuning set would be expected to give.
 - **The red team is small and mine.** 56 cases a set, written once. A zero means not found, not safe. The "obeyed" check was changed after reading round 1, and the held-out set is the test of that.
-- **Maven's own version order is not transitive.** Real Maven 3.9.9 puts `0` below `b`, `b` below `0b0` and `0` above `0b0`. My port gives the same cycle, and matched the Maven jar on 4,651,088 pairs of strings from the corpus. It does not claim more than that, and I have not shown it on strings a model might write ([debug log](docs/debug-log.md)).
+- **Maven's own version order is not transitive.** Real Maven 3.9.9 puts `0` below `b`, `b` below `0b0` and `0` above `0b0`. My port gives the same cycle, and matched the Maven jar on 4,651,088 pairs of strings from the corpus and on all 132,197 pairs among the released versions of the three Maven packages. I claim no more than that, and I have not shown it on strings a model might write ([debug log](docs/debug-log.md)).
 - **Snapshot, not a live feed.** The corpus is as of 1 November 2026. CVEs are revised after publication. The planned page shows the snapshot date, and the system does not yet record which snapshot an answer used.
 
 ## 10. What is not done
