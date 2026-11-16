@@ -11,6 +11,7 @@ Usage:
     python scripts/make_demo_gif.py
 """
 
+import argparse
 import re
 import shutil
 import subprocess
@@ -45,8 +46,8 @@ def run_browser(exe: str, profile: Path, *args: str) -> subprocess.CompletedProc
     )
 
 
-def total_ticks(exe: str, work: Path) -> tuple[int, int]:
-    done = run_browser(exe, work / "p0", "--dump-dom", FRAME.as_uri() + "#tick=0")
+def total_ticks(exe: str, work: Path, frame: Path) -> tuple[int, int]:
+    done = run_browser(exe, work / "p0", "--dump-dom", frame.as_uri() + "#tick=0")
     total = re.search(r'data-total="(\d+)"', done.stdout)
     millis = re.search(r'data-tick-ms="(\d+)"', done.stdout)
     if not total or not millis:
@@ -54,26 +55,27 @@ def total_ticks(exe: str, work: Path) -> tuple[int, int]:
     return int(total.group(1)), int(millis.group(1))
 
 
-def shoot(exe: str, work: Path, tick: int) -> Path:
+def shoot(exe: str, work: Path, tick: int, frame: Path) -> Path:
     target = work / f"f{tick:04d}.png"
     run_browser(
         exe, work / f"p{tick % WORKERS}x{tick}", f"--screenshot={target}",
         f"--window-size={SIZE[0]},{SIZE[1]}", "--force-device-scale-factor=1",
-        FRAME.as_uri() + f"#tick={tick}",
+        frame.as_uri() + f"#tick={tick}",
     )  # fmt: skip
     if not target.exists():
         raise SystemExit(f"No screenshot for tick {tick}.")
     return target
 
 
-def main() -> int:
+def render(frame: Path, out: Path) -> None:
+    """Shoots every tick of a frame page and joins the shots into a GIF."""
     exe = browser()
     with tempfile.TemporaryDirectory() as folder:
         work = Path(folder)
-        total, millis = total_ticks(exe, work)
+        total, millis = total_ticks(exe, work, frame)
         print(f"{total} ticks of {millis} ms", flush=True)
         with ThreadPoolExecutor(WORKERS) as pool:
-            list(pool.map(lambda tick: shoot(exe, work, tick), range(total)))
+            list(pool.map(lambda tick: shoot(exe, work, tick, frame), range(total)))
         fps = 1000 / millis
         palette = work / "palette.png"
         pattern = str(work / "f%04d.png")
@@ -81,10 +83,18 @@ def main() -> int:
         subprocess.run([*base, "-vf", "palettegen=stats_mode=diff", str(palette)], check=True)  # noqa: S603
         subprocess.run(  # noqa: S603
             [*base, "-i", str(palette), "-lavfi",
-             "paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle", "-loop", "0", str(OUT)],
+             "paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle", "-loop", "0", str(out)],
             check=True,
         )  # fmt: skip
-    print(f"Wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size // 1024} KB)")
+    print(f"Wrote {out.relative_to(ROOT)} ({out.stat().st_size // 1024} KB)")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--frame", default=str(FRAME))
+    parser.add_argument("--out", default=str(OUT))
+    args = parser.parse_args()
+    render(Path(args.frame), Path(args.out))
     return 0
 
 

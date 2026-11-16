@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Otis search frame</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { width: 1000px; height: 740px; background: #FBF8F5; color: #2A1C16; font: 15px/1.55 "Segoe UI", system-ui, sans-serif; position: relative; overflow: hidden; }
+  .wrap { padding: 22px 34px 0; }
+  .head { display: flex; align-items: center; justify-content: space-between; height: 44px; margin-bottom: 16px; }
+  .head .left { display: flex; align-items: center; gap: 14px; }
+  .head img { height: 38px; }
+  .tag { font-size: 13px; color: #6B5B52; }
+  .date { font-size: 12px; color: #94867D; }
+  .ask { display: flex; gap: 8px; margin-bottom: 14px; }
+  .field { flex: 1; height: 42px; border-radius: 9px; border: 1px solid rgba(42,28,22,.18); background: #fff; padding: 0 14px; display: flex; align-items: center; font-size: 15px; white-space: pre; }
+  .caret { display: inline-block; width: 1.5px; height: 20px; background: #2A1C16; margin-left: 1px; }
+  .btn { height: 42px; width: 118px; border-radius: 9px; background: #8EC1EE; color: #2A1C16; font-weight: 600; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn.pressed { background: #77AEDD; transform: translateY(1px); }
+  .card { background: #fff; border: 1px solid rgba(42,28,22,.14); border-radius: 12px; padding: 14px 22px 8px; margin-bottom: 12px; }
+  h4 { font-size: 13px; font-weight: 600; margin: 0; display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 8px; }
+  h4 .note { font-weight: 400; color: #94867D; font-size: 12px; }
+  .hit { display: flex; gap: 12px; align-items: center; height: 40px; padding: 0 8px; border-top: 1px solid rgba(42,28,22,.1); font-size: 13.5px; margin: 0 -8px; border-radius: 6px; }
+  .hit.needed.on { background: rgba(142,193,238,.22); }
+  .rank { width: 18px; color: #94867D; font-size: 12px; text-align: right; flex: none; }
+  .src { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; background: #8EC1EE; flex: none; }
+  .src.nvd { background: #E89AA7; }
+  .id { font-weight: 600; white-space: nowrap; flex: none; width: 190px; }
+  .t { color: #6B5B52; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .need { font-size: 11px; font-weight: 600; color: #2A1C16; background: #8EC1EE; border-radius: 8px; padding: 2px 8px; flex: none; visibility: hidden; }
+  .hit.needed.on .need { visibility: visible; }
+  .score { width: 46px; text-align: right; font-variant-numeric: tabular-nums; color: #2A1C16; flex: none; }
+  .meta { font-size: 12px; color: #94867D; display: flex; justify-content: space-between; margin: 0; }
+  .work { display: flex; flex-direction: column; gap: 12px; }
+  .step { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .bar { height: 6px; border-radius: 3px; background: rgba(42,28,22,.1); overflow: hidden; }
+  .bar i { display: block; height: 100%; background: #8EC1EE; }
+  .dot { width: 18px; height: 18px; border-radius: 9px; border: 2px solid #8EC1EE; border-top-color: transparent; flex: none; }
+  .caption { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: #2A1C16; color: #F6EFEA; font-size: 12.5px; display: flex; align-items: center; justify-content: center; letter-spacing: .01em; }
+  .mouse { position: absolute; width: 22px; height: 22px; pointer-events: none; }
+</style>
+</head>
+<body data-total="0">
+<div class="wrap">
+  <div class="head">
+    <div class="left"><img src="../../brand/otis-lockup.svg" alt="Otis"><span class="tag">Search the advisories for 18 common packages</span></div>
+    <span class="date">Sources as of 1 November 2026</span>
+  </div>
+
+  <div class="ask">
+    <div class="field"><span id="typed"></span><span class="caret" id="caret"></span></div>
+    <div class="btn" id="btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2A1C16" stroke-width="2.6" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l5 5"/></svg>Search</div>
+  </div>
+
+  <div class="card work" id="work" style="display:none">
+    <div class="step"><span class="dot" id="d1"></span><span id="w1"></span></div>
+    <div class="bar"><i id="b1" style="width:0"></i></div>
+  </div>
+
+  <div class="card" id="results" style="display:none">
+    <h4><span id="title"></span><span class="note" id="note"></span></h4>
+    <div id="list"></div>
+  </div>
+  <p class="meta" id="foot" style="display:none"><span id="timing"></span><span>Keyword search over each record's header and body, best match first</span></p>
+</div>
+<div class="caption" id="caption"></div>
+<svg class="mouse" id="mouse" viewBox="0 0 24 24" style="left:520px;top:140px;display:none"><path d="M4 2 L4 19 L8.6 15 L11.6 22 L14.4 20.8 L11.4 14 L17.5 14 Z" fill="#2A1C16" stroke="#FFFFFF" stroke-width="1.4" stroke-linejoin="round"/></svg>
+
+<script src="search-data.js"></script>
+<script>
+(function () {
+  var S = window.SEARCH, QUESTION = S.query;
+  var TICK_MS = 80;
+
+  // Typing rhythm: about two characters in three land on a new tick, with a short hesitation after
+  // each word.
+  var seed = 11, typedAt = [], t = 6;
+  function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+  for (var i = 0; i < QUESTION.length; i++) {
+    typedAt.push(t);
+    t += rnd() < 0.65 ? 1 : 0;
+    if (QUESTION[i] === " ") t += rnd() < 0.5 ? 2 : 0;
+  }
+  var TYPING_END = t;
+  var MOVE = TYPING_END + 3, CLICK = MOVE + 7, WORK = CLICK + 3, RESULT = WORK + 9;
+  var ROW_EVERY = 3, ALL = RESULT + 10 * ROW_EVERY, MARK = ALL + 8;
+  var TOTAL = MARK + 3 * 4 + 46;
+
+  document.getElementById("caption").textContent =
+    "Results from the real keyword search over " + S.units.toLocaleString("en-GB") +
+    " records (dev question " + S.question + "). The interface is a mockup of the planned live search page.";
+  document.getElementById("title").textContent = "Top 10 of " + S.units.toLocaleString("en-GB") + " records";
+  document.getElementById("note").textContent = S.found + " of the " + S.needed + " records this question needs are in the top 10";
+  document.getElementById("timing").textContent = "Searched in " + S.ms + " ms";
+  document.getElementById("w1").textContent = "Searching " + S.units.toLocaleString("en-GB") + " records";
+
+  var list = document.getElementById("list");
+  S.results.forEach(function (r, i) {
+    var row = document.createElement("div");
+    row.className = "hit" + (r.needed ? " needed" : "");
+    row.id = "h" + i;
+    [["rank", String(i + 1)], ["src" + (r.source === "NVD" ? " nvd" : ""), r.source], ["id", r.id],
+     ["t", r.summary], ["need", "needed"], ["score", r.score.toFixed(2)]].forEach(function (cell) {
+      var el = document.createElement("span");
+      el.className = cell[0];
+      el.textContent = cell[1];
+      row.appendChild(el);
+    });
+    list.appendChild(row);
+  });
+
+  function ease(x) { x = Math.max(0, Math.min(1, x)); return 1 - Math.pow(1 - x, 3); }
+  function appear(el, tick, start, rise) {
+    var p = ease((tick - start) / 4);
+    el.style.opacity = p;
+    el.style.transform = "translateY(" + ((1 - p) * rise) + "px)";
+    el.style.visibility = tick >= start ? "visible" : "hidden";
+  }
+
+  window.draw = function (tick) {
+    var n = 0;
+    for (var i = 0; i < typedAt.length; i++) if (tick >= typedAt[i]) n = i + 1;
+    document.getElementById("typed").textContent = QUESTION.slice(0, n);
+    var typing = tick >= 6 && tick < TYPING_END + 3;
+    var blink = Math.floor(tick / 5) % 2 === 0;
+    document.getElementById("caret").style.visibility = (tick < CLICK && (typing || blink)) ? "visible" : "hidden";
+
+    var mouse = document.getElementById("mouse");
+    if (tick >= TYPING_END + 1 && tick < WORK + 2) {
+      var m = ease((tick - (TYPING_END + 1)) / 8);
+      mouse.style.display = "block";
+      // The Search button is 118px wide and ends at x 966, so its centre is at about (907, 103).
+      // The arrow's tip is about 4px in from its box corner, so the path ends with the tip there.
+      mouse.style.left = (600 + m * 298) + "px";
+      mouse.style.top = (230 - m * 132) + "px";
+    } else { mouse.style.display = "none"; }
+    document.getElementById("btn").className = "btn" + (tick >= CLICK && tick < CLICK + 3 ? " pressed" : "");
+
+    var working = tick >= WORK && tick < RESULT;
+    document.getElementById("work").style.display = working ? "flex" : "none";
+    if (working) {
+      document.getElementById("b1").style.width = (Math.min(1, (tick - WORK) / 8) * 100) + "%";
+      document.getElementById("d1").style.transform = "rotate(" + (tick * 40) + "deg)";
+    }
+
+    var done = tick >= RESULT;
+    document.getElementById("results").style.display = done ? "block" : "none";
+    document.getElementById("foot").style.display = done ? "flex" : "none";
+    if (done) {
+      S.results.forEach(function (r, i) {
+        var row = document.getElementById("h" + i);
+        appear(row, tick, RESULT + i * ROW_EVERY, 6);
+        var order = 0;
+        for (var j = 0; j < i; j++) if (S.results[j].needed) order++;
+        var shown = r.needed && tick >= MARK + order * 4;
+        row.className = "hit" + (r.needed ? " needed" : "") + (shown ? " on" : "");
+      });
+      appear(document.getElementById("foot"), tick, ALL, 4);
+    }
+    document.body.setAttribute("data-total", String(TOTAL));
+    document.body.setAttribute("data-tick-ms", String(TICK_MS));
+  };
+
+  var match = /tick=(\d+)/.exec(location.hash);
+  window.draw(match ? parseInt(match[1], 10) : 0);
+})();
+</script>
+</body>
+</html>
