@@ -15,9 +15,10 @@ A look is a run or analysis on development data whose outcome informed a decisio
 | 6 | 2 Nov 2026 | Long-context smoke test, 5 questions | Plumbing for the long-context row. | `873a049` |
 | 7 | 5 Nov 2026 | Checker fixes judged on the saved dev replies, with the red team replies | Three fixes accepted. Six dev rows recovered (30 of 40 in each run, was 27, 29 and 28). | `8fcde7e`, `060a8a8`, `d7aab24`, `f2866b1`, `b2f942c` |
 | 8 | 8 Nov 2026 | Top 10 over the published text compared with the unreplaced text, for the 40 questions | Two questions differ (`vr-001`, `ab-005`). This led to the proposed amendment of live-search rule 3. | `466527b` |
-| 9 | 8 Nov 2026 | Scan of every answerable dev question for how much of its evidence reached the top 10, to pick one for a demo GIF | Picked `vr-002`, where all 3 needed records are found. It was chosen to show a success, so it is not typical. The GIF says it is one dev question. | not committed yet (`scripts/make_search_gif.py`) |
+| 9 | 8 Nov 2026 | Scan of every answerable dev question for how much of its evidence reached the top 10, to pick one for a demo GIF | Picked `vr-002`, where all 3 needed records are found. It was chosen to show a success, so it is not typical. The GIF says it is one dev question. | `f55f94f` |
+| 10 | 16 Nov 2026 | R1's misses on the 32 answerable dev questions and the 88 answerable test questions, by type, by number of records, by whether the question names an ID and by whether it names one package, and the share of v1 questions that name a package. Descriptive, from saved results, no model. | Nothing chosen from it yet. It shows depth 20 holds all the evidence for 63 of 88 test questions against 53 at depth 10, and that sources-disagree questions gain nothing from depth. It led to Amendment 2 of the plan (post hoc): R1 at depth 20 became a candidate. | `docs/retrieval-descriptives.md` |
 
-**Nine looks at the v1 dev questions.** The model calls in them cost at least $8.12 (rows 1 to 5, without the long-context smoke test, whose cost is not in this sum). The other looks used no model.
+**Ten looks at the v1 dev questions.** The model calls in them cost at least $8.12 (rows 1 to 5, without the long-context smoke test, whose cost is not in this sum). The other looks used no model.
 
 ## Other choices fitted on data I had already seen
 These are not on the v1 dev questions, but they are choices made after looking at results, so a reader should know.
@@ -30,6 +31,7 @@ These are not on the v1 dev questions, but they are choices made after looking a
 
 ## Test splits
 - **Test v1 (110 questions)** was scored once, on 2 November 2026, from the tagged system `phase5-system-v1`. The faults I then read in the results (the pair rule, rule 7 and the `ids` use on a "no") were fixed afterwards and judged on saved dev and red team replies, not on test. That is why the split cannot be scored again.
+- **Test v1 retrieval at depth 20.** I read R1's saved results on the test split at depth 20 (63 of 88 against 53 at depth 10, `eval/results/test-retrieval.json`), and it led to Amendment 2 of the plan (post hoc): R1 at depth 20 became a candidate to be judged on Dev-R. The numbers were published from the start. No test result decides the outcome.
 - **Test v2 (109 questions)** is frozen and has not been scored by any system. Nothing here has been used to tune on it.
 
 ## What this ledger does not show

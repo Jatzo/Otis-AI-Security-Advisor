@@ -6,8 +6,10 @@ subtype they can still make about advisories that no earlier question is about. 
 ran short on some kinds, so the answer decides what mix Dev-R can have.
 
 Two pools are counted, each for every subtype on its own:
-- disjoint: advisories that no v1 question (dev or test) and no Test v2 question is about;
-- seen_dev: the same, but v1 dev advisories are allowed (the plan's flagged `seen_dev` slice).
+- disjoint: advisories that no v1 question (dev or test) and no Test v2 question is about, and that
+  the reserve split (eval-retrieval/split.json) left to Dev-R;
+- seen_dev: the same, plus the advisories only v1 dev used (the plan's flagged `seen_dev` slice).
+The reserve is never counted.
 
 Counting a subtype on its own gives the most the generator can make of it. Dev-R takes many
 subtypes at once and the same advisory cannot serve them all, so the final mix will be smaller.
@@ -63,6 +65,11 @@ def load_v2_builder():
 
 def read_rows(path: Path) -> list[dict]:
     return [json.loads(x) for x in path.read_text(encoding="utf-8").splitlines() if x.strip()]
+
+
+def split_ids() -> tuple[set[str], set[str]]:
+    split = json.loads((ROOT / "eval-retrieval" / "split.json").read_text(encoding="utf-8"))
+    return set(split["dev_r_eligible"]["ids"]), set(split["seen_dev_only"]["ids"])
 
 
 def used_subjects() -> tuple[set[str], set[str], set[str], set[str]]:
@@ -144,9 +151,11 @@ def main() -> int:
         jar_cache = ROOT / "data" / "tools" / "jar_cache.json"
         bq.load_jar_cache(world.jar, jar_cache)  # read only: it is never saved back
         test, dev, v2_subjects, texts = used_subjects()
+        eligible, dev_only = split_ids()
+        everything = set(world.adv)
         pools = {
-            "disjoint": test | dev | v2_subjects,
-            "seen_dev": test | v2_subjects,
+            "disjoint": everything - eligible,
+            "seen_dev": everything - eligible - dev_only,
         }
         table: dict[str, dict[str, int]] = {name: {} for name in pools}
         for name, banned in pools.items():
@@ -162,7 +171,9 @@ def main() -> int:
         "[the plan](evidence-round-plan.md), step 1, item 4.",
         "",
         f"The store holds {advisories} advisories with REST records. Subjects used by earlier "
-        f"questions: v1 test {len(test)}, v1 dev {len(dev)}, Test v2 {len(v2_subjects)}.",
+        f"questions: v1 test {len(test)}, v1 dev {len(dev)}, Test v2 {len(v2_subjects)}. After "
+        f"the reserve split, Dev-R may use {len(eligible)} advisories, plus {len(dev_only)} seen "
+        "only by v1 dev. The reserve is not counted.",
         "",
         "Most questions of each subtype the generator can still make on its own, with seed "
         f"{SEED}. The same advisory cannot serve every subtype, so a mix drawn from several will "

@@ -1,0 +1,187 @@
+{
+ "seed": 20261116,
+ "rows": [
+  {
+   "n": 1,
+   "id": "v2-ab-017",
+   "type": "abstain",
+   "ecosystem": "npm"
+  },
+  {
+   "n": 2,
+   "id": "v2-ab-012",
+   "type": "abstain",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 3,
+   "id": "v2-vr-022",
+   "type": "version",
+   "ecosystem": "Maven"
+  },
+  {
+   "n": 4,
+   "id": "v2-dg-012",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 5,
+   "id": "v2-vr-017",
+   "type": "version",
+   "ecosystem": "npm"
+  },
+  {
+   "n": 6,
+   "id": "v2-lk-021",
+   "type": "lookup",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 7,
+   "id": "v2-dg-019",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 8,
+   "id": "v2-dg-014",
+   "type": "disagree",
+   "ecosystem": "npm"
+  },
+  {
+   "n": 9,
+   "id": "v2-mh-017",
+   "type": "multihop",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 10,
+   "id": "v2-mh-007",
+   "type": "multihop",
+   "ecosystem": "Maven"
+  },
+  {
+   "n": 11,
+   "id": "v2-vr-001",
+   "type": "version",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 12,
+   "id": "v2-ab-014",
+   "type": "abstain",
+   "ecosystem": "Maven"
+  },
+  {
+   "n": 13,
+   "id": "v2-lk-013",
+   "type": "lookup",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 14,
+   "id": "v2-mh-023",
+   "type": "multihop",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 15,
+   "id": "v2-lk-016",
+   "type": "lookup",
+   "ecosystem": "Maven"
+  },
+  {
+   "n": 16,
+   "id": "v2-dg-009",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 17,
+   "id": "v2-ab-019",
+   "type": "abstain",
+   "ecosystem": "npm"
+  },
+  {
+   "n": 18,
+   "id": "v2-mh-001",
+   "type": "multihop",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 19,
+   "id": "v2-dg-005",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 20,
+   "id": "v2-mh-014",
+   "type": "multihop",
+   "ecosystem": "Maven"
+  },
+  {
+   "n": 21,
+   "id": "v2-lk-007",
+   "type": "lookup",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 22,
+   "id": "v2-dg-008",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 23,
+   "id": "v2-vr-019",
+   "type": "version",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 24,
+   "id": "v2-vr-021",
+   "type": "version",
+   "ecosystem": "npm"
+  },
+  {
+   "n": 25,
+   "id": "v2-vr-011",
+   "type": "version",
+   "ecosystem": "npm"
+  },
+  {
+   "n": 26,
+   "id": "v2-lk-012",
+   "type": "lookup",
+   "ecosystem": "Maven"
+  },
+  {
+   "n": 27,
+   "id": "v2-dg-016",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 28,
+   "id": "v2-lk-011",
+   "type": "lookup",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 29,
+   "id": "v2-dg-017",
+   "type": "disagree",
+   "ecosystem": "PyPI"
+  },
+  {
+   "n": 30,
+   "id": "v2-mh-021",
+   "type": "multihop",
+   "ecosystem": "Maven"
+  }
+ ],
+ "maven_rows": 7,
+ "disagree_rows": 8
+}
