@@ -7,6 +7,7 @@
  "docs/retrieval-results.md": "13a091fe11049bec7d5b24e25d914fe1f06df41e3bd5723467ead6f9c4e1cda7",
  "docs/roadmap.md": "6e6fae924fd3864fad465426f9dcdceb2d17753f607617154714410f4124c788",
  "docs/test-results.md": "574a4b0e5fbef7c93e6ecf818532bf24558389e83bfc8cf8c2b32455ea9a19d9",
+ "eval-retrieval/results/study2.json": "9cc4377073bb7aff245a309d1e283a42a864bf2c74813611629cb40916d54d5a",
  "eval-v2/questions.jsonl": "9a794e827a713a9d700b4df2bc761ce334dd81db1abe03758f4bd9ab1fdc6a89",
  "eval/questions.jsonl": "3e7552de1663c65a4375ffef25d5a5e79f46525da96278e1a9f677a3d0d5bae8",
  "eval/results/baseline-dev.scored.jsonl": "c52efd66db0832a4d38819d64aba6c37e781e7bd8b59c350e6e50fcdaded1653",

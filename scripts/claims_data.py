@@ -732,3 +732,62 @@ claim(
     ("$0.74", lambda: said(ROADMAP, r"about \$(\d+\.\d+) of credit left")),
     sources=(ROADMAP,),
 )
+
+# ---- Evidence round, step 2: the candidates on Dev-R --------------------------------------
+STUDY = "eval-retrieval/results/study2.json"
+
+
+def study() -> dict:
+    return doc(STUDY)["report"]
+
+
+def fresh_rows() -> list[dict]:
+    return [r for r in doc(STUDY)["rows"] if not r["seen_dev"]]
+
+
+def held_version_sets() -> list[dict]:
+    return [
+        r
+        for r in doc(STUDY)["rows"]
+        if r["seen_dev"] and r["type"] == "version" and r["subtype"] == "set"
+    ]
+
+
+claim(
+    "one candidate scored full marks on 179 questions",
+    ("179", lambda: study()["tests"]["R9"]["candidate_hits"]),
+    sources=(STUDY,),
+)
+claim(
+    "held all the evidence for 179 of the 179 main questions, "
+    "against 96 for the top 10 of keyword search",
+    ("179", lambda: study()["tests"]["R9"]["candidate_hits"]),
+    ("179", lambda: study()["primary_fresh"]),
+    ("96", lambda: study()["tests"]["R9"]["control_hits"]),
+    sources=(STUDY,),
+)
+claim(
+    "230 of the 231 questions that use fresh advisories name an ID",
+    ("230", lambda: sum(r["names_id"] for r in fresh_rows())),
+    ("231", lambda: len(fresh_rows())),
+    sources=(STUDY,),
+)
+claim(
+    "(3 of 6 against 5)",
+    ("3", lambda: sum(r["R9"]["all"] for r in held_version_sets())),
+    ("6", lambda: len(held_version_sets())),
+    ("5", lambda: sum(r["R1@10"]["all"] for r in held_version_sets())),
+    sources=(STUDY,),
+)
+claim(
+    "A deeper search added 3 questions and fails the plan's floor of 9",
+    ("3", lambda: study()["tests"]["R11"]["net"]),
+    ("9", lambda: study()["tests"]["R11"]["needed_net"]),
+    sources=(STUDY,),
+)
+claim(
+    "because 1 of the 179 names a package",
+    ("1", lambda: study()["r10_scoped_primary"]),
+    ("179", lambda: study()["primary_fresh"]),
+    sources=(STUDY,),
+)

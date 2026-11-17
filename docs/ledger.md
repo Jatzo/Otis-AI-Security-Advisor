@@ -20,6 +20,15 @@ A look is a run or analysis on development data whose outcome informed a decisio
 
 **Ten looks at the v1 dev questions.** The model calls in them cost at least $8.12 (rows 1 to 5, without the long-context smoke test, whose cost is not in this sum). The other looks used no model.
 
+## Looks at Dev-R
+Dev-R is the retrieval-only dev set built for the evidence round (243 questions, tag `eval-freeze-retrieval-v1`). Apart from one count of question text, set out below, nothing on it was looked at before the run.
+
+| # | Date | Look | What it informed | Commits |
+|---|---|---|---|---|
+| 1 | 17 Nov 2026 | Every candidate on Dev-R, once, with no model: R1 at depths 10, 15, 20 and 25, R9, R9x and R10, on all 243 questions. | Nothing adopted. R9 passed rules 1 to 3, on gold built from the links it follows, so its 179 of 179 is an upper bound. R11 gained 3 and failed the floor of 9. R10 was not judged, because 1 of the 179 main questions names a package. The dev generation check for R9 is not run and needs my yes and credit. | `64e826d`, `80bf709` |
+
+**One look at Dev-R.** Before the run I counted, from the question text alone, how many Dev-R questions name one package (44 of 243, and 8 of the 191 in the main group). That is not a retrieval result, and it is why R10 was expected to be descriptive. The results file was reformatted to fit the 1 MB limit on committed files. Its content is the same.
+
 ## Other choices fitted on data I had already seen
 These are not on the v1 dev questions, but they are choices made after looking at results, so a reader should know.
 | Date | Choice | Why it is listed | Where |
