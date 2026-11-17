@@ -1,0 +1,156 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/50547870?v=4",
+    "events_url": "https://api.github.com/users/RamonvdW/events{/privacy}",
+    "followers_url": "https://api.github.com/users/RamonvdW/followers",
+    "following_url": "https://api.github.com/users/RamonvdW/following{/other_user}",
+    "gists_url": "https://api.github.com/users/RamonvdW/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/RamonvdW",
+    "id": 50547870,
+    "login": "RamonvdW",
+    "node_id": "MDQ6VXNlcjUwNTQ3ODcw",
+    "organizations_url": "https://api.github.com/users/RamonvdW/orgs",
+    "received_events_url": "https://api.github.com/users/RamonvdW/received_events",
+    "repos_url": "https://api.github.com/users/RamonvdW/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/RamonvdW/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/RamonvdW/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/RamonvdW",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2023-24580",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-400",
+   "name": "Uncontrolled Resource Consumption"
+  }
+ ],
+ "description": "An issue was discovered in the Multipart Request Parser in Django 3.2 before 3.2.18, 4.0 before 4.0.10, and 4.1 before 4.1.7. Passing certain inputs (e.g., an excessive number of parts) to multipart forms could result in too many open files or memory exhaustion, and provided a potential vector for a denial-of-service attack.",
+ "epss": {
+  "percentage": 0.62575,
+  "percentile": 0.99082
+ },
+ "ghsa_id": "GHSA-2hrw-hx67-34x6",
+ "github_reviewed_at": "2023-02-15T17:42:14Z",
+ "html_url": "https://github.com/advisories/GHSA-2hrw-hx67-34x6",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-2hrw-hx67-34x6"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2023-24580"
+  }
+ ],
+ "nvd_published_at": "2023-02-15T01:15:00Z",
+ "published_at": "2023-02-15T03:30:47Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2023-24580",
+  "https://groups.google.com/forum/#!forum/django-announce",
+  "http://www.openwall.com/lists/oss-security/2023/02/14/1",
+  "https://github.com/django/django/commit/628b33a854a9c68ec8a0c51f382f304a0044ec92",
+  "https://github.com/django/django/commit/83f1ea83e4553e211c1c5a0dfc197b66d4e50432",
+  "https://github.com/django/django/commit/a665ed5179f5bbd3db95ce67286d0192eff041d8",
+  "https://lists.debian.org/debian-lts-announce/2023/02/msg00023.html",
+  "https://docs.djangoproject.com/en/4.1/releases/security",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/FKYVMMR7RPM6AHJ2SBVM2LO6D3NGFY7B",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HWY6DQWRVBALV73BPUVBXC3QIYUM24IK",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/LTZVAKU5ALQWOKFTPISE257VCVIYGFQI",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/VZS4G6NSZWPTVXMMZHJOJVQEPL3QTO77",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/YJB6FUBBLVKKG655UMTLQNN6UQ6EDLSP",
+  "https://security.netapp.com/advisory/ntap-20230316-0006",
+  "https://www.djangoproject.com/weblog/2023/feb/14/security-releases",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2023-13.yaml",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YJB6FUBBLVKKG655UMTLQNN6UQ6EDLSP",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VZS4G6NSZWPTVXMMZHJOJVQEPL3QTO77",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/LTZVAKU5ALQWOKFTPISE257VCVIYGFQI",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HWY6DQWRVBALV73BPUVBXC3QIYUM24IK",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/FKYVMMR7RPM6AHJ2SBVM2LO6D3NGFY7B",
+  "https://groups.google.com/forum/#%21forum/django-announce",
+  "https://github.com/advisories/GHSA-2hrw-hx67-34x6"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Resource exhaustion in Django",
+ "type": "reviewed",
+ "updated_at": "2025-03-19T15:39:42Z",
+ "url": "https://api.github.com/advisories/GHSA-2hrw-hx67-34x6",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "3.2.18",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 3.2a1, < 3.2.18"
+  },
+  {
+   "first_patched_version": "4.1.7",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.1a1, < 4.1.7"
+  },
+  {
+   "first_patched_version": "4.0.10",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 4.0a1, < 4.0.10"
+  }
+ ],
+ "withdrawn_at": null
+}

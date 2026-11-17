@@ -1,0 +1,6 @@
+{
+ "cves": [
+  "CVE-2022-22965"
+ ],
+ "note": "CVEs from the raw KEV catalogue (2026.10.30) that the gold relies on."
+}

@@ -1,0 +1,93 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/38575222?v=4",
+    "events_url": "https://api.github.com/users/MarkLee131/events{/privacy}",
+    "followers_url": "https://api.github.com/users/MarkLee131/followers",
+    "following_url": "https://api.github.com/users/MarkLee131/following{/other_user}",
+    "gists_url": "https://api.github.com/users/MarkLee131/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/MarkLee131",
+    "id": 38575222,
+    "login": "MarkLee131",
+    "node_id": "MDQ6VXNlcjM4NTc1MjIy",
+    "organizations_url": "https://api.github.com/users/MarkLee131/orgs",
+    "received_events_url": "https://api.github.com/users/MarkLee131/received_events",
+    "repos_url": "https://api.github.com/users/MarkLee131/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/MarkLee131/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/MarkLee131/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/MarkLee131",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2007-0404",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [],
+ "description": "`bin/compile-messages.py` in Django 0.95 does not quote argument strings before invoking the msgfmt program through the os.system function, which allows attackers to execute arbitrary commands via shell metacharacters in a (1) .po or (2) .mo file.",
+ "epss": {
+  "percentage": 0.01717,
+  "percentile": 0.77218
+ },
+ "ghsa_id": "GHSA-qc99-g3wm-hgxr",
+ "github_reviewed_at": "2024-05-14T17:18:37Z",
+ "html_url": "https://github.com/advisories/GHSA-qc99-g3wm-hgxr",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-qc99-g3wm-hgxr"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2007-0404"
+  }
+ ],
+ "nvd_published_at": "2007-01-23T00:28:00Z",
+ "published_at": "2022-05-01T17:44:04Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2007-0404",
+  "https://exchange.xforce.ibmcloud.com/vulnerabilities/31627",
+  "http://code.djangoproject.com/changeset/3592",
+  "https://github.com/django/django/commit/518d406e53",
+  "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=407519",
+  "https://github.com/django/django/commit/a132d411c6986418ee6c0edc331080aa792fee6e",
+  "https://github.com/advisories/GHSA-qc99-g3wm-hgxr"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django Arbitrary Code Execution",
+ "type": "reviewed",
+ "updated_at": "2024-06-12T17:32:13Z",
+ "url": "https://api.github.com/advisories/GHSA-qc99-g3wm-hgxr",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.0",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "= 0.95"
+  }
+ ],
+ "withdrawn_at": null
+}

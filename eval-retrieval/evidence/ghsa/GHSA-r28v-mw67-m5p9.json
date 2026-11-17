@@ -1,0 +1,124 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/16122665?v=4",
+    "events_url": "https://api.github.com/users/tdunlap607/events{/privacy}",
+    "followers_url": "https://api.github.com/users/tdunlap607/followers",
+    "following_url": "https://api.github.com/users/tdunlap607/following{/other_user}",
+    "gists_url": "https://api.github.com/users/tdunlap607/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/tdunlap607",
+    "id": 16122665,
+    "login": "tdunlap607",
+    "node_id": "MDQ6VXNlcjE2MTIyNjY1",
+    "organizations_url": "https://api.github.com/users/tdunlap607/orgs",
+    "received_events_url": "https://api.github.com/users/tdunlap607/received_events",
+    "repos_url": "https://api.github.com/users/tdunlap607/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/tdunlap607/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/tdunlap607/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/tdunlap607",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2018-7536",
+ "cvss": {
+  "score": 5.3,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 5.3,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+  },
+  "cvss_v4": {
+   "score": 6.9,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-185",
+   "name": "Incorrect Regular Expression"
+  }
+ ],
+ "description": "An issue was discovered in Django 2.0 before 2.0.3, 1.11 before 1.11.11, and 1.8 before 1.8.19. The `django.utils.html.urlize()` function was extremely slow to evaluate certain inputs due to catastrophic backtracking vulnerabilities in two regular expressions (only one regular expression for Django 1.8.x). The `urlize()` function is used to implement the urlize and urlizetrunc template filters, which were thus vulnerable.",
+ "epss": {
+  "percentage": 0.04554,
+  "percentile": 0.91539
+ },
+ "ghsa_id": "GHSA-r28v-mw67-m5p9",
+ "github_reviewed_at": "2020-06-16T21:53:19Z",
+ "html_url": "https://github.com/advisories/GHSA-r28v-mw67-m5p9",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-r28v-mw67-m5p9"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2018-7536"
+  }
+ ],
+ "nvd_published_at": "2018-03-09T20:29:00Z",
+ "published_at": "2019-01-04T17:50:07Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2018-7536",
+  "https://access.redhat.com/errata/RHSA-2018:2927",
+  "https://access.redhat.com/errata/RHSA-2019:0051",
+  "https://access.redhat.com/errata/RHSA-2019:0082",
+  "https://access.redhat.com/errata/RHSA-2019:0265",
+  "https://github.com/advisories/GHSA-r28v-mw67-m5p9",
+  "https://lists.debian.org/debian-lts-announce/2018/03/msg00006.html",
+  "https://www.debian.org/security/2018/dsa-4161",
+  "https://github.com/django/django/commit/1ca63a66ef3163149ad822701273e8a1844192c2",
+  "https://github.com/django/django/commit/abf89d729f210c692a50e0ad3f75fb6bec6fae16",
+  "https://github.com/django/django/commit/e157315da3ae7005fa0683ffc9751dbeca7306c8",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2018-5.yaml",
+  "https://usn.ubuntu.com/3591-1",
+  "https://web.archive.org/web/20200227131019/http://www.securityfocus.com/bid/103361",
+  "https://www.djangoproject.com/weblog/2018/mar/06/security-releases"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django denial-of-service possibility in urlize and urlizetrunc template filters",
+ "type": "reviewed",
+ "updated_at": "2024-09-18T19:45:20Z",
+ "url": "https://api.github.com/advisories/GHSA-r28v-mw67-m5p9",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.0.3",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.0a1, < 2.0.3"
+  },
+  {
+   "first_patched_version": "1.11.11",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.11a1, < 1.11.11"
+  },
+  {
+   "first_patched_version": "1.8.19",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.8a1, < 1.8.19"
+  }
+ ],
+ "withdrawn_at": null
+}

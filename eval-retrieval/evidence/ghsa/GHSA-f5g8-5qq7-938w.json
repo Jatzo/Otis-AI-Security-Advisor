@@ -1,0 +1,74 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2020-35653",
+ "cvss": {
+  "score": 7.1,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.1,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:H"
+  },
+  "cvss_v4": {
+   "score": 8.3,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:H/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-125",
+   "name": "Out-of-bounds Read"
+  }
+ ],
+ "description": "In Pillow before 8.1.0, PcxDecode has a buffer over-read when decoding a crafted PCX file because the user-supplied stride value is trusted for buffer calculations.",
+ "epss": {
+  "percentage": 0.0164,
+  "percentile": 0.75632
+ },
+ "ghsa_id": "GHSA-f5g8-5qq7-938w",
+ "github_reviewed_at": "2021-03-12T23:15:44Z",
+ "html_url": "https://github.com/advisories/GHSA-f5g8-5qq7-938w",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-f5g8-5qq7-938w"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2020-35653"
+  }
+ ],
+ "nvd_published_at": "2021-01-12T09:15:00Z",
+ "published_at": "2021-03-18T19:55:41Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2020-35653",
+  "https://pillow.readthedocs.io/en/stable/releasenotes/index.html",
+  "https://lists.debian.org/debian-lts-announce/2021/07/msg00018.html",
+  "https://github.com/python-pillow/Pillow/commit/2f409261eb1228e166868f8f0b5da5cda52e55bf",
+  "https://github.com/advisories/GHSA-f5g8-5qq7-938w",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2021-69.yaml",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/6BYVI5G44MRIPERKYDQEL3S3YQCZTVHE",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/BF553AMNNNBW7SH4IM4MNE4M6GNZQ7YD"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/python-pillow/Pillow",
+ "summary": "Pillow Out-of-bounds Read",
+ "type": "reviewed",
+ "updated_at": "2024-10-08T13:05:46Z",
+ "url": "https://api.github.com/advisories/GHSA-f5g8-5qq7-938w",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "8.1.0",
+   "package": {
+    "ecosystem": "pip",
+    "name": "pillow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 0, < 8.1.0"
+  }
+ ],
+ "withdrawn_at": null
+}

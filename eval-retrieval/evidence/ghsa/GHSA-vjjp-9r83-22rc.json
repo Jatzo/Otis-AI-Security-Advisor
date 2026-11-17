@@ -1,0 +1,84 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2013-4315",
+ "cvss": {
+  "score": 8.6,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 8.6,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-22",
+   "name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+  }
+ ],
+ "description": "Directory traversal vulnerability in Django 1.4.x before 1.4.7, 1.5.x before 1.5.3, and 1.6.x before 1.6 beta 3 allows remote attackers to read arbitrary files via a file path in the ALLOWED_INCLUDE_ROOTS setting followed by a `..` (dot dot) in a ssi template tag.",
+ "epss": {
+  "percentage": 0.03208,
+  "percentile": 0.87529
+ },
+ "ghsa_id": "GHSA-vjjp-9r83-22rc",
+ "github_reviewed_at": "2023-08-28T23:57:36Z",
+ "html_url": "https://github.com/advisories/GHSA-vjjp-9r83-22rc",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-vjjp-9r83-22rc"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2013-4315"
+  }
+ ],
+ "nvd_published_at": "2013-09-16T19:14:00Z",
+ "published_at": "2022-05-17T04:56:46Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2013-4315",
+  "http://lists.opensuse.org/opensuse-updates/2013-10/msg00015.html",
+  "http://rhn.redhat.com/errata/RHSA-2013-1521.html",
+  "http://www.debian.org/security/2013/dsa-2755",
+  "https://github.com/django/django/commit/87d2750b39f6f2d54b7047225521a44dcd37e896",
+  "https://github.com/django/django/commit/988b61c550d798f9a66d17ee0511fb7a9a7f33ca",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2013-20.yaml",
+  "https://www.djangoproject.com/weblog/2013/sep/10/security-releases-issued",
+  "https://github.com/advisories/GHSA-vjjp-9r83-22rc"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django Directory Traversal via ssi template tag",
+ "type": "reviewed",
+ "updated_at": "2024-09-18T18:57:03Z",
+ "url": "https://api.github.com/advisories/GHSA-vjjp-9r83-22rc",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.4.7",
+   "package": {
+    "ecosystem": "pip",
+    "name": "django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.4, < 1.4.7"
+  },
+  {
+   "first_patched_version": "1.5.3",
+   "package": {
+    "ecosystem": "pip",
+    "name": "django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.5, < 1.5.3"
+  }
+ ],
+ "withdrawn_at": null
+}

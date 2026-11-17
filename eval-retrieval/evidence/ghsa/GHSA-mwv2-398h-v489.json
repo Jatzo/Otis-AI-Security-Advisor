@@ -1,0 +1,92 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/38575222?v=4",
+    "events_url": "https://api.github.com/users/MarkLee131/events{/privacy}",
+    "followers_url": "https://api.github.com/users/MarkLee131/followers",
+    "following_url": "https://api.github.com/users/MarkLee131/following{/other_user}",
+    "gists_url": "https://api.github.com/users/MarkLee131/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/MarkLee131",
+    "id": 38575222,
+    "login": "MarkLee131",
+    "node_id": "MDQ6VXNlcjM4NTc1MjIy",
+    "organizations_url": "https://api.github.com/users/MarkLee131/orgs",
+    "received_events_url": "https://api.github.com/users/MarkLee131/received_events",
+    "repos_url": "https://api.github.com/users/MarkLee131/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/MarkLee131/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/MarkLee131/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/MarkLee131",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2007-0405",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [],
+ "description": "The LazyUser class in the AuthenticationMiddleware for Django 0.95 does not properly cache the user name across requests, which allows remote authenticated users to gain the privileges of a different user.",
+ "epss": {
+  "percentage": 0.01308,
+  "percentile": 0.70521
+ },
+ "ghsa_id": "GHSA-mwv2-398h-v489",
+ "github_reviewed_at": "2024-05-14T17:18:53Z",
+ "html_url": "https://github.com/advisories/GHSA-mwv2-398h-v489",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-mwv2-398h-v489"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2007-0405"
+  }
+ ],
+ "nvd_published_at": "2007-01-23T00:28:00Z",
+ "published_at": "2022-05-01T17:44:04Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2007-0405",
+  "https://exchange.xforce.ibmcloud.com/vulnerabilities/31628",
+  "http://code.djangoproject.com/changeset/3754",
+  "https://github.com/django/django/commit/3c5782287e",
+  "https://github.com/django/django/commit/e89f0a65581f82a5740bfe989136cea75d09cd67",
+  "https://github.com/advisories/GHSA-mwv2-398h-v489"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django Improper Access Control",
+ "type": "reviewed",
+ "updated_at": "2024-05-23T16:40:38Z",
+ "url": "https://api.github.com/advisories/GHSA-mwv2-398h-v489",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.0",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "= 0.95"
+  }
+ ],
+ "withdrawn_at": null
+}

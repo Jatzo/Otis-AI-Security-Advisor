@@ -1,0 +1,107 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/12853539?v=4",
+    "events_url": "https://api.github.com/users/jhutchings1/events{/privacy}",
+    "followers_url": "https://api.github.com/users/jhutchings1/followers",
+    "following_url": "https://api.github.com/users/jhutchings1/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jhutchings1/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/jhutchings1",
+    "id": 12853539,
+    "login": "jhutchings1",
+    "node_id": "MDQ6VXNlcjEyODUzNTM5",
+    "organizations_url": "https://api.github.com/users/jhutchings1/orgs",
+    "received_events_url": "https://api.github.com/users/jhutchings1/received_events",
+    "repos_url": "https://api.github.com/users/jhutchings1/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/jhutchings1/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jhutchings1/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/jhutchings1",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2016-9243",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+  },
+  "cvss_v4": {
+   "score": 8.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  }
+ ],
+ "description": "HKDF in cryptography before 1.5.3 returns an empty byte-string if used with a length less than algorithm.digest_size.",
+ "epss": {
+  "percentage": 0.03464,
+  "percentile": 0.88506
+ },
+ "ghsa_id": "GHSA-q3cj-2r34-2cwc",
+ "github_reviewed_at": "2022-06-17T21:29:04Z",
+ "html_url": "https://github.com/advisories/GHSA-q3cj-2r34-2cwc",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-q3cj-2r34-2cwc"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2016-9243"
+  }
+ ],
+ "nvd_published_at": "2017-03-27T17:59:00Z",
+ "published_at": "2022-05-17T02:51:56Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2016-9243",
+  "https://github.com/pyca/cryptography/issues/3211",
+  "https://github.com/pyca/cryptography/commit/b924696b2e8731f39696584d12cceeb3aeb2d874",
+  "https://cryptography.io/en/latest/changelog",
+  "http://www.openwall.com/lists/oss-security/2016/11/09/2",
+  "http://www.ubuntu.com/usn/USN-3138-1",
+  "https://cryptography.io/en/latest/changelog/#v1-5-3",
+  "https://github.com/advisories/GHSA-q3cj-2r34-2cwc",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/cryptography/PYSEC-2017-8.yaml",
+  "http://www.securityfocus.com/bid/94216",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/5R2ZOBMPWDFFHUZ6QOZZY36A6H5CGJXL",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/U23KDR2M2N7W2ZSREG63BVW7D4VC6CIZ",
+  "https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/WQ5G7KHKZC4SI23JE7277KZXM57GEQKT",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/5R2ZOBMPWDFFHUZ6QOZZY36A6H5CGJXL",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/U23KDR2M2N7W2ZSREG63BVW7D4VC6CIZ",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WQ5G7KHKZC4SI23JE7277KZXM57GEQKT"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/pyca/cryptography",
+ "summary": "Improper input validation in cryptography",
+ "type": "reviewed",
+ "updated_at": "2024-09-13T20:08:28Z",
+ "url": "https://api.github.com/advisories/GHSA-q3cj-2r34-2cwc",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.5.3",
+   "package": {
+    "ecosystem": "pip",
+    "name": "cryptography"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 1.5.3"
+  }
+ ],
+ "withdrawn_at": null
+}

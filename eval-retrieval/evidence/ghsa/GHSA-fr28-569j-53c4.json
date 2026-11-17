@@ -1,0 +1,127 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2020-24584",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+  },
+  "cvss_v4": {
+   "score": 6.9,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-276",
+   "name": "Incorrect Default Permissions"
+  }
+ ],
+ "description": "An issue was discovered in Django 2.2 before 2.2.16, 3.0 before 3.0.10, and 3.1 before 3.1.1 (when Python 3.7+ is used). The intermediate-level directories of the filesystem cache had the system's standard umask rather than 0o077.",
+ "epss": {
+  "percentage": 0.03297,
+  "percentile": 0.88511
+ },
+ "ghsa_id": "GHSA-fr28-569j-53c4",
+ "github_reviewed_at": "2021-03-13T00:36:35Z",
+ "html_url": "https://github.com/advisories/GHSA-fr28-569j-53c4",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-fr28-569j-53c4"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2020-24584"
+  }
+ ],
+ "nvd_published_at": "2020-09-01T13:15:00Z",
+ "published_at": "2021-03-18T20:30:01Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2020-24584",
+  "https://github.com/django/django/commit/1853724acaf17ed7414d54c7d2b5563a25025a71",
+  "https://groups.google.com/forum/#!topic/django-announce/Gdqn58RqIDM",
+  "https://groups.google.com/forum/#!topic/django-announce/zFCMdgUnutU",
+  "https://www.openwall.com/lists/oss-security/2020/09/01/2",
+  "https://www.oracle.com/security-alerts/cpujan2021.html",
+  "https://github.com/django/django/commit/2b099caa5923afa8cfb5f1e8c0d56b6e0e81915b",
+  "https://github.com/django/django/commit/a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f",
+  "https://github.com/django/django/commit/cdb367c92a0ba72ddc0cbd13ff42b0e6df709554",
+  "https://docs.djangoproject.com/en/dev/releases/security",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/F2ZHO3GZCJMP3DDTXCNVFV6ED3W64NAU",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/OLGFFLMF3X6USMJD7V5F5P4K2WVUTO3T",
+  "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZCRPQCBTV3RZHKVZ6K6QOAANPRZQD3GI",
+  "https://security.netapp.com/advisory/ntap-20200918-0004",
+  "https://usn.ubuntu.com/4479-1",
+  "https://www.djangoproject.com/weblog/2020/sep/01/security-releases",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2020-34.yaml",
+  "https://github.com/advisories/GHSA-fr28-569j-53c4"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django Incorrect Default Permissions",
+ "type": "reviewed",
+ "updated_at": "2024-11-18T16:26:11Z",
+ "url": "https://api.github.com/advisories/GHSA-fr28-569j-53c4",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.2.16",
+   "package": {
+    "ecosystem": "pip",
+    "name": "django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 2.2, < 2.2.16"
+  },
+  {
+   "first_patched_version": "3.0.10",
+   "package": {
+    "ecosystem": "pip",
+    "name": "django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 3.0, < 3.0.10"
+  },
+  {
+   "first_patched_version": "3.1.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 3.1, < 3.1.1"
+  }
+ ],
+ "withdrawn_at": null
+}

@@ -1,0 +1,75 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2014-1933",
+ "cvss": {
+  "score": 4.0,
+  "vector_string": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 4.0,
+   "vector_string": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+  },
+  "cvss_v4": {
+   "score": 5.1,
+   "vector_string": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-200",
+   "name": "Exposure of Sensitive Information to an Unauthorized Actor"
+  }
+ ],
+ "description": "The (1) JpegImagePlugin.py and (2) EpsImagePlugin.py scripts in Python Image Library (PIL) 1.1.7 and earlier and Pillow before 2.3.1 uses the names of temporary files on the command line, which makes it easier for local users to conduct symlink attacks by listing the processes.",
+ "epss": {
+  "percentage": 0.00451,
+  "percentile": 0.38955
+ },
+ "ghsa_id": "GHSA-r854-96gq-rfg3",
+ "github_reviewed_at": "2020-05-18T17:41:04Z",
+ "html_url": "https://github.com/advisories/GHSA-r854-96gq-rfg3",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-r854-96gq-rfg3"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2014-1933"
+  }
+ ],
+ "nvd_published_at": "2014-04-17T14:55:11Z",
+ "published_at": "2020-05-18T17:41:19Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2014-1933",
+  "https://github.com/python-imaging/Pillow/commit/4e9f367dfd3f04c8f5d23f7f759ec12782e10ee7",
+  "https://security.gentoo.org/glsa/201612-52",
+  "http://lists.opensuse.org/opensuse-updates/2014-05/msg00002.html",
+  "http://www.openwall.com/lists/oss-security/2014/02/10/15",
+  "http://www.openwall.com/lists/oss-security/2014/02/11/1",
+  "http://www.ubuntu.com/usn/USN-2168-1",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/pillow/PYSEC-2014-23.yaml",
+  "https://github.com/advisories/GHSA-r854-96gq-rfg3"
+ ],
+ "repository_advisory_url": null,
+ "severity": "medium",
+ "source_code_location": "https://github.com/python-imaging/Pillow",
+ "summary": "Pillow Temporary file name leakage",
+ "type": "reviewed",
+ "updated_at": "2025-04-13T23:22:52Z",
+ "url": "https://api.github.com/advisories/GHSA-r854-96gq-rfg3",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "2.3.1",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Pillow"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "< 2.3.1"
+  }
+ ],
+ "withdrawn_at": null
+}

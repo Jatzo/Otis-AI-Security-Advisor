@@ -1,0 +1,126 @@
+{
+ "advisories_used": 171,
+ "built": {
+  "disagree/band_agree": 25,
+  "disagree/band_differ": 18,
+  "disagree/fixed_agree": 25,
+  "disagree/fixed_differ": 3,
+  "disagree/one_silent": 25,
+  "lookup/fixed_id": 12,
+  "lookup/map_id": 8,
+  "lookup/severity_id": 8,
+  "multihop/a1_nvd_score": 35,
+  "multihop/a3_kev_pick": 2,
+  "multihop/b_intersect": 2,
+  "multihop/c_published": 25,
+  "multihop/c_score": 25,
+  "version/set": 6,
+  "version/verdict": 24
+ },
+ "dropped_by_reason": {
+  "REST range and OSV range events disagree": 1,
+  "REST range and OSV registry list disagree": 1,
+  "a list question repeated an earlier answer set": 5
+ },
+ "evidence_files_with_a_personal_email_replaced": 1,
+ "primary_stratum": 191,
+ "primary_unflagged": 179,
+ "seed": 20261116,
+ "seen_dev_questions": 12,
+ "sha256": {
+  "gold.jsonl": "f3359396005e8f9d3f027cf2c04a019f5ed2a06c32ddac5bc7983da929e97aeb",
+  "questions.jsonl": "642cd23404b8acb6f74d754121eded4e8db017a331d7a81dbb7041bc7e279457"
+ },
+ "shortfalls": {
+  "disagree/fixed_differ": 1,
+  "multihop/a2_kev_set": 1,
+  "multihop/b_intersect": 3
+ },
+ "slots": [
+  [
+   "disagree",
+   "fixed_differ",
+   4
+  ],
+  [
+   "disagree",
+   "fixed_agree",
+   25
+  ],
+  [
+   "disagree",
+   "one_silent",
+   25
+  ],
+  [
+   "disagree",
+   "band_differ",
+   18
+  ],
+  [
+   "disagree",
+   "band_agree",
+   25
+  ],
+  [
+   "multihop",
+   "a2_kev_set",
+   1
+  ],
+  [
+   "multihop",
+   "a3_kev_pick",
+   2
+  ],
+  [
+   "multihop",
+   "a1_nvd_score",
+   35
+  ],
+  [
+   "version",
+   "set",
+   6
+  ],
+  [
+   "multihop",
+   "b_intersect",
+   5
+  ],
+  [
+   "multihop",
+   "c_published",
+   25
+  ],
+  [
+   "multihop",
+   "c_score",
+   25
+  ],
+  [
+   "version",
+   "verdict",
+   24
+  ],
+  [
+   "lookup",
+   "fixed_id",
+   12
+  ],
+  [
+   "lookup",
+   "severity_id",
+   8
+  ],
+  [
+   "lookup",
+   "map_id",
+   8
+  ]
+ ],
+ "total": 243,
+ "uses": {
+  "1": 35,
+  "2": 136
+ }
+}

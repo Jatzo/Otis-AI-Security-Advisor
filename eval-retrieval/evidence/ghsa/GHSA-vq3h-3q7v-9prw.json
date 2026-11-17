@@ -1,0 +1,107 @@
+{
+ "comments": 0,
+ "credits": [],
+ "cve_id": "CVE-2014-3730",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+  },
+  "cvss_v4": {
+   "score": 7.7,
+   "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:P"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  }
+ ],
+ "description": "The `django.util.http.is_safe_url` function in Django 1.4 before 1.4.13, 1.5 before 1.5.8, 1.6 before 1.6.5, and 1.7 before 1.7b4 does not properly validate URLs, which allows remote attackers to conduct open redirect attacks via a malformed URL, as demonstrated by \"http:\\\\\\djangoproject.com.\"",
+ "epss": {
+  "percentage": 0.03149,
+  "percentile": 0.87501
+ },
+ "ghsa_id": "GHSA-vq3h-3q7v-9prw",
+ "github_reviewed_at": "2023-08-15T22:09:31Z",
+ "html_url": "https://github.com/advisories/GHSA-vq3h-3q7v-9prw",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-vq3h-3q7v-9prw"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2014-3730"
+  }
+ ],
+ "nvd_published_at": "2014-05-16T15:55:00Z",
+ "published_at": "2022-05-14T02:09:43Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2014-3730",
+  "http://lists.opensuse.org/opensuse-updates/2014-09/msg00023.html",
+  "http://ubuntu.com/usn/usn-2212-1",
+  "http://www.debian.org/security/2014/dsa-2934",
+  "http://www.openwall.com/lists/oss-security/2014/05/14/10",
+  "http://www.openwall.com/lists/oss-security/2014/05/15/3",
+  "https://github.com/django/django/commit/601107524523bca02376a0ddc1a06c6fdb8f22f3",
+  "https://github.com/django/django/commit/7feb54bbae3f637ab3c4dd4831d4385964f574df",
+  "https://github.com/django/django/commit/ad32c218850ad40972dcef57beb460f8c979dd6d",
+  "https://web.archive.org/web/20200228171223/http://www.securityfocus.com/bid/67410",
+  "https://github.com/pypa/advisory-database/tree/main/vulns/django/PYSEC-2014-20.yaml",
+  "https://www.djangoproject.com/weblog/2014/may/14/security-releases-issued",
+  "http://secunia.com/advisories/61281",
+  "https://github.com/advisories/GHSA-vq3h-3q7v-9prw"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/django/django",
+ "summary": "Django Allows Open Redirects",
+ "type": "reviewed",
+ "updated_at": "2024-09-18T19:43:08Z",
+ "url": "https://api.github.com/advisories/GHSA-vq3h-3q7v-9prw",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "1.4.13",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.4, < 1.4.13"
+  },
+  {
+   "first_patched_version": "1.5.8",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.5, < 1.5.8"
+  },
+  {
+   "first_patched_version": "1.6.5",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.6, < 1.6.5"
+  },
+  {
+   "first_patched_version": "1.7b4",
+   "package": {
+    "ecosystem": "pip",
+    "name": "Django"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 1.7a1, < 1.7b4"
+  }
+ ],
+ "withdrawn_at": null
+}

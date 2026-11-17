@@ -1,0 +1,149 @@
+{
+ "comments": 23,
+ "credits": [
+  {
+   "type": "reporter",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/171336104?v=4",
+    "events_url": "https://api.github.com/users/5yu4n/events{/privacy}",
+    "followers_url": "https://api.github.com/users/5yu4n/followers",
+    "following_url": "https://api.github.com/users/5yu4n/following{/other_user}",
+    "gists_url": "https://api.github.com/users/5yu4n/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/5yu4n",
+    "id": 171336104,
+    "login": "5yu4n",
+    "node_id": "U_kgDOCjZhqA",
+    "organizations_url": "https://api.github.com/users/5yu4n/orgs",
+    "received_events_url": "https://api.github.com/users/5yu4n/received_events",
+    "repos_url": "https://api.github.com/users/5yu4n/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/5yu4n/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/5yu4n/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/5yu4n",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/243116880?v=4",
+    "events_url": "https://api.github.com/users/rodrigobnogueira/events{/privacy}",
+    "followers_url": "https://api.github.com/users/rodrigobnogueira/followers",
+    "following_url": "https://api.github.com/users/rodrigobnogueira/following{/other_user}",
+    "gists_url": "https://api.github.com/users/rodrigobnogueira/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/rodrigobnogueira",
+    "id": 243116880,
+    "login": "rodrigobnogueira",
+    "node_id": "U_kgDODn2rUA",
+    "organizations_url": "https://api.github.com/users/rodrigobnogueira/orgs",
+    "received_events_url": "https://api.github.com/users/rodrigobnogueira/received_events",
+    "repos_url": "https://api.github.com/users/rodrigobnogueira/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/rodrigobnogueira/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/rodrigobnogueira/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/rodrigobnogueira",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "remediation_developer",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/663432?v=4",
+    "events_url": "https://api.github.com/users/bdraco/events{/privacy}",
+    "followers_url": "https://api.github.com/users/bdraco/followers",
+    "following_url": "https://api.github.com/users/bdraco/following{/other_user}",
+    "gists_url": "https://api.github.com/users/bdraco/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/bdraco",
+    "id": 663432,
+    "login": "bdraco",
+    "node_id": "MDQ6VXNlcjY2MzQzMg==",
+    "organizations_url": "https://api.github.com/users/bdraco/orgs",
+    "received_events_url": "https://api.github.com/users/bdraco/received_events",
+    "repos_url": "https://api.github.com/users/bdraco/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/bdraco/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/bdraco/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/bdraco",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2026-34525",
+ "cvss": {
+  "score": null,
+  "vector_string": null
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 0.0,
+   "vector_string": null
+  },
+  "cvss_v4": {
+   "score": 6.3,
+   "vector_string": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:L/SI:L/SA:N"
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-20",
+   "name": "Improper Input Validation"
+  },
+  {
+   "cwe_id": "CWE-444",
+   "name": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')"
+  }
+ ],
+ "description": "### Summary\n\nMultiple Host headers were allowed in aiohttp.\n\n### Impact\n\nMostly this doesn't affect aiohttp security itself, but if a reverse proxy is applying security rules depending on the target Host, it is theoretically possible that the proxy and aiohttp could process different host names, possibly resulting in bypassing a security check on the proxy and getting a request processed by aiohttp in a privileged sub app when using `Application.add_domain()`.\n\n-----\n\nPatch: https://github.com/aio-libs/aiohttp/commit/e00ca3cca92c465c7913c4beb763a72da9ed8349\nPatch: https://github.com/aio-libs/aiohttp/commit/53e2e6fc58b89c6185be7820bd2c9f40216b3000",
+ "epss": {
+  "percentage": 0.00299,
+  "percentile": 0.22596
+ },
+ "ghsa_id": "GHSA-c427-h43c-vf67",
+ "github_reviewed_at": "2026-04-01T21:49:45Z",
+ "html_url": "https://github.com/advisories/GHSA-c427-h43c-vf67",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-c427-h43c-vf67"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2026-34525"
+  }
+ ],
+ "nvd_published_at": "2026-04-01T21:17:00Z",
+ "published_at": "2026-04-01T21:49:45Z",
+ "references": [
+  "https://github.com/aio-libs/aiohttp/security/advisories/GHSA-c427-h43c-vf67",
+  "https://nvd.nist.gov/vuln/detail/CVE-2026-34525",
+  "https://github.com/aio-libs/aiohttp/commit/53e2e6fc58b89c6185be7820bd2c9f40216b3000",
+  "https://github.com/aio-libs/aiohttp/commit/e00ca3cca92c465c7913c4beb763a72da9ed8349",
+  "https://github.com/aio-libs/aiohttp/releases/tag/v3.13.4",
+  "https://github.com/advisories/GHSA-c427-h43c-vf67"
+ ],
+ "repository_advisory_url": "https://api.github.com/repos/aio-libs/aiohttp/security-advisories/GHSA-c427-h43c-vf67",
+ "severity": "medium",
+ "source_code_location": "https://github.com/aio-libs/aiohttp",
+ "summary": "AIOHTTP accepts duplicate Host headers",
+ "type": "reviewed",
+ "updated_at": "2026-04-01T21:49:46Z",
+ "url": "https://api.github.com/advisories/GHSA-c427-h43c-vf67",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "3.13.4",
+   "package": {
+    "ecosystem": "pip",
+    "name": "aiohttp"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": "<= 3.13.3"
+  }
+ ],
+ "withdrawn_at": null
+}

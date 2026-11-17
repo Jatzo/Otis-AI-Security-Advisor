@@ -1,0 +1,211 @@
+{
+ "comments": 0,
+ "credits": [
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/202851?v=4",
+    "events_url": "https://api.github.com/users/briandealwis/events{/privacy}",
+    "followers_url": "https://api.github.com/users/briandealwis/followers",
+    "following_url": "https://api.github.com/users/briandealwis/following{/other_user}",
+    "gists_url": "https://api.github.com/users/briandealwis/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/briandealwis",
+    "id": 202851,
+    "login": "briandealwis",
+    "node_id": "MDQ6VXNlcjIwMjg1MQ==",
+    "organizations_url": "https://api.github.com/users/briandealwis/orgs",
+    "received_events_url": "https://api.github.com/users/briandealwis/received_events",
+    "repos_url": "https://api.github.com/users/briandealwis/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/briandealwis/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/briandealwis/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/briandealwis",
+    "user_view_type": "public"
+   }
+  },
+  {
+   "type": "analyst",
+   "user": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/33311698?v=4",
+    "events_url": "https://api.github.com/users/sunSUNQ/events{/privacy}",
+    "followers_url": "https://api.github.com/users/sunSUNQ/followers",
+    "following_url": "https://api.github.com/users/sunSUNQ/following{/other_user}",
+    "gists_url": "https://api.github.com/users/sunSUNQ/gists{/gist_id}",
+    "gravatar_id": "",
+    "html_url": "https://github.com/sunSUNQ",
+    "id": 33311698,
+    "login": "sunSUNQ",
+    "node_id": "MDQ6VXNlcjMzMzExNjk4",
+    "organizations_url": "https://api.github.com/users/sunSUNQ/orgs",
+    "received_events_url": "https://api.github.com/users/sunSUNQ/received_events",
+    "repos_url": "https://api.github.com/users/sunSUNQ/repos",
+    "site_admin": false,
+    "starred_url": "https://api.github.com/users/sunSUNQ/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/sunSUNQ/subscriptions",
+    "type": "User",
+    "url": "https://api.github.com/users/sunSUNQ",
+    "user_view_type": "public"
+   }
+  }
+ ],
+ "cve_id": "CVE-2020-5398",
+ "cvss": {
+  "score": 7.5,
+  "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+ },
+ "cvss_severities": {
+  "cvss_v3": {
+   "score": 7.5,
+   "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
+  },
+  "cvss_v4": {
+   "score": 0.0,
+   "vector_string": null
+  }
+ },
+ "cwes": [
+  {
+   "cwe_id": "CWE-79",
+   "name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+  },
+  {
+   "cwe_id": "CWE-494",
+   "name": "Download of Code Without Integrity Check"
+  }
+ ],
+ "description": "In Spring Framework, versions 5.2.x prior to 5.2.3, versions 5.1.x prior to 5.1.13, and versions 5.0.x prior to 5.0.16, an application is vulnerable to a reflected file download (RFD) attack when it sets a \"Content-Disposition\" header in the response where the filename attribute is derived from user supplied input.",
+ "epss": {
+  "percentage": 0.88322,
+  "percentile": 0.99768
+ },
+ "ghsa_id": "GHSA-8wx2-9q48-vm9r",
+ "github_reviewed_at": "2020-01-21T20:49:17Z",
+ "html_url": "https://github.com/advisories/GHSA-8wx2-9q48-vm9r",
+ "identifiers": [
+  {
+   "type": "GHSA",
+   "value": "GHSA-8wx2-9q48-vm9r"
+  },
+  {
+   "type": "CVE",
+   "value": "CVE-2020-5398"
+  }
+ ],
+ "nvd_published_at": "2020-01-17T00:15:00Z",
+ "published_at": "2020-01-21T20:59:09Z",
+ "references": [
+  "https://nvd.nist.gov/vuln/detail/CVE-2020-5398",
+  "https://pivotal.io/security/cve-2020-5398",
+  "https://lists.apache.org/thread.html/rf8dc72b974ee74f17bce661ea7d124e733a1f4c4f236354ac0cf48e8@%3Ccommits.camel.apache.org%3E",
+  "https://lists.apache.org/thread.html/rc05acaacad089613e9642f939b3a44f7199b5537493945c3e045287f@%3Cdev.geode.apache.org%3E",
+  "https://lists.apache.org/thread.html/rdcaadaa9a68b31b7d093d76eacfaacf6c7a819f976b595c75ad2d4dc@%3Cdev.geode.apache.org%3E",
+  "https://www.oracle.com/security-alerts/cpuapr2020.html",
+  "https://lists.apache.org/thread.html/r0f3530f7cb510036e497532ffc4e0bd0b882940448cf4e233994b08b@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r3765353ff434fd00d8fa5a44734b3625a06eeb2a3fb468da7dfae134@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r7361bfe84bde9d233f9800c3a96673e7bd81207549ced0236f07a29d@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r7d5e518088e2e778928b02bcd3be3b948b59acefe2f0ebb57ec2ebb0@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r8736185eb921022225a83e56d7285a217fd83f5524bd64a6ca3bf5cc@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r9fb1ee08cf337d16c3364feb0f35a072438c1a956afd7b77859aa090@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r028977b9b9d44a89823639aa3296fb0f0cfdd76b4450df89d3c4fbbf@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r1bc5d673c01cfbb8e4a91914e9748ead3e5f56b61bca54d314c0419b@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r4b1886e82cc98ef38f582fef7d4ea722e3fcf46637cd4674926ba682@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r74f81f93a9b69140fe41e236afa7cbe8dfa75692e7ab31a468fddaa0@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/rab0de39839b4c208dcd73f01e12899dc453361935a816a784548e048@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/reaa8a6674baf2724b1b88a621b0d72d9f7a6f5577c88759842c16eb6@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r0f2d0ae1bad2edb3d4a863d77f3097b5e88cfbdae7b809f4f42d6aad@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r1accbd4f31ad2f40e1661d70a4510a584eb3efd1e32e8660ccf46676@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r2dfd5b331b46d3f90c4dd63a060e9f04300468293874bd7e41af7163@%3Cissues.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r4639e821ef9ca6ca10887988f410a60261400a7766560e7a97a22efc@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r6dac0e365d1b2df9a7ffca12b4195181ec14ff0abdf59e1fdb088ce5@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r8cc37a60a5056351377ee5f1258f2a4fdd39822a257838ba6bcc1e88@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/rb4d1fc078f086ec2e98b2693e8b358e58a6a4ef903ceed93a1ee2b18@%3Ccommits.karaf.apache.org%3E",
+  "https://lists.apache.org/thread.html/r712a6fce928e24e7b6ec30994a7e115a70f1f6e4cf2c2fbf0347ce46@%3Ccommits.servicecomb.apache.org%3E",
+  "https://lists.apache.org/thread.html/r881fb5a95ab251106fed38f836257276feb026bfe01290e72ff91c2a@%3Ccommits.servicecomb.apache.org%3E",
+  "https://lists.apache.org/thread.html/ra996b56e1f5ab2fed235a8b91fa0cc3cf34c2e9fee290b7fa4380a0d@%3Ccommits.servicecomb.apache.org%3E",
+  "https://www.oracle.com/security-alerts/cpujul2020.html",
+  "https://lists.apache.org/thread.html/r1c679c43fa4f7846d748a937955c7921436d1b315445978254442163@%3Ccommits.ambari.apache.org%3E",
+  "https://lists.apache.org/thread.html/r1eccdbd7986618a7319ee7a533bd9d9bf6e8678e59dd4cca9b5b2d7a@%3Cissues.ambari.apache.org%3E",
+  "https://lists.apache.org/thread.html/r5c95eff679dfc642e9e4ab5ac6d202248a59cb1e9457cfbe8b729ac5@%3Cissues.ambari.apache.org%3E",
+  "https://lists.apache.org/thread.html/r8b496b1743d128e6861ee0ed3c3c48cc56c505b38f84fa5baf7ae33a@%3Cdev.ambari.apache.org%3E",
+  "https://lists.apache.org/thread.html/r9f13cccb214495e14648d2c9b8f2c6072fd5219e74502dd35ede81e1@%3Cdev.ambari.apache.org%3E",
+  "https://www.oracle.com/security-alerts/cpuoct2020.html",
+  "https://www.oracle.com/security-alerts/cpujan2021.html",
+  "https://lists.apache.org/thread.html/r27552d2fa10d96f2810c50d16ad1fd1899e37796c81a0c5e7585a02d@%3Cdev.rocketmq.apache.org%3E",
+  "https://lists.apache.org/thread.html/r645408661a8df9158f49e337072df39838fa76da629a7e25a20928a6@%3Cdev.rocketmq.apache.org%3E",
+  "https://lists.apache.org/thread.html/rc9c7f96f08c8554225dba9050ea5e64bebc129d0d836303143fe3160@%3Cdev.rocketmq.apache.org%3E",
+  "https://lists.apache.org/thread.html/rded5291e25a4c4085a6d43cf262e479140198bf4eabb84986e0a1ef3@%3Cdev.rocketmq.apache.org%3E",
+  "https://www.oracle.com/security-alerts/cpuApr2021.html",
+  "https://www.oracle.com//security-alerts/cpujul2021.html",
+  "https://www.oracle.com/security-alerts/cpuoct2021.html",
+  "https://www.oracle.com/security-alerts/cpujul2022.html",
+  "https://github.com/spring-projects/spring-framework/commit/41f40c6c229d3b4f768718f1ec229d8f0ad76d76",
+  "https://security.netapp.com/advisory/ntap-20210917-0006",
+  "https://github.com/advisories/GHSA-8wx2-9q48-vm9r"
+ ],
+ "repository_advisory_url": null,
+ "severity": "high",
+ "source_code_location": "https://github.com/spring-projects/spring-framework",
+ "summary": "RFD attack via Content-Disposition header sourced from request input by Spring MVC or Spring WebFlux Application",
+ "type": "reviewed",
+ "updated_at": "2024-03-14T21:01:08Z",
+ "url": "https://api.github.com/advisories/GHSA-8wx2-9q48-vm9r",
+ "vulnerabilities": [
+  {
+   "first_patched_version": "5.2.3.RELEASE",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webmvc"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.2.0.RELEASE, < 5.2.3.RELEASE"
+  },
+  {
+   "first_patched_version": "5.1.13.RELEASE",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webmvc"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.1.0.RELEASE, < 5.1.13.RELEASE"
+  },
+  {
+   "first_patched_version": "5.0.16.RELEASE",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webmvc"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.0.0.RELEASE, < 5.0.16.RELEASE"
+  },
+  {
+   "first_patched_version": "5.2.3.RELEASE",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webflux"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.2.0.RELEASE, < 5.2.3.RELEASE"
+  },
+  {
+   "first_patched_version": "5.1.13.RELEASE",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webflux"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.1.0.RELEASE, < 5.1.13.RELEASE"
+  },
+  {
+   "first_patched_version": "5.0.16.RELEASE",
+   "package": {
+    "ecosystem": "maven",
+    "name": "org.springframework:spring-webflux"
+   },
+   "vulnerable_functions": [],
+   "vulnerable_version_range": ">= 5.0.0.RELEASE, < 5.0.16.RELEASE"
+  }
+ ],
+ "withdrawn_at": null
+}
