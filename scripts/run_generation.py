@@ -16,6 +16,8 @@ Usage:
     python scripts/run_generation.py --smoke --max-spend 0.5 --phase-cap 12
     python scripts/run_generation.py --runs 3 --max-spend 6 --phase-cap 12
     python scripts/run_generation.py --label v2 --runs 3 --max-spend 5 --phase-cap 12
+    python scripts/run_generation.py --label r9 --retrieval R9 --completeness --runs 3 ...
+    python scripts/run_generation.py --recheck --completeness --recheck-to eval/results/NAME-c.jsonl
     python scripts/run_generation.py --recheck [--smoke | --label v2]
     python scripts/run_generation.py --recheck --recheck-to eval/results/NAME-phase6.jsonl
 """
@@ -38,8 +40,11 @@ import anthropic  # noqa: E402
 
 from advisor.generation import answer  # noqa: E402
 from advisor.generation.checker import check  # noqa: E402
+from advisor.generation.completeness import Completeness  # noqa: E402
 from advisor.generation.evidence import user_message  # noqa: E402
 from advisor.generation.facts import Facts  # noqa: E402
+from advisor.packages import PACKAGES  # noqa: E402
+from advisor.retrieval import candidates  # noqa: E402
 from advisor.retrieval.pipeline import Pipeline, Spec  # noqa: E402
 from advisor.retrieval.units import build_units  # noqa: E402
 
@@ -156,6 +161,36 @@ def mixed_prompt(done: list[dict], proof: dict) -> str | None:
             "The saved replies in this file were made with a different addendum or task text. "
             "Use a new --label for the new prompt, so one file holds one prompt."
         )
+    # A line with no retrieval field was made with R1, so every earlier file stays valid.
+    if any(line.get("retrieval", "R1") != proof.get("retrieval", "R1") for line in done):
+        return (
+            "The saved replies in this file were made with a different retrieval. "
+            "Use a new --label, so one file holds one retrieval."
+        )
+    return None
+
+
+def shown_ids(ranked: list[str], retrieval: str, links: candidates.Links | None) -> list[str]:
+    """The unit ids the model is shown: R1's top 10, or R9's linked records within 10."""
+    if retrieval == "R9":
+        return candidates.r9(ranked, links, SHOWN)
+    return ranked[:SHOWN]
+
+
+def option_problem(args) -> str | None:
+    """Says why --retrieval or --completeness cannot go with the rest of the command, or None.
+    Neither may touch the test split, and neither may write over a file an earlier system made."""
+    if args.split == "test" and (args.retrieval != "R1" or args.completeness):
+        return (
+            "--retrieval R9 and --completeness are for dev runs only. Test is not wired for them."
+        )
+    if args.completeness and args.recheck and not args.recheck_to:
+        return (
+            "A recheck with --completeness needs --recheck-to, so the saved checked file is kept."
+        )
+    paid = not (args.recheck or args.dry_run)
+    if paid and (args.retrieval != "R1" or args.completeness) and not args.label:
+        return "A run with --retrieval R9 or --completeness needs its own --label."
     return None
 
 
@@ -210,6 +245,7 @@ def open_store(path: str) -> sqlite3.Connection:
 def run_questions(
     questions: list[dict], pipeline: Pipeline, units_by_id: dict, raw_path: Path, client,
     runs: int, max_spend: float, phase_cap: float, proof: dict, split: str = "dev",
+    retrieval: str = "R1", links: candidates.Links | None = None,
 ) -> str:  # fmt: skip
     """Asks every question not yet answered in each run. Stops, with the reason, before a call that
     could take either total over its cap. Each line is written as it arrives, so a crash loses
@@ -227,8 +263,8 @@ def run_questions(
             if (run, question["id"]) in answered:
                 continue
             started = time.monotonic()
-            ranked = pipeline.rank(R1, question["question"])[:SHOWN]
-            retrieval = time.monotonic() - started
+            ranked = shown_ids(pipeline.rank(R1, question["question"]), retrieval, links)
+            retrieval_seconds = time.monotonic() - started
             shown = [units_by_id[unit_id] for unit_id in ranked]
             message = user_message(shown, question["question"])
             worst = answer.worst_case_call(system, message)
@@ -239,7 +275,7 @@ def run_questions(
                 )
             reply, attempts, seconds = answer.ask(client, answer.build_request(system, message))
             line = answer.result_line(question, run, reply, attempts, seconds, shown, proof)
-            line["retrieval_s"] = round(retrieval, 3)
+            line["retrieval_s"] = round(retrieval_seconds, 3)
             spent += line["cost_usd"]
             overall += line["cost_usd"]
             with raw_path.open("a", encoding="utf-8") as handle:
@@ -249,9 +285,11 @@ def run_questions(
 
 
 def recheck(
-    questions: list[dict], units_by_id: dict, facts: Facts, raw_path: Path, checked_path: Path
-) -> Counter:
-    """Applies the checker to the saved raw replies and rewrites the checked file. No API call."""
+    questions: list[dict], units_by_id: dict, facts: Facts, raw_path: Path, checked_path: Path,
+    completeness: Completeness | None = None,
+) -> Counter:  # fmt: skip
+    """Applies the checker to the saved raw replies and rewrites the checked file. No API call.
+    Rule 9 runs only when a Completeness is given."""
     by_id = {q["id"]: q for q in questions}
     if not read_lines(raw_path):
         raise SystemExit(f"There are no saved replies in {raw_path.name}. Run the questions first.")
@@ -264,8 +302,9 @@ def recheck(
     for line in lines:
         shown = [units_by_id[unit_id] for unit_id in line["shown"]]
         checked = check(
-            by_id[line["id"]]["question"], line["text"], line["stop_reason"], shown, facts
-        )
+            by_id[line["id"]]["question"], line["text"], line["stop_reason"], shown, facts,
+            completeness,
+        )  # fmt: skip
         counts[(checked.route, checked.verdict)] += 1
         out.append({**line, "text": checked.text, "checker": checked.record()})
     checked_path.write_text(
@@ -291,10 +330,22 @@ def main() -> int:
     parser.add_argument(
         "--dry-run", action="store_true", help="print the first request; call nothing"
     )
+    parser.add_argument(
+        "--retrieval", choices=["R1", "R9"], default="R1",
+        help="what the model is shown: R1's top 10 (default) or R9's linked records within 10",
+    )  # fmt: skip
+    parser.add_argument(
+        "--completeness", action="store_true",
+        help="apply rule 9 of docs/completeness-spec-v1.md (off by default)",
+    )  # fmt: skip
     args = parser.parse_args()
 
     if args.recheck_to and not args.recheck:
         print("--recheck-to only goes with --recheck.")
+        return 1
+    problem = option_problem(args)
+    if problem:
+        print(problem)
         return 1
     questions = load_questions(args.split, args.smoke)
     raw_path, checked_path = result_paths(args.smoke, args.label, args.split)
@@ -307,11 +358,13 @@ def main() -> int:
     units = build_units(db)
     units_by_id = {unit.unit_id: unit for unit in units}
     system = answer.system_prompt()
+    links = candidates.Links(units) if args.retrieval == "R9" else None
+    completeness = Completeness(units, [p.name for p in PACKAGES]) if args.completeness else None
 
     if args.dry_run:
         pipeline = Pipeline(units)
         first = questions[0]
-        ranked = pipeline.rank(R1, first["question"])[:SHOWN]
+        ranked = shown_ids(pipeline.rank(R1, first["question"]), args.retrieval, links)
         message = user_message([units_by_id[i] for i in ranked], first["question"])
         print(f"System prompt: {len(system)} characters. First message: {len(message)} characters.")
         print(f"\n{system}\n---\n{message[:1500]}\n...")
@@ -321,7 +374,7 @@ def main() -> int:
     guard_freeze()
     if args.recheck:
         checked_path = recheck_target(args.recheck_to, checked_path)
-        counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path)
+        counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path, completeness)
         if args.split == "dev":  # nothing about test outcomes is shown before all rows are in
             for (route, verdict), number in sorted(counts.items()):
                 print(f"{route:<8}{verdict:<14}{number}")
@@ -336,6 +389,8 @@ def main() -> int:
         print("No ANTHROPIC_API_KEY. Add it to .env (gitignored), then run again.")
         return 1
     proof = provenance()
+    if args.retrieval != "R1":  # R1 lines stay as they were: no field means R1
+        proof["retrieval"] = args.retrieval
     problem = dirty_problem(proof)
     if problem:
         print(problem)
@@ -345,10 +400,10 @@ def main() -> int:
     print(
         run_questions(
             questions, Pipeline(units), units_by_id, raw_path, client, args.runs,
-            args.max_spend, args.phase_cap, proof, args.split,
+            args.max_spend, args.phase_cap, proof, args.split, args.retrieval, links,
         )
     )  # fmt: skip
-    counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path)
+    counts = recheck(questions, units_by_id, Facts(db), raw_path, checked_path, completeness)
     if args.split == "dev":
         for (route, verdict), number in sorted(counts.items()):
             print(f"{route:<8}{verdict:<14}{number}")

@@ -1,4 +1,6 @@
 """The checker: rules 1 to 8 of docs/generation-plan.md, in that order, the first failure deciding.
+Rule 9, the completeness check of docs/completeness-spec-v1.md, runs last and only when a caller
+passes one in, so the checker as tagged phase6-system-v1 is what runs by default.
 
 It is a pure function of the question, the raw reply, the units that were shown and the store, so it
 can be run again over saved replies with no API call. It reads every fact from the store. It reads
@@ -14,6 +16,8 @@ import json
 import re
 from dataclasses import dataclass, field
 
+from advisor.generation.completeness import COMPLETE_TEXT, Completeness
+from advisor.generation.completeness import RULE as COMPLETENESS_RULE
 from advisor.generation.facts import Facts, canonical_package, same_version
 from advisor.generation.reading import (
     KNOWN_FIELDS,
@@ -479,7 +483,12 @@ def ground(answer: dict, grounded: set[str]) -> tuple[dict, list[str], str | Non
 
 
 def check(
-    question: str, raw_text: str, stop_reason: str | None, shown: list[Unit], facts: Facts
+    question: str,
+    raw_text: str,
+    stop_reason: str | None,
+    shown: list[Unit],
+    facts: Facts,
+    completeness: Completeness | None = None,
 ) -> Checked:
     case = Case(question, shown, facts)
     missing = [found for found in case.named if not facts.holds_id(found)]
@@ -503,7 +512,23 @@ def check(
         return refused(3, [stuck], removed, [])
     if had_ids and not cleaned["ids"]:
         return refused(3, ["every ID in ids was one the evidence never held"], removed, [])
-    return judge_answer(case, cleaned, removed, raw_text)
+    done = judge_answer(case, cleaned, removed, raw_text)
+    if completeness is None or done.verdict not in ("passed", "repaired"):
+        return done
+    # The spec reads the reply's own explanation, before rule 3 cut any sentence out of it.
+    absent = completeness.missing(
+        question, {u.unit_id for u in shown}, str(answer.get("explanation") or "")
+    )
+    if absent is None:
+        return done
+    reasons = [
+        f"the question asks for a whole list, and {len(absent)} records of the package "
+        "were not shown"
+    ]
+    return Checked(
+        dump(abstention(COMPLETE_TEXT)), "refused", "checker", COMPLETENESS_RULE, done.removed_ids,
+        reasons, done.claims, done.polarity_checked,
+    )  # fmt: skip
 
 
 def abstained(raw_text: str, answer: dict, removed: list[str], stuck: str | None) -> Checked:
