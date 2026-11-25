@@ -9,3 +9,11 @@ useDefault = true
 description = "Made-up markers in the red team attack cases are not secrets"
 targetRules = ["generic-api-key"]
 paths = ['''^redteam/attacks(-heldout)?\.jsonl$''']
+
+# This saved public advisory (GHSA-3g43-6gmg-66jw, axios) quotes the reporter's proof of concept,
+# which passes a made-up password to axios. The generic rule reads that as a key. Only that one
+# rule is turned off, and only for this one file, so the rest of the evidence folder is still scanned.
+[[allowlists]]
+description = "Made-up password in the proof of concept of a public axios advisory"
+targetRules = ["generic-api-key"]
+paths = ['''^eval-retrieval/evidence/ghsa/GHSA-3g43-6gmg-66jw\.json$''']
